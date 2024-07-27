@@ -1,7 +1,6 @@
 import Client from './Client.ts';
 import Errors from './Errors.ts';
 
-
 export const version = require('../package.json').version;
 import APIStatus from './structures/APIStatus.ts';
 import APIIncident from './structures/APIIncident.ts';

@@ -33,4 +33,4 @@ class GuildMember {
   }
 }
 
-export default GuildMember
+export default GuildMember;

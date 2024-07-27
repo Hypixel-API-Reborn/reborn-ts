@@ -18,7 +18,6 @@ class Cache implements CacheHandler {
     return this.storage.has(key);
   }
 
-  
   delete(key: string): boolean {
     return this.storage.delete(key);
   }
