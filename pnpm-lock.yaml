@@ -8,18 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@types/node-cron':
-        specifier: ^3.0.11
-        version: 3.0.11
       axios:
         specifier: ^1.7.2
         version: 1.7.2
       node-cache:
         specifier: ^5.1.2
         version: 5.1.2
-      typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
     devDependencies:
       '@types/node':
         specifier: ^20.14.12
@@ -27,11 +21,11 @@ importers:
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
 
 packages:
-
-  '@types/node-cron@3.0.11':
-    resolution: {integrity: sha512-0ikrnug3/IyneSHqCBeslAhlK2aBfYek1fGo4bP4QnZPmiqSGRK+Oy7ZMisLWkesffJvQ1cqAcBnJC+8+nxIAg==}
 
   '@types/node@20.14.12':
     resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
@@ -96,8 +90,6 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
 snapshots:
-
-  '@types/node-cron@3.0.11': {}
 
   '@types/node@20.14.12':
     dependencies:
