@@ -52,4 +52,4 @@ jobs:
         run: pnpm i
 
       - name: Check prettier
-        run: pnpm prettier
+        run: pnpm prettier:check
