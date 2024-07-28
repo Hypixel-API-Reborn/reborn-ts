@@ -1,3 +1,6 @@
+import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
+import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem';
+
 export interface ClientOptions {
   cache?: boolean;
   hypixelCacheTime?: number;
@@ -278,4 +281,427 @@ export interface SkyblockMemberChocolateFactoryData {
   goldenClick: SkyblockMemberChocolateFactoryDataGoldenClick;
   barnCapacity: number;
   prestige: number;
+}
+
+export interface PlayerInfo {
+  max: number;
+  online: number;
+  players: any[];
+  toString(): string;
+}
+
+export type PlayerRank = 'VIP' | 'VIP+' | 'MVP' | 'MVP+' | 'MVP++' | 'Game Master' | 'Admin' | 'YouTube';
+
+export interface RanksPurchaseTime {
+  VIP: Date | null;
+  VIP_PLUS: Date | null;
+  MVP: Date | null;
+  MVP_PLUS: Date | null;
+}
+
+export interface PetConsumables {
+  BAKED_POTATO: number;
+  COOKIE: number;
+  FEATHER: number;
+  HAY_BLOCK: number;
+  SLIME_BALL: number;
+  COOKED_BEEF: number;
+  RED_ROSE: number;
+  WATER_BUCKET: number;
+  MELON: number;
+  STICK: number;
+  WOOD_SWORD: number;
+  MILK_BUCKET: number;
+  GOLD_RECORD: number;
+  LEASH: number;
+  LAVA_BUCKET: number;
+  BONE: number;
+  MAGMA_CREAM: number;
+  WHEAT: number;
+  MUSHROOM_SOUP: number;
+  BREAD: number;
+  PUMPKIN_PIE: number;
+  APPLE: number;
+  CARROT_ITEM: number;
+  RAW_FISH: number;
+  PORK: number;
+  CAKE: number;
+  ROTTEN_FLESH: number;
+}
+
+export type BedWarsPrestige =
+  | 'Stone'
+  | 'Iron'
+  | 'Gold'
+  | 'Diamond'
+  | 'Emerald'
+  | 'Sapphire'
+  | 'Ruby'
+  | 'Crystal'
+  | 'Opal'
+  | 'Amethyst'
+  | 'Rainbow'
+  | 'Iron Prime'
+  | 'Gold Prime'
+  | 'Diamond Prime'
+  | 'Emerald Prime'
+  | 'Sapphire Prime'
+  | 'Ruby Prime'
+  | 'Crystal Prime'
+  | 'Opal Prime'
+  | 'Amethyst Prime'
+  | 'Mirror'
+  | 'Light'
+  | 'Dawn'
+  | 'Dusk'
+  | 'Air'
+  | 'Wind'
+  | 'Nebula'
+  | 'Thunder'
+  | 'Earth'
+  | 'Water'
+  | 'Fire'
+  | 'Sunrise'
+  | 'Eclipse'
+  | 'Gamma'
+  | 'Majestic'
+  | 'Andesine'
+  | 'Marine'
+  | 'Element'
+  | 'Galaxy'
+  | 'Atomic'
+  | 'Sunset'
+  | 'Time'
+  | 'Winter'
+  | 'Obsidian'
+  | 'Spring'
+  | 'Ice'
+  | 'Summer'
+  | 'Spinel'
+  | 'Autumn'
+  | 'Mystic'
+  | 'Eternal';
+
+export interface BedWarsCollectedItems {
+  iron: number;
+  gold: number;
+  diamond: number;
+  emerald: number;
+}
+
+export interface BedWarsAvg {
+  kills: number;
+  finalKills: number;
+  bedsBroken: number;
+}
+
+export interface BedWarsBeds {
+  lost: number;
+  broken: number;
+  BLRatio: number;
+}
+
+export interface BedWarsModeStats {
+  winstreak: number;
+  playedGames: number;
+  kills: number;
+  deaths: number;
+  wins: number;
+  losses: number;
+  finalKills: number;
+  finalDeaths: number;
+  beds: BedWarsBeds;
+  avg: BedWarsAvg;
+  KDRatio: number;
+  WLRatio: number;
+  finalKDRatio: number;
+}
+
+export interface BedwarsDreamStats {
+  ultimate: BedwarsDreamModeStats;
+  rush: BedwarsDreamModeStats;
+  armed: BedwarsDreamModeStats;
+  lucky: BedwarsDreamModeStats;
+  voidless: BedwarsDreamModeStats;
+}
+
+export interface BedwarsDreamModeStats {
+  doubles: BedWarsModeStats;
+  fours: BedWarsModeStats;
+}
+
+export interface BedWarsPracticeAttempts {
+  failed: number;
+  successful: number;
+  total: number;
+}
+
+export interface BedWarsPracticeElevation {
+  straight: number;
+  diagonal: number;
+}
+
+export interface BedWarsPracticeElevations {
+  none: BedWarsPracticeElevation;
+  slight: BedWarsPracticeElevation;
+  staircase: BedWarsPracticeElevation;
+}
+
+export interface BedWarsPracticeRecord {
+  elevation: BedWarsPracticeElevations;
+}
+
+export interface BedWarsPracticeRecords {
+  blocks30: BedWarsPracticeRecord;
+  blocks50: BedWarsPracticeRecord;
+  blocks100: BedWarsPracticeRecord;
+}
+
+export interface BedWarsPracticeBridging {
+  blocksPlaced: number;
+  attempts: BedWarsPracticeAttempts;
+  records: BedWarsPracticeRecords;
+}
+
+export interface BedWarsPracticePearlClutching {
+  attempts: BedWarsPracticeAttempts;
+}
+
+export interface BedWarsPracticeBase {
+  blocksPlaced: number;
+  attempts: BedWarsPracticeAttempts;
+}
+
+export interface BedWarsPracticeStats {
+  selected: string;
+  bridging: BedWarsPracticeBridging;
+  fireballJumping: BedWarsPracticeBase;
+  pearlClutching: BedWarsPracticePearlClutching;
+  mlg: BedWarsPracticeBase;
+}
+
+export interface BuildBattleWins {
+  solo: number;
+  teams: number;
+  pro: number;
+  gtb: number;
+}
+
+export interface PitArmor {
+  helmet: PitInventoryItem | null;
+  chestplate: PitInventoryItem | null;
+  leggings: PitInventoryItem | null;
+  boots: PitInventoryItem | null;
+}
+
+export type SkyWarsPrestige =
+  | 'Iron'
+  | 'Gold'
+  | 'Diamond'
+  | 'Emerald'
+  | 'Sapphire'
+  | 'Ruby'
+  | 'Crystal'
+  | 'Opal'
+  | 'Amethyst'
+  | 'Rainbow'
+  | 'Mythic';
+
+export type SkyWarsPrestigeIcons =
+  | '⋆'
+  | '★'
+  | '☆'
+  | '⁕'
+  | '✶'
+  | '✳'
+  | '✴'
+  | '✷'
+  | '❋'
+  | '✼'
+  | '❂'
+  | '❁'
+  | '☬'
+  | '✙'
+  | '❤️'
+  | '☠'
+  | '✦'
+  | '✌'
+  | '❦'
+  | '✵'
+  | '❣'
+  | '☯'
+  | '✺'
+  | 'ಠ_ಠ'
+  | '⚔';
+
+export interface WoolWarsStats {
+  wins: number;
+  gamesPlayed: number;
+  woolsPlaced: number;
+  blocksBroken: number;
+  placeBreakRatio: number;
+  kills: number;
+  deaths: number;
+  KDRatio: number;
+  assists: number;
+  powerups: number;
+}
+
+export interface WoolWarsPrivateGamesConfig {
+  one_hit_one_kil: boolean;
+  rainbow_wool: 'Enabled' | 'Disabled';
+  health_buff: string;
+  game_speed: string;
+  speed: string;
+  no_class: 'Enabled' | 'Disabled';
+  respawn_enable: boolean;
+}
+
+export interface QuestObjective {
+  id: string;
+  type: 'Integer' | 'Boolean';
+  amountNeeded: number;
+}
+
+export interface QuestReward {
+  type: string;
+  amount: number;
+}
+
+export interface ChallengeData {
+  id: string;
+  name: string;
+  reward: number;
+  rewardType: string;
+}
+
+export type StaticGameNames =
+  | 'arcade'
+  | 'arena'
+  | 'bedwars'
+  | 'hungergames'
+  | 'buildbattle'
+  | 'truecombat'
+  | 'duels'
+  | 'mcgo'
+  | 'murdermystery'
+  | 'paintball'
+  | 'quake'
+  | 'skyclash'
+  | 'skywars'
+  | 'supersmash'
+  | 'speeduhc'
+  | 'gingerbread'
+  | 'tntgames'
+  | 'uhc'
+  | 'vampirez'
+  | 'walls3'
+  | 'walls'
+  | 'battleground'
+  | 'woolgames';
+
+export type SkyblockGemstoneQuality = 'Rough' | 'Flawed' | 'Fine' | 'Flawless' | 'Perfect';
+
+export type SkyblockRarity =
+  | 'COMMON'
+  | 'UNCOMMON'
+  | 'RARE'
+  | 'EPIC'
+  | 'LEGENDARY'
+  | 'MYTHIC'
+  | 'DIVINE'
+  | 'SPECIAL'
+  | 'VERY_SPECIAL';
+
+export interface SkyblockGardenVisitor {
+  visited: Record<string, number>;
+  completed: Record<string, number>;
+  served: SkyblockGardenVisitorServed;
+}
+
+export interface SkyblockGardenVisitorServed {
+  total: number;
+  unique: number;
+}
+
+export interface SkyblockGardenComposterUpgrades {
+  speed: number;
+  multiDrop: number;
+  fuelCap: number;
+  organicMatterCap: number;
+  costReduction: number;
+}
+
+export interface SkyblockGardenComposter {
+  organicMatter: number;
+  fuelUnits: number;
+  compostUnits: number;
+  compostItems: number;
+  conversionTicks: number;
+  upgrades: SkyblockGardenComposterUpgrades;
+}
+
+export interface SkyblockGarenCrops {
+  wheat: number;
+  carrot: number;
+  sugarCane: number;
+  potato: number;
+  pumpkin: number;
+  melon: number;
+  cactus: number;
+  cocoBeans: number;
+  mushroom: number;
+  netherWart: number;
+}
+
+export interface SkyblockGardenCropMilestones {
+  wheat: SkyblockSkillLevel;
+  carrot: SkyblockSkillLevel;
+  sugarCane: SkyblockSkillLevel;
+  potato: SkyblockSkillLevel;
+  pumpkin: SkyblockSkillLevel;
+  melon: SkyblockSkillLevel;
+  cactus: SkyblockSkillLevel;
+  cocoBeans: SkyblockSkillLevel;
+  mushroom: SkyblockSkillLevel;
+  netherWart: SkyblockSkillLevel;
+}
+
+export type SkyblockMemberTrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
+
+export interface SkyblockMemberEquipment {
+  gauntlet: SkyblockInventoryItem | null;
+  belt: SkyblockInventoryItem | null;
+  cloak: SkyblockInventoryItem | null;
+  necklace: SkyblockInventoryItem | null;
+}
+
+export interface SkyblockMemberArmor {
+  helmet: SkyblockInventoryItem | null;
+  chestplate: SkyblockInventoryItem | null;
+  leggings: SkyblockInventoryItem | null;
+  boots: SkyblockInventoryItem | null;
+}
+
+export interface SkyblockMemberStats {
+  kills: Record<string, any>;
+  deaths: Record<string, any>;
+}
+
+export interface PlayerBingoDataPerEvent {
+  eventId: number;
+  points: number;
+  enrichedGoals: boolean;
+  goalsCompleted: Bingo[] | string[];
+}
+
+export interface ProductStatus {
+  sellPrice: number;
+  buyPrice: number;
+  sellVolume: number;
+  buyVolume: number;
+  sellMovingWeek: number;
+  buyMovingWeek: number;
+  sellOrders: number;
+  buyOrders: number;
 }

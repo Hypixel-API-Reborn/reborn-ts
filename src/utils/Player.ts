@@ -1,6 +1,6 @@
-import { LevelProgress, PlayerSocialMedia } from '../typings';
+import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../typings';
 
-export function getRank(player: Record<string, any>): string {
+export function getRank(player: Record<string, any>): PlayerRank {
   let rank;
   if (player.prefix) {
     rank = player.prefix.replace(/§[0-9|a-z]|\[|\]/g, '');
@@ -81,26 +81,14 @@ export function playerLevelProgress(xp: number): LevelProgress {
   };
 }
 
-export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia | null {
+export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia[] {
   const links = data.links;
   const formattedNames = ['Twitter', 'YouTube', 'Instagram', 'Twitch', 'Hypixel', 'Discord'];
   const upperNames = ['TWITTER', 'YOUTUBE', 'INSTAGRAM', 'TWITCH', 'HYPIXEL', 'DISCORD'];
-  if (!links) return null;
-  const socialMedia: PlayerSocialMedia = {
-    name: '',
-    link: '',
-    id: ''
-  };
   return Object.keys(links)
     .map((x) => upperNames.indexOf(x))
     .filter((x) => -1 !== x)
-    .map((x) => ({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }))
-    .reduce((acc, curr) => {
-      acc.name = curr.name;
-      acc.link = curr.link;
-      acc.id = curr.id;
-      return acc;
-    }, socialMedia);
+    .map((x) => ({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
 }
 
 export function parseClaimedRewards(data: Record<string, any>): number[] {

@@ -61,10 +61,6 @@ class Color {
     this.color = color;
   }
 
-  /**
-   * Returns regular color name
-   * @return {ColorString}
-   */
   toString(): string {
     return ColorStrings[this.color];
   }

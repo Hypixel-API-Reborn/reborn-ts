@@ -712,7 +712,8 @@ export default {
     RARE: 3,
     EPIC: 4,
     LEGENDARY: 5,
-    MYTHIC: 6
+    MYTHIC: 6,
+    VERY_SPECIAL: 6
   },
   petRarityOffset: {
     COMMON: 0,

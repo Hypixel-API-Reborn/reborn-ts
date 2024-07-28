@@ -1,18 +1,21 @@
 import {
   SkyblockMemberChocolateFactoryData,
-  SkyblockMemberDungeons,
+  SkyblockMemberTrophyFishRank,
+  SkyblockMemberSlayerLevel,
   SkyblockMemberJacobData,
+  SkyblockMemberDungeons,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
-  SkyblockMemberSlayerLevel,
-  SkyblockSkillLevel
+  SkyblockSkillLevel,
+  SkyblockRarity,
+  SkyblockMemberStats
 } from '../typings';
 import Constants from './Constants';
 import nbt from 'prismarine-nbt';
 
-export async function decode(base64: string, isBuffer = false): Promise<any[]> {
+export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
   const parseNbt = require('util').promisify(nbt.parse);
-  const buffer = isBuffer ? base64 : Buffer.from(base64, 'base64');
+  const buffer = isBuffer ? base64 : Buffer.from(String(base64), 'base64');
   let data = await parseNbt(buffer);
   data = nbt.simplify(data);
   const newdata = [];
@@ -148,7 +151,7 @@ export function getSlayerLevel(slayer: Record<string, any>): SkyblockMemberSlaye
   };
 }
 
-export function getMemberStats(obj: Record<string, any>) {
+export function getMemberStats(obj: Record<string, any>): SkyblockMemberStats {
   return Object.keys(obj).reduce(
     (result, currentKey) => {
       const key = currentKey.replace(/_[a-z]/gi, (match) => match[1].toUpperCase());
@@ -172,7 +175,7 @@ export function getMemberStats(obj: Record<string, any>) {
   );
 }
 
-export function getTrophyFishRank(level: number): 'Bronze' | 'Silver' | 'Gold' | 'Diamond' {
+export function getTrophyFishRank(level: number): SkyblockMemberTrophyFishRank {
   if (1 === level) {
     return 'Bronze';
   } else if (2 === level) {
@@ -207,58 +210,58 @@ export function getSkills(data: Record<string, any>): SkyblockMemberSkills {
   return skillsObject;
 }
 
-// function formatBestiaryMobs(userProfile, mobs) {
-//   const output = [];
-//   for (const mob of mobs) {
-//     const mobBracket = Constants.bestiaryBrackets[mob.bracket];
+function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
+  const output = [];
+  for (const mob of mobs) {
+    const mobBracket = (Constants.bestiaryBrackets as { [key: number]: number[] })[mob.bracket];
 
-//     const totalKills = mob.mobs.reduce((acc, cur) => {
-//       return acc + (userProfile.bestiary.kills[cur] ?? 0);
-//     }, 0);
+    const totalKills = mob.mobs.reduce((acc: any, cur: any) => {
+      return acc + (userProfile.bestiary.kills[cur] ?? 0);
+    }, 0);
 
-//     const maxKills = mob.cap;
-//     const nextTierKills = mobBracket.find((tier) => totalKills < tier && tier <= maxKills);
-//     const tier = nextTierKills ? mobBracket.indexOf(nextTierKills) : mobBracket.indexOf(maxKills) + 1;
+    const maxKills = mob.cap;
+    const nextTierKills = mobBracket.find((tier: any) => totalKills < tier && tier <= maxKills);
+    const tier = nextTierKills ? mobBracket.indexOf(nextTierKills) : mobBracket.indexOf(maxKills) + 1;
 
-//     output.push({
-//       tier: tier
-//     });
-//   }
+    output.push({
+      tier: tier
+    });
+  }
 
-//   return output;
-// }
+  return output;
+}
 
-// function getBestiaryLevel(userProfile) {
-//   try {
-//     if (userProfile.bestiary?.kills === undefined) {
-//       return null;
-//     }
+export function getBestiaryLevel(userProfile: Record<string, any>): number {
+  try {
+    if (userProfile.bestiary?.kills === undefined) {
+      return 0;
+    }
 
-//     const output = {};
-//     let tiersUnlocked = 0;
-//     for (const [category, data] of Object.entries(Constants.bestiary)) {
-//       const { mobs } = data;
-//       output[category] = {};
+    const output: { [key: string]: any } = {};
+    let tiersUnlocked = 0;
+    for (const [category, data] of Object.entries(Constants.bestiary)) {
+      const { mobs } = data as { mobs: any };
+      output[category] = {};
 
-//       if ('fishing' === category) {
-//         for (const [key, value] of Object.entries(data)) {
-//           output[category][key] = {
-//             mobs: formatBestiaryMobs(userProfile, value.mobs)
-//           };
-//           tiersUnlocked += output[category][key].mobs.reduce((acc, cur) => acc + cur.tier, 0);
-//         }
-//       } else {
-//         output[category].mobs = formatBestiaryMobs(userProfile, mobs);
-//         tiersUnlocked += output[category].mobs.reduce((acc, cur) => acc + cur.tier, 0);
-//       }
-//     }
+      if ('fishing' === category) {
+        for (const [key, value] of Object.entries(data)) {
+          output[category][key] = {
+            mobs: formatBestiaryMobs(userProfile, value.mobs)
+          };
+          tiersUnlocked += output[category][key].mobs.reduce((acc: any, cur: any) => acc + cur.tier, 0);
+        }
+      } else {
+        output[category].mobs = formatBestiaryMobs(userProfile, mobs);
+        tiersUnlocked += output[category].mobs.reduce((acc: any, cur: any) => acc + cur.tier, 0);
+      }
+    }
 
-//     return tiersUnlocked / 10;
-//   } catch (error) {
-//     console.log(error);
-//     return null;
-//   }
-// }
+    return tiersUnlocked / 10;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
 
 export function getSlayer(data: Record<string, any>): SkyblockMemberSlayer | null {
   if (!data?.slayer?.slayer_bosses) return null;
@@ -287,7 +290,7 @@ export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons |
   };
 }
 
-function getJacobData(data: Record<string, any>): SkyblockMemberJacobData {
+export function getJacobData(data: Record<string, any>): SkyblockMemberJacobData {
   if (!data.jacobs_contest) {
     return {
       medals: {
@@ -432,7 +435,7 @@ export function getPetLevel(petExp: number, offsetRarity: number, maxLevel: numb
   };
 }
 
-export function parseRarity(str: string) {
+export function parseRarity(str: string): SkyblockRarity {
   const rarityArray = [
     'COMMON',
     'UNCOMMON',
@@ -445,14 +448,16 @@ export function parseRarity(str: string) {
     'VERY SPECIAL'
   ];
   for (const rarity of rarityArray) {
-    if (str.includes(rarity)) return rarity;
+    if (str.includes(rarity)) return rarity as SkyblockRarity;
   }
+  return 'COMMON';
 }
 
-export function parseGearScore(lore: any) {
+export function parseGearScore(lore: any): number {
   for (const line of lore) {
     if (line.match(/Gear Score: §[0-9a-f](\d+)/)) return Number(line.match(/Gear Score: §d(\d+)/)[1]);
   }
+  return 0;
 }
 
 export function populateGoals(achieved: any[], all: any) {

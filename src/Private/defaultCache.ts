@@ -35,4 +35,4 @@ class Cache implements CacheHandler {
   }
 }
 
-module.exports = Cache;
+export default Cache;
