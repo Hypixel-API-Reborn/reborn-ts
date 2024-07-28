@@ -19,7 +19,8 @@
     "lint:check": "npx eslint --cache src/",
     "lint": "npx eslint --cache src/ --fix",
     "prettier:check": "npx prettier --cache --check src/",
-    "prettier": "npx prettier --cache --write src/"
+    "prettier": "npx prettier --cache --write src/",
+    "build": "npx tsc"
   },
   "engines": {
     "node": ">=20.16.0",

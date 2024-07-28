@@ -9,7 +9,7 @@ function parseZombiesKills(data: Record<string, any>): Record<string, number> {
     .map((x) => x.match(/^([A-Za-z]+)_zombie_kills_zombies$/))
     .filter((x) => x);
   // From entries might be broken
-  return Object.fromEntries(matches.map((x) => [removeSnakeCaseString(x[1]), data[x[0]] || 0]));
+  return Object.fromEntries(matches.map((x: any) => [removeSnakeCaseString(x[1]), data[x[0]] || 0]));
 }
 /**
  * Zombies - Stats by Map + Difficulty

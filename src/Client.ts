@@ -1,12 +1,14 @@
 import { ClientOptions } from './typings/index';
-import Cache from '../Private/defaultCache';
 import rateLimit from './Private/rateLimit';
+import Cache from './Private/defaultCache';
 import Requests from './Private/requests';
+import validate from './Private/validate';
 import updater from './Private/updater';
 import * as API from './API/index';
 import EventEmitter from 'events';
 import Errors from './Errors';
-const clients = [];
+
+const clients: any[] = [];
 
 function handleOptions(options: ClientOptions) {
   if (!options.cache) options.cache = true;
@@ -25,9 +27,9 @@ function handleOptions(options: ClientOptions) {
 
 class Client extends EventEmitter {
   requests: any;
-  key: string;
-  options: ClientOptions;
-  cache: Cache;
+  key: string | undefined;
+  options: ClientOptions | undefined;
+  cache: Cache | undefined;
   constructor(key: string, options: ClientOptions) {
     super();
     this.requests = new Requests(this, options.cacheHandler);
@@ -55,10 +57,14 @@ class Client extends EventEmitter {
     }
 
     if (this.options.checkForUpdates) {
-      updater.checkForUpdates().catch(() => {
-        // eslint-disable-next-line no-console
-        if (!this.options.silent) console.warn('[hypixel-api-reborn] Error whilst checking for updates!');
-      });
+      try {
+        updater.checkForUpdates();
+      } catch (error) {
+        if (this.options && !this.options.silent) {
+          // eslint-disable-next-line no-console
+          console.warn('[hypixel-api-reborn] Error whilst checking for updates!');
+        }
+      }
     }
 
     this.cache = this.requests.cache;
@@ -78,10 +84,10 @@ class Client extends EventEmitter {
     this.emit('outgoingRequest', url, { ...options, headers: { ...options.headers, ...this.options.headers } });
     const result = await this.requests.request.call(this.requests, url, {
       ...options,
-      headers: { ...options.headers, ...this.options.headers }
+      headers: { ...options.headers, ...this.options?.headers }
     });
     // eslint-disable-next-line no-underscore-dangle
-    if (this.options.syncWithHeaders) rateLimit.sync(result._headers);
+    if (this.options && this.options.syncWithHeaders && result._headers) rateLimit.sync(result._headers);
     return result;
   }
 }

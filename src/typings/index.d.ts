@@ -1,13 +1,36 @@
 import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem';
 import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import Cache from '../Private/defaultCache';
+import Arcade from '../structures/MiniGames/Arcade';
+import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
+import BedWars from '../structures/MiniGames/BedWars';
+import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
+import BuildBattle from '../structures/MiniGames/BuildBattle';
+import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
+import Duels from '../structures/MiniGames/Duels';
+import MegaWalls from '../structures/MiniGames/MegaWalls';
+import MurderMystery from '../structures/MiniGames/MurderMystery';
+import Paintball from '../structures/MiniGames/Paintball';
+import Pit from '../structures/MiniGames/Pit';
+import Quakecraft from '../structures/MiniGames/Quakecraft';
+import SkyWars from '../structures/MiniGames/SkyWars';
+import SmashHeroes from '../structures/MiniGames/SmashHeroes';
+import SpeedUHC from '../structures/MiniGames/SpeedUHC';
+import TNTGames from '../structures/MiniGames/TNTGames';
+import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
+import UHC from '../structures/MiniGames/UHC';
+import VampireZ from '../structures/MiniGames/VampireZ';
+import Walls from '../structures/MiniGames/Walls';
+import Warlords from '../structures/MiniGames/Warlords';
+import WoolWars from '../structures/MiniGames/WoolWars';
 
+export type RatelimitOptions = 'AUTO' | 'HARD' | 'NONE';
 export interface ClientOptions {
   cache?: boolean;
   hypixelCacheTime?: number;
   mojangCacheTime?: number;
   cacheHandler?: Cache;
-  rateLimit?: 'AUTO' | 'HARD' | 'NONE';
+  rateLimit?: RatelimitOptions;
   syncWithHeaders?: boolean;
   keyLimit?: number;
   cacheSize?: number;
@@ -693,4 +716,35 @@ export interface ProductStatus {
   buyMovingWeek: number;
   sellOrders: number;
   buyOrders: number;
+}
+
+export interface PlayerStats {
+  arcade: Arcade;
+  arena: ArenaBrawl;
+  bedwars: BedWars;
+  blitzsg: BlitzSurvivalGames;
+  buildbattle: BuildBattle;
+  copsandcrims: CopsAndCrims;
+  duels: Duels;
+  megawalls: MegaWalls;
+  murdermystery: MurderMystery;
+  paintball: Paintball;
+  pit: Pit;
+  quakecraft: Quakecraft;
+  skywars: SkyWars;
+  smashheroes: SmashHeroes;
+  speeduhc: SpeedUHC;
+  tntgames: TNTGames;
+  turbokartracers: TurboKartRacers;
+  uhc: UHC;
+  vampirez: VampireZ;
+  walls: Walls;
+  warlords: Warlords;
+  woolwars: WoolWars;
+}
+
+export interface RLOptions {
+  keyLimit: number;
+  ratelimit: RatelimitOptions;
+  syncWithHeaders: boolean;
 }

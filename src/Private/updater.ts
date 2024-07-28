@@ -4,6 +4,9 @@ import Errors from '../Errors';
 import axios from 'axios';
 
 class Updater implements UpdateHandler {
+  static checkForUpdates() {
+    throw new Error('Method not implemented.');
+  }
   async checkForUpdates() {
     const request = await axios.get('https://registry.npmjs.org/hypixel-api-reborn');
     // eslint-disable-next-line no-console

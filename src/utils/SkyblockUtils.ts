@@ -17,8 +17,8 @@ import nbt from 'prismarine-nbt';
 export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
   const parseNbt = promisify(nbt.parse);
   const buffer = isBuffer ? base64 : Buffer.from(String(base64), 'base64');
-  let data = await parseNbt(buffer as Buffer);
-  data = nbt.simplify(data);
+  const NBTData = await parseNbt(buffer as Buffer);
+  const data = nbt.simplify(NBTData) as any;
   const newdata = [];
   for (let i = 0; i < data.i.length; i++) {
     newdata.push(data.i[i]);

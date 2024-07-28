@@ -27,6 +27,7 @@ import VampireZ from './MiniGames/VampireZ';
 import Walls from './MiniGames/Walls';
 import Warlords from './MiniGames/Warlords';
 import WoolWars from './MiniGames/WoolWars';
+import PlayerCosmetics from './PlayerCosmetics';
 
 class Player {
   nickname: string;
