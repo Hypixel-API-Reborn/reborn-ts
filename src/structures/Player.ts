@@ -98,8 +98,8 @@ class Player {
     this.giftBundlesReceived = data.giftingMeta ? data.giftingMeta.realBundlesReceived || 0 : null;
     this.giftsSent = data.giftingMeta ? data.giftingMeta.giftsGiven || 0 : null;
     this.isOnline =
-      this.lastLoginTimestamp !== null &&
-      this.lastLogoutTimestamp !== null &&
+      null !== this.lastLoginTimestamp &&
+      null !== this.lastLogoutTimestamp &&
       this.lastLoginTimestamp > this.lastLogoutTimestamp;
     this.lastDailyReward = data.lastAdsenseGenerateTime ? new Date(data.lastAdsenseGenerateTime) : null;
     this.lastDailyRewardTimestamp = data.lastAdsenseGenerateTime || null;

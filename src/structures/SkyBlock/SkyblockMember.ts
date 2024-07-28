@@ -186,13 +186,14 @@ class SkyblockMember {
     };
     this.getEquipment = async () => {
       let equipment = data.m.inventory.equipment_contents;
-      if (!equipment)
+      if (!equipment) {
         return {
           gauntlet: null,
           belt: null,
           cloak: null,
           necklace: null
         };
+      }
 
       try {
         equipment = await decode(equipment.data);

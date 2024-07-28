@@ -1,3 +1,4 @@
+import { promisify } from 'util';
 import {
   SkyblockMemberChocolateFactoryData,
   SkyblockMemberTrophyFishRank,
@@ -14,9 +15,9 @@ import Constants from './Constants';
 import nbt from 'prismarine-nbt';
 
 export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
-  const parseNbt = require('util').promisify(nbt.parse);
+  const parseNbt = promisify(nbt.parse);
   const buffer = isBuffer ? base64 : Buffer.from(String(base64), 'base64');
-  let data = await parseNbt(buffer);
+  let data = await parseNbt(buffer as Buffer);
   data = nbt.simplify(data);
   const newdata = [];
   for (let i = 0; i < data.i.length; i++) {
@@ -76,7 +77,7 @@ export function getLevelByXp(xp: number, type: string): SkyblockSkillLevel {
     default:
       xpTable = Constants.levelingXp;
   }
-  let maxLevel = Math.max(...Object.keys(xpTable).map(Number));
+  const maxLevel = Math.max(...Object.keys(xpTable).map(Number));
   if (isNaN(xp)) {
     return {
       xp: 0,
@@ -129,9 +130,11 @@ export function getSlayerLevel(slayer: Record<string, any>): SkyblockMemberSlaye
     };
   }
 
+  // eslint-disable-next-line camelcase
   const { claimed_levels } = slayer;
   let level = 0;
 
+  // eslint-disable-next-line camelcase
   for (const levelName in claimed_levels) {
     if (Object.prototype.hasOwnProperty.call(claimed_levels, levelName)) {
       const newLevel = parseInt(levelName.replace('_special', '').split('_').pop() ?? '', 10);
@@ -258,7 +261,6 @@ export function getBestiaryLevel(userProfile: Record<string, any>): number {
 
     return tiersUnlocked / 10;
   } catch (error) {
-    console.log(error);
     return 0;
   }
 }

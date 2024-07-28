@@ -1,7 +1,7 @@
 import AchievementTier from './AchievementTier';
 
 function collectAll(data: AchievementTier | null) {
-  if (data === null) {
+  if (null === data) {
     return { totalPoints: 0, totalAmount: 0 };
   }
   const mTier = data.maxTier;

@@ -15,6 +15,7 @@ class AuctionInfo {
     this.totalAuctions = parseInt(data.totalAuctions, 10) || 0;
     this.lastUpdatedTimestamp = data.lastUpdated;
     this.lastUpdatedAt = new Date(data.lastUpdated);
+    // eslint-disable-next-line no-underscore-dangle
     this.age = parseInt(data._headers.get('age'), 10) || 0;
   }
 

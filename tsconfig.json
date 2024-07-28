@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "module": "CommonJS",
     "skipLibCheck": true,
     "outDir": "./build",
     "target": "ES2022",

@@ -1,6 +1,4 @@
-import type { CacheHandler } from '../typings';
-
-class Cache implements CacheHandler {
+class Cache {
   storage: Map<string, unknown>;
   constructor() {
     this.storage = new Map();

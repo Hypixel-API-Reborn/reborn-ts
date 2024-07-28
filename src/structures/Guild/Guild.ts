@@ -29,6 +29,7 @@ class Guild {
   preferredGames: Game[];
 
   constructor(data: Record<string, any>, uuid?: string) {
+    // eslint-disable-next-line no-underscore-dangle
     this.id = data._id;
     this.name = data.name;
     this.description = data.description ?? '';

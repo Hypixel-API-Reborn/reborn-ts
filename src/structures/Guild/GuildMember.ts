@@ -7,7 +7,7 @@ class GuildMember {
   joinedAt: Date;
   questParticipation: number;
   rank: string;
-  mutedUntilTimestamp: Number | null;
+  mutedUntilTimestamp: number | null;
   mutedUntil: Date | null;
   expHistory: ExpHistory[];
   weeklyExperience: any | null;

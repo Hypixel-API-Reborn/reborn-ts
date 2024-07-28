@@ -1,4 +1,5 @@
-import { CacheHandler, ClientOptions } from './typings/index';
+import { ClientOptions } from './typings/index';
+import Cache from '../Private/defaultCache';
 import rateLimit from './Private/rateLimit';
 import Requests from './Private/requests';
 import updater from './Private/updater';
@@ -26,10 +27,11 @@ class Client extends EventEmitter {
   requests: any;
   key: string;
   options: ClientOptions;
-  cache: CacheHandler;
+  cache: Cache;
   constructor(key: string, options: ClientOptions) {
     super();
     this.requests = new Requests(this, options.cacheHandler);
+    // eslint-disable-next-line no-console
     if (options && !options.silent) this.on('warn', console.warn);
     if (clients.find((x) => x.key === key)) {
       this.emit('warn', Errors.MULTIPLE_INSTANCES);
@@ -43,6 +45,7 @@ class Client extends EventEmitter {
         const lastArg = args[args.length - 1];
         return API[func].apply(
           {
+            // eslint-disable-next-line no-underscore-dangle
             _makeRequest: this._makeRequest.bind(this, validate.cacheSuboptions(lastArg) ? lastArg : {}),
             ...this
           },
@@ -53,6 +56,7 @@ class Client extends EventEmitter {
 
     if (this.options.checkForUpdates) {
       updater.checkForUpdates().catch(() => {
+        // eslint-disable-next-line no-console
         if (!this.options.silent) console.warn('[hypixel-api-reborn] Error whilst checking for updates!');
       });
     }
@@ -76,6 +80,7 @@ class Client extends EventEmitter {
       ...options,
       headers: { ...options.headers, ...this.options.headers }
     });
+    // eslint-disable-next-line no-underscore-dangle
     if (this.options.syncWithHeaders) rateLimit.sync(result._headers);
     return result;
   }

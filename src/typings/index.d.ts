@@ -1,11 +1,12 @@
-import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem';
+import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
+import Cache from '../Private/defaultCache';
 
 export interface ClientOptions {
   cache?: boolean;
   hypixelCacheTime?: number;
   mojangCacheTime?: number;
-  cacheHandler?: CacheHandler;
+  cacheHandler?: Cache;
   rateLimit?: 'AUTO' | 'HARD' | 'NONE';
   syncWithHeaders?: boolean;
   keyLimit?: number;
@@ -14,16 +15,6 @@ export interface ClientOptions {
   headers?: object;
   checkForUpdates?: boolean;
   useThirdPartyAPI?: boolean | string;
-}
-
-export interface CacheHandler {
-  set(key: string, value: any): void;
-  get(key: string): any;
-  has(key: string): boolean;
-  delete(key: string): void;
-  keys(): string[];
-  size(): number;
-  clear(): void;
 }
 
 export interface UpdateHandler {
@@ -416,6 +407,10 @@ export interface BedWarsModeStats {
   WLRatio: number;
   finalKDRatio: number;
 }
+export interface BedwarsDreamModeStats {
+  doubles: BedWarsModeStats;
+  fours: BedWarsModeStats;
+}
 
 export interface BedwarsDreamStats {
   ultimate: BedwarsDreamModeStats;
@@ -423,11 +418,6 @@ export interface BedwarsDreamStats {
   armed: BedwarsDreamModeStats;
   lucky: BedwarsDreamModeStats;
   voidless: BedwarsDreamModeStats;
-}
-
-export interface BedwarsDreamModeStats {
-  doubles: BedWarsModeStats;
-  fours: BedWarsModeStats;
 }
 
 export interface BedWarsPracticeAttempts {
@@ -613,15 +603,14 @@ export type SkyblockRarity =
   | 'SPECIAL'
   | 'VERY_SPECIAL';
 
+export interface SkyblockGardenVisitorServed {
+  total: number;
+  unique: number;
+}
 export interface SkyblockGardenVisitor {
   visited: Record<string, number>;
   completed: Record<string, number>;
   served: SkyblockGardenVisitorServed;
-}
-
-export interface SkyblockGardenVisitorServed {
-  total: number;
-  unique: number;
 }
 
 export interface SkyblockGardenComposterUpgrades {

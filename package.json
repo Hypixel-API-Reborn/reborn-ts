@@ -16,10 +16,10 @@
     "url": "https://github.com/Hypixel-API-Reborn/hypixel-api-reborn/issues"
   },
   "scripts": {
-    "lint": "npx eslint --cache src/",
-    "lint:fix": "npx eslint --cache src/ --fix",
-    "prettier": "npx prettier --cache --write src/",
-    "prettier:check": "npx prettier --cache --check src/"
+    "lint:check": "npx eslint --cache src/",
+    "lint": "npx eslint --cache src/ --fix",
+    "prettier:check": "npx prettier --cache --check src/",
+    "prettier": "npx prettier --cache --write src/"
   },
   "engines": {
     "node": ">=20.16.0",
@@ -28,6 +28,7 @@
     "yarn": "forbidden, use pnpm instead",
     "bun": "forbidden, use pnpm instead"
   },
+  "type": "module",
   "packageManager": "pnpm@9.6.0",
   "author": "Kathund",
   "dependencies": {
@@ -43,8 +44,14 @@
   },
   "publisher": "Kathund",
   "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/eslint": "^9.6.0",
     "@types/node": "^20.14.12",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.8.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.17.0"
   }
 }

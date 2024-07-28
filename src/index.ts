@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Client from './Client';
 import Errors from './Errors';
 

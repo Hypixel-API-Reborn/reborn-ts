@@ -1,23 +1,25 @@
 /* eslint-disable no-underscore-dangle */
-const { removeSnakeCaseString } = require('../utils/removeSnakeCase');
-const Pets = require('./Pets');
+import { removeSnakeCaseString } from '../utils/removeSnakeCase';
+import Pets from './Pets';
+
 /**
  * Player Cosmetics class
  */
 class PlayerCosmetics {
-  /**
-   * @param {object} data data
-   */
+  allCosmetics: string[];
+  petManager: Pets | null;
+  _suits: any;
+  _hats: any;
+  _gadgets: any;
+  _morphs: any;
+  _cloaks: any;
+  _taunts: any;
+  _rankColors: any;
+  _particle: any;
+  _particlepacks: any;
+  _clickfx: any;
   constructor(data: Record<string, any>) {
-    /**
-     * All cosmetics
-     * @type {string[]}
-     */
     this.allCosmetics = data?.vanityMeta?.packages || undefined;
-    /**
-     * Pets
-     * @type {Pets|null}
-     */
     this.petManager = this.allCosmetics
       ? new Pets(
           this.allCosmetics.filter((x) => x.startsWith('pet_')),
@@ -25,11 +27,8 @@ class PlayerCosmetics {
         )
       : null;
   }
-  /**
-   * Suits
-   * @type {string[]}
-   */
-  get suits() {
+
+  suits(): string[] {
     if (!this._suits) {
       this._suits = this.allCosmetics
         ? this.allCosmetics
@@ -39,11 +38,8 @@ class PlayerCosmetics {
     }
     return this._suits;
   }
-  /**
-   * Hats
-   * @type {string[]}
-   */
-  get hats() {
+
+  hats(): string[] {
     if (!this._hats) {
       this._hats = this.allCosmetics
         ? this.allCosmetics
@@ -53,11 +49,8 @@ class PlayerCosmetics {
     }
     return this._hats;
   }
-  /**
-   * Gadgets
-   * @type {string[]}
-   */
-  get gadgets() {
+
+  gadgets(): string[] {
     if (!this._gadgets) {
       this._gadgets = this.allCosmetics
         ? this.allCosmetics
@@ -67,11 +60,8 @@ class PlayerCosmetics {
     }
     return this._gadgets;
   }
-  /**
-   * Morphs
-   * @type {string[]}
-   */
-  get morphs() {
+
+  morphs(): string[] {
     if (!this._morphs) {
       this._morphs = this.allCosmetics
         ? this.allCosmetics
@@ -81,11 +71,8 @@ class PlayerCosmetics {
     }
     return this._morphs;
   }
-  /**
-   * Cloaks
-   * @type {string[]}
-   */
-  get cloaks() {
+
+  cloaks(): string[] {
     if (!this._cloaks) {
       this._cloaks = this.allCosmetics
         ? this.allCosmetics
@@ -95,11 +82,8 @@ class PlayerCosmetics {
     }
     return this._cloaks;
   }
-  /**
-   * Taunts
-   * @type {string[]}
-   */
-  get taunts() {
+
+  taunts(): string[] {
     if (!this._taunts) {
       this._taunts = this.allCosmetics
         ? this.allCosmetics
@@ -109,11 +93,8 @@ class PlayerCosmetics {
     }
     return this._taunts;
   }
-  /**
-   * rankColors
-   * @type {string[]}
-   */
-  get rankColors() {
+
+  rankColors(): string[] {
     if (!this._rankColors) {
       this._rankColors = this.allCosmetics
         ? this.allCosmetics
@@ -123,11 +104,8 @@ class PlayerCosmetics {
     }
     return this._rankColors;
   }
-  /**
-   * Particle Packs
-   * @type {string[]}
-   */
-  get particlePacks() {
+
+  particlePacks(): string[] {
     if (!this._particle) {
       this._particle = this.allCosmetics
         ? this.allCosmetics
@@ -137,11 +115,8 @@ class PlayerCosmetics {
     }
     return this._particlepacks;
   }
-  /**
-   * Click Effects
-   * @type {string[]}
-   */
-  get clickEffects() {
+
+  clickEffects(): string[] {
     if (!this._clickfx) {
       this._clickfx = this.allCosmetics
         ? this.allCosmetics

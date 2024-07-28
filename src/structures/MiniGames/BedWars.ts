@@ -260,7 +260,7 @@ class BedWars {
   threes: BedWarsModeStats;
   fours: BedWarsModeStats;
   '4v4': BedWarsModeStats;
-  dream: BedwarsDreamStats | {};
+  dream: BedwarsDreamStats | object;
   castle: BedWarsModeStats;
   practice: BedWarsPracticeStats;
   slumberTickets: number;

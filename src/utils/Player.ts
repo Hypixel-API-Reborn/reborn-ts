@@ -96,5 +96,5 @@ export function parseClaimedRewards(data: Record<string, any>): number[] {
     .map((x) => x.match(/levelingReward_(\d+)/))
     .filter((x) => x)
     .map((x) => (x ? parseInt(x[1], 10) : null))
-    .filter((x) => x !== null);
+    .filter((x) => null !== x);
 }
