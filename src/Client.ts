@@ -4,8 +4,8 @@ import Cache from './Private/defaultCache';
 import Requests from './Private/requests';
 import validate from './Private/validate';
 import updater from './Private/updater';
-import * as API from './API/index';
 import EventEmitter from 'events';
+import API from './API/index';
 import Errors from './Errors';
 
 const clients: any[] = [];

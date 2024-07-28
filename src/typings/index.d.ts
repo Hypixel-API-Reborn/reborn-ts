@@ -24,6 +24,8 @@ import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
 import WoolWars from '../structures/MiniGames/WoolWars';
 
+export type ActionFilterType = 'PROFILE' | 'PLAYER' | 'AUCTION';
+export type GuildSearchParameter = 'id' | 'name' | 'player';
 export type RatelimitOptions = 'AUTO' | 'HARD' | 'NONE';
 export interface ClientOptions {
   cache?: boolean;
