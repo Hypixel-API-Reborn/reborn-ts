@@ -1,6 +1,12 @@
 import GuildMember from '../structures/Guild/GuildMember';
 import GuildRank from '../structures/Guild/GuildRank';
-import { ExpHistory } from '../typings';
+
+export interface ExpHistory {
+  day: string;
+  date: Date | undefined;
+  exp: number;
+  totalExp: number;
+}
 
 const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/;
 

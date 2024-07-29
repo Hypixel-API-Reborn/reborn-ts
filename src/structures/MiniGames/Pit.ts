@@ -1,9 +1,14 @@
 import { decode } from '../../utils/SkyblockUtils';
 import PitInventoryItem from './PitInventoryItem';
 import Constants from '../../utils/Constants';
-import { PitArmor } from '../../typings';
 import divide from '../../utils/divide';
 
+export interface PitArmor {
+  helmet: PitInventoryItem | null;
+  chestplate: PitInventoryItem | null;
+  leggings: PitInventoryItem | null;
+  boots: PitInventoryItem | null;
+}
 /**
  * Pit Class
  */

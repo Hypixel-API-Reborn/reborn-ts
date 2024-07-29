@@ -1,6 +1,18 @@
 import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
-import { SkyWarsPrestige } from '../../typings';
 import divide from '../../utils/divide';
+
+export type SkyWarsPrestige =
+  | 'Iron'
+  | 'Gold'
+  | 'Diamond'
+  | 'Emerald'
+  | 'Sapphire'
+  | 'Ruby'
+  | 'Crystal'
+  | 'Opal'
+  | 'Amethyst'
+  | 'Rainbow'
+  | 'Mythic';
 
 function getSkyWarsPrestige(level: number): SkyWarsPrestige {
   if (60 <= level) return 'Mythic';

@@ -1,4 +1,4 @@
-import { SkyblockRarity } from '../../../typings';
+import { SkyblockRarity } from '../../../utils/SkyblockUtils';
 import BaseAuction from './BaseAuction';
 import Bid from './Bid';
 

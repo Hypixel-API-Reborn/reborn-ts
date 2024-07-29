@@ -1,11 +1,57 @@
-import {
-  SkyblockGardenCropMilestones,
-  SkyblockGardenComposter,
-  SkyblockGardenVisitor,
-  SkyblockGarenCrops,
-  SkyblockSkillLevel
-} from '../../typings';
-import { getLevelByXp } from '../../utils/SkyblockUtils';
+import { getLevelByXp, SkyblockSkillLevel } from '../../utils/SkyblockUtils';
+
+export interface SkyblockGardenVisitorServed {
+  total: number;
+  unique: number;
+}
+export interface SkyblockGardenVisitor {
+  visited: Record<string, number>;
+  completed: Record<string, number>;
+  served: SkyblockGardenVisitorServed;
+}
+
+export interface SkyblockGardenComposterUpgrades {
+  speed: number;
+  multiDrop: number;
+  fuelCap: number;
+  organicMatterCap: number;
+  costReduction: number;
+}
+
+export interface SkyblockGardenComposter {
+  organicMatter: number;
+  fuelUnits: number;
+  compostUnits: number;
+  compostItems: number;
+  conversionTicks: number;
+  upgrades: SkyblockGardenComposterUpgrades;
+}
+
+export interface SkyblockGarenCrops {
+  wheat: number;
+  carrot: number;
+  sugarCane: number;
+  potato: number;
+  pumpkin: number;
+  melon: number;
+  cactus: number;
+  cocoBeans: number;
+  mushroom: number;
+  netherWart: number;
+}
+
+export interface SkyblockGardenCropMilestones {
+  wheat: SkyblockSkillLevel;
+  carrot: SkyblockSkillLevel;
+  sugarCane: SkyblockSkillLevel;
+  potato: SkyblockSkillLevel;
+  pumpkin: SkyblockSkillLevel;
+  melon: SkyblockSkillLevel;
+  cactus: SkyblockSkillLevel;
+  cocoBeans: SkyblockSkillLevel;
+  mushroom: SkyblockSkillLevel;
+  netherWart: SkyblockSkillLevel;
+}
 
 /**
  * Skyblock Garden class

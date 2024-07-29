@@ -1,18 +1,143 @@
-import { promisify } from 'util';
-import {
-  SkyblockMemberChocolateFactoryData,
-  SkyblockMemberTrophyFishRank,
-  SkyblockMemberSlayerLevel,
-  SkyblockMemberJacobData,
-  SkyblockMemberDungeons,
-  SkyblockMemberSkills,
-  SkyblockMemberSlayer,
-  SkyblockSkillLevel,
-  SkyblockRarity,
-  SkyblockMemberStats
-} from '../typings';
 import Constants from './Constants';
+import { promisify } from 'util';
 import nbt from 'prismarine-nbt';
+
+export type SkyblockRarity =
+  | 'COMMON'
+  | 'UNCOMMON'
+  | 'RARE'
+  | 'EPIC'
+  | 'LEGENDARY'
+  | 'MYTHIC'
+  | 'DIVINE'
+  | 'SPECIAL'
+  | 'VERY_SPECIAL';
+
+export interface SkyblockMemberJacobDataMedals {
+  gold: number;
+  silver: number;
+  bronze: number;
+}
+
+export interface SkyblockMemberJacobDataPerks {
+  doubleDrops: number;
+  farmingLevelCap: number;
+  personalBests: boolean;
+}
+
+export interface SkyblockMemberJacobData {
+  medals: SkyblockMemberJacobDataMedals;
+  perks: SkyblockMemberJacobDataPerks;
+  contests: Record<string, any>;
+}
+
+export interface SkyblockMemberChocolateFactoryDataEmployees {
+  bro: number;
+  cousin: number;
+  sis: number;
+  father: number;
+  grandma: number;
+  dog: number;
+  uncle: number;
+}
+
+export interface SkyblockMemberChocolateFactoryDataChocolate {
+  current: number;
+  total: number;
+  sincePrestige: number;
+}
+
+export interface SkyblockMemberChocolateFactoryDataTimeTower {
+  charges: number;
+  level: number;
+}
+
+export interface SkyblockMemberChocolateFactoryDataUpgrades {
+  click: number;
+  multiplier: number;
+  rabbitRarity: number;
+}
+
+export interface SkyblockMemberChocolateFactoryDataGoldenClick {
+  amount: number;
+  year: number;
+}
+
+export interface SkyblockMemberChocolateFactoryData {
+  employees: SkyblockMemberChocolateFactoryDataEmployees;
+  chocolate: SkyblockMemberChocolateFactoryDataChocolate;
+  timeTower: SkyblockMemberChocolateFactoryDataTimeTower;
+  upgrades: SkyblockMemberChocolateFactoryDataUpgrades;
+  goldenClick: SkyblockMemberChocolateFactoryDataGoldenClick;
+  barnCapacity: number;
+  prestige: number;
+}
+
+export interface SkyblockMemberSlayerLevel {
+  xp: number;
+  tier1: number;
+  tier2: number;
+  tier3: number;
+  tier4: number;
+  tier5: number;
+  level: number;
+}
+
+export interface SkyblockMemberSlayer {
+  zombie: SkyblockMemberSlayerLevel;
+  spider: SkyblockMemberSlayerLevel;
+  wolf: SkyblockMemberSlayerLevel;
+  enderman: SkyblockMemberSlayerLevel;
+  blaze: SkyblockMemberSlayerLevel;
+  vampire: SkyblockMemberSlayerLevel;
+}
+export type SkyblockMemberTrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
+export interface SkyblockSkillLevel {
+  xp: number;
+  level: number;
+  maxLevel: number;
+  xpCurrent: number;
+  xpForNext: number;
+  progress: number;
+  cosmetic: boolean;
+}
+
+export interface SkyblockMemberStats {
+  kills: Record<string, any>;
+  deaths: Record<string, any>;
+}
+
+export interface SkyblockMemberSkills {
+  combat: SkyblockSkillLevel;
+  farming: SkyblockSkillLevel;
+  fishing: SkyblockSkillLevel;
+  mining: SkyblockSkillLevel;
+  foraging: SkyblockSkillLevel;
+  enchanting: SkyblockSkillLevel;
+  alchemy: SkyblockSkillLevel;
+  carpentry: SkyblockSkillLevel;
+  runecrafting: SkyblockSkillLevel;
+  taming: SkyblockSkillLevel;
+  social: SkyblockSkillLevel;
+  average: number;
+}
+
+export interface SkyblockMemberDungeonsTypes {
+  catacombs: SkyblockSkillLevel;
+}
+
+export interface SkyblockMemberDungeonsClasses {
+  healer: SkyblockSkillLevel;
+  mage: SkyblockSkillLevel;
+  berserk: SkyblockSkillLevel;
+  archer: SkyblockSkillLevel;
+  tank: SkyblockSkillLevel;
+}
+
+export interface SkyblockMemberDungeons {
+  types: SkyblockMemberDungeonsTypes;
+  classes: SkyblockMemberDungeonsClasses;
+}
 
 export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
   const parseNbt = promisify(nbt.parse);

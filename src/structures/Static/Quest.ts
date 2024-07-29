@@ -1,4 +1,13 @@
-import { QuestObjective, QuestReward } from '../../typings';
+export interface QuestObjective {
+  id: string;
+  type: 'Integer' | 'Boolean';
+  amountNeeded: number;
+}
+
+export interface QuestReward {
+  type: string;
+  amount: number;
+}
 
 /**
  * Quest Class

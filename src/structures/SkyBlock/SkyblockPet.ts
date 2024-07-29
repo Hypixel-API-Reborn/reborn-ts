@@ -1,5 +1,5 @@
-import { SkyblockRarity } from '../../typings';
 import Constants from '../../utils/Constants';
+import { SkyblockRarity } from '../../utils/SkyblockUtils';
 
 /**
  * Skyblock Pet class

@@ -1,5 +1,10 @@
-import { PlayerBingoDataPerEvent } from '../../typings';
+import Bingo from './Static/Bingo';
 
+export interface PlayerBingoDataPerEvent {
+  eventId: number;
+  points: number;
+  goalsCompleted: Bingo[] | string[];
+}
 /**
  * Player Bingo Class
  */

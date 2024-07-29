@@ -1,13 +1,154 @@
-import {
-  BedWarsCollectedItems,
-  BedWarsPracticeStats,
-  BedwarsDreamStats,
-  BedWarsModeStats,
-  BedWarsPrestige,
-  BedWarsBeds,
-  BedWarsAvg
-} from '../../typings';
 import divide from '../../utils/divide';
+
+export type BedWarsPrestige =
+  | 'Stone'
+  | 'Iron'
+  | 'Gold'
+  | 'Diamond'
+  | 'Emerald'
+  | 'Sapphire'
+  | 'Ruby'
+  | 'Crystal'
+  | 'Opal'
+  | 'Amethyst'
+  | 'Rainbow'
+  | 'Iron Prime'
+  | 'Gold Prime'
+  | 'Diamond Prime'
+  | 'Emerald Prime'
+  | 'Sapphire Prime'
+  | 'Ruby Prime'
+  | 'Crystal Prime'
+  | 'Opal Prime'
+  | 'Amethyst Prime'
+  | 'Mirror'
+  | 'Light'
+  | 'Dawn'
+  | 'Dusk'
+  | 'Air'
+  | 'Wind'
+  | 'Nebula'
+  | 'Thunder'
+  | 'Earth'
+  | 'Water'
+  | 'Fire'
+  | 'Sunrise'
+  | 'Eclipse'
+  | 'Gamma'
+  | 'Majestic'
+  | 'Andesine'
+  | 'Marine'
+  | 'Element'
+  | 'Galaxy'
+  | 'Atomic'
+  | 'Sunset'
+  | 'Time'
+  | 'Winter'
+  | 'Obsidian'
+  | 'Spring'
+  | 'Ice'
+  | 'Summer'
+  | 'Spinel'
+  | 'Autumn'
+  | 'Mystic'
+  | 'Eternal';
+
+export interface BedWarsCollectedItems {
+  iron: number;
+  gold: number;
+  diamond: number;
+  emerald: number;
+}
+
+export interface BedWarsAvg {
+  kills: number;
+  finalKills: number;
+  bedsBroken: number;
+}
+
+export interface BedWarsBeds {
+  lost: number;
+  broken: number;
+  BLRatio: number;
+}
+
+export interface BedWarsModeStats {
+  winstreak: number;
+  playedGames: number;
+  kills: number;
+  deaths: number;
+  wins: number;
+  losses: number;
+  finalKills: number;
+  finalDeaths: number;
+  beds: BedWarsBeds;
+  avg: BedWarsAvg;
+  KDRatio: number;
+  WLRatio: number;
+  finalKDRatio: number;
+}
+export interface BedwarsDreamModeStats {
+  doubles: BedWarsModeStats;
+  fours: BedWarsModeStats;
+}
+
+export interface BedwarsDreamStats {
+  ultimate: BedwarsDreamModeStats;
+  rush: BedwarsDreamModeStats;
+  armed: BedwarsDreamModeStats;
+  lucky: BedwarsDreamModeStats;
+  voidless: BedwarsDreamModeStats;
+}
+
+export interface BedWarsPracticeAttempts {
+  failed: number;
+  successful: number;
+  total: number;
+}
+
+export interface BedWarsPracticeElevation {
+  straight: number;
+  diagonal: number;
+}
+
+export interface BedWarsPracticeElevations {
+  none: BedWarsPracticeElevation;
+  slight: BedWarsPracticeElevation;
+  staircase: BedWarsPracticeElevation;
+}
+
+export interface BedWarsPracticeRecord {
+  elevation: BedWarsPracticeElevations;
+}
+
+export interface BedWarsPracticeRecords {
+  blocks30: BedWarsPracticeRecord;
+  blocks50: BedWarsPracticeRecord;
+  blocks100: BedWarsPracticeRecord;
+}
+
+export interface BedWarsPracticeBridging {
+  blocksPlaced: number;
+  attempts: BedWarsPracticeAttempts;
+  records: BedWarsPracticeRecords;
+}
+
+export interface BedWarsPracticePearlClutching {
+  attempts: BedWarsPracticeAttempts;
+}
+
+export interface BedWarsPracticeBase {
+  blocksPlaced: number;
+  attempts: BedWarsPracticeAttempts;
+}
+
+export interface BedWarsPracticeStats {
+  selected: string;
+  bridging: BedWarsPracticeBridging;
+  fireballJumping: BedWarsPracticeBase;
+  pearlClutching: BedWarsPracticePearlClutching;
+  mlg: BedWarsPracticeBase;
+}
 
 function generateStatsForMode(data: Record<string, any>, mode: string): BedWarsModeStats {
   return {

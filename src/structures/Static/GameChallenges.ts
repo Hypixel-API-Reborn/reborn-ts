@@ -1,5 +1,11 @@
-import { ChallengeData, StaticGameNames } from '../../typings';
+import { StaticGameNames } from '../../typings';
 
+export interface ChallengeData {
+  id: string;
+  name: string;
+  reward: number;
+  rewardType: string;
+}
 /**
  * Game challenges class
  */

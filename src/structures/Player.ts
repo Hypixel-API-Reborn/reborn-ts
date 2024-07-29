@@ -1,5 +1,4 @@
 import { getPlayerLevel, getRank, getSocialMedia, parseClaimedRewards, playerLevelProgress } from '../utils/Player';
-import { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../typings';
 import { recursive } from '../utils/removeSnakeCase';
 import Color from './Color';
 import Game from './Game';
@@ -26,6 +25,29 @@ import Walls from './MiniGames/Walls';
 import Warlords from './MiniGames/Warlords';
 import WoolWars from './MiniGames/WoolWars';
 import PlayerCosmetics from './PlayerCosmetics';
+
+export interface LevelProgress {
+  xpToNext: number;
+  remainingXP: number;
+  currentXP: number;
+  percent: number;
+  percentRemaining: number;
+}
+
+export interface PlayerSocialMedia {
+  name: string;
+  link: string;
+  id: string;
+}
+
+export type PlayerRank = 'VIP' | 'VIP+' | 'MVP' | 'MVP+' | 'MVP++' | 'Game Master' | 'Admin' | 'YouTube';
+
+export interface RanksPurchaseTime {
+  VIP: Date | null;
+  VIP_PLUS: Date | null;
+  MVP: Date | null;
+  MVP_PLUS: Date | null;
+}
 
 class Player {
   nickname: string;

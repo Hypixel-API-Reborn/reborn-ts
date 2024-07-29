@@ -1,4 +1,9 @@
-import { PlayerInfo } from '../typings';
+export interface PlayerInfo {
+  max: number;
+  online: number;
+  players: any[];
+  toString(): string;
+}
 
 class ServerInfo {
   protocolUsed: number;
