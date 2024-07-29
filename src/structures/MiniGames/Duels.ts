@@ -1,9 +1,9 @@
-import Constants from '../../utils/Constants';
+import { duelsDivisions } from '../../utils/Constants';
 import romanize from '../../utils/romanize';
 import divide from '../../utils/divide';
 
 function getTitle(data: Record<string, any>, mode: string | null = null): string {
-  for (const div of Constants.duelsDivisions.slice().reverse()) {
+  for (const div of duelsDivisions.slice().reverse()) {
     const prestige = data[`${mode ? mode : 'all_modes'}_${div.key}_title_prestige`];
     if (prestige) {
       return `${div.name} ${romanize(prestige)}`;

@@ -1,6 +1,6 @@
 import { decode } from '../../utils/SkyblockUtils';
 import PitInventoryItem from './PitInventoryItem';
-import Constants from '../../utils/Constants';
+import { pit } from '../../utils/Constants';
 import { PitArmor } from '../../typings';
 import divide from '../../utils/divide';
 
@@ -43,7 +43,7 @@ class Pit {
     this.level =
       Pit.calcLevel(
         this.prestige,
-        0 < this.prestige ? this.xp - Constants.pit.Prestiges[this.prestige - 1].SumXp : this.xp
+        0 < this.prestige ? this.xp - pit.Prestiges[this.prestige - 1].SumXp : this.xp
       ) ?? 0;
     this.kills = data.pit_stats_ptl?.kills || 0;
     this.deaths = data.pit_stats_ptl?.deaths || 0;
@@ -118,10 +118,10 @@ class Pit {
   }
   // Credit https://github.com/PitPanda/PitPandaProduction/blob/b1971f56ea1aa8c829b722cbb33247c96591c0cb/structures/Pit.js
   static calcLevel(prestige: number, xp: number): number {
-    const multiplier = Constants.pit.Prestiges[prestige].Multiplier;
+    const multiplier = pit.Prestiges[prestige].Multiplier;
     let level = 0;
     while (0 < xp && 120 > level) {
-      const levelXp = Constants.pit.Levels[Math.floor(level / 10)].Xp * multiplier;
+      const levelXp = pit.Levels[Math.floor(level / 10)].Xp * multiplier;
       if (xp >= levelXp * 10) {
         xp -= levelXp * 10;
         level += 10;

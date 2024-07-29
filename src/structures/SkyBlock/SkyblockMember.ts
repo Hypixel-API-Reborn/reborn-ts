@@ -1,35 +1,35 @@
-import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import {
-  SkyblockMemberArmor,
   SkyblockMemberChocolateFactoryData,
-  SkyblockMemberDungeons,
+  SkyblockMemberTrophyFishRank,
   SkyblockMemberEquipment,
   SkyblockMemberJacobData,
+  SkyblockMemberDungeons,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
   SkyblockMemberStats,
-  SkyblockMemberTrophyFishRank,
+  SkyblockMemberArmor,
   SkyblockSkillLevel
 } from '../../typings';
-import Constants from '../../utils/Constants';
 import {
-  decode,
-  getBestiaryLevel,
   getChocolateFactory,
-  getDungeons,
+  getTrophyFishRank,
+  getBestiaryLevel,
+  getMemberStats,
   getJacobData,
   getLevelByXp,
-  getMemberStats,
+  getDungeons,
   getPetLevel,
   getSkills,
   getSlayer,
-  getTrophyFishRank
+  decode
 } from '../../utils/SkyblockUtils';
-import Player from '../Player';
-import SkyblockGarden from './SkyblockGarden';
+import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import SkyblockInventoryItem from './SkyblockInventoryItem';
+import { petScore } from '../../utils/Constants';
 import SkyblockMuseum from './SkyblockMuseum';
+import SkyblockGarden from './SkyblockGarden';
 import SkyblockPet from './SkyblockPet';
+import Player from '../Player';
 
 /**
  * Skyblock member class
@@ -160,9 +160,9 @@ class SkyblockMember {
       for (const pet of data.m.pets_data.pets) {
         if (
           !(pet.type in highestRarity) ||
-          (Constants.petScore as { [key: number]: number })[pet.tier] > highestRarity[pet.type]
+          (petScore as { [key: number]: number })[pet.tier] > highestRarity[pet.type]
         ) {
-          highestRarity[pet.type] = (Constants.petScore as { [key: number]: number })[pet.tier];
+          highestRarity[pet.type] = (petScore as { [key: number]: number })[pet.tier];
         }
       }
 

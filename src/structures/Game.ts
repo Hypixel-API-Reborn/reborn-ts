@@ -1,5 +1,5 @@
 import { GameCode, GameID, GameString } from '../typings';
-import Constants from '../utils/Constants';
+import { games } from '../utils/Constants';
 
 /**
  * Game class
@@ -13,7 +13,7 @@ class Game {
 
   constructor(game: GameID | GameCode) {
     this.game = game;
-    const result = Constants.games.find(
+    const result = games.find(
       (g) => g.code.toLowerCase() === this.game || g.id.toString() === this.game || g.name.toLowerCase() === this.game
     ) as any;
     this.id = result ? result.id : null;
@@ -26,15 +26,15 @@ class Game {
     return this.name;
   }
   static get IDS(): GameID[] {
-    return Constants.games.map((x) => x.id as GameID);
+    return games.map((x) => x.id as GameID);
   }
 
   static get CODES(): GameCode[] {
-    return Constants.games.map((x) => x.code) as GameCode[];
+    return games.map((x) => x.code) as GameCode[];
   }
 
   static get NAMES(): GameString[] {
-    return Constants.games.map((x) => x.name) as GameString[];
+    return games.map((x) => x.name) as GameString[];
   }
 }
 

@@ -1,4 +1,3 @@
-import { promisify } from 'util';
 import {
   SkyblockMemberChocolateFactoryData,
   SkyblockMemberTrophyFishRank,
@@ -7,11 +6,33 @@ import {
   SkyblockMemberDungeons,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
+  SkyblockMemberStats,
   SkyblockSkillLevel,
-  SkyblockRarity,
-  SkyblockMemberStats
+  SkyblockRarity
 } from '../typings';
-import Constants from './Constants';
+import {
+  bestiaryBrackets,
+  petRarityOffset,
+  runecraftingXp,
+  cocoaBeans,
+  netherWart,
+  levelingXp,
+  dungeonXp,
+  sugarCane,
+  mushroom,
+  bestiary,
+  petLevels,
+  socialXp,
+  pumpkin,
+  hotmXp,
+  garden,
+  carrot,
+  potato,
+  wheat,
+  melon,
+  cactus
+} from './Constants';
+import { promisify } from 'util';
 import nbt from 'prismarine-nbt';
 
 export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
@@ -30,52 +51,52 @@ export function getLevelByXp(xp: number, type: string): SkyblockSkillLevel {
   let xpTable: Record<number, number>;
   switch (type) {
     case 'runecrafting':
-      xpTable = Constants.runecraftingXp;
+      xpTable = runecraftingXp;
       break;
     case 'dungeons':
-      xpTable = Constants.dungeonXp;
+      xpTable = dungeonXp;
       break;
     case 'hotm':
-      xpTable = Constants.hotmXp;
+      xpTable = hotmXp;
       break;
     case 'social':
-      xpTable = Constants.socialXp;
+      xpTable = socialXp;
       break;
     case 'garden':
-      xpTable = Constants.garden;
+      xpTable = garden;
       break;
     case 'wheat':
-      xpTable = Constants.wheat;
+      xpTable = wheat;
       break;
     case 'carrot':
-      xpTable = Constants.carrot;
+      xpTable = carrot;
       break;
     case 'potato':
-      xpTable = Constants.potato;
+      xpTable = potato;
       break;
     case 'melon':
-      xpTable = Constants.melon;
+      xpTable = melon;
       break;
     case 'pumpkin':
-      xpTable = Constants.pumpkin;
+      xpTable = pumpkin;
       break;
     case 'sugarCane':
-      xpTable = Constants.sugarCane;
+      xpTable = sugarCane;
       break;
     case 'cocoaBeans':
-      xpTable = Constants.cocoaBeans;
+      xpTable = cocoaBeans;
       break;
     case 'cactus':
-      xpTable = Constants.cactus;
+      xpTable = cactus;
       break;
     case 'mushroom':
-      xpTable = Constants.mushroom;
+      xpTable = mushroom;
       break;
     case 'netherWart':
-      xpTable = Constants.netherWart;
+      xpTable = netherWart;
       break;
     default:
-      xpTable = Constants.levelingXp;
+      xpTable = levelingXp;
   }
   const maxLevel = Math.max(...Object.keys(xpTable).map(Number));
   if (isNaN(xp)) {
@@ -216,7 +237,7 @@ export function getSkills(data: Record<string, any>): SkyblockMemberSkills {
 function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
   const output = [];
   for (const mob of mobs) {
-    const mobBracket = (Constants.bestiaryBrackets as { [key: number]: number[] })[mob.bracket];
+    const mobBracket = (bestiaryBrackets as { [key: number]: number[] })[mob.bracket];
 
     const totalKills = mob.mobs.reduce((acc: any, cur: any) => {
       return acc + (userProfile.bestiary.kills[cur] ?? 0);
@@ -242,7 +263,7 @@ export function getBestiaryLevel(userProfile: Record<string, any>): number {
 
     const output: { [key: string]: any } = {};
     let tiersUnlocked = 0;
-    for (const [category, data] of Object.entries(Constants.bestiary)) {
+    for (const [category, data] of Object.entries(bestiary)) {
       const { mobs } = data as { mobs: any };
       output[category] = {};
 
@@ -395,8 +416,8 @@ export function getChocolateFactory(data: Record<string, any>): SkyblockMemberCh
 }
 
 export function getPetLevel(petExp: number, offsetRarity: number, maxLevel: number) {
-  const rarityOffset = Constants.petRarityOffset[offsetRarity as unknown as keyof typeof Constants.petRarityOffset];
-  const levels = Constants.petLevels.slice(rarityOffset, rarityOffset + maxLevel - 1);
+  const rarityOffset = petRarityOffset[offsetRarity as unknown as keyof typeof petRarityOffset];
+  const levels = petLevels.slice(rarityOffset, rarityOffset + maxLevel - 1);
 
   const xpMaxLevel = levels.reduce((a, b) => a + b, 0);
   let xpTotal = 0;

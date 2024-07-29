@@ -1,5 +1,5 @@
 import { recursive, removeSnakeCaseString } from '../utils/removeSnakeCase';
-import Constants from '../utils/Constants';
+import { MiniGamesString } from '../utils/Constants';
 
 /**
  * GameCounts class
@@ -9,8 +9,8 @@ class GameCounts {
   constructor(data: Record<string, any>) {
     this.playerCount = data.playerCount;
     for (const game in data.games) {
-      if (Object.prototype.hasOwnProperty.call(Constants.MiniGamesString, game)) {
-        const objectName = (Constants.MiniGamesString as { [key: string]: string })[game]
+      if (Object.prototype.hasOwnProperty.call(MiniGamesString, game)) {
+        const objectName = (MiniGamesString as { [key: string]: string })[game]
           .toUpperCase()
           .replace(/ +/g, '_');
         this[removeSnakeCaseString(objectName)] = recursive(data.games[game], true);
