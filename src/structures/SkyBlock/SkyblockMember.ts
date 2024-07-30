@@ -1,5 +1,3 @@
-import { getNetworth, NetworthResult } from 'skyhelper-networth';
-import Constants from '../../utils/Constants';
 import {
   SkyblockMemberChocolateFactoryData,
   SkyblockMemberTrophyFishRank,
@@ -21,7 +19,9 @@ import {
   getSlayer,
   decode
 } from '../../utils/SkyblockUtils';
+import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import SkyblockInventoryItem from './SkyblockInventoryItem';
+import Constants from '../../utils/Constants';
 import SkyblockPet from './SkyblockPet';
 
 export interface SkyblockMemberEquipment {
