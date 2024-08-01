@@ -3,6 +3,8 @@
   "extends": ["config:recommended"],
   "labels": ["dependencies"],
   "timezone": "UTC",
+  "assignees": ["kathund"],
+  "reviewers": ["kathund"],
   "schedule": "before 5am every weekday",
   "npm": {
     "rangeStrategy": "bump",
