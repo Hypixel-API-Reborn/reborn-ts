@@ -1,4 +1,4 @@
-import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../typings';
+import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../structures/Player';
 
 export function getRank(player: Record<string, any>): PlayerRank {
   let rank;

@@ -1,44 +1,48 @@
-import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import {
-  SkyblockMemberArmor,
   SkyblockMemberChocolateFactoryData,
-  SkyblockMemberDungeons,
-  SkyblockMemberEquipment,
-  SkyblockMemberJacobData,
-  SkyblockMemberSkills,
-  SkyblockMemberSlayer,
-  SkyblockMemberStats,
   SkyblockMemberTrophyFishRank,
-  SkyblockSkillLevel
-} from '../../typings';
-import Constants from '../../utils/Constants';
-import {
-  decode,
-  getBestiaryLevel,
+  SkyblockMemberJacobData,
+  SkyblockMemberDungeons,
+  SkyblockMemberSlayer,
+  SkyblockMemberSkills,
+  SkyblockMemberStats,
   getChocolateFactory,
-  getDungeons,
+  SkyblockSkillLevel,
+  getTrophyFishRank,
+  getBestiaryLevel,
+  getMemberStats,
   getJacobData,
   getLevelByXp,
-  getMemberStats,
+  getDungeons,
   getPetLevel,
   getSkills,
   getSlayer,
-  getTrophyFishRank
+  decode
 } from '../../utils/SkyblockUtils';
-import Player from '../Player';
-import SkyblockGarden from './SkyblockGarden';
+import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import SkyblockInventoryItem from './SkyblockInventoryItem';
-import SkyblockMuseum from './SkyblockMuseum';
+import Constants from '../../utils/Constants';
 import SkyblockPet from './SkyblockPet';
+
+export interface SkyblockMemberEquipment {
+  gauntlet: SkyblockInventoryItem | null;
+  belt: SkyblockInventoryItem | null;
+  cloak: SkyblockInventoryItem | null;
+  necklace: SkyblockInventoryItem | null;
+}
+
+export interface SkyblockMemberArmor {
+  helmet: SkyblockInventoryItem | null;
+  chestplate: SkyblockInventoryItem | null;
+  leggings: SkyblockInventoryItem | null;
+  boots: SkyblockInventoryItem | null;
+}
 
 /**
  * Skyblock member class
  */
 class SkyblockMember {
   uuid: string;
-  player: Player | null;
-  museum: SkyblockMuseum | null;
-  garden: SkyblockGarden | null;
   gameMode: string | null;
   selected: boolean;
   profileName: string;
@@ -73,9 +77,6 @@ class SkyblockMember {
   getNetworth: () => Promise<NetworthResult | null>;
   constructor(data: Record<string, any>) {
     this.uuid = data.uuid;
-    this.player = data.m.player || null;
-    this.museum = data.museum || null;
-    this.garden = data.garden || null;
     this.gameMode = data.gameMode;
     this.selected = data.selected;
     this.profileName = data.profileName;

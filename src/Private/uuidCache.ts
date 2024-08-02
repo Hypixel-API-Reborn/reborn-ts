@@ -11,7 +11,7 @@ export interface CacheData {
 export default async function (url: string, query: string, cacheTime: number): Promise<CacheData> {
   if (cache.has(query.toLowerCase())) return cache.get(query.toLowerCase()) as CacheData;
   const res = await axios.get(url);
-  const data = await res.data.json();
+  const data = await res.data;
   // Don't cache 4xx
   if (400 <= res.status) {
     return {

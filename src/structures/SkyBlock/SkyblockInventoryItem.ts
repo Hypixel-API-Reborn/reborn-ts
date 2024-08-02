@@ -1,5 +1,5 @@
+export type SkyblockGemstoneQuality = 'Rough' | 'Flawed' | 'Fine' | 'Flawless' | 'Perfect';
 import { parseGearScore, parseRarity } from '../../utils/SkyblockUtils';
-import { SkyblockGemstoneQuality } from '../../typings';
 
 class SkyblockGemstone {
   type: string;

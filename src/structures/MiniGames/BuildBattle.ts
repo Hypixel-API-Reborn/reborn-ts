@@ -1,5 +1,12 @@
-import { BuildBattleWins } from '../../typings';
 import divide from '../../utils/divide';
+
+export interface BuildBattleWins {
+  solo: number;
+  teams: number;
+  pro: number;
+  gtb: number;
+}
+
 /**
  * BuildBattle class
  */

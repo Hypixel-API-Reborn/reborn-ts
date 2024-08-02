@@ -1,5 +1,4 @@
-import { parseHistory } from '../../utils/Guild';
-import { ExpHistory } from '../../typings';
+import { ExpHistory, parseHistory } from '../../utils/Guild';
 
 class GuildMember {
   uuid: string;

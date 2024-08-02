@@ -1,7 +1,18 @@
 import Challenges from '../structures/Static/Challenges';
-export default async function (this: any) {
-  // eslint-disable-next-line no-underscore-dangle
-  const res = await this._makeRequest('/resources/challenges');
-  if (res.raw) return res;
-  return new Challenges(res);
+import Endpoint from '../Private/Endpoint';
+import Client from '../Client';
+export default class getChallenges extends Endpoint {
+  readonly client: Client;
+  readonly name: string;
+  constructor(client: Client) {
+    super(client);
+    this.client = client;
+    this.name = 'getChallenges';
+  }
+
+  async execute() {
+    const res = await this.client.requests.request('/resources/challenges');
+    if (res.raw) return res;
+    return new Challenges(res);
+  }
 }

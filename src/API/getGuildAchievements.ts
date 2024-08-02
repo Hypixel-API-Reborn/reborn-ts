@@ -1,7 +1,18 @@
 import GuildAchievements from '../structures/Static/GuildAchievements';
-export default async function (this: any) {
-  // eslint-disable-next-line no-underscore-dangle
-  const res = await this._makeRequest('/resources/guilds/achievements');
-  if (res.raw) return res;
-  return new GuildAchievements(res);
+import Endpoint from '../Private/Endpoint';
+import Client from '../Client';
+export default class getGuildAchievements extends Endpoint {
+  readonly client: Client;
+  readonly name: string;
+  constructor(client: Client) {
+    super(client);
+    this.client = client;
+    this.name = 'getGuildAchievements';
+  }
+
+  async execute() {
+    const res = await this.client.requests.request('/resources/guilds/achievements');
+    if (res.raw) return res;
+    return new GuildAchievements(res);
+  }
 }

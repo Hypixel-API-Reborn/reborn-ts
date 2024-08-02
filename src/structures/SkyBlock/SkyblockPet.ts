@@ -1,4 +1,4 @@
-import { SkyblockRarity } from '../../typings';
+import { SkyblockRarity } from '../../utils/SkyblockUtils';
 import Constants from '../../utils/Constants';
 
 /**

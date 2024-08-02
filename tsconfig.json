@@ -6,7 +6,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./build",
+    "module": "ES2022",
     "target": "ES2022",
     "strict": true
-  }
+  },
+  "include": [
+    "src",
+    "API"
+  ],
 }

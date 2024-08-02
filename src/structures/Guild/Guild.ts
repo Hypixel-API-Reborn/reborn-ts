@@ -1,5 +1,4 @@
-import { calculateExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild';
-import { ExpHistory } from '../../typings';
+import { calculateExpHistory, ExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild';
 import GuildMember from './GuildMember';
 import GuildRank from './GuildRank';
 import Color from '../Color';

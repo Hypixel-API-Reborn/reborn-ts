@@ -1,5 +1,15 @@
-import { ProductStatus } from '../../../typings';
 import Order from './Order';
+
+export interface ProductStatus {
+  sellPrice: number;
+  buyPrice: number;
+  sellVolume: number;
+  buyVolume: number;
+  sellMovingWeek: number;
+  buyMovingWeek: number;
+  sellOrders: number;
+  buyOrders: number;
+}
 
 /**
  * Product class

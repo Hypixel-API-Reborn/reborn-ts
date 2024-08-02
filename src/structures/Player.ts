@@ -1,33 +1,53 @@
 import { getPlayerLevel, getRank, getSocialMedia, parseClaimedRewards, playerLevelProgress } from '../utils/Player';
-import { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../typings';
-import { recursive } from '../utils/removeSnakeCase';
-import RecentGame from './RecentGame';
-import Guild from './Guild/Guild';
-import Color from './Color';
-import Game from './Game';
-import Arcade from './MiniGames/Arcade';
-import ArenaBrawl from './MiniGames/ArenaBrawl';
-import BedWars from './MiniGames/BedWars';
 import BlitzSurvivalGames from './MiniGames/BlitzSurvivalGames';
-import BuildBattle from './MiniGames/BuildBattle';
-import CopsAndCrims from './MiniGames/CopsAndCrims';
-import Duels from './MiniGames/Duels';
-import MegaWalls from './MiniGames/MegaWalls';
+import TurboKartRacers from './MiniGames/TurboKartRacers';
 import MurderMystery from './MiniGames/MurderMystery';
-import Paintball from './MiniGames/Paintball';
-import Pit from './MiniGames/Pit';
-import Quakecraft from './MiniGames/Quakecraft';
-import SkyWars from './MiniGames/SkyWars';
+import { recursive } from '../utils/removeSnakeCase';
+import CopsAndCrims from './MiniGames/CopsAndCrims';
+import BuildBattle from './MiniGames/BuildBattle';
 import SmashHeroes from './MiniGames/SmashHeroes';
+import PlayerCosmetics from './PlayerCosmetics';
+import Quakecraft from './MiniGames/Quakecraft';
+import ArenaBrawl from './MiniGames/ArenaBrawl';
+import MegaWalls from './MiniGames/MegaWalls';
+import Paintball from './MiniGames/Paintball';
 import SpeedUHC from './MiniGames/SpeedUHC';
 import TNTGames from './MiniGames/TNTGames';
-import TurboKartRacers from './MiniGames/TurboKartRacers';
-import UHC from './MiniGames/UHC';
 import VampireZ from './MiniGames/VampireZ';
-import Walls from './MiniGames/Walls';
 import Warlords from './MiniGames/Warlords';
 import WoolWars from './MiniGames/WoolWars';
-import PlayerCosmetics from './PlayerCosmetics';
+import SkyWars from './MiniGames/SkyWars';
+import BedWars from './MiniGames/BedWars';
+import Arcade from './MiniGames/Arcade';
+import Walls from './MiniGames/Walls';
+import Duels from './MiniGames/Duels';
+import UHC from './MiniGames/UHC';
+import Pit from './MiniGames/Pit';
+import Color from './Color';
+import Game from './Game';
+
+export interface LevelProgress {
+  xpToNext: number;
+  remainingXP: number;
+  currentXP: number;
+  percent: number;
+  percentRemaining: number;
+}
+
+export interface PlayerSocialMedia {
+  name: string;
+  link: string;
+  id: string;
+}
+
+export type PlayerRank = 'VIP' | 'VIP+' | 'MVP' | 'MVP+' | 'MVP++' | 'Game Master' | 'Admin' | 'YouTube';
+
+export interface RanksPurchaseTime {
+  VIP: Date | null;
+  VIP_PLUS: Date | null;
+  MVP: Date | null;
+  MVP_PLUS: Date | null;
+}
 
 class Player {
   nickname: string;
@@ -61,15 +81,13 @@ class Player {
   rewardScore: number | null;
   rewardHighScore: number | null;
   levelProgress: LevelProgress;
-  guild: Guild | null;
-  recentGames: RecentGame[] | null;
   stats: any | null;
   userLanguage: string;
   claimedLevelingRewards: number[];
   globalCosmetics: PlayerCosmetics | null;
   ranksPurchaseTime: RanksPurchaseTime;
 
-  constructor(data: Record<string, any>, extraPayload: Record<string, any>) {
+  constructor(data: Record<string, any>) {
     this.nickname = data.displayname;
     this.uuid = data.uuid;
     this.rank = getRank(data);
@@ -110,8 +128,6 @@ class Player {
     this.rewardScore = data.rewardScore || null;
     this.rewardHighScore = data.rewardHighScore || null;
     this.levelProgress = playerLevelProgress(data.networkExp);
-    this.guild = extraPayload?.guild || null;
-    this.recentGames = extraPayload?.recentGames || null;
     this.stats = data.stats
       ? {
           arcade: data.stats.Arcade ? new Arcade({ ...data.stats.Arcade, ...data.achievements }) : null,

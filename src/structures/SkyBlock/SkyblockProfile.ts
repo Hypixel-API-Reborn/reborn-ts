@@ -29,7 +29,6 @@ class SkyblockProfile {
           m: data.members[uuid],
           banking: this.banking,
           communityUpgrades: this.communityUpgrades,
-          museum: null,
           selected: this.selected
         })
     );

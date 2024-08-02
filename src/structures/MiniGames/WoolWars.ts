@@ -1,5 +1,26 @@
-import { WoolWarsPrivateGamesConfig, WoolWarsStats } from '../../typings';
 import divide from '../../utils/divide';
+
+export interface WoolWarsStats {
+  wins: number;
+  gamesPlayed: number;
+  woolsPlaced: number;
+  blocksBroken: number;
+  placeBreakRatio: number;
+  kills: number;
+  deaths: number;
+  KDRatio: number;
+  assists: number;
+  powerups: number;
+}
+export interface WoolWarsPrivateGamesConfig {
+  one_hit_one_kil: boolean;
+  rainbow_wool: 'Enabled' | 'Disabled';
+  health_buff: string;
+  game_speed: string;
+  speed: string;
+  no_class: 'Enabled' | 'Disabled';
+  respawn_enable: boolean;
+}
 
 function convertXPToLevel(exp: number): number {
   const minimalExp = [0, 1e3, 3e3, 6e3, 1e4, 15e3];
