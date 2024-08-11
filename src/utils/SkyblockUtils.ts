@@ -139,6 +139,8 @@ export interface SkyblockMemberDungeons {
   classes: SkyblockMemberDungeonsClasses;
 }
 
+// @Zickles
+
 export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
   const parseNbt = promisify(nbt.parse);
   const buffer = isBuffer ? base64 : Buffer.from(String(base64), 'base64');

@@ -5,11 +5,9 @@ import Errors from '../Errors';
 import Client from '../Client';
 export default class getSkyblockAction extends Endpoint {
   readonly client: Client;
-  readonly name: string;
   constructor(client: Client) {
     super(client);
     this.client = client;
-    this.name = 'getSkyblockAction';
   }
 
   async execute(query: string, type: 'PROFILE' | 'PLAYER' | 'AUCTION', includeItemBytes: boolean = false) {

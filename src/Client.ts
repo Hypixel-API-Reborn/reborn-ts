@@ -1,23 +1,14 @@
 import CheckUpdates from './Private/CheckUpdates';
 import CacheHandler from './Private/CacheHandler';
+import { ClientOptions } from './typings/Client';
 import Requests from './Private/Requests';
 import Errors from './Errors';
-import fs from 'fs';
+import API from './API';
 
 const clients: any[] = [];
 
-export interface ClientOptions {
-  cache?: boolean;
-  cacheTime?: number;
-  cacheMaxKeys?: number;
-  cacheCheckPeriod?: number;
-  rateLimit?: 'AUTO' | 'HARD' | 'NONE';
-  silent?: boolean;
-  checkForUpdates?: boolean;
-}
-
-export default class Client {
-  readonly key?: string;
+class Client {
+  readonly key: string;
 
   declare requests: Requests;
   declare cacheHandler: CacheHandler;
@@ -32,7 +23,6 @@ export default class Client {
   declare endpoints: any;
 
   constructor(key: string, options?: ClientOptions) {
-    this.loadEndpoints();
     this.key = key;
 
     this.cache = options?.cache ?? true;
@@ -45,6 +35,11 @@ export default class Client {
 
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
+
+    for (const func in API) {
+      const endpoint = new API[func](this);
+      this[func] = endpoint.execute.bind(endpoint);
+    }
 
     if (clients.find((x) => x.key === key)) {
       // eslint-disable-next-line no-console
@@ -61,19 +56,6 @@ export default class Client {
 
     clients.push(this);
   }
-
-  async loadEndpoints() {
-    const endpoints = fs.readdirSync('./src/API').filter((file) => file.endsWith('.ts'));
-    for (const endpoint of endpoints) {
-      const { default: EndpointClass } = await import(`./API/${endpoint}`);
-      const endpointInstance = new EndpointClass(this);
-      (this as any)[endpointInstance.name] = endpointInstance.execute.bind(endpointInstance);
-    }
-  }
 }
 
-export async function createClient(key: string, options?: ClientOptions): Promise<Client> {
-  const client = new Client(key, options);
-  await client.loadEndpoints();
-  return client;
-}
+export default Client;

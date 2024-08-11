@@ -4,11 +4,9 @@ import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 export default class getSkyblockEndedAuctions extends Endpoint {
   readonly client: Client;
-  readonly name: string;
   constructor(client: Client) {
     super(client);
     this.client = client;
-    this.name = 'getSkyblockEndedAuctions';
   }
 
   async execute(includeItemBytes: any): Promise<any> {
