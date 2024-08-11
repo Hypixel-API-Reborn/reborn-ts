@@ -23,11 +23,7 @@
     "build": "npx tsc"
   },
   "engines": {
-    "node": ">=20.16.0",
-    "pnpm": ">=9.6.0",
-    "npm": "forbidden, use pnpm instead",
-    "yarn": "forbidden, use pnpm instead",
-    "bun": "forbidden, use pnpm instead"
+    "node": ">=20.16.0"
   },
   "type": "module",
   "packageManager": "pnpm@9.6.0",
@@ -37,7 +33,7 @@
     "node-cache": "^5.1.2",
     "prismarine-nbt": "^2.5.0",
     "rss-parser": "^3.13.0",
-    "skyhelper-networth": "^1.21.0"
+    "skyhelper-networth": "^1.23.0"
   },
   "license": "MIT",
   "readme": "https://github.com/Hypixel-API-Reborn/hypixel-api-reborn?tab=readme-ov-file#hypixel-api--reborn",
