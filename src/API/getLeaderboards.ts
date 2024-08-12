@@ -3,13 +3,12 @@ import Constants from '../utils/Constants';
 import Endpoint from '../Private/Endpoint';
 import Errors from '../Errors';
 import Client from '../Client';
+
 export default class getLeaderboards extends Endpoint {
   readonly client: Client;
-  readonly name: string;
   constructor(client: Client) {
     super(client);
     this.client = client;
-    this.name = 'getLeaderboards';
   }
 
   async execute() {

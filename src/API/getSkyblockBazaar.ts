@@ -1,13 +1,12 @@
 import Product from '../structures/SkyBlock/Bazzar/Product';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getSkyblockBazaar extends Endpoint {
   readonly client: Client;
-  readonly name: string;
   constructor(client: Client) {
     super(client);
     this.client = client;
-    this.name = 'getSkyblockBazaar';
   }
 
   async execute() {

@@ -6,11 +6,9 @@ import Client from '../Client';
 
 export default class getSkyblockMember extends Endpoint {
   readonly client: Client;
-  readonly name: string;
   constructor(client: Client) {
     super(client);
     this.client = client;
-    this.name = 'getSkyblockMember';
   }
 
   async execute(query: string) {
