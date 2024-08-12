@@ -17,7 +17,7 @@ export default async function (input: string, cacheTime: number = 600, useThirdP
     }
     if (!res.id) throw new Error(Errors.PLAYER_DOES_NOT_EXIST);
     return res.id;
-  } catch (e) {
+  } catch {
     throw new Error(Errors.PLAYER_DOES_NOT_EXIST);
   }
 }

@@ -385,7 +385,7 @@ export function getBestiaryLevel(userProfile: Record<string, any>): number {
     }
 
     return tiersUnlocked / 10;
-  } catch (error) {
+  } catch {
     return 0;
   }
 }
