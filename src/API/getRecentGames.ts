@@ -11,7 +11,7 @@ export default class getRecentGames extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string) {
+  async execute(query: string): Promise<RecentGame[]> {
     if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
     query = await toUuid(query);
     const res = await this.client.requests.request(`/recentgames?uuid=${query}`);

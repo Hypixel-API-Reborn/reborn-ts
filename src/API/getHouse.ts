@@ -10,7 +10,7 @@ export default class getHouse extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string) {
+  async execute(query: string): Promise<House> {
     if (!query) throw new Error(Errors.NO_UUID);
     const res = await this.client.requests.request(`/housing/house?house=${query}`);
     if (res.raw) return res;

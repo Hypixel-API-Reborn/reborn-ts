@@ -20,7 +20,6 @@ class Client {
   declare rateLimit?: 'AUTO' | 'HARD' | 'NONE';
   declare silent: boolean;
   declare checkForUpdates: boolean;
-  declare endpoints: any;
 
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
@@ -37,7 +36,11 @@ class Client {
     this.cacheHandler = new CacheHandler(this);
 
     for (const func in API) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const endpoint = new API[func](this);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       this[func] = endpoint.execute.bind(endpoint);
     }
 

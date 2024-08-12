@@ -11,7 +11,7 @@ export default class getSkyblockActionsByPlayer extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, includeItemBytes: boolean) {
+  async execute(query: string, includeItemBytes: boolean): Promise<Auction[]> {
     if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
     query = await toUuid(query);
     const res = await this.client.requests.request(`/skyblock/auction?player=${query}`);

@@ -9,7 +9,7 @@ export default class getAchievements extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<Achievements> {
     const res = await this.client.requests.request('/resources/achievements');
     if (res.raw) return res;
     return new Achievements(res);

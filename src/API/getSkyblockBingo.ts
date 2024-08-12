@@ -9,7 +9,7 @@ export default class getSkyblockBingo extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<BingoData> {
     const res = await this.client.requests.request('/resources/skyblock/bingo');
     if (res.raw) return res;
     return new BingoData(res);

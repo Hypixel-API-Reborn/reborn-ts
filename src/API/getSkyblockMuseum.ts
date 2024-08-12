@@ -11,7 +11,7 @@ export default class getSkyblockMuseum extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, profileId: string) {
+  async execute(query: string, profileId: string): Promise<SkyblockMuseum> {
     if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
     query = await toUuid(query);
     const res = await this.client.requests.request(`/skyblock/museum?uuid=${query}&profile=${profileId}`);

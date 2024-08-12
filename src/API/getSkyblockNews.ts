@@ -9,7 +9,7 @@ export default class getSkyblockNews extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<SkyblockNews[]> {
     const res = await this.client.requests.request('/skyblock/news');
     if (res.raw) return res;
     return res.items.map((i: any) => new SkyblockNews(i));

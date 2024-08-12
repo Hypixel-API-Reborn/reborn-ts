@@ -11,7 +11,7 @@ export default class getSkyblockMember extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string) {
+  async execute(query: string): Promise<Map<string, SkyblockMember>> {
     if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
     query = await toUuid(query);
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`);

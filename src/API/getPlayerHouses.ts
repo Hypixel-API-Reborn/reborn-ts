@@ -11,7 +11,7 @@ export default class getPlayerHouses extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string): Promise<House[] | { raw: any }> {
+  async execute(query: string): Promise<House[]> {
     if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
     query = await toUuid(query);
     const res = await this.client.requests.request(`/housing/houses?player=${query}`);

@@ -9,7 +9,7 @@ export default class getSkyblockGarden extends Endpoint {
     this.client = client;
   }
 
-  async execute(profileId: string) {
+  async execute(profileId: string): Promise<SkyblockGarden> {
     const res = await this.client.requests.request(`/skyblock/garden?profile=${profileId}`);
     if (res.raw) return res;
     return new SkyblockGarden(res);

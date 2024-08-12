@@ -9,7 +9,7 @@ export default class getBoosters extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<Booster[]> {
     const res = await this.client.requests.request('/boosters');
     if (res.raw) return res;
     return res.boosters.length ? res.boosters.map((b: any) => new Booster(b)).reverse() : [];

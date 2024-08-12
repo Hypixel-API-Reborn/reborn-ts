@@ -10,7 +10,7 @@ export default class getSkyblockEndedAuctions extends Endpoint {
     this.client = client;
   }
 
-  async execute(includeItemBytes: any): Promise<any> {
+  async execute(includeItemBytes: any): Promise<{ info: AuctionInfo; auctions: PartialAuction[] }> {
     const res = await this.client.requests.request('/skyblock/auctions_ended');
     if (res.raw) return res;
     return {

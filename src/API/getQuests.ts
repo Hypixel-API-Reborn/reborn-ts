@@ -9,7 +9,7 @@ export default class getQuests extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<Quests> {
     const res = await this.client.requests.request('/resources/quests');
     if (res.raw) return res;
     return new Quests(res);

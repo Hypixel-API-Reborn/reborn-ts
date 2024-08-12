@@ -11,7 +11,11 @@ export default class getSkyblockAction extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, type: 'PROFILE' | 'PLAYER' | 'AUCTION', includeItemBytes: boolean = false) {
+  async execute(
+    query: string,
+    type: 'PROFILE' | 'PLAYER' | 'AUCTION',
+    includeItemBytes: boolean = false
+  ): Promise<Auction[]> {
     if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
     let filter;
     if ('PROFILE' === type) {

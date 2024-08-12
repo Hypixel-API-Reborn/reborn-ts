@@ -9,7 +9,7 @@ export default class getGameCounts extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<GameCounts> {
     const res = await this.client.requests.request('/counts');
     if (res.raw) return res;
     return new GameCounts(res);

@@ -9,7 +9,7 @@ export default class getSkyblockBazaar extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<Product[]> {
     const res = await this.client.requests.request('/skyblock/bazaar');
     if (res.raw) return res;
     const productsKeys = Object.keys(res.products);

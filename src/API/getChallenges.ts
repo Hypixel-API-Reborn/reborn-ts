@@ -9,7 +9,7 @@ export default class getChallenges extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<Challenges> {
     const res = await this.client.requests.request('/resources/challenges');
     if (res.raw) return res;
     return new Challenges(res);

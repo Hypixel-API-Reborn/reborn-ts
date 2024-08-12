@@ -9,7 +9,7 @@ export default class getSkyblockGovernment extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<GovernmentData> {
     const res = await this.client.requests.request('/resources/skyblock/election');
     if (res.raw) return res;
     return new GovernmentData(res);

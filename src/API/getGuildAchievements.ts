@@ -9,7 +9,7 @@ export default class getGuildAchievements extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<GuildAchievements> {
     const res = await this.client.requests.request('/resources/guilds/achievements');
     if (res.raw) return res;
     return new GuildAchievements(res);

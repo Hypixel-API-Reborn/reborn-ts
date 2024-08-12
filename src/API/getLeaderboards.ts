@@ -11,7 +11,7 @@ export default class getLeaderboards extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<any> {
     const res = await this.client.requests.request('/leaderboards');
     if (res.raw) return res;
     if (!res.leaderboards) throw new Error(Errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));

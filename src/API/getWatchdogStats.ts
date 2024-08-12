@@ -9,7 +9,7 @@ export default class getWatchdogStatsEndpoint extends Endpoint {
     this.client = client;
   }
 
-  async execute() {
+  async execute(): Promise<WatchdogStats> {
     const res = await this.client.requests.request('/punishmentstats');
     if (res.raw) return res;
     return new WatchdogStats(res);

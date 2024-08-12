@@ -12,7 +12,7 @@ export default class getGuild extends Endpoint {
     this.client = client;
   }
 
-  async execute(searchParameter: 'id' | 'name' | 'player', query: string) {
+  async execute(searchParameter: 'id' | 'name' | 'player', query: string): Promise<Guild | null> {
     if (!query) throw new Error(Errors.NO_GUILD_QUERY);
     if ('id' === searchParameter && !isGuildID(query)) throw new Error(Errors.INVALID_GUILD_ID);
     const isPlayerQuery = 'player' === searchParameter;
