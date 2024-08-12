@@ -1,6 +1,7 @@
 import GuildAchievements from '../structures/Static/GuildAchievements';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getGuildAchievements extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

@@ -3,6 +3,7 @@ import Constants from '../utils/Constants';
 import Endpoint from '../Private/Endpoint';
 import Errors from '../Errors';
 import Client from '../Client';
+
 export default class getLeaderboards extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

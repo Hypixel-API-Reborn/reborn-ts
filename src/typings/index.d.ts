@@ -1,6 +1,6 @@
-import { ClientOptions } from '../Client';
 import CacheHandler from '../Private/CacheHandler';
 import Requests from '../Private/Requests';
+import { ClientOptions } from '../Client';
 
 export type StaticGameNames =
   | 'arcade'

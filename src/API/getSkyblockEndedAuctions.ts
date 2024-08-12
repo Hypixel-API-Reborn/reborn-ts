@@ -2,6 +2,7 @@ import PartialAuction from '../structures/SkyBlock/Auctions/PartialAuction';
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getSkyblockEndedAuctions extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

@@ -1,6 +1,7 @@
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getSkyblockGarden extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

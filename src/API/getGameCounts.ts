@@ -1,6 +1,7 @@
 import GameCounts from '../structures/GameCounts';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getGameCounts extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

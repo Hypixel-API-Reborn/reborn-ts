@@ -1,6 +1,7 @@
 import Achievements from '../structures/Static/Achievements';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getAchievements extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

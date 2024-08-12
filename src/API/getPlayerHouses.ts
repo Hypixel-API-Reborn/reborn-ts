@@ -3,6 +3,7 @@ import House from '../structures/House';
 import toUuid from '../utils/toUuid';
 import Errors from '../Errors';
 import Client from '../Client';
+
 export default class getPlayerHouses extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

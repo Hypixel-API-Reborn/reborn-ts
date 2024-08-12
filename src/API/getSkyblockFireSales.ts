@@ -1,6 +1,7 @@
 import FireSale from '../structures/SkyBlock/Static/FireSale';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getSkyblockFireSales extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

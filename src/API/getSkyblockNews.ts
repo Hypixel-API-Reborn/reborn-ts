@@ -1,6 +1,7 @@
 import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getSkyblockNews extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

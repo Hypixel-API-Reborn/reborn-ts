@@ -1,6 +1,7 @@
 import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
 import Client from '../Client';
+
 export default class getActiveHouses extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

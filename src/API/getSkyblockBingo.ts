@@ -1,6 +1,7 @@
 import BingoData from '../structures/SkyBlock/Static/BingoData';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+
 export default class getSkyblockBingo extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

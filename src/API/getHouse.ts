@@ -2,6 +2,7 @@ import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
 import Errors from '../Errors';
 import Client from '../Client';
+
 export default class getHouse extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {

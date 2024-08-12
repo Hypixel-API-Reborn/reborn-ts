@@ -3,6 +3,7 @@ import Player from '../structures/Player';
 import toUuid from '../utils/toUuid';
 import Errors from '../Errors';
 import Client from '../Client';
+
 export default class getPlayer extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
