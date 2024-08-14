@@ -1,7 +1,6 @@
 import Auction from '../structures/SkyBlock/Auctions/Auction';
 import Endpoint from '../Private/Endpoint';
 import toUuid from '../utils/toUuid';
-import Errors from '../Errors';
 import Client from '../Client';
 
 export default class getSkyblockAction extends Endpoint {
@@ -16,7 +15,7 @@ export default class getSkyblockAction extends Endpoint {
     type: 'PROFILE' | 'PLAYER' | 'AUCTION',
     includeItemBytes: boolean = false
   ): Promise<Auction[]> {
-    if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
+    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     let filter;
     if ('PROFILE' === type) {
       filter = 'profile';
@@ -26,7 +25,7 @@ export default class getSkyblockAction extends Endpoint {
     } else if ('AUCTION' === type) {
       filter = 'uuid';
     } else {
-      throw new Error(Errors.BAD_AUCTION_FILTER);
+      throw new Error(this.client.errors.BAD_AUCTION_FILTER);
     }
     const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`);
     if (res.raw) return res;

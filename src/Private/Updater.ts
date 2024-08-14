@@ -1,12 +1,14 @@
 /* eslint-disable no-console */
 import { version } from '../../package.json';
-import Errors from '../Errors';
+import Client from '../Client';
 import axios from 'axios';
 
 class Updater {
+  readonly client: Client;
   currentVersion: string;
   latestVersion: string;
-  constructor() {
+  constructor(client: Client) {
+    this.client = client;
     this.currentVersion = version;
     this.latestVersion = '0.0.0';
   }
@@ -26,7 +28,7 @@ class Updater {
   async getLatestVersion(): Promise<string | void> {
     const request = await axios.get('https://registry.npmjs.org/hypixel-api-reborn');
     if (200 !== request.status) {
-      console.log(Errors.UPDATER_REQUEST_NOT_OK);
+      console.log(this.client.errors.UPDATER_REQUEST_NOT_OK);
       return;
     }
     const metadata = await request.data;

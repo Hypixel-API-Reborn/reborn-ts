@@ -13,6 +13,7 @@ class Client {
   declare requests: Requests;
   declare cacheHandler: CacheHandler;
   declare updater: Updater;
+  declare errors: Errors;
 
   declare options: ClientOptions;
 
@@ -22,7 +23,8 @@ class Client {
     this.options = this.parasOptions(options);
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
-    this.updater = new Updater();
+    this.updater = new Updater(this);
+    this.errors = new Errors();
 
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,7 +37,7 @@ class Client {
 
     if (clients.find((x) => x.key === key)) {
       // eslint-disable-next-line no-console
-      console.warn(Errors.MULTIPLE_INSTANCES);
+      console.warn(this.errors.MULTIPLE_INSTANCES);
       const found = clients.find((x) => x.key === key);
       if (found) return found;
     }

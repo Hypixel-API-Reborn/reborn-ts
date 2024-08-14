@@ -1,7 +1,6 @@
 import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
 import Endpoint from '../Private/Endpoint';
 import toUuid from '../utils/toUuid';
-import Errors from '../Errors';
 import Client from '../Client';
 
 export default class getSkyblockMember extends Endpoint {
@@ -12,11 +11,11 @@ export default class getSkyblockMember extends Endpoint {
   }
 
   async execute(query: string): Promise<Map<string, SkyblockMember>> {
-    if (!query) throw new Error(Errors.NO_NICKNAME_UUID);
+    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await toUuid(query);
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`);
     if (res.raw) return res;
-    if (!res.profiles || !res.profiles.length) throw new Error(Errors.NO_SKYBLOCK_PROFILES);
+    if (!res.profiles || !res.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
     const memberByProfileName = new Map();
     for (const profile of res.profiles) {
       memberByProfileName.set(
