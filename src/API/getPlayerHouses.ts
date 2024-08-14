@@ -1,6 +1,5 @@
 import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
-import toUuid from '../utils/toUuid';
 import Client from '../Client';
 
 export default class getPlayerHouses extends Endpoint {
@@ -12,7 +11,7 @@ export default class getPlayerHouses extends Endpoint {
 
   async execute(query: string): Promise<House[]> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await toUuid(query);
+    query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/housing/houses?player=${query}`);
     if (res.raw) return res;
     return res.length ? res.map((h: any) => new House(h)) : [];

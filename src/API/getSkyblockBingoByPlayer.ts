@@ -1,6 +1,5 @@
 import PlayerBingo from '../structures/SkyBlock/PlayerBingo';
 import Endpoint from '../Private/Endpoint';
-import toUuid from '../utils/toUuid';
 import Client from '../Client';
 
 export default class getBingoByPlayer extends Endpoint {
@@ -12,7 +11,7 @@ export default class getBingoByPlayer extends Endpoint {
 
   async execute(query: string): Promise<PlayerBingo> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await toUuid(query);
+    query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/uuid?player=${query}`);
     if (res.raw) return res;
     return new PlayerBingo(res);

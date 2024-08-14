@@ -1,7 +1,6 @@
 import Guild from '../structures/Guild/Guild';
 import isGuildID from '../utils/isGuildID';
 import Endpoint from '../Private/Endpoint';
-import toUuid from '../utils/toUuid';
 import Client from '../Client';
 
 export default class getGuild extends Endpoint {
@@ -15,7 +14,7 @@ export default class getGuild extends Endpoint {
     if (!query) throw new Error(this.client.errors.NO_GUILD_QUERY);
     if ('id' === searchParameter && !isGuildID(query)) throw new Error(this.client.errors.INVALID_GUILD_ID);
     const isPlayerQuery = 'player' === searchParameter;
-    if (isPlayerQuery) query = await toUuid(query);
+    if (isPlayerQuery) query = await this.client.requests.toUUID(query);
     if (!['id', 'name', 'player'].includes(searchParameter)) {
       throw new Error(this.client.errors.INVALID_GUILD_SEARCH_PARAMETER);
     }

@@ -1,6 +1,5 @@
 import Auction from '../structures/SkyBlock/Auctions/Auction';
 import Endpoint from '../Private/Endpoint';
-import toUuid from '../utils/toUuid';
 import Client from '../Client';
 
 export default class getSkyblockAction extends Endpoint {
@@ -20,7 +19,7 @@ export default class getSkyblockAction extends Endpoint {
     if ('PROFILE' === type) {
       filter = 'profile';
     } else if ('PLAYER' === type) {
-      query = await toUuid(query);
+      query = await this.client.requests.toUUID(query);
       filter = 'player';
     } else if ('AUCTION' === type) {
       filter = 'uuid';

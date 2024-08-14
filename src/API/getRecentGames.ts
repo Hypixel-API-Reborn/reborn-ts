@@ -1,6 +1,5 @@
 import RecentGame from '../structures/RecentGame';
 import Endpoint from '../Private/Endpoint';
-import toUuid from '../utils/toUuid';
 import Client from '../Client';
 
 export default class getRecentGames extends Endpoint {
@@ -12,7 +11,7 @@ export default class getRecentGames extends Endpoint {
 
   async execute(query: string): Promise<RecentGame[]> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await toUuid(query);
+    query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/recentgames?uuid=${query}`);
     if (res.raw) return res;
     if (0 === res.games.length) {

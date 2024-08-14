@@ -1,6 +1,5 @@
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import Endpoint from '../Private/Endpoint';
-import toUuid from '../utils/toUuid';
 import Client from '../Client';
 
 export default class getSkyblockMuseum extends Endpoint {
@@ -12,7 +11,7 @@ export default class getSkyblockMuseum extends Endpoint {
 
   async execute(query: string, profileId: string): Promise<SkyblockMuseum> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await toUuid(query);
+    query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/museum?uuid=${query}&profile=${profileId}`);
     if (res.raw) return res;
     return new SkyblockMuseum({
