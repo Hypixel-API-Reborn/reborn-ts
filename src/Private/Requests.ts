@@ -46,7 +46,7 @@ class Requests {
     parsedRes._headers = res.headers;
     parsedRes.raw = Boolean(info.raw);
     if (info.noCache) return parsedRes;
-    if (this.client.cache && !info.raw) {
+    if (this.client.options.cache && !info.raw) {
       this.client.cacheHandler.set(endpoint, parsedRes);
     }
 

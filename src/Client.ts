@@ -1,39 +1,28 @@
-import CheckUpdates from './Private/CheckUpdates';
 import CacheHandler from './Private/CacheHandler';
 import { ClientOptions } from './typings/Client';
 import Requests from './Private/Requests';
+import Updater from './Private/Updater';
 import Errors from './Errors';
 import API from './API';
 
-const clients: any[] = [];
+const clients: Client[] = [];
 
 class Client {
   readonly key: string;
 
   declare requests: Requests;
   declare cacheHandler: CacheHandler;
+  declare updater: Updater;
 
-  declare cache: boolean;
-  declare cacheTime: number;
-  declare cacheMaxKeys: number;
-  declare cacheCheckPeriod: number;
-  declare rateLimit?: 'AUTO' | 'HARD' | 'NONE';
-  declare silent: boolean;
-  declare checkForUpdates: boolean;
+  declare options: ClientOptions;
 
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
 
-    this.cache = options?.cache ?? true;
-    this.cacheTime = options?.cacheTime ?? 300;
-    this.cacheMaxKeys = options?.cacheMaxKeys ?? -1;
-    this.cacheCheckPeriod = options?.cacheCheckPeriod ?? 180;
-    this.rateLimit = options?.rateLimit ?? 'AUTO';
-    this.silent = options?.silent ?? false;
-    this.checkForUpdates = options?.checkForUpdates ?? true;
-
+    this.options = this.parasOptions(options);
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
+    this.updater = new Updater();
 
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -47,17 +36,34 @@ class Client {
     if (clients.find((x) => x.key === key)) {
       // eslint-disable-next-line no-console
       console.warn(Errors.MULTIPLE_INSTANCES);
-      return clients.find((x) => x.key === key);
+      const found = clients.find((x) => x.key === key);
+      if (found) return found;
     }
 
-    if (this.checkForUpdates) {
-      CheckUpdates().catch(() => {
-        // eslint-disable-next-line no-console
-        if (!this.silent) console.warn(Errors.UPDATER_REQUEST_NOT_OK);
-      });
+    if (this.options.checkForUpdates) {
+      setInterval(
+        () => {
+          this.updater.checkForUpdates();
+          // 3600000 ms = 1 hour
+        },
+        1000 * 60 * (this.options.checkForUpdatesInterval ?? 60)
+      );
     }
 
     clients.push(this);
+  }
+
+  private parasOptions(options?: ClientOptions): ClientOptions {
+    return {
+      cache: options?.cache ?? true,
+      cacheTime: options?.cacheTime ?? 300,
+      cacheMaxKeys: options?.cacheMaxKeys ?? -1,
+      cacheCheckPeriod: options?.cacheCheckPeriod ?? 180,
+      rateLimit: options?.rateLimit ?? 'AUTO',
+      silent: options?.silent ?? false,
+      checkForUpdates: options?.checkForUpdates ?? true,
+      checkForUpdatesInterval: options?.checkForUpdatesInterval ?? 60
+    };
   }
 }
 

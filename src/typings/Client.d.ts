@@ -6,4 +6,5 @@ export interface ClientOptions {
   rateLimit?: 'AUTO' | 'HARD' | 'NONE';
   silent?: boolean;
   checkForUpdates?: boolean;
+  checkForUpdatesInterval?: number;
 }

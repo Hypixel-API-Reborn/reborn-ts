@@ -7,9 +7,9 @@ class CacheHandler {
   constructor(client: Client) {
     this.client = client;
     this.cache = new NodeCache({
-      stdTTL: this.client.cacheTime,
-      maxKeys: this.client.cacheMaxKeys,
-      checkperiod: this.client.cacheCheckPeriod
+      stdTTL: this.client.options.cacheTime,
+      maxKeys: this.client.options.cacheMaxKeys,
+      checkperiod: this.client.options.cacheCheckPeriod
     });
   }
 

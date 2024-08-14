@@ -2,7 +2,7 @@ export * from './Client';
 export * from './Errors';
 
 export * from './Private/CacheHandler';
-export * from './Private/CheckUpdates';
+export * from './Private/Updater';
 export * from './Private/Endpoint';
 export * from './Private/Requests';
 export * from './Private/uuidCache';
