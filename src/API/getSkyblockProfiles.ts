@@ -1,4 +1,5 @@
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
+import { SkyblockRequestyOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 export default class getSkyblockProfiles extends Endpoint {
@@ -8,10 +9,10 @@ export default class getSkyblockProfiles extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string): Promise<SkyblockProfile[]> {
+  async execute(query: string, options?: SkyblockRequestyOptions): Promise<SkyblockProfile[]> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`);
+    const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
     if (res.raw) return res;
     if (!res.profiles || !res.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
 

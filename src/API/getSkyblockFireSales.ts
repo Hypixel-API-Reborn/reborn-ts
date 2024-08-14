@@ -1,4 +1,5 @@
 import FireSale from '../structures/SkyBlock/Static/FireSale';
+import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
@@ -9,8 +10,8 @@ export default class getSkyblockFireSales extends Endpoint {
     this.client = client;
   }
 
-  async execute(): Promise<FireSale[]> {
-    const res = await this.client.requests.request('/skyblock/firesales');
+  async execute(options?: RequestOptions): Promise<FireSale[]> {
+    const res = await this.client.requests.request('/skyblock/firesales', options);
     if (res.raw) return res;
     return res.sales.length ? res.sales.map((a: any) => new FireSale(a)) : [];
   }

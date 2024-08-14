@@ -1,4 +1,5 @@
 import Auction from '../structures/SkyBlock/Auctions/Auction';
+import { AuctionRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
@@ -12,7 +13,7 @@ export default class getSkyblockAction extends Endpoint {
   async execute(
     query: string,
     type: 'PROFILE' | 'PLAYER' | 'AUCTION',
-    includeItemBytes: boolean = false
+    options?: AuctionRequestOptions
   ): Promise<Auction[]> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     let filter;
@@ -26,8 +27,8 @@ export default class getSkyblockAction extends Endpoint {
     } else {
       throw new Error(this.client.errors.BAD_AUCTION_FILTER);
     }
-    const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`);
+    const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`, options);
     if (res.raw) return res;
-    return res.auctions.length ? res.auctions.map((a: any) => new Auction(a, includeItemBytes)) : [];
+    return res.auctions.length ? res.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false)) : [];
   }
 }

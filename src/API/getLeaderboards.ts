@@ -1,3 +1,4 @@
+import { RequestOptions } from '../Private/Requests';
 import Leaderboard from '../structures/Leaderboard';
 import Constants from '../utils/Constants';
 import Endpoint from '../Private/Endpoint';
@@ -10,8 +11,8 @@ export default class getLeaderboards extends Endpoint {
     this.client = client;
   }
 
-  async execute(): Promise<any> {
-    const res = await this.client.requests.request('/leaderboards');
+  async execute(options?: RequestOptions): Promise<any> {
+    const res = await this.client.requests.request('/leaderboards', options);
     if (res.raw) return res;
     if (!res.leaderboards) throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));
     const lbnames = Object.create(Constants.leaderboardNames);

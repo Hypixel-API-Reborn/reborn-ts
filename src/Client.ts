@@ -8,6 +8,9 @@ import API from './API';
 const clients: Client[] = [];
 
 class Client {
+  getGuild(...args: any[]): Promise<any> | any {
+    throw new Error('Method not implemented.');
+  }
   readonly key: string;
 
   declare requests: Requests;

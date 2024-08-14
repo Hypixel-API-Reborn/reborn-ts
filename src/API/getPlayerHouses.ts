@@ -1,3 +1,4 @@
+import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
 import Client from '../Client';
@@ -9,10 +10,10 @@ export default class getPlayerHouses extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string): Promise<House[]> {
+  async execute(query: string, options?: RequestOptions): Promise<House[]> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/housing/houses?player=${query}`);
+    const res = await this.client.requests.request(`/housing/houses?player=${query}`, options);
     if (res.raw) return res;
     return res.length ? res.map((h: any) => new House(h)) : [];
   }

@@ -1,4 +1,5 @@
 import Challenges from '../structures/Static/Challenges';
+import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
@@ -9,8 +10,8 @@ export default class getChallenges extends Endpoint {
     this.client = client;
   }
 
-  async execute(): Promise<Challenges> {
-    const res = await this.client.requests.request('/resources/challenges');
+  async execute(options?: RequestOptions): Promise<Challenges> {
+    const res = await this.client.requests.request('/resources/challenges', options);
     if (res.raw) return res;
     return new Challenges(res);
   }

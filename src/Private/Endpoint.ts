@@ -6,7 +6,7 @@ class Endpoint {
     this.client = client;
   }
 
-  execute(query?: string, range?: any, options?: any, includeItemBytes?: any): Promise<any> | any {
+  execute(...args: any[]): Promise<any> | any {
     throw new Error('Command execute method is not implemented yet!');
   }
 }

@@ -1,27 +1,35 @@
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import Auction from '../structures/SkyBlock/Auctions/Auction';
+import { AuctionRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
+export interface getSkyblockAuctionsOptions extends AuctionRequestOptions {
+  retries?: number;
+  cooldown?: number;
+  race?: boolean;
+  noAuctions?: boolean;
+  noInfo?: boolean;
+}
+
 export default class getSkyblockAuctions extends Endpoint {
   readonly client: Client;
-  readonly name: string;
   constructor(client: Client) {
     super(client);
     this.client = client;
-    this.name = 'getSkyblockAuctions';
   }
 
-  async execute(range: any, options: any) {
+  async execute(range: any, options?: getSkyblockAuctionsOptions) {
+    options = this.parasOptions(options);
     options.retries ||= 3;
     options.cooldown ||= 100;
     if (null === range || '*' === range) range = [0, (await this.getPage(0, { noAuctions: true })).info.totalPages];
     if (!Array.isArray(range)) range = [parseInt(range), parseInt(range)];
     if (isNaN(range[0])) throw new Error(this.client.errors.PAGE_INDEX_ERROR);
-    if (parseInt(options.retries) !== options.retries || 10 < options.retries || 0 > options.retries) {
+    if (options.retries || 10 < options.retries || 0 > options.retries) {
       throw new Error(this.client.errors.INVALID_OPTION_VALUE);
     }
-    if (parseInt(options.cooldown) !== options.cooldown || 3000 < options.cooldown || 0 > options.cooldown) {
+    if (options.cooldown || 3000 < options.cooldown || 0 > options.cooldown) {
       throw new Error(this.client.errors.INVALID_OPTION_VALUE);
     }
     range = range.sort();
@@ -60,13 +68,13 @@ export default class getSkyblockAuctions extends Endpoint {
     return result;
   }
 
-  async getPage(page: any = 0, options: any = {}): Promise<any> {
-    const content = await this.client.requests.request(`/skyblock/auctions?page=${page}`);
+  async getPage(page: number, options: getSkyblockAuctionsOptions): Promise<any> {
+    const content = await this.client.requests.request(`/skyblock/auctions?page=${page}`, options);
     const result: any = {};
     if (!options.noInfo) result.info = new AuctionInfo(content);
     if (options.raw) result.auctions = content.auctions;
     else if (options.noAuctions) result.auctions = [];
-    else result.auctions = content.auctions.map((x: any) => new Auction(x, options.includeItemBytes));
+    else result.auctions = content.auctions.map((x: any) => new Auction(x, options?.includeItemBytes ?? false));
     return result;
   }
 
@@ -81,5 +89,15 @@ export default class getSkyblockAuctions extends Endpoint {
       }
       return null;
     }
+  }
+
+  private parasOptions(options?: getSkyblockAuctionsOptions): getSkyblockAuctionsOptions {
+    return {
+      retries: options?.retries ?? 3,
+      cooldown: options?.cooldown ?? 100,
+      race: options?.race ?? false,
+      noAuctions: options?.noAuctions ?? false,
+      noInfo: options?.noInfo ?? false
+    };
   }
 }

@@ -1,3 +1,4 @@
+import { RequestOptions } from '../Private/Requests';
 import Booster from '../structures/Boosters/Booster';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
@@ -9,8 +10,8 @@ export default class getBoosters extends Endpoint {
     this.client = client;
   }
 
-  async execute(): Promise<Booster[]> {
-    const res = await this.client.requests.request('/boosters');
+  async execute(options?: RequestOptions): Promise<Booster[]> {
+    const res = await this.client.requests.request('/boosters', options);
     if (res.raw) return res;
     return res.boosters.length ? res.boosters.map((b: any) => new Booster(b)).reverse() : [];
   }

@@ -25,6 +25,7 @@ import UHC from './MiniGames/UHC';
 import Pit from './MiniGames/Pit';
 import Color from './Color';
 import Game from './Game';
+import Guild from './Guild/Guild';
 
 export interface LevelProgress {
   xpToNext: number;
@@ -53,6 +54,7 @@ class Player {
   nickname: string;
   uuid: string;
   rank: PlayerRank;
+  guild: Guild | null;
   channel: string | null;
   firstLoginTimestamp: number | null;
   firstLogin: Date | null;
@@ -87,10 +89,11 @@ class Player {
   globalCosmetics: PlayerCosmetics | null;
   ranksPurchaseTime: RanksPurchaseTime;
 
-  constructor(data: Record<string, any>) {
+  constructor(data: Record<string, any>, guild?: Guild) {
     this.nickname = data.displayname;
     this.uuid = data.uuid;
     this.rank = getRank(data);
+    this.guild = guild || null;
     this.channel = data.channel || null;
     this.firstLoginTimestamp = data.firstLogin || null;
     this.firstLogin = data.firstLogin ? new Date(data.firstLogin) : null;

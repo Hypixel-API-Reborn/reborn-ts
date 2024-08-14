@@ -1,3 +1,4 @@
+import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
 import Client from '../Client';
@@ -9,8 +10,8 @@ export default class getActiveHouses extends Endpoint {
     this.client = client;
   }
 
-  async execute(): Promise<House[]> {
-    const res = await this.client.requests.request('/housing/active');
+  async execute(options?: RequestOptions): Promise<House[]> {
+    const res = await this.client.requests.request('/housing/active', options);
     if (res.raw) return res;
     return res.length ? res.map((b: any) => new House(b)) : [];
   }

@@ -1,4 +1,5 @@
 import WatchdogStats from '../structures/Watchdog/Stats';
+import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
@@ -9,8 +10,8 @@ export default class getWatchdogStatsEndpoint extends Endpoint {
     this.client = client;
   }
 
-  async execute(): Promise<WatchdogStats> {
-    const res = await this.client.requests.request('/punishmentstats');
+  async execute(options?: RequestOptions): Promise<WatchdogStats> {
+    const res = await this.client.requests.request('/punishmentstats', options);
     if (res.raw) return res;
     return new WatchdogStats(res);
   }
