@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getWatchdogStatsEndpoint extends Endpoint {
+export default class getWatchdogStats extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);

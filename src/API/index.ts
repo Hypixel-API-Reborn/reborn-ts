@@ -12,15 +12,16 @@ import getPlayerHouses from './getPlayerHouses';
 import getQuests from './getQuests';
 import getRecentGames from './getRecentGames';
 import getSkyblockAuction from './getSkyblockAuction';
+import getSkyblockAuctions from './getSkyblockAuctions';
 import getSkyblockAuctionsByPlayer from './getSkyblockAuctionsByPlayer';
 import getSkyblockBazaar from './getSkyblockBazaar';
 import getSkyblockBingo from './getSkyblockBingo';
 import getSkyblockBingoByPlayer from './getSkyblockBingoByPlayer';
-import getSkyblockEndedAuctions from './getSkyblockEndedAuctions';
 import getSkyblockFireSales from './getSkyblockFireSales';
 import getSkyblockGarden from './getSkyblockGarden';
 import getSkyblockGovernment from './getSkyblockGovernment';
 import getSkyblockMember from './getSkyblockMember';
+import getSkyblockMuseum from './getSkyblockMuseum';
 import getSkyblockNews from './getSkyblockNews';
 import getSkyblockProfiles from './getSkyblockProfiles';
 import getStatus from './getStatus';
@@ -41,15 +42,16 @@ export default {
   getQuests,
   getRecentGames,
   getSkyblockAuction,
+  getSkyblockAuctions,
   getSkyblockAuctionsByPlayer,
   getSkyblockBazaar,
   getSkyblockBingo,
   getSkyblockBingoByPlayer,
-  getSkyblockEndedAuctions,
   getSkyblockFireSales,
   getSkyblockGarden,
   getSkyblockGovernment,
   getSkyblockMember,
+  getSkyblockMuseum,
   getSkyblockNews,
   getSkyblockProfiles,
   getStatus,

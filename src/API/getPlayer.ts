@@ -1,4 +1,4 @@
-import { getPlayerRequestOptions } from './API';
+import { PlayerRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Player from '../structures/Player';
 import Client from '../Client';
@@ -10,7 +10,7 @@ export default class getPlayer extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: getPlayerRequestOptions): Promise<Player> {
+  async execute(query: string, options?: PlayerRequestOptions): Promise<Player> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/player?uuid=${query}`, options);

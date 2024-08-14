@@ -23,6 +23,8 @@ import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import SkyblockInventoryItem from './SkyblockInventoryItem';
 import Constants from '../../utils/Constants';
 import SkyblockPet from './SkyblockPet';
+import SkyblockGarden from './SkyblockGarden';
+import SkyblockMuseum from './SkyblockMuseum';
 
 export interface SkyblockMemberEquipment {
   gauntlet: SkyblockInventoryItem | null;
@@ -45,6 +47,8 @@ class SkyblockMember {
   uuid: string;
   gameMode: string | null;
   selected: boolean;
+  garden: SkyblockGarden | null;
+  museum: SkyblockMuseum | null;
   profileName: string;
   profileId: string;
   firstJoinTimestamp: number;
@@ -79,6 +83,8 @@ class SkyblockMember {
     this.uuid = data.uuid;
     this.gameMode = data.gameMode;
     this.selected = data.selected;
+    this.garden = data.garden;
+    this.museum = data.museum;
     this.profileName = data.profileName;
     this.profileId = data.profileId;
     this.firstJoinTimestamp = data.m.profile?.first_join;

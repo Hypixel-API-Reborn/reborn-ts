@@ -19,7 +19,10 @@ export default class getSkyblockAuctions extends Endpoint {
     this.client = client;
   }
 
-  async execute(range: any, options?: getSkyblockAuctionsOptions) {
+  async execute(
+    range: any,
+    options?: getSkyblockAuctionsOptions
+  ): Promise<{ info: AuctionInfo | null; auctions: Auction[] }> {
     options = this.parasOptions(options);
     options.retries ||= 3;
     options.cooldown ||= 100;
@@ -36,9 +39,6 @@ export default class getSkyblockAuctions extends Endpoint {
     const result: any = { auctions: [] };
     const fetches = [];
     const failedPages = [];
-    if (options.noAuctions) {
-      return { info: options.noInfo ? null : (await this.getPage(range[1], { noAuctions: true })).info };
-    }
     for (let i = range[0]; i <= range[1]; i++) {
       if (options.race) {
         fetches.push(this.noReject(this.getPage, [i, options], options.retries, options.cooldown));
