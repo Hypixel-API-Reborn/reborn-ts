@@ -14,7 +14,7 @@ function parseZombiesKills(data: Record<string, any>): Record<string, number> {
 /**
  * Zombies - Stats by Map + Difficulty
  */
-class ZombiesStats {
+export class ZombiesStats {
   bestRound: number;
   deaths: number;
   doorsOpened: number;
@@ -47,7 +47,7 @@ class ZombiesStats {
 /**
  * Zombies - Overall stats
  */
-class Zombies {
+export class Zombies {
   overall: ZombiesStats;
   deadEnd: ZombiesStats;
   badBlood: ZombiesStats;
@@ -77,7 +77,7 @@ class Zombies {
 /**
  * Dropper stats by map
  */
-class DropperMap {
+export class DropperMap {
   bestTime: number;
   completions: number;
   constructor(data: Record<string, any>, mapName: string) {
@@ -89,7 +89,7 @@ class DropperMap {
 /**
  * Blocking Dead class
  */
-class BlockingDead {
+export class BlockingDead {
   wins: number;
   kills: number;
   headshots: number;
@@ -102,7 +102,7 @@ class BlockingDead {
 /**
  * Bounty Hunters class
  */
-class BountyHunters {
+export class BountyHunters {
   wins: number;
   kills: number;
   deaths: number;
@@ -123,7 +123,7 @@ class BountyHunters {
 /**
  * Capture The Wool class
  */
-class CaptureTheWool {
+export class CaptureTheWool {
   wins: number;
   losses: number;
   WLRatio: number;
@@ -154,7 +154,7 @@ class CaptureTheWool {
 /**
  * Dragon Wars class
  */
-class DragonWars {
+export class DragonWars {
   wins: number;
   kills: number;
   constructor(data: Record<string, any>) {
@@ -165,7 +165,7 @@ class DragonWars {
 /**
  * Dropper class
  */
-class Dropper {
+export class Dropper {
   wins: number;
   fails: number;
   fastestGame: number;
@@ -191,7 +191,7 @@ class Dropper {
 /**
  * Ender Spleef class
  */
-class EnderSpleef {
+export class EnderSpleef {
   wins: number;
   kills: number;
   trail: string;
@@ -212,7 +212,7 @@ class EnderSpleef {
 /**
  * Farm Hunt class
  */
-class FarmHunt {
+export class FarmHunt {
   wins: number;
   winsAsAnimal: number;
   winsAsHunter: number;
@@ -243,7 +243,7 @@ class FarmHunt {
 /**
  * Football class
  */
-class Football {
+export class Football {
   wins: number;
   goals: number;
   kicks: number;
@@ -258,7 +258,7 @@ class Football {
 /**
  * Galxy Wars
  */
-class GalaxyWars {
+export class GalaxyWars {
   wins: number;
   kills: number;
   deaths: number;
@@ -281,7 +281,7 @@ class GalaxyWars {
 /**
  * Party Popper Stats (Sub gamemode of Hide and Seek)
  */
-class PartyPopper {
+export class PartyPopper {
   winsAsSeeker: number;
   winsAsHider: number;
   wins: number;
@@ -294,7 +294,7 @@ class PartyPopper {
 /**
  * Prop Hunt Stats (Sub gamemode of Hide and Seek)
  */
-class PropHunt {
+export class PropHunt {
   winsAsSeeker: number;
   winsAsHider: number;
   wins: number;
@@ -307,7 +307,7 @@ class PropHunt {
 /**
  * Hide And Seek Stats
  */
-class HideAndSeek {
+export class HideAndSeek {
   partyPopper: PartyPopper;
   propHunt: PropHunt;
   winsAsSeeker: number;
@@ -322,7 +322,7 @@ class HideAndSeek {
 /**
  * Hide And Seek Stats
  */
-class HoleInTheWall {
+export class HoleInTheWall {
   wins: number;
   rounds: number;
   scoreRecordFinals: number;
@@ -339,7 +339,7 @@ class HoleInTheWall {
 /**
  * Hypixel Says Stats
  */
-class HypixelSays {
+export class HypixelSays {
   wins: number;
   rounds: number;
   roundWins: number;
@@ -354,7 +354,7 @@ class HypixelSays {
 /**
  * Mini Walls class
  */
-class MiniWalls {
+export class MiniWalls {
   kit: string;
   wins: number;
   kills: number;
@@ -383,7 +383,7 @@ class MiniWalls {
 /**
  * Party Games class
  */
-class PartyGames {
+export class PartyGames {
   wins: number;
   roundWins: number;
   stars: number;
@@ -396,7 +396,7 @@ class PartyGames {
 /**
  * Pixel Party Game Mode
  */
-class PixelPartyGameMode {
+export class PixelPartyGameMode {
   wins: number;
   gamesPlayed: number;
   losses: number;
@@ -415,7 +415,7 @@ class PixelPartyGameMode {
 /**
  * Party Games class
  */
-class PixelParty {
+export class PixelParty {
   wins: number;
   gamesPlayed: number;
   losses: number;
@@ -444,7 +444,7 @@ class PixelParty {
 /**
  * Throw Out class
  */
-class ThrowOut {
+export class ThrowOut {
   wins: number;
   kills: number;
   deaths: number;

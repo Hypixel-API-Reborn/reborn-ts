@@ -37,5 +37,5 @@ export default function romanize(num: number | string): string {
   while (i--) {
     roman = (key[Number(digits.pop()) + i * 10] || '') + roman;
   }
-  return Array(digits.join('') + 1).join('M') + roman;
+  return Array(Number(digits.join('') + 1)).join('M') + roman;
 }

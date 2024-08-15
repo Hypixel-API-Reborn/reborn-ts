@@ -83,7 +83,7 @@ class Player {
   rewardScore: number | null;
   rewardHighScore: number | null;
   levelProgress: LevelProgress;
-  stats: any | null;
+  stats: object | null;
   userLanguage: string;
   claimedLevelingRewards: number[];
   globalCosmetics: PlayerCosmetics | null;

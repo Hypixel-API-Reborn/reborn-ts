@@ -3,3 +3,4 @@ oldreborn/
 .env
 build/
 .eslintcache
+src/coverage

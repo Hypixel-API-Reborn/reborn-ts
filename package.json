@@ -20,7 +20,9 @@
     "lint": "npx eslint src/ --fix",
     "prettier:check": "npx prettier --check src/",
     "prettier": "npx prettier --write src/",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "test": "npx vitest run --root src/",
+    "test:coverage": "npx vitest run --coverage --root src/"
   },
   "engines": {
     "node": ">=20.16.0"
@@ -45,11 +47,15 @@
     "@eslint/js": "^9.9.0",
     "@types/eslint": "^9.6.0",
     "@types/node": "^20.14.15",
+    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/ui": "^2.0.5",
+    "dotenv": "^16.4.5",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.9.0",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.1.0"
+    "typescript-eslint": "^8.1.0",
+    "vitest": "^2.0.5"
   }
 }

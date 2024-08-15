@@ -1,6 +1,5 @@
+import { parse, simplify } from 'prismarine-nbt';
 import Constants from './Constants';
-import { promisify } from 'util';
-import nbt from 'prismarine-nbt';
 
 export type SkyblockRarity =
   | 'COMMON'
@@ -139,11 +138,11 @@ export interface SkyblockMemberDungeons {
   classes: SkyblockMemberDungeonsClasses;
 }
 
-export async function decode(base64: string | Buffer, isBuffer = false): Promise<any[]> {
-  const parseNbt = promisify(nbt.parse);
-  const buffer = isBuffer ? base64 : Buffer.from(String(base64), 'base64');
-  const NBTData = await parseNbt(buffer as Buffer);
-  const data = nbt.simplify(NBTData) as any;
+export async function decode(base64: any, isBuffer: boolean = false) {
+  // Credit: https://github.com/SkyCryptWebsite/SkyCryptv2/blob/3b5b3ae4fe77c60eff90691797f09024baf68872/src/lib/server/stats/items/processing.ts#L215-L218
+  const buffer = isBuffer ? base64 : Buffer.from(base64, 'base64');
+  const parseData = await parse(buffer);
+  const data = simplify(parseData.parsed);
   const newdata = [];
   for (let i = 0; i < data.i.length; i++) {
     newdata.push(data.i[i]);

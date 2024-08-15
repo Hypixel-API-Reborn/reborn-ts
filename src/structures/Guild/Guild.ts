@@ -11,7 +11,7 @@ class Guild {
   experience: number;
   level: number;
   members: GuildMember[];
-  me: GuildMember | any;
+  me: GuildMember | null;
   ranks: GuildRank[];
   totalWeeklyGexp: number;
   createdAtTimestamp: string;
@@ -35,7 +35,7 @@ class Guild {
     this.experience = data.exp || 0;
     this.level = getGuildLevel(this.experience);
     this.members = members(data);
-    this.me = uuid ? this.members.find((member) => member.uuid === uuid) : null;
+    this.me = uuid ? (this.members.find((member) => member.uuid === uuid) as GuildMember) : null;
     this.ranks = ranks(data);
     this.totalWeeklyGexp = totalWeeklyGexp(data);
     this.createdAtTimestamp = data.created;
