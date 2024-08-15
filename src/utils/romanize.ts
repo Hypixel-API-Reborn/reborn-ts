@@ -1,4 +1,4 @@
-export default function (num: number): string {
+export default function Romanize(num: number | string): string {
   const digits = String(Number(num)).split('');
   const key = [
     '',

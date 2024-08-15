@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import Divide from '../../utils/Divide';
 
 function getStarLevel(kills: number, wins: number) {
   const sum = Number(kills) + wins * 10;
@@ -143,7 +143,7 @@ class UHC {
     /**
      * @type {KDRatio:number}
      */
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     /**
      * @type {headsEaten:number}
      */

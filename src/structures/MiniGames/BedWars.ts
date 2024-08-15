@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import Divide from '../../utils/Divide';
 
 export type BedWarsPrestige =
   | 'Stone'
@@ -167,18 +167,18 @@ function generateStatsForMode(data: Record<string, any>, mode: string): BedWarsM
     beds: {
       broken: data[`${mode}_beds_broken_bedwars`] || 0,
       lost: data[`${mode}_beds_lost_bedwars`] || 0,
-      BLRatio: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_beds_lost_bedwars`])
+      BLRatio: Divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_beds_lost_bedwars`])
     },
 
     avg: {
-      kills: divide(data[`${mode}_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
-      finalKills: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
-      bedsBroken: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_games_played_bedwars`])
+      kills: Divide(data[`${mode}_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
+      finalKills: Divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
+      bedsBroken: Divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_games_played_bedwars`])
     },
 
-    KDRatio: divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]),
-    WLRatio: divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]),
-    finalKDRatio: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`])
+    KDRatio: Divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]),
+    WLRatio: Divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]),
+    finalKDRatio: Divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`])
   };
 }
 
@@ -428,16 +428,16 @@ class BedWars {
     this.beds = {
       lost: data.beds_lost_bedwars || 0,
       broken: data.beds_broken_bedwars || 0,
-      BLRatio: divide(data.beds_broken_bedwars, data.beds_lost_bedwars)
+      BLRatio: Divide(data.beds_broken_bedwars, data.beds_lost_bedwars)
     };
     this.avg = {
-      kills: divide(this.kills, this.playedGames),
-      finalKills: divide(this.finalKills, this.playedGames),
-      bedsBroken: divide(this.beds.broken, this.playedGames)
+      kills: Divide(this.kills, this.playedGames),
+      finalKills: Divide(this.finalKills, this.playedGames),
+      bedsBroken: Divide(this.beds.broken, this.playedGames)
     };
-    this.KDRatio = divide(this.kills, this.deaths);
-    this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
-    this.WLRatio = divide(this.wins, this.losses);
+    this.KDRatio = Divide(this.kills, this.deaths);
+    this.finalKDRatio = Divide(this.finalKills, this.finalDeaths);
+    this.WLRatio = Divide(this.wins, this.losses);
     this.solo = generateStatsForMode(data, 'eight_one');
     this.doubles = generateStatsForMode(data, 'eight_two');
     this.threes = generateStatsForMode(data, 'four_three');

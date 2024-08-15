@@ -3,6 +3,8 @@
 class Errors {
   INVALID_API_KEY: string =
     '[Hypixel-API-Reborn] Invalid API Key! For help join our Discord Server https://discord.gg/NSEBNMM';
+  NO_API_KEY: string =
+    '[Hypixel-API-Reborn] No API Key specified! For help join our Discord Server https://discord.gg/NSEBNMM';
   ERROR_CODE_CAUSE: string =
     '[Hypixel-API-Reborn] Code: {code} - {cause}! For help join our Discord Server https://discord.gg/NSEBNMM';
   ERROR_STATUSTEXT: string =
@@ -11,6 +13,7 @@ class Errors {
   NO_UUID: string = '[Hypixel-API-Reborn] No uuid specified.';
   UUID_NICKNAME_MUST_BE_A_STRING: string = '[Hypixel-API-Reborn] Nickname or uuid must be a string.';
   MALFORMED_UUID: string = '[Hypixel-API-Reborn] Malformed UUID!';
+  PLAYER_HAS_NEVER_LOGGED: string = '[Hypixel-API-Reborn] Player has never logged into Hypixel.';
   NO_GUILD_QUERY: string = '[Hypixel-API-Reborn] No guild search query specified.';
   INVALID_GUILD_ID: string = '[Hypixel-API-Reborn] Specified Guild ID is invalid.';
   INVALID_GUILD_SEARCH_PARAMETER: string =

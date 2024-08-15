@@ -2,7 +2,7 @@
 
 import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 import { weekAB, monthAB } from '../../utils/oscillation';
-import divide from '../../utils/divide';
+import Divide from '../../utils/Divide';
 
 function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   const matches = Array.from(Object.keys(data))
@@ -68,9 +68,9 @@ class Zombies {
     this.killsByZombie = parseZombiesKills(data);
     this.bulletsHit = data.bullets_hit_zombies || 0;
     this.bulletsShot = data.bullets_shot_zombies || 0;
-    this.gunAccuracy = divide(this.bulletsHit, this.bulletsShot);
+    this.gunAccuracy = Divide(this.bulletsHit, this.bulletsShot);
     this.headshots = data.headshots_zombies || 0;
-    this.headshotAccuracy = divide(this.headshots, this.bulletsShot);
+    this.headshotAccuracy = Divide(this.headshots, this.bulletsShot);
   }
 }
 
@@ -114,7 +114,7 @@ class BountyHunters {
     this.wins = data.wins_oneinthequiver || 0;
     this.kills = data.kills_oneinthequiver || 0;
     this.deaths = data.deaths_oneinthequiver || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     this.bountyKills = data.bounty_kills_oneinthequiver || 0;
     this.bowKills = data.bow_kills_oneinthequiver || 0;
     this.swordKills = data.sword_kills_oneinthequiver || 0;
@@ -139,11 +139,11 @@ class CaptureTheWool {
   constructor(data: Record<string, any>) {
     this.wins = data.woolhunt_participated_wins || 0;
     this.losses = data.woolhunt_participated_losses || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLRatio = Divide(this.wins, this.losses);
     this.draws = data.woolhunt_participated_draws || 0;
     this.kills = data.woolhunt_kills || 0;
     this.deaths = data.woolhunt_deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     this.assists = data.woolhunt_assists || 0;
     this.woolPickedUp = data.woolhunt_wools_stolen || 0;
     this.woolCaptured = data.woolhunt_wools_captured || 0;
@@ -371,13 +371,13 @@ class MiniWalls {
     this.wins = data.wins_mini_walls || 0;
     this.kills = data.kills_mini_walls || 0;
     this.deaths = data.deaths_mini_walls || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     this.finalKills = data.final_kills_mini_walls || 0;
     this.witherKills = data.wither_kills_mini_walls || 0;
     this.witherDamage = data.wither_damage_mini_walls || 0;
     this.arrowsShot = data.arrows_shot_mini_walls || 0;
     this.arrowsHit = data.arrows_hit_mini_walls || 0;
-    this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
+    this.bowAccuracy = Divide(this.arrowsHit, this.arrowsShot);
   }
 }
 /**
@@ -407,7 +407,7 @@ class PixelPartyGameMode {
     this.wins = data?.[`wins_${modeName}`] || 0;
     this.gamesPlayed = data?.[`games_played_${modeName}`] || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLRatio = Divide(this.wins, this.losses);
     this.roundsPlayed = data?.[`rounds_completed_${modeName}`] || 0;
     this.powerUpsCollected = data?.[`power_ups_collected_${modeName}`] || 0;
   }
@@ -431,7 +431,7 @@ class PixelParty {
     this.wins = data?.pixel_party?.wins || 0;
     this.gamesPlayed = data?.pixel_party?.games_played || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLRatio = Divide(this.wins, this.losses);
     this.roundsPlayed = data?.pixel_party?.rounds_completed || 0;
     this.powerUpsCollected = data?.pixel_party?.power_ups_collected || 0;
     this.normal = new PixelPartyGameMode(data.pixel_party, 'normal');
@@ -453,7 +453,7 @@ class ThrowOut {
     this.wins = data.wins_throw_out || 0;
     this.kills = data.kills_throw_out || 0;
     this.deaths = data.deaths_throw_out || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
   }
 }
 /**

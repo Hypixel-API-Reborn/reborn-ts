@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import Divide from '../../utils/Divide';
 
 class QuakecraftMode {
   wins: number;
@@ -14,7 +14,7 @@ class QuakecraftMode {
     this.wins = data[`wins${gamemode}`] || 0;
     this.kills = data[`kills${gamemode}`] || 0;
     this.deaths = data[`deaths${gamemode}`] || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     this.killstreaks = data[`killstreaks${gamemode}`] || 0;
     this.distanceTravelled = data[`distance_travelled${gamemode}`] || 0;
     this.shotsFired = data[`shots_fired${gamemode}`] || 0;
@@ -53,7 +53,7 @@ class Quakecraft {
     this.wins = this.solo.wins + this.teams.wins;
     this.kills = this.solo.kills + this.teams.kills;
     this.deaths = this.solo.deaths + this.teams.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     this.killstreaks = this.solo.killstreaks + this.teams.killstreaks;
     this.distanceTravelled = this.solo.distanceTravelled + this.teams.distanceTravelled;
     this.shotsFired = this.solo.shotsFired + this.teams.shotsFired;

@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import Divide from '../../utils/Divide';
 
 export interface WoolWarsStats {
   wins: number;
@@ -40,10 +40,10 @@ function generateStatsFor(data: Record<string, any>, className: string): WoolWar
     gamesPlayed: workingData.games_played || 0,
     woolsPlaced: workingData.wool_placed || 0,
     blocksBroken: workingData.blocks_broken || 0,
-    placeBreakRatio: divide(workingData.wool_placed || 0, workingData.blocks_broken || 0),
+    placeBreakRatio: Divide(workingData.wool_placed || 0, workingData.blocks_broken || 0),
     kills: workingData.kills || 0,
     deaths: workingData.deaths || 0,
-    KDRatio: divide(workingData.kills, workingData.deaths),
+    KDRatio: Divide(workingData.kills, workingData.deaths),
     assists: workingData.assists || 0,
     powerups: workingData.powerups_gotten || 0
   };
@@ -127,7 +127,7 @@ class WoolWars {
      * placeBreakRatio
      * @type {placeBreakRatio:number}
      */
-    this.placeBreakRatio = divide(this.woolsPlaced, this.blocksBroken);
+    this.placeBreakRatio = Divide(this.woolsPlaced, this.blocksBroken);
     /**
      * kills
      * @type {kills:number}
@@ -142,7 +142,7 @@ class WoolWars {
      * KDRatio
      * @type {KDRatio:number}
      */
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     /**
      * assists
      * @type {assists:number}

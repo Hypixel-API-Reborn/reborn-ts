@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import Divide from '../../utils/Divide';
 
 class ArenaBrawlMode {
   damage: number;
@@ -15,11 +15,11 @@ class ArenaBrawlMode {
     this.damage = data[`damage_${mode}`];
     this.kills = data[`kills_${mode}`];
     this.deaths = data[`deaths_${mode}`];
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDRatio = Divide(this.kills, this.deaths);
     this.healed = data[`healed_${mode}`];
     this.wins = data[`wins_${mode}`];
     this.losses = data[`losses_${mode}`];
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLRatio = Divide(this.wins, this.losses);
     this.games = data[`games_${mode}`];
     this.winstreak = data[`win_streaks_${mode}`];
   }

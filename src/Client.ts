@@ -8,23 +8,25 @@ import API from './API';
 const clients: Client[] = [];
 
 class Client {
-  readonly key: string;
-
+  declare options: ClientOptions;
   declare requests: Requests;
   declare cacheHandler: CacheHandler;
   declare updater: Updater;
   declare errors: Errors;
 
-  declare options: ClientOptions;
+  readonly key: string;
+
+  declare interval: NodeJS.Timeout;
 
   constructor(key: string, options?: ClientOptions) {
-    this.key = key;
-
     this.options = this.parasOptions(options);
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
     this.errors = new Errors();
+
+    this.key = key;
+    if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
 
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -43,16 +45,21 @@ class Client {
     }
 
     if (this.options.checkForUpdates) {
-      setInterval(
+      this.interval = setInterval(
         () => {
           this.updater.checkForUpdates();
-          // 3600000 ms = 1 hour
         },
         1000 * 60 * (this.options.checkForUpdatesInterval ?? 60)
       );
     }
 
     clients.push(this);
+  }
+
+  destroy() {
+    const clientIndex = clients.findIndex((client) => client.key === this.key);
+    if (-1 !== clientIndex) clients.splice(clientIndex, 1);
+    if (this.interval) clearInterval(this.interval);
   }
 
   private parasOptions(options?: ClientOptions): ClientOptions {
