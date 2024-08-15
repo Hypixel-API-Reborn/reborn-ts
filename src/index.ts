@@ -5,7 +5,6 @@ export * from './Private/CacheHandler';
 export * from './Private/Updater';
 export * from './Private/Endpoint';
 export * from './Private/Requests';
-export * from './Private/uuidCache';
 
 export * from './API/getAchievements';
 export * from './API/getActiveHouses';

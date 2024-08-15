@@ -23,7 +23,11 @@ export default class getSkyblockMember extends Endpoint {
         new SkyblockMember({
           uuid: query,
           profileId: profile.profile_id,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           garden: options?.garden ? await this.client.getSkyblockGarden(profile.profile_id) : null,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           museum: options?.garden ? await this.client.getSkyblockMuseum(query, profile.profile_id) : null,
           profileName: profile.cute_name,
           gameMode: profile.game_mode || null,

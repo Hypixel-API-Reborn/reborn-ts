@@ -16,6 +16,8 @@ export default class getPlayer extends Endpoint {
     const res = await this.client.requests.request(`/player?uuid=${query}`, options);
     if (res.raw) return res;
     if (query && !res.player) throw new Error(this.client.errors.PLAYER_HAS_NEVER_LOGGED);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     return new Player(res.player, options?.getGuild ? await this.client.getGuild('player', query) : undefined);
   }
 }
