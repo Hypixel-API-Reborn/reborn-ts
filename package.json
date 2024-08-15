@@ -26,7 +26,7 @@
     "node": ">=20.16.0"
   },
   "type": "module",
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.7.1",
   "author": "Kathund",
   "dependencies": {
     "axios": "^1.7.4",
