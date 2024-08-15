@@ -1,5 +1,5 @@
 import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 
 export type SkyWarsPrestige =
   | 'Iron'
@@ -78,10 +78,10 @@ class SkywarsMode {
   constructor(data: Record<string, any>, gamemode: string) {
     this.kills = data[`kills_${gamemode}`] || 0;
     this.deaths = data[`deaths_${gamemode}`] || 0;
-    this.KDRatio = Divide(data.kills, data.deaths);
+    this.KDRatio = divide(data.kills, data.deaths);
     this.wins = data[`wins_${gamemode}`] || 0;
     this.losses = data[`losses_${gamemode}`] || 0;
-    this.WLRatio = Divide(data.wins, data.losses);
+    this.WLRatio = divide(data.wins, data.losses);
   }
 }
 class SkywarsModeStats {
@@ -119,10 +119,10 @@ class SkywarsModeStats {
     this.mobKills = data[`mob_kills_${gamemode}`] || 0;
     this.assists = data[`assists_${gamemode}`] || 0;
     this.deaths = data[`deaths_${gamemode}`] || 0;
-    this.KDRatio = Divide(data.kills, data.deaths);
+    this.KDRatio = divide(data.kills, data.deaths);
     this.wins = data[`wins_${gamemode}`] || 0;
     this.losses = data[`losses_${gamemode}`] || 0;
-    this.WLRatio = Divide(data.wins, data.losses);
+    this.WLRatio = divide(data.wins, data.losses);
     this.gamesPlayed = data[`games_${gamemode}`] || 0;
     this.survivedPlayers = data[`survived_players_${gamemode}`] || 0;
     this.chestsOpened = data[`chests_opened_${gamemode}`] || 0;
@@ -131,7 +131,7 @@ class SkywarsModeStats {
     this.longestBowShot = data[`longest_bow_shot_${gamemode}`] || 0;
     this.arrowsShot = data[`arrows_shot_${gamemode}`] || 0;
     this.arrowsHit = data[`arrows_hit_${gamemode}`] || 0;
-    this.bowAccuracy = Divide(this.arrowsHit, this.arrowsShot);
+    this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
     this.fastestWin = data[`fastest_win_${gamemode}`] || 0;
     this.heads = data[`heads_${gamemode}`] || 0;
   }
@@ -275,10 +275,10 @@ class SkyWars {
     this.mobKills = data.mob_kills || 0;
     this.assists = data.assists || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(data.kills, data.deaths);
+    this.KDRatio = divide(data.kills, data.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = Divide(data.wins, data.losses);
+    this.WLRatio = divide(data.wins, data.losses);
     this.gamesPlayed = data.games || 0;
     this.survivedPlayers = data.survived_players || 0;
     this.chestsOpened = data.chests_opened || 0;
@@ -287,7 +287,7 @@ class SkyWars {
     this.longestBowShot = data.longest_bow_shot || 0;
     this.arrowsShot = data.arrows_shot || 0;
     this.arrowsHit = data.arrows_hit || 0;
-    this.bowAccuracy = Divide(this.arrowsHit, this.arrowsShot);
+    this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
     this.fastestWin = data.fastest_win || 0;
     this.heads = data.heads || 0;
     this.blocksPlaced = data.blocks_placed || 0;

@@ -1,12 +1,12 @@
 import Constants from '../../utils/Constants';
-import Romanize from '../../utils/Romanize';
-import Divide from '../../utils/Divide';
+import romanize from '../../utils/romanize';
+import divide from '../../utils/divide';
 
 function getTitle(data: Record<string, any>, mode: string | null = null): string {
   for (const div of Constants.duelsDivisions.slice().reverse()) {
     const prestige = data[`${mode ? mode : 'all_modes'}_${div.key}_title_prestige`];
     if (prestige) {
-      return `${div.name} ${Romanize(prestige)}`;
+      return `${div.name} ${romanize(prestige)}`;
     }
   }
   return '';
@@ -38,17 +38,17 @@ class DuelsGamemode {
     this.bestWinstreak = data[`best_winstreak_mode_${mode}`] || 0;
     this.kills = data[`${mode}_kills`] || 0;
     this.deaths = data[`${mode}_deaths`] || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data[`${mode}_wins`] || 0;
     this.losses = data[`${mode}_losses`] || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames = data[`${mode}_rounds_played`] || 0;
     this.swings = data[`${mode}_melee_swings`] || 0;
     this.hits = data[`${mode}_melee_hits`] || 0;
-    this.meleeAccuracy = Divide(this.swings, this.hits);
+    this.meleeAccuracy = divide(this.swings, this.hits);
     this.bowShots = data[`${mode}_bow_shots`] || 0;
     this.bowHits = data[`${mode}_bow_hits`] || 0;
-    this.bowAccuracy = Divide(this.bowShots, this.bowHits);
+    this.bowAccuracy = divide(this.bowShots, this.bowHits);
     this.blocksPlaced = data[`${mode}_blocks_placed`] || 0;
     this.healthRegenerated = data[`${mode}_health_regenerated`] || 0;
     this.goldenApplesEatan = data[`${mode}_golden_apples_eaten`] || 0;
@@ -89,18 +89,18 @@ class DuelsUHC {
     this.deathmatch = new DuelsGamemode(data, 'uhc_meetup', this.title);
     this.kills = this.solo.kills + this.doubles.kills + this.fours.kills + this.deathmatch.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths + this.fours.deaths + this.deathmatch.deaths;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins + this.fours.wins + this.deathmatch.wins;
     this.losses = this.solo.losses + this.doubles.losses + this.fours.losses + this.deathmatch.losses;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames =
       this.solo.playedGames + this.doubles.playedGames + this.fours.playedGames + this.deathmatch.playedGames;
     this.swings = this.solo.swings + this.doubles.swings + this.fours.swings + this.deathmatch.swings;
     this.hits = this.solo.hits + this.doubles.hits + this.fours.hits + this.deathmatch.hits;
-    this.meleeAccuracy = Divide(this.hits, this.swings);
+    this.meleeAccuracy = divide(this.hits, this.swings);
     this.bowShots = this.solo.bowShots + this.doubles.bowShots + this.fours.bowShots + this.deathmatch.bowShots;
     this.bowHits = this.solo.bowHits + this.doubles.bowHits + this.fours.bowHits + this.deathmatch.bowHits;
-    this.bowAccuracy = Divide(this.bowHits, this.bowShots);
+    this.bowAccuracy = divide(this.bowHits, this.bowShots);
     this.blocksPlaced =
       this.solo.blocksPlaced + this.doubles.blocksPlaced + this.fours.blocksPlaced + this.deathmatch.blocksPlaced;
     this.healthRegenerated =
@@ -145,17 +145,17 @@ class DuelsSkyWars {
     this.doubles = new DuelsGamemode(data, 'sw_doubles', this.title);
     this.kills = this.solo.kills + this.doubles.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins;
     this.losses = this.solo.losses + this.doubles.losses;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames = this.solo.playedGames + this.doubles.playedGames;
     this.swings = this.solo.swings + this.doubles.swings;
     this.hits = this.solo.hits + this.doubles.hits;
-    this.meleeAccuracy = Divide(this.hits, this.swings);
+    this.meleeAccuracy = divide(this.hits, this.swings);
     this.bowShots = this.solo.bowShots + this.doubles.bowShots;
     this.bowHits = this.solo.bowHits + this.doubles.bowHits;
-    this.bowAccuracy = Divide(this.bowHits, this.bowShots);
+    this.bowAccuracy = divide(this.bowHits, this.bowShots);
     this.blocksPlaced = this.solo.blocksPlaced + this.doubles.blocksPlaced;
     this.healthRegenerated = this.solo.healthRegenerated + this.doubles.healthRegenerated;
     this.goldenApplesEatan = this.solo.goldenApplesEatan + this.doubles.goldenApplesEatan;
@@ -191,17 +191,17 @@ class DuelsMegaWalls {
     this.doubles = new DuelsGamemode(data, 'mw_doubles', this.title);
     this.kills = this.solo.kills + this.doubles.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins;
     this.losses = this.solo.losses + this.doubles.losses;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames = this.solo.playedGames + this.doubles.playedGames;
     this.swings = this.solo.swings + this.doubles.swings;
     this.hits = this.solo.hits + this.doubles.hits;
-    this.meleeAccuracy = Divide(this.hits, this.swings);
+    this.meleeAccuracy = divide(this.hits, this.swings);
     this.bowShots = this.solo.bowShots + this.doubles.bowShots;
     this.bowHits = this.solo.bowHits + this.doubles.bowHits;
-    this.bowAccuracy = Divide(this.bowHits, this.bowShots);
+    this.bowAccuracy = divide(this.bowHits, this.bowShots);
     this.blocksPlaced = this.solo.blocksPlaced + this.doubles.blocksPlaced;
     this.healthRegenerated = this.solo.healthRegenerated + this.doubles.healthRegenerated;
     this.goldenApplesEatan = this.solo.goldenApplesEatan + this.doubles.goldenApplesEatan;
@@ -237,17 +237,17 @@ class DuelsOP {
     this.doubles = new DuelsGamemode(data, 'op_doubles', this.title);
     this.kills = this.solo.kills + this.doubles.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins;
     this.losses = this.solo.losses + this.doubles.losses;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames = this.solo.playedGames + this.doubles.playedGames;
     this.swings = this.solo.swings + this.doubles.swings;
     this.hits = this.solo.hits + this.doubles.hits;
-    this.meleeAccuracy = Divide(this.hits, this.swings);
+    this.meleeAccuracy = divide(this.hits, this.swings);
     this.bowShots = this.solo.bowShots + this.doubles.bowShots;
     this.bowHits = this.solo.bowHits + this.doubles.bowHits;
-    this.bowAccuracy = Divide(this.bowHits, this.bowShots);
+    this.bowAccuracy = divide(this.bowHits, this.bowShots);
     this.blocksPlaced = this.solo.blocksPlaced + this.doubles.blocksPlaced;
     this.healthRegenerated = this.solo.healthRegenerated + this.doubles.healthRegenerated;
     this.goldenApplesEatan = this.solo.goldenApplesEatan + this.doubles.goldenApplesEatan;
@@ -307,7 +307,7 @@ class DuelsBridge {
       this['2v2v2v2'].deaths +
       this['3v3v3v3'].deaths +
       this.ctf.deaths;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins =
       this.solo.wins +
       this.doubles.wins +
@@ -324,7 +324,7 @@ class DuelsBridge {
       this['2v2v2v2'].losses +
       this['3v3v3v3'].losses +
       this.ctf.losses;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames =
       this.solo.playedGames +
       this.doubles.playedGames +
@@ -349,7 +349,7 @@ class DuelsBridge {
       this['2v2v2v2'].hits +
       this['3v3v3v3'].hits +
       this.ctf.hits;
-    this.meleeAccuracy = Divide(this.hits, this.swings);
+    this.meleeAccuracy = divide(this.hits, this.swings);
     this.bowShots =
       this.solo.bowShots +
       this.doubles.bowShots +
@@ -366,7 +366,7 @@ class DuelsBridge {
       this['2v2v2v2'].bowHits +
       this['3v3v3v3'].bowHits +
       this.ctf.bowHits;
-    this.bowAccuracy = Divide(this.bowHits, this.bowShots);
+    this.bowAccuracy = divide(this.bowHits, this.bowShots);
     this.blocksPlaced =
       this.solo.blocksPlaced +
       this.doubles.blocksPlaced +
@@ -438,10 +438,10 @@ class Duels {
     this.title = getTitle(data);
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames = data.games_played_duels || 0;
     this.winstreak = data.current_winstreak || 0;
     this.bestWinstreak = data.best_overall_winstreak || 0;
@@ -449,10 +449,10 @@ class Duels {
     this.blocksPlaced = data.blocks_placed || 0;
     this.swings = data.melee_swings || 0;
     this.hits = data.melee_hits || 0;
-    this.meleeAccuracy = Divide(this.hits, this.swings);
+    this.meleeAccuracy = divide(this.hits, this.swings);
     this.bowShots = data.bow_shots || 0;
     this.bowHits = data.bow_hits || 0;
-    this.bowAccuracy = Divide(this.bowHits, this.bowShots);
+    this.bowAccuracy = divide(this.bowHits, this.bowShots);
     this.healthRegenerated = data.health_regenerated || 0;
     this.goldenApplesEatan = data.golden_apples_eaten || 0;
     this.uhc = new DuelsUHC(data);

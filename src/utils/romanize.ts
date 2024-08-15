@@ -1,4 +1,4 @@
-export default function Romanize(num: number | string): string {
+export default function romanize(num: number | string): string {
   const digits = String(Number(num)).split('');
   const key = [
     '',
@@ -37,5 +37,5 @@ export default function Romanize(num: number | string): string {
   while (i--) {
     roman = (key[Number(digits.pop()) + i * 10] || '') + roman;
   }
-  return Array(Number(digits.join('')) + 1).join('M') + roman;
+  return Array(digits.join('') + 1).join('M') + roman;
 }

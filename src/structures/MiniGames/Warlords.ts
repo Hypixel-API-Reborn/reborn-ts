@@ -1,4 +1,4 @@
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 
 class WarlordsClass {
   wins: number;
@@ -11,7 +11,7 @@ class WarlordsClass {
   constructor(data: Record<string, any>, className: string) {
     this.wins = data[`wins_${className}`] || 0;
     this.losses = data[`losses_${className}`] || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.gamesPlayed = data[`${className}_plays`];
     this.damage = data[`damage_${className}`] || 0;
     this.heal = data[`heal_${className}`] || 0;
@@ -53,10 +53,10 @@ class Warlords {
     this.coins = data.coins || 0;
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.winstreak = data.win_streak || 0;
     this.assists = data.assists || 0;
     this.class = data.chosen_class || '';

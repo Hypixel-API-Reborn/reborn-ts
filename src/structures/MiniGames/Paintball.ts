@@ -1,4 +1,4 @@
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 /**
  * Paintball class
  */
@@ -22,7 +22,7 @@ class Paintball {
     this.coins = data.coins || 0;
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.shotsFired = data.shots_fired || 0;
     this.killstreaks = data.killstreaks || 0;

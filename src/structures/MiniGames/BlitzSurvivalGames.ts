@@ -1,4 +1,4 @@
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 
 class BlitzSGKit {
   level: number;
@@ -25,14 +25,14 @@ class BlitzSGKit {
     this.exp = data[`exp_${kitName}`] || 0;
     this.kills = data[`kills_${kitName}`] || 0;
     this.deaths = data[`deaths_${kitName}`] || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data[`wins_${kitName}`] || 0;
     this.gamesPlayed = data[`games_played_${kitName}`] || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.arrowsShot = data[`arrows_fired_${kitName}`] || 0;
     this.arrowsHit = data[`arrows_hit_${kitName}`] || 0;
-    this.bowAccuracy = Divide(this.arrowsHit, this.arrowsShot);
+    this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
     this.damage = data[`damage_${kitName}`] || 0;
     this.damageTaken = data[`damage_taken_${kitName}`] || 0;
     this.potionsDrunk = data[`potions_drunk_${kitName}`] || 0;
@@ -115,16 +115,16 @@ class BlitzSurvivalGames {
     this.killsSolo = data.kills_solo_normal || 0;
     this.killsTeams = data.kills_teams_normal || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.winsSolo = data.wins_solo_normal || 0;
     this.winsTeam = data.wins_teams || 0;
     this.gamesPlayed = data.games_played || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.arrowsShot = data.arrows_fired || 0;
     this.arrowsHit = data.arrows_hit || 0;
-    this.bowAccuracy = Divide(this.arrowsHit, this.arrowsShot);
+    this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
     this.damage = data.damage || 0;
     this.damageTaken = data.damage_taken || 0;
     this.potionsDrunk = data.potions_drunk || 0;

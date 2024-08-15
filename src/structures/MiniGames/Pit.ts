@@ -1,7 +1,7 @@
 import { decode } from '../../utils/SkyblockUtils';
 import PitInventoryItem from './PitInventoryItem';
 import Constants from '../../utils/Constants';
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 
 export interface PitArmor {
   helmet: PitInventoryItem | null;
@@ -52,26 +52,26 @@ class Pit {
       ) ?? 0;
     this.kills = data.pit_stats_ptl?.kills || 0;
     this.deaths = data.pit_stats_ptl?.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.assists = data.pit_stats_ptl?.assists || 0;
     this.maxKillStreak = data.pit_stats_ptl?.max_streak || 0;
     this.playtime = (data.pit_stats_ptl?.playtime_minutes || 0) * 60;
     this.joins = data.pit_stats_ptl?.joins || 0;
     this.damageReceived = data.pit_stats_ptl?.damage_received || 0;
     this.damageDealt = data.pit_stats_ptl?.damage_dealt || 0;
-    this.damageRatio = Divide(this.damageDealt, this.damageReceived);
+    this.damageRatio = divide(this.damageDealt, this.damageReceived);
     this.meleeDamageReceived = data.pit_stats_ptl?.melee_damage_received || 0;
     this.meleeDamageDealt = data.pit_stats_ptl?.melee_damage_dealt || 0;
     this.swordHits = data.pit_stats_ptl?.sword_hits || 0;
     this.leftClicks = data.pit_stats_ptl?.left_clicks || 0;
-    this.meleeAccuracy = Divide(this.swordHits, this.leftClicks);
-    this.meleeDamageRatio = Divide(this.meleeDamageDealt, this.meleeDamageReceived);
+    this.meleeAccuracy = divide(this.swordHits, this.leftClicks);
+    this.meleeDamageRatio = divide(this.meleeDamageDealt, this.meleeDamageReceived);
     this.bowDamageReceived = data.pit_stats_ptl?.bow_damage_received || 0;
     this.bowDamageDealt = data.pit_stats_ptl?.bow_damage_dealt || 0;
     this.arrowsHit = data.pit_stats_ptl?.arrow_hits || 0;
     this.arrowsFired = data.pit_stats_ptl?.arrows_fired || 0;
-    this.bowAccuracy = Divide(this.arrowsHit, this.arrowsFired);
-    this.bowDamageRatio = Divide(this.bowDamageDealt, this.bowDamageReceived);
+    this.bowAccuracy = divide(this.arrowsHit, this.arrowsFired);
+    this.bowDamageRatio = divide(this.bowDamageDealt, this.bowDamageReceived);
     this.goldenHeadsEaten = data.pit_stats_ptl?.ghead_eaten || 0;
     this.getInventory = async (): Promise<PitInventoryItem[]> => {
       let inventory = data.profile.inv_contents;

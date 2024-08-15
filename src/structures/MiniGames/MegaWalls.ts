@@ -1,4 +1,4 @@
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 
 class MegaWallsModeStats {
   kills: number;
@@ -25,14 +25,14 @@ class MegaWallsModeStats {
     this.kills = data[`${kit}kills_${mode}`] || 0;
     this.assists = data[`${kit}assists_${mode}`] || 0;
     this.deaths = data[`${kit}deaths_${mode}`] || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data[`${kit}wins_${mode}`] || 0;
     this.losses = data[`${kit}losses_${mode}`] || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.finalKills = data[`${kit}final_kills_${mode}`] || 0;
     this.finalAssists = data[`${kit}final_assists_${mode}`] || 0;
     this.finalDeaths = data[`${kit}final_deaths_${mode}`] || 0;
-    this.finalKDRatio = Divide(this.finalKills, this.finalDeaths);
+    this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
     this.playedGames = data[`${kit}games_played_${mode}`] || 0;
     this.witherDamage = data[`${kit}wither_damage_${mode}`] || 0;
     this.defenderKills = data[`${kit}defender_kills_${mode}`] || 0;
@@ -69,14 +69,14 @@ class MegaWallsKitStats {
     this.kills = data[`${kit}_kills`] || 0;
     this.assists = data[`${kit}_assists`] || 0;
     this.deaths = data[`${kit}_deaths`] || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data[`${kit}_wins`] || 0;
     this.losses = data[`${kit}_losses`] || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.finalKills = data[`${kit}_final_kills`] || 0;
     this.finalAssists = data[`${kit}_final_assists`] || 0;
     this.finalDeaths = data[`${kit}_final_deaths`] || 0;
-    this.finalKDRatio = Divide(this.finalKills, this.finalDeaths);
+    this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
     this.playedGames = data[`${kit}_games_played`] || 0;
     this.witherDamage = data[`${kit}_wither_damage`] || 0;
     this.defenderKills = data[`${kit}_defender_kills`] || 0;
@@ -149,14 +149,14 @@ class MegaWalls {
     this.kills = data.kills || 0;
     this.assists = data.assists || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.finalKills = (data.final_kills || 0) + (data.finalkills || 0);
     this.finalAssists = (data.final_assists || 0) + (data.finalassists || 0);
     this.finalDeaths = (data.final_deaths || 0) + (data.finalDeaths || 0);
-    this.finalKDRatio = Divide(this.finalKills, this.finalDeaths);
+    this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
     this.playedGames = data.games_played || 0;
     this.witherDamage = (data.wither_damage || 0) + (data.witherDamager || 0);
     this.defenderKills = data.defender_kills || 0;

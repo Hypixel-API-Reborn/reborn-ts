@@ -1,4 +1,4 @@
-import Divide from '../../utils/Divide';
+import divide from '../../utils/divide';
 /**
  * Cops and crims Defusal class
  */
@@ -23,11 +23,11 @@ class CopsAndCrimsDefusal {
     this.headshotKills = data.headshot_kills || 0;
     this.assists = data.assists || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.game_wins || 0;
     this.gamesPlayed = data.game_plays || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.roundWins = data.round_wins || 0;
     this.shotsFired = data.shots_fired || 0;
     this.bombsDefused = data.bombs_defused || 0;
@@ -54,11 +54,11 @@ class CopsAndCrimsDeathmatch {
     this.kills = data.kills_deathmatch || 0;
     this.assists = data.assists_deathmatch || 0;
     this.deaths = data.deaths_deathmatch || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.game_wins_deathmatch || 0;
     this.gamesPlayed = data.game_plays_deathmatch || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.killsAsCrim = data.criminal_kills_deathmatch || 0;
     this.killsAsCop = data.cop_kills_deathmatch || 0;
   }
@@ -82,11 +82,11 @@ class CopsAndCrimsGunGame {
     this.kills = data.kills_gungame || 0;
     this.assists = data.assists_gungame || 0;
     this.deaths = data.deaths_gungame || 0;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data.game_wins_gungame || 0;
     this.gamesPlayed = data.game_plays_gungame || 0;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.killsAsCrim = data.criminal_kills_gungame || 0;
     this.killsAsCop = data.cop_kills_gungame || 0;
     this.fastestWin = data.fastest_win_gungame || 0;
@@ -122,11 +122,11 @@ class CopsAndCrims {
     this.kills = this.defusal.kills + this.deathmath.kills + this.gunGame.kills;
     this.assists = this.defusal.assists + this.deathmath.assists + this.gunGame.assists;
     this.deaths = this.defusal.deaths + this.deathmath.deaths + this.gunGame.deaths;
-    this.KDRatio = Divide(this.kills, this.deaths);
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = this.defusal.wins + this.deathmath.wins + this.gunGame.wins;
     this.gamesPlayed = this.defusal.gamesPlayed + this.deathmath.gamesPlayed + this.gunGame.gamesPlayed;
     this.losses = this.gamesPlayed - this.wins;
-    this.WLRatio = Divide(this.wins, this.losses);
+    this.WLRatio = divide(this.wins, this.losses);
     this.killsAsCrim = this.defusal.killsAsCrim + this.deathmath.killsAsCrim + this.gunGame.killsAsCrim;
     this.killsAsCop = this.defusal.killsAsCop + this.deathmath.killsAsCop + this.gunGame.killsAsCop;
     this.prefixColor = data.lobbyPrefixColor || '';

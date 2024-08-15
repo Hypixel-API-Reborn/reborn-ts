@@ -45,8 +45,8 @@ export function getPlayerLevel(exp: number): number {
   const growth = 2500;
   const reversePqPrefix = -(base - 0.5 * growth) / growth;
   const reverseConst = reversePqPrefix * reversePqPrefix;
-  const growthDivides2 = 2 / growth;
-  const num = 1 + reversePqPrefix + Math.sqrt(reverseConst + growthDivides2 * exp);
+  const growthdivides2 = 2 / growth;
+  const num = 1 + reversePqPrefix + Math.sqrt(reverseConst + growthdivides2 * exp);
   const level = Math.round(num * 100) / 100;
   return level;
 }
