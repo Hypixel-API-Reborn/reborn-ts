@@ -3,6 +3,16 @@ import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
 import Game from '../structures/Game';
 
+test('getBoosters (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getBoosters({ raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
+  client.destroy();
+});
+
 test('getBoosters', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

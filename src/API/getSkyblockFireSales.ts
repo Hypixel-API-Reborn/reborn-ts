@@ -13,6 +13,6 @@ export default class getSkyblockFireSales extends Endpoint {
   async execute(options?: RequestOptions): Promise<FireSale[]> {
     const res = await this.client.requests.request('/skyblock/firesales', options);
     if (res.raw) return res;
-    return res.sales.length ? res.sales.map((a: any) => new FireSale(a)) : [];
+    return res.sales.map((a: any) => new FireSale(a));
   }
 }

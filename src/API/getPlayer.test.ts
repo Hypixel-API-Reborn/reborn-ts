@@ -1,10 +1,11 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../structures/Player';
-import Client from '../Client';
-import Guild from '../structures/Guild/Guild';
-import Game from '../structures/Game';
-import Color from '../structures/Color';
+import { expect, expectTypeOf, test } from 'vitest';
 import PlayerCosmetics from '../structures/PlayerCosmetics';
+import Guild from '../structures/Guild/Guild';
+import Color from '../structures/Color';
+import Game from '../structures/Game';
+import Client from '../Client';
+import Errors from '../Errors';
 
 import Arcade from '../structures/MiniGames/Arcade';
 import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
@@ -29,6 +30,41 @@ import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
 import WoolWars from '../structures/MiniGames/WoolWars';
 import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
+
+const errors = new Errors();
+
+test('No Player Input', () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getPlayer()).rejects.toThrowError(errors.NO_NICKNAME_UUID);
+  client.destroy();
+});
+
+test('getPLayer (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
+  client.destroy();
+});
+
+test('getPlayer (guild)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { getGuild: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<Player>();
+
+  expect(data.guild).toBeDefined();
+  expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
+  expect(data.guild).toBeInstanceOf(Guild);
+
+  client.destroy();
+});
 
 test('getPlayer', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });

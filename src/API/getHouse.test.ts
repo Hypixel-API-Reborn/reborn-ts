@@ -1,6 +1,30 @@
 import { expect, expectTypeOf, test } from 'vitest';
 import House from '../structures/House';
 import Client from '../Client';
+import Errors from '../Errors';
+
+const errors = new Errors();
+
+test('getHouse (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const houses = await client.getActiveHouses();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getHouse(houses[0].uuid, { raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
+  client.destroy();
+});
+
+test('getHouse (no input)', () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getHouse()).rejects.toThrowError(errors.NO_UUID);
+  client.destroy();
+});
 
 test('getHouse', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });

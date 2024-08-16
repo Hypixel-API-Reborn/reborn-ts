@@ -2,6 +2,16 @@ import { expect, expectTypeOf, test } from 'vitest';
 import House from '../structures/House';
 import Client from '../Client';
 
+test('getActiveHouses (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getActiveHouses({ raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
+  client.destroy();
+});
+
 test('getActiveHouses', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

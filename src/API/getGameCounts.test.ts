@@ -2,6 +2,16 @@ import { expect, expectTypeOf, test } from 'vitest';
 import GameCounts from '../structures/GameCounts';
 import Client from '../Client';
 
+test('getGameCounts (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getGameCounts({ raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
+  client.destroy();
+});
+
 test('getGameCounts', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

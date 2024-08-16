@@ -6,6 +6,7 @@ import { ExpHistory } from '../utils/Guild';
 import Color from '../structures/Color';
 import Game from '../structures/Game';
 import Client from '../Client';
+import Errors from '../Errors';
 
 test('getGuild (Name)', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
@@ -590,4 +591,61 @@ test('getGuild (Player)', async () => {
   expectTypeOf(data.guildMaster()).toEqualTypeOf<GuildMember>();
 
   client.destroy();
+});
+
+const errors = new Errors();
+
+test('Invalid Guild Type', () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getGuild('invalid', 'invalid')).rejects.toThrowError(errors.INVALID_GUILD_SEARCH_PARAMETER);
+  client.destroy();
+});
+
+test('Invalid Guild', () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getGuild('name', 'this guild dose not exist')).rejects.toThrowError(errors.GUILD_DOES_NOT_EXIST);
+  client.destroy();
+});
+
+test('Invalid Guild ID', () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getGuild('id', 'invalid guild id')).rejects.toThrowError(errors.INVALID_GUILD_ID);
+  client.destroy();
+});
+
+test('No Guild Query', () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getGuild('id')).rejects.toThrowError(errors.NO_GUILD_QUERY);
+  client.destroy();
+});
+
+test('User not in a guild', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getGuild('player', '37501e7512b845ab8796e2baf9e9677a');
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<null>();
+  client.destroy();
+});
+
+test('getGuild (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  //
+  const data = await client.getGuild('name', 'Pixelic', { raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
 });

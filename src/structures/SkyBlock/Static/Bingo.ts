@@ -34,12 +34,7 @@ class Bingo {
   toString(): string {
     return this.id;
   }
-  /**
-   * Gets tier step, if constant
-   * @private
-   * @returns {number|null}
-   */
-  getTierStep() {
+  private getTierStep(): number | null {
     if ('TIERED' !== this.type) return null;
     // No step possible
     if (2 > this.tiers.length) return null;

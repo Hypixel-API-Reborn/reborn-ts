@@ -2,6 +2,16 @@ import { expect, expectTypeOf, test } from 'vitest';
 import Leaderboard from '../structures/Leaderboard';
 import Client from '../Client';
 
+test('getLeaderboards (raw)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getLeaderboards({ raw: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<object>();
+  client.destroy();
+});
+
 test('getLeaderboards', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
