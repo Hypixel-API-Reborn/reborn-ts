@@ -20,29 +20,22 @@ test('getLeaderboards', async () => {
   Object.keys(data).forEach((key) => {
     expect(data[key]).toBeDefined();
     expectTypeOf(data[key]).toEqualTypeOf<Leaderboard[]>();
-
     data[key].forEach((leaderboard: Leaderboard) => {
       expect(leaderboard).toBeDefined();
       expectTypeOf(leaderboard).toEqualTypeOf<Leaderboard>();
-
       expect(leaderboard.name).toBeDefined();
       expectTypeOf(leaderboard.name).toEqualTypeOf<string | null>();
-
       expect(leaderboard.title).toBeDefined();
       expectTypeOf(leaderboard.title).toEqualTypeOf<string>();
-
       expect(leaderboard.playerCount).toBeDefined();
       expectTypeOf(leaderboard.playerCount).toEqualTypeOf<number>();
-
       expect(leaderboard.leaders).toBeDefined();
       expectTypeOf(leaderboard.leaders).toEqualTypeOf<string[]>();
-
       leaderboard.leaders.forEach((leader) => {
         expect(leader).toBeDefined();
         expectTypeOf(leader).toEqualTypeOf<string>();
       });
     });
   });
-
   client.destroy();
 });

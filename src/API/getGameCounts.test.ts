@@ -17,16 +17,12 @@ test('getGameCounts', async () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGameCounts();
-
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(GameCounts);
   expectTypeOf(data).toEqualTypeOf<GameCounts>();
-
   expect(data.playerCount).toBeDefined();
   expectTypeOf(data.playerCount).toEqualTypeOf<number>();
-
   expect(data.toString()).toBeDefined();
   expectTypeOf(data.toString()).toEqualTypeOf<number>();
-
   client.destroy();
 });

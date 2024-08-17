@@ -2,7 +2,6 @@ import { expect, expectTypeOf, test } from 'vitest';
 import RecentGame from '../structures/RecentGame';
 import Client from '../Client';
 import Errors from '../Errors';
-
 const errors = new Errors();
 
 test('getRecentGames (no input)', () => {
@@ -30,31 +29,23 @@ test('getRecentGames', async () => {
   const data = await client.getRecentGames('14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<RecentGame[]>();
-
   data.forEach((game: RecentGame) => {
     expect(game).toBeDefined();
     expectTypeOf(game).toEqualTypeOf<RecentGame>();
     expect(game).toBeInstanceOf(RecentGame);
-
     expect(game.dateTimestamp).toBeDefined();
     expectTypeOf(game.dateTimestamp).toEqualTypeOf<number | null>();
     expect(data.dateTimestamp).toBeGreaterThanOrEqual(0);
-
     expect(game.date).toBeDefined();
     expectTypeOf(game.date).toEqualTypeOf<Date | null>();
-
     expect(game.mode).toBeDefined();
     expectTypeOf(game.mode).toEqualTypeOf<string | null>();
-
     expect(game.map).toBeDefined();
     expectTypeOf(game.map).toEqualTypeOf<string | null>();
-
     expect(game.ongoing).toBeDefined();
     expectTypeOf(game.ongoing).toEqualTypeOf<boolean>();
-
     expect(data.endedAt).toBeDefined();
     expectTypeOf(data.endedAt).toEqualTypeOf<Date | null>();
-
     expect(data.endedTimestamp).toBeDefined();
     expectTypeOf(data.endedTimestamp).toEqualTypeOf<number | null>();
   });
