@@ -26,6 +26,8 @@ import Pit from './MiniGames/Pit';
 import Color from './Color';
 import Game from './Game';
 import Guild from './Guild/Guild';
+import House from './House';
+import RecentGame from './RecentGame';
 
 export interface LevelProgress {
   xpToNext: number;
@@ -55,6 +57,8 @@ class Player {
   uuid: string;
   rank: PlayerRank;
   guild: Guild | null;
+  houses: House[] | null;
+  recentGames: RecentGame[] | null;
   channel: string | null;
   firstLoginTimestamp: number | null;
   firstLogin: Date | null;
@@ -89,11 +93,20 @@ class Player {
   globalCosmetics: PlayerCosmetics | null;
   ranksPurchaseTime: RanksPurchaseTime;
 
-  constructor(data: Record<string, any>, guild?: Guild) {
+  constructor(
+    data: Record<string, any>,
+    extra: {
+      guild: Guild | null;
+      houses: House[] | null;
+      recentGames: RecentGame[] | null;
+    }
+  ) {
     this.nickname = data.displayname;
     this.uuid = data.uuid;
     this.rank = getRank(data);
-    this.guild = guild || null;
+    this.guild = extra.guild;
+    this.houses = extra.houses;
+    this.recentGames = extra.recentGames;
     this.channel = data.channel || null;
     this.firstLoginTimestamp = data.firstLogin || null;
     this.firstLogin = data.firstLogin ? new Date(data.firstLogin) : null;

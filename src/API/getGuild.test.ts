@@ -337,6 +337,7 @@ test('getGuild (Id)', async () => {
   expectTypeOf(data.guildMaster()).toEqualTypeOf<GuildMember>();
   client.destroy();
 });
+
 test('getGuild (Player)', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

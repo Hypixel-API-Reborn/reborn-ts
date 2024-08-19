@@ -39,11 +39,11 @@ class Guild {
     this.ranks = ranks(data);
     this.totalWeeklyGexp = totalWeeklyGexp(data);
     this.createdAtTimestamp = data.created;
-    this.createdAt = new Date(data.created);
+    this.createdAt = new Date(this.createdAtTimestamp);
     this.joinable = data.joinable ?? false;
     this.publiclyListed = Boolean(data.publiclyListed);
     this.chatMuteUntilTimestamp = data.chatMute ?? null;
-    this.chatMuteUntil = data.chatMute ? new Date(data.chatMute) : null;
+    this.chatMuteUntil = this.chatMuteUntilTimestamp ? new Date(this.chatMuteUntilTimestamp) : null;
     this.banner = data.banner ?? null;
     this.tag = data.tag ?? null;
     this.tagColor = data.tagColor ? new Color(data.tagColor) : null;
@@ -59,9 +59,7 @@ class Guild {
     return this.name;
   }
   guildMaster(): GuildMember {
-    return this.members.find(
-      (member) => 'Guild Master' === member.rank || 'GUILDMASTER' === member.rank
-    ) as GuildMember;
+    return this.members.find((member) => 'Guild Master' === member.rank) as GuildMember;
   }
 }
 

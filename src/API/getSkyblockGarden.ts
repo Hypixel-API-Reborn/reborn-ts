@@ -11,6 +11,7 @@ export default class getSkyblockGarden extends Endpoint {
   }
 
   async execute(profileId: string, options?: RequestOptions): Promise<SkyblockGarden> {
+    if (!profileId) throw new Error(this.client.errors.NO_UUID);
     const res = await this.client.requests.request(`/skyblock/garden?profile=${profileId}`, options);
     if (res.raw) return res;
     return new SkyblockGarden(res);

@@ -29,6 +29,8 @@ import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
 import WoolWars from '../structures/MiniGames/WoolWars';
 import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
+import House from '../structures/House';
+import RecentGame from '../structures/RecentGame';
 
 const errors = new Errors();
 
@@ -54,12 +56,46 @@ test('getPlayer (guild)', async () => {
   const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { getGuild: true });
+  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { guild: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Player>();
   expect(data.guild).toBeDefined();
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
   expect(data.guild).toBeInstanceOf(Guild);
+  client.destroy();
+});
+
+test('getPlayer (houses)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { houses: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<Player>();
+  expect(data.houses).toBeDefined();
+  expectTypeOf(data.houses).toEqualTypeOf<House[] | null>();
+  data.houses.forEach((house: House) => {
+    expect(house).toBeDefined();
+    expect(house).toBeInstanceOf(House);
+    expectTypeOf(house).toEqualTypeOf<House>();
+  });
+  client.destroy();
+});
+
+test('getPlayer (recent games)', async () => {
+  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { recentGames: true });
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<Player>();
+  expect(data.recentGames).toBeDefined();
+  expectTypeOf(data.recentGames).toEqualTypeOf<RecentGame[] | null>();
+  data.recentGames.forEach((game: RecentGame) => {
+    expect(game).toBeDefined();
+    expect(game).toBeInstanceOf(RecentGame);
+    expectTypeOf(game).toEqualTypeOf<RecentGame>();
+  });
   client.destroy();
 });
 

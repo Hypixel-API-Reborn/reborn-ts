@@ -16,8 +16,16 @@ export default class getPlayer extends Endpoint {
     const res = await this.client.requests.request(`/player?uuid=${query}`, options);
     if (res.raw) return res;
     if (query && !res.player) throw new Error(this.client.errors.PLAYER_HAS_NEVER_LOGGED);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    return new Player(res.player, options?.getGuild ? await this.client.getGuild('player', query) : undefined);
+    return new Player(res.player, {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      guild: options?.guild ? await this.client.getGuild('player', query) : null,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      houses: options?.houses ? await this.client.getPlayerHouses(query) : null,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      recentGames: options?.recentGames ? await this.client.getRecentGames(query) : null
+    });
   }
 }

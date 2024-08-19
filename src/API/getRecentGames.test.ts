@@ -49,4 +49,5 @@ test('getRecentGames', async () => {
     expect(data.endedTimestamp).toBeDefined();
     expectTypeOf(data.endedTimestamp).toEqualTypeOf<number | null>();
   });
+  client.destroy();
 });
