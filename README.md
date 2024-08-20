@@ -7,6 +7,7 @@
 
 - [ ] Add Ratelimiting back
 - [ ] Allow for queue mode. For when key is limited
+- [ ] Change how raw option works
 - [ ] Rewrtie SkyblockUtils
 - [ ] Testing
 - [ ] 90% + Code Test Coverage
