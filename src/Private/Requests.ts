@@ -46,6 +46,7 @@ class Requests {
     if (!parsedRes.success && !endpoint.startsWith('/housing')) {
       throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, res.statusText));
     }
+    this.client.rateLimit.requests++;
 
     // eslint-disable-next-line no-underscore-dangle
     parsedRes._headers = res.headers;

@@ -34,6 +34,8 @@ class Errors {
   NO_SKYBLOCK_PROFILES: string = '[Hypixel-API-Reborn] The player has no skyblock profiles.';
   BAD_AUCTION_FILTER: string =
     '[Hypixel-API-Reborn] Unexpected filter for Client#getSkyblockAuction. Expected one of "PLAYER", "AUCTION", "PROFILE", but got something else.';
+  RATE_LIMIT_INIT_ERROR: string =
+    '[hypixel-api-reborn] An error happened whilst initializing rate limit. We strongly recommend restarting the code as this can lead to desynchronization.';
 }
 
 export default Errors;

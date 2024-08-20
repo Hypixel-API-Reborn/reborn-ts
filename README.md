@@ -5,7 +5,7 @@
 
 # Todo List for Reborn-ts
 
-- [ ] Add Ratelimiting back
+- [x] Add Ratelimiting back
 - [ ] Allow for queue mode. For when key is limited
 - [ ] Change how raw option works
 - [ ] Rewrtie SkyblockUtils
