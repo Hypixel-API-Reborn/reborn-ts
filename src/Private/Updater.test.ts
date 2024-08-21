@@ -1,7 +1,8 @@
-import { expect, expectTypeOf, test } from 'vitest';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 import { version } from '../../package.json';
 import Updater from './Updater';
 import Client from '../Client';
+import axios from 'axios';
 
 test('Updater', () => {
   const client = new Client(process.env.key ?? '');
@@ -28,6 +29,39 @@ test('Updater', () => {
   expect(client.updater.compareVersions('1.0.0', '1.0.0')).toBe(false);
   expect(client.updater.compareVersions('1.0.0', '1.0.1')).toBe(true);
   expect(client.updater.compareVersions('1.0.1', '1.0.0')).toBe(false);
+  expect(client.updater.compareVersions('meow', '1.0.0')).toBe(false);
 
+  client.destroy();
+});
+
+test('Updater (get latest version)', async () => {
+  const client = new Client(process.env.key ?? '');
+  const mockRequest = { status: 200, data: { metadata: { 'dist-tags': { latest: '1.0.0' } } } };
+  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  const data = await client.updater.getLatestVersion();
+  expect(data).toBe('1.0.0');
+  vi.restoreAllMocks();
+  client.destroy();
+});
+
+test('Updater (get latest version error)', () => {
+  const client = new Client(process.env.key ?? '');
+  const mockRequest = { status: 404, data: { metadata: { 'dist-tags': { latest: '1.0.0' } } } };
+  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  expect(() => client.updater.getLatestVersion()).rejects.toThrowError(client.errors.UPDATER_REQUEST_NOT_OK);
+  vi.restoreAllMocks();
+  client.destroy();
+});
+
+test('Updater (check version)', async () => {
+  const client = new Client(process.env.key ?? '');
+  const consoleLogSpy = vi.spyOn(console, 'log');
+  client.updater.currentVersion = '1.0.0';
+  const mockRequest = { status: 200, data: { metadata: { 'dist-tags': { latest: version } } } };
+  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  await client.updater.checkForUpdates();
+  expect(consoleLogSpy).toHaveBeenCalledWith(
+    `New version of hypixel-api-reborn is available! Current version: 1.0.0, Latest version: ${version}`
+  );
   client.destroy();
 });

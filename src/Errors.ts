@@ -34,6 +34,8 @@ class Errors {
   NO_SKYBLOCK_PROFILES: string = '[Hypixel-API-Reborn] The player has no skyblock profiles.';
   BAD_AUCTION_FILTER: string =
     '[Hypixel-API-Reborn] Unexpected filter for Client#getSkyblockAuction. Expected one of "PLAYER", "AUCTION", "PROFILE", but got something else.';
+  NOT_IMPLEMENTED: string =
+    '[Hypixel-API-Reborn] Endpoint execute method is not implemented yet! Please report this https://discord.gg/NSEBNMM';
 }
 
 export default Errors;

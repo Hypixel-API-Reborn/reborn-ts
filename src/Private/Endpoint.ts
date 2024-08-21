@@ -7,7 +7,7 @@ class Endpoint {
   }
 
   execute(...args: any[]): Promise<any> | any {
-    throw new Error('Command execute method is not implemented yet!');
+    throw new Error(this.client.errors.NOT_IMPLEMENTED);
   }
 }
 

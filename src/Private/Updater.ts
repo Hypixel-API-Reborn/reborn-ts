@@ -14,7 +14,7 @@ class Updater {
   }
 
   async checkForUpdates(): Promise<void> {
-    this.latestVersion = (await this.getLatestVersion()) ?? '0.0.0';
+    this.latestVersion = await this.getLatestVersion();
     const compare = this.compareVersions(this.currentVersion, this.latestVersion);
     if (compare) {
       console.log(
@@ -25,14 +25,10 @@ class Updater {
     }
   }
 
-  async getLatestVersion(): Promise<string | void> {
+  async getLatestVersion(): Promise<string> {
     const request = await axios.get('https://registry.npmjs.org/hypixel-api-reborn');
-    if (200 !== request.status) {
-      console.log(this.client.errors.UPDATER_REQUEST_NOT_OK);
-      return;
-    }
-    const metadata = await request.data;
-    return metadata['dist-tags'].latest;
+    if (200 !== request.status) throw new Error(this.client.errors.UPDATER_REQUEST_NOT_OK);
+    return request.data.metadata['dist-tags'].latest;
   }
 
   compareVersions(a: string, b: string): boolean {
@@ -41,10 +37,9 @@ class Updater {
     for (let i = 0; 3 > i; i++) {
       const na = Number(pa[i]);
       const nb = Number(pb[i]);
+      if (isNaN(na) || isNaN(nb)) return false;
       if (na > nb) return false;
       if (nb > na) return true;
-      if (!isNaN(na) && isNaN(nb)) return false;
-      if (isNaN(na) && !isNaN(nb)) return true;
     }
     return false;
   }
