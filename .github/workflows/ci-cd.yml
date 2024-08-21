@@ -101,7 +101,7 @@ jobs:
         run: pnpm build
 
   tests:
-    name: build
+    name: tests
     needs: [pnpm, eslint, build]
     runs-on: ubuntu-latest
     steps:
