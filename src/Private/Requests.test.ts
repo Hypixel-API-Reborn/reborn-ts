@@ -1,7 +1,6 @@
-import { expect, expectTypeOf, test, vi } from 'vitest';
+import { expect, expectTypeOf, test } from 'vitest';
 import Requests from './Requests';
 import Client from '../Client';
-import axios from 'axios';
 
 test('Requests', async () => {
   const client = new Client(process.env.key ?? '');

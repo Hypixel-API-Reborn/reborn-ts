@@ -97,5 +97,28 @@ jobs:
       - name: Install node dependencies
         run: pnpm i
 
-      - name: Check eslint
+      - name: Check build
         run: pnpm build
+
+  tests:
+    name: build
+    needs: [pnpm, eslint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install node dependencies
+        run: pnpm i
+
+      - name: Check tests
+        run: pnpm test
