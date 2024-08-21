@@ -13,12 +13,12 @@ test('Client (No Key)', () => {
 });
 
 test('Client (No Options)', () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client).toBeDefined();
   expect(client).toBeInstanceOf(Client);
   expectTypeOf(client).toEqualTypeOf<Client>();
 
-  expect(client.key).toBe(process.env.key ?? '');
+  expect(client.key).toBe(process.env.HYPIXEL_KEY ?? '');
   expectTypeOf(client.key).toBeString();
 
   expect(client.options).toBeDefined();
@@ -77,7 +77,7 @@ test('Client (No Options)', () => {
 });
 
 test('Client (Options)', () => {
-  const client = new Client(process.env.key ?? '', {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', {
     cache: false,
     cacheTime: 600,
     cacheMaxKeys: 100,
@@ -91,7 +91,7 @@ test('Client (Options)', () => {
   expect(client).toBeInstanceOf(Client);
   expectTypeOf(client).toEqualTypeOf<Client>();
 
-  expect(client.key).toBe(process.env.key ?? '');
+  expect(client.key).toBe(process.env.HYPIXEL_KEY ?? '');
   expectTypeOf(client.key).toBeString();
 
   expect(client.options).toBeDefined();

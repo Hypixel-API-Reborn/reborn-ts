@@ -5,7 +5,7 @@ import Errors from '../Errors';
 const errors = new Errors();
 
 test('getHouse (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const houses = await client.getActiveHouses();
@@ -18,7 +18,7 @@ test('getHouse (raw)', async () => {
 });
 
 test('getHouse (no input)', () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getHouse()).rejects.toThrowError(errors.NO_UUID);
@@ -26,7 +26,7 @@ test('getHouse (no input)', () => {
 });
 
 test('getHouse', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const houses = await client.getActiveHouses();

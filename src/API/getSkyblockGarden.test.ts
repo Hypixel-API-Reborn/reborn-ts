@@ -11,7 +11,7 @@ import Errors from '../Errors';
 const errors = new Errors();
 
 test('getSkyblockGarden (no input)', () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getSkyblockGarden()).rejects.toThrowError(errors.NO_UUID);
@@ -19,7 +19,7 @@ test('getSkyblockGarden (no input)', () => {
 });
 
 test('getSkyblockGarden (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getSkyblockGarden('805c9751-0ff1-4cb6-8e9c-1067bf3bc601', { raw: true });
@@ -29,7 +29,7 @@ test('getSkyblockGarden (raw)', async () => {
 });
 
 test('getSkyblockGarden', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getSkyblockGarden('805c9751-0ff1-4cb6-8e9c-1067bf3bc601');

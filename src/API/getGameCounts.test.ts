@@ -3,7 +3,7 @@ import GameCounts from '../structures/GameCounts';
 import Client from '../Client';
 
 test('getGameCounts (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGameCounts({ raw: true });
@@ -13,7 +13,7 @@ test('getGameCounts (raw)', async () => {
 });
 
 test('getGameCounts', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGameCounts();

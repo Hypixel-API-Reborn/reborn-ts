@@ -4,7 +4,7 @@ import NodeCache from 'node-cache';
 import Client from '../Client';
 
 test('CacheHandler', () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 

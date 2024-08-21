@@ -3,7 +3,7 @@ import Requests from './Requests';
 import Client from '../Client';
 
 test('Requests', async () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 

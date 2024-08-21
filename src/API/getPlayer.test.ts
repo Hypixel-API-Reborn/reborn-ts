@@ -35,7 +35,7 @@ import RecentGame from '../structures/RecentGame';
 const errors = new Errors();
 
 test('No Player Input', () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getPlayer()).rejects.toThrowError(errors.NO_NICKNAME_UUID);
@@ -43,7 +43,7 @@ test('No Player Input', () => {
 });
 
 test('getPLayer (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { raw: true });
@@ -53,7 +53,7 @@ test('getPLayer (raw)', async () => {
 });
 
 test('getPlayer (guild)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { guild: true });
@@ -66,7 +66,7 @@ test('getPlayer (guild)', async () => {
 });
 
 test('getPlayer (houses)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { houses: true });
@@ -83,7 +83,7 @@ test('getPlayer (houses)', async () => {
 });
 
 test('getPlayer (recent games)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { recentGames: true });
@@ -100,7 +100,7 @@ test('getPlayer (recent games)', async () => {
 });
 
 test('getPlayer', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e');

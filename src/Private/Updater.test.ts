@@ -5,7 +5,7 @@ import Client from '../Client';
 import axios from 'axios';
 
 test('Updater', () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 
@@ -35,7 +35,7 @@ test('Updater', () => {
 });
 
 test('Updater (get latest version)', async () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   const mockRequest = { status: 200, data: { metadata: { 'dist-tags': { latest: '1.0.0' } } } };
   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
   const data = await client.updater.getLatestVersion();
@@ -45,7 +45,7 @@ test('Updater (get latest version)', async () => {
 });
 
 test('Updater (get latest version error)', () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   const mockRequest = { status: 404, data: { metadata: { 'dist-tags': { latest: '1.0.0' } } } };
   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
   expect(() => client.updater.getLatestVersion()).rejects.toThrowError(client.errors.UPDATER_REQUEST_NOT_OK);
@@ -54,7 +54,7 @@ test('Updater (get latest version error)', () => {
 });
 
 test('Updater (check version)', async () => {
-  const client = new Client(process.env.key ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '');
   const consoleLogSpy = vi.spyOn(console, 'log');
   client.updater.currentVersion = '1.0.0';
   const mockRequest = { status: 200, data: { metadata: { 'dist-tags': { latest: version } } } };

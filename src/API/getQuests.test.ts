@@ -6,7 +6,7 @@ import { StaticGameNames } from '../typings';
 import Client from '../Client';
 
 test('getQuests (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getQuests({ raw: true });
@@ -16,7 +16,7 @@ test('getQuests (raw)', async () => {
 });
 
 test('getQuests', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getQuests();

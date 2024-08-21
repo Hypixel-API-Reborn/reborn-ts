@@ -3,7 +3,7 @@ import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
 
 test('getSkyblockNews (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getSkyblockNews('Pixelic', { raw: true });
@@ -13,7 +13,7 @@ test('getSkyblockNews (raw)', async () => {
 });
 
 test('getSkyblockNews', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getSkyblockNews();

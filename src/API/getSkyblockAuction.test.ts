@@ -9,7 +9,7 @@ import Errors from '../Errors';
 const errors = new Errors();
 
 test('getSkyblockAuction (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
@@ -22,7 +22,7 @@ test('getSkyblockAuction (raw)', async () => {
 });
 
 test('getSkyblockAuction (No Query)', () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getSkyblockAuction('player')).rejects.toThrowError(errors.NO_NICKNAME_UUID);
@@ -30,7 +30,7 @@ test('getSkyblockAuction (No Query)', () => {
 });
 
 test('getSkyblockAuction (Bad Filter)', () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getSkyblockAuction('meow')).rejects.toThrowError(errors.BAD_AUCTION_FILTER);
@@ -38,7 +38,7 @@ test('getSkyblockAuction (Bad Filter)', () => {
 });
 
 test('getSkyblockAuction (Auction)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
@@ -124,7 +124,7 @@ test('getSkyblockAuction (Auction)', async () => {
 });
 
 test('getSkyblockAuction (Player)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
@@ -210,7 +210,7 @@ test('getSkyblockAuction (Player)', async () => {
 });
 
 test('getSkyblockAuction (Profile)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);

@@ -3,7 +3,7 @@ import Leaderboard from '../structures/Leaderboard';
 import Client from '../Client';
 
 test('getLeaderboards (raw)', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getLeaderboards({ raw: true });
@@ -13,7 +13,7 @@ test('getLeaderboards (raw)', async () => {
 });
 
 test('getLeaderboards', async () => {
-  const client = new Client(process.env.key ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getLeaderboards();
