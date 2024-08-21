@@ -138,7 +138,7 @@ export interface SkyblockMemberDungeons {
   classes: SkyblockMemberDungeonsClasses;
 }
 
-export async function decode(base64: any, isBuffer: boolean = false) {
+export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
   // Credit: https://github.com/SkyCryptWebsite/SkyCryptv2/blob/3b5b3ae4fe77c60eff90691797f09024baf68872/src/lib/server/stats/items/processing.ts#L215-L218
   const buffer = isBuffer ? base64 : Buffer.from(base64, 'base64');
   const parseData = await parse(buffer);
@@ -584,15 +584,4 @@ export function parseGearScore(lore: any): number {
     if (line.match(/Gear Score: §[0-9a-f](\d+)/)) return Number(line.match(/Gear Score: §d(\d+)/)[1]);
   }
   return 0;
-}
-
-export function populateGoals(achieved: any[], all: any) {
-  const populatedAchieved: any = [];
-  const unachieved = [];
-  for (const goal of all) {
-    if (achieved.find((str: any) => str === goal.name)) populatedAchieved.push(goal);
-    else unachieved.push(goal);
-  }
-  populatedAchieved.unachievedGoals = unachieved;
-  return populatedAchieved;
 }

@@ -15,7 +15,6 @@ export default class getSkyblockProfiles extends Endpoint {
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
     if (res.raw) return res;
     if (!res.profiles || !res.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
-
     const profiles = [];
     for (let i = 0; i < res.profiles.length; i++) {
       profiles.push({
@@ -26,10 +25,14 @@ export default class getSkyblockProfiles extends Endpoint {
         m: res.profiles[i].members[query],
         banking: res.profiles[i].banking,
         communityUpgrades: res.profiles[i].community_upgrades,
-        museum: null,
-        garden: null,
         selected: res.profiles[i].selected,
-        members: res.profiles[i].members
+        members: res.profiles[i].members,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        garden: options?.garden ? await this.client.getSkyblockGarden(res.profiles[i].profile_id) : null,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        museum: options?.garden ? await this.client.getSkyblockMuseum(query, res.profiles[i].profile_id) : null
       });
     }
 

@@ -43,7 +43,21 @@ export interface PlayerSocialMedia {
   id: string;
 }
 
-export type PlayerRank = 'VIP' | 'VIP+' | 'MVP' | 'MVP+' | 'MVP++' | 'Game Master' | 'Admin' | 'YouTube';
+export type PlayerRank =
+  | 'Default'
+  | 'VIP'
+  | 'VIP+'
+  | 'MVP'
+  | 'MVP+'
+  | 'MVP++'
+  | 'Game Master'
+  | 'Admin'
+  | 'YouTube'
+  | 'Events'
+  | 'Mojang'
+  | 'Owner'
+  | 'PIG+++'
+  | 'Innit';
 
 export interface RanksPurchaseTime {
   VIP: Date | null;

@@ -24,6 +24,8 @@ class SkyblockProfile {
         new SkyblockMember({
           uuid: uuid,
           profileId: this.profileId,
+          garden: data.garden,
+          museum: data.museum,
           profileName: this.profileName,
           gameMode: this.gameMode,
           m: data.members[uuid],
@@ -34,11 +36,7 @@ class SkyblockProfile {
     );
     this.me = this.members.find((x) => x.uuid === data.uuid);
   }
-  /**
-   * Profile Name
-   * @return {string}
-   */
-  toString() {
+  toString(): string {
     return this.profileName;
   }
 }

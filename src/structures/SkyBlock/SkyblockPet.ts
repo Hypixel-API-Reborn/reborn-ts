@@ -6,7 +6,7 @@ import Constants from '../../utils/Constants';
  */
 class SkyblockPet {
   uuid: string;
-  type: string;
+  name: string;
   xp: number;
   active: boolean;
   rarity: SkyblockRarity;
@@ -16,7 +16,7 @@ class SkyblockPet {
   skin: string | null;
   constructor(data: Record<string, any>) {
     this.uuid = data.uuid;
-    this.type = data.type;
+    this.name = data.type;
     this.xp = data.exp || 0;
     this.active = Boolean(data.active);
     this.rarity = data.tier;
@@ -24,6 +24,9 @@ class SkyblockPet {
     this.heldItem = data.heldItem ? data.heldItem.replace(/^PET_ITEM_/, '') : null;
     this.candyUsed = data.candyUsed || 0;
     this.skin = data.skin;
+  }
+  toString(): string {
+    return this.name;
   }
 }
 export default SkyblockPet;

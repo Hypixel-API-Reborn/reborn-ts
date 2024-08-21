@@ -4,26 +4,24 @@ import SkyblockInventoryItem from './SkyblockInventoryItem';
  * Item class
  */
 class SkyblockMuseumItem {
-  name: string | null;
-  items: SkyblockInventoryItem[];
-  donatedTime: number;
-  donatedTimeAt: Date;
-  borrowing: boolean;
+  name: string;
+  donated: number;
   featuredSlot: string | null;
-  constructor(data: Record<string, any>) {
-    this.name = data.name;
+  borrowing: boolean;
+  items: SkyblockInventoryItem[];
+  constructor(name: string, data: Record<string, any>, decoded: any[]) {
+    this.name = name;
+    this.donated = data.donated_time || 0;
+    this.featuredSlot = data.featured_slot || null;
+    this.borrowing = data.borrowing || false;
     this.items = [];
-    data.decoded.forEach((item: any) => {
+    decoded.forEach((item) => {
       if (!item.tag) return;
       this.items.push(new SkyblockInventoryItem(item));
     });
-    this.donatedTime = data.donatedTime;
-    this.donatedTimeAt = new Date(data.donatedTime);
-    this.borrowing = data.borrowing;
-    this.featuredSlot = data.featuredSlot;
   }
 
-  toString(): string | null {
+  toString(): string {
     return this.name;
   }
 }
