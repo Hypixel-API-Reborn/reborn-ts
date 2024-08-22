@@ -30,7 +30,7 @@ class Client {
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
     this.rateLimit = new RateLimit(this);
-    if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
+    if ('AUTO' === this.options.rateLimit) this.rateLimit.initialize();
 
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

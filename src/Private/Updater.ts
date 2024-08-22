@@ -28,7 +28,7 @@ class Updater {
   async getLatestVersion(): Promise<string> {
     const request = await axios.get('http://localhost:3000/npm/hypixel-api-reborn');
     if (200 !== request.status) throw new Error(this.client.errors.UPDATER_REQUEST_NOT_OK);
-    return request.data.metadata['dist-tags'].latest;
+    return request.data['dist-tags'].latest;
   }
 
   compareVersions(a: string, b: string): boolean {
