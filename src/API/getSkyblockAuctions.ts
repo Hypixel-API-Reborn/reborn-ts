@@ -4,7 +4,7 @@ import { AuctionRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockAuctions extends Endpoint {
+class getSkyblockAuctions extends Endpoint {
   readonly client: Client;
   declare options: AuctionRequestOptions;
   constructor(client: Client) {
@@ -55,3 +55,5 @@ export default class getSkyblockAuctions extends Endpoint {
     };
   }
 }
+
+export default getSkyblockAuctions;

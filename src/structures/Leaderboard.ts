@@ -1,6 +1,3 @@
-/**
- * Leaderboard class
- */
 class Leaderboard {
   name: string | null;
   title: string;

@@ -1,6 +1,3 @@
-/**
- * Order class
- */
 class Order {
   amount: number;
   pricePerUnit: number;

@@ -1,8 +1,5 @@
 import Bingo from './Bingo';
 
-/**
- * SB Bingo Class
- */
 class BingoData {
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date | null;

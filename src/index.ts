@@ -1,11 +1,9 @@
 export * from './Client';
 export * from './Errors';
-
 export * from './Private/CacheHandler';
 export * from './Private/Updater';
 export * from './Private/Endpoint';
 export * from './Private/Requests';
-
 export * from './API/getAchievements';
 export * from './API/getActiveHouses';
 export * from './API/getBoosters';

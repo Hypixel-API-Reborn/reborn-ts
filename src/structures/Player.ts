@@ -21,13 +21,13 @@ import BedWars from './MiniGames/BedWars';
 import Arcade from './MiniGames/Arcade';
 import Walls from './MiniGames/Walls';
 import Duels from './MiniGames/Duels';
+import RecentGame from './RecentGame';
 import UHC from './MiniGames/UHC';
 import Pit from './MiniGames/Pit';
+import Guild from './Guild/Guild';
 import Color from './Color';
 import Game from './Game';
-import Guild from './Guild/Guild';
 import House from './House';
-import RecentGame from './RecentGame';
 
 export interface LevelProgress {
   xpToNext: number;
@@ -109,11 +109,7 @@ class Player {
 
   constructor(
     data: Record<string, any>,
-    extra: {
-      guild: Guild | null;
-      houses: House[] | null;
-      recentGames: RecentGame[] | null;
-    }
+    extra: { guild: Guild | null; houses: House[] | null; recentGames: RecentGame[] | null }
   ) {
     this.nickname = data.displayname;
     this.uuid = data.uuid;

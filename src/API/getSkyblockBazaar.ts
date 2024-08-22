@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockBazaar extends Endpoint {
+class getSkyblockBazaar extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -17,3 +17,5 @@ export default class getSkyblockBazaar extends Endpoint {
     return productsKeys.map((x) => new Product(res.products[x]));
   }
 }
+
+export default getSkyblockBazaar;

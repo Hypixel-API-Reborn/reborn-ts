@@ -10,9 +10,6 @@ export class SkyblockGemstone {
   }
 }
 
-/**
- * Item class
- */
 class SkyblockInventoryItem {
   itemId: number;
   count: number;

@@ -1,8 +1,5 @@
 import Achievement from './Achievement';
 
-/**
- * Achievement class
- */
 class GuildAchievements {
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date | null;

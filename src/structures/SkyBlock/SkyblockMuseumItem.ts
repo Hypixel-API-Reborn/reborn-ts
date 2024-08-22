@@ -1,14 +1,11 @@
 import SkyblockInventoryItem from './SkyblockInventoryItem';
 
-/**
- * Item class
- */
 class SkyblockMuseumItem {
   name: string;
   donated: number;
-  featuredSlot: string | null;
-  borrowing: boolean;
   items: SkyblockInventoryItem[];
+  borrowing: boolean;
+  featuredSlot: string | null;
   constructor(name: string, data: Record<string, any>, decoded: any[]) {
     this.name = name;
     this.donated = data.donated_time || 0;

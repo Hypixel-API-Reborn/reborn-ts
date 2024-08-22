@@ -21,9 +21,6 @@ class SpeedUHCMode {
   }
 }
 
-/**
- * Speed UHC class
- */
 class SpeedUHC {
   coins: number;
   kills: number;

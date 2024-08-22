@@ -16,7 +16,6 @@ const ColorStrings: { [key: string]: string } = {
   YELLOW: 'Yellow',
   WHITE: 'White'
 };
-
 const ColorHex: { [key: string]: string } = {
   BLACK: '#000000',
   DARK_BLUE: '#0000AA',
@@ -35,7 +34,6 @@ const ColorHex: { [key: string]: string } = {
   YELLOW: '#FFFF55',
   WHITE: '#FFFFFF'
 };
-
 const InGameCodes: { [key: string]: string } = {
   BLACK: '§0',
   DARK_BLUE: '§1',

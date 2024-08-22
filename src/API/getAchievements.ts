@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getAchievements extends Endpoint {
+class getAchievements extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getAchievements extends Endpoint {
     return new Achievements(res);
   }
 }
+
+export default getAchievements;

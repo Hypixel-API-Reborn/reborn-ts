@@ -25,9 +25,6 @@ class ArenaBrawlMode {
   }
 }
 
-/**
- * ArenaBrawl class
- */
 class ArenaBrawl {
   coins: number;
   coinsSpent: number;
@@ -39,50 +36,14 @@ class ArenaBrawl {
   '2v2': ArenaBrawlMode;
   '4v4': ArenaBrawlMode;
   constructor(data: Record<string, any>) {
-    /**
-     * Coins
-     * @type {number}
-     */
     this.coins = data.coins || 0;
-    /**
-     * Coins Spent
-     * @type {number}
-     */
     this.coinsSpent = data.coins_spent || 0;
-    /**
-     * Wins
-     * @type {number}
-     */
     this.wins = data.wins || 0;
-    /**
-     * Keys
-     * @type {number}
-     */
     this.keys = data.keys || 0;
-    /**
-     * Chests
-     * @type {number}
-     */
     this.chests = data.magical_chest || 0;
-    /**
-     * Rune
-     * @type {string}
-     */
     this.rune = data.active_rune || '';
-    /**
-     * ArenaBrawl mode stats
-     * @type {ArenaBrawlMode}
-     */
     this['1v1'] = new ArenaBrawlMode(data, '1v1');
-    /**
-     * ArenaBrawl mode stats
-     * @type {ArenaBrawlMode}
-     */
     this['2v2'] = new ArenaBrawlMode(data, '2v2');
-    /**
-     * ArenaBrawl mode stats
-     * @type {ArenaBrawlMode}
-     */
     this['4v4'] = new ArenaBrawlMode(data, '4v4');
   }
 }

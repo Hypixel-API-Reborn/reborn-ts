@@ -8,7 +8,6 @@ class RecentGame extends Game {
   ongoing: boolean;
   endedAt: Date | null;
   endedTimestamp: number | null;
-
   constructor(data: Record<string, any>) {
     super(data.gameType);
     this.dateTimestamp = data.date || null;
@@ -19,6 +18,7 @@ class RecentGame extends Game {
     this.endedAt = data.ended ? new Date(data.ended) : null;
     this.endedTimestamp = data.ended ? data.ended : null;
   }
+
   toString(): any {
     return this.mode;
   }

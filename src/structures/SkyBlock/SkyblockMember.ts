@@ -22,9 +22,9 @@ import {
 import { getNetworth, NetworthResult } from 'skyhelper-networth';
 import SkyblockInventoryItem from './SkyblockInventoryItem';
 import Constants from '../../utils/Constants';
-import SkyblockPet from './SkyblockPet';
 import SkyblockGarden from './SkyblockGarden';
 import SkyblockMuseum from './SkyblockMuseum';
+import SkyblockPet from './SkyblockPet';
 
 export interface SkyblockMemberEquipment {
   gauntlet: SkyblockInventoryItem | null;
@@ -40,9 +40,6 @@ export interface SkyblockMemberArmor {
   boots: SkyblockInventoryItem | null;
 }
 
-/**
- * Skyblock member class
- */
 class SkyblockMember {
   uuid: string;
   gameMode: string | null;
@@ -70,7 +67,6 @@ class SkyblockMember {
   pets: SkyblockPet[];
   jacob: SkyblockMemberJacobData;
   chocolate: SkyblockMemberChocolateFactoryData;
-
   getArmor: () => Promise<SkyblockMemberArmor>;
   getWardrobe: () => Promise<SkyblockInventoryItem[]>;
   getEnderChest: () => Promise<SkyblockInventoryItem[]>;
@@ -129,7 +125,6 @@ class SkyblockMember {
     this.getEnderChest = async () => {
       let chest = data.m.inventory.ender_chest_contents;
       if (!chest) return [];
-
       try {
         chest = await decode(chest.data);
         const edited = [];
@@ -147,7 +142,6 @@ class SkyblockMember {
     this.getInventory = async () => {
       let inventory = data.m.inventory.inv_contents;
       if (!inventory) return [];
-
       try {
         inventory = await decode(inventory.data);
         const edited = [];
@@ -172,21 +166,17 @@ class SkyblockMember {
           highestRarity[pet.type] = (Constants.petScore as { [key: number]: number })[pet.tier];
         }
       }
-
       const highestLevel: { [key: string]: any } = {};
       for (const pet of data.m.pets_data.pets) {
         const maxLevel = 'GOLDEN_DRAGON' === pet.type ? 200 : 100;
         const petLevel = getPetLevel(pet.exp, pet.tier, maxLevel);
-
         if (!(pet.type in highestLevel) || petLevel.level > highestLevel[pet.type]) {
           if (petLevel.level < maxLevel) {
             continue;
           }
-
           highestLevel[pet.type] = 1;
         }
       }
-
       return (
         Object.values(highestRarity).reduce((a, b) => a + b, 0) + Object.values(highestLevel).reduce((a, b) => a + b, 0)
       );
@@ -194,14 +184,8 @@ class SkyblockMember {
     this.getEquipment = async () => {
       let equipment = data.m.inventory.equipment_contents;
       if (!equipment) {
-        return {
-          gauntlet: null,
-          belt: null,
-          cloak: null,
-          necklace: null
-        };
+        return { gauntlet: null, belt: null, cloak: null, necklace: null };
       }
-
       try {
         equipment = await decode(equipment.data);
         const playerEquipment = {
@@ -212,18 +196,12 @@ class SkyblockMember {
         };
         return playerEquipment;
       } catch {
-        return {
-          gauntlet: null,
-          belt: null,
-          cloak: null,
-          necklace: null
-        };
+        return { gauntlet: null, belt: null, cloak: null, necklace: null };
       }
     };
     this.getPersonalVault = async () => {
       let vault = data.m.inventory.personal_vault_contents;
       if (!vault) return [];
-
       try {
         vault = await decode(vault.data);
         const edited = [];

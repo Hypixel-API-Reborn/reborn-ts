@@ -4,7 +4,7 @@ import Constants from '../utils/Constants';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getLeaderboards extends Endpoint {
+class getLeaderboards extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -24,3 +24,5 @@ export default class getLeaderboards extends Endpoint {
     return lbnames;
   }
 }
+
+export default getLeaderboards;

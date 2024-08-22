@@ -1,6 +1,3 @@
-/**
- * Bid class
- */
 class Bid {
   auctionId: string | null;
   profileId: string | null;

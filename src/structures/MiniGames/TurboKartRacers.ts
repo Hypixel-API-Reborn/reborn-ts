@@ -15,9 +15,6 @@ class TurboKartRacersMap {
   }
 }
 
-/**
- * TurboKartRacers class
- */
 class TurboKartRacers {
   coins: number;
   wins: number;

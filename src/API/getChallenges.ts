@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getChallenges extends Endpoint {
+class getChallenges extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,4 @@ export default class getChallenges extends Endpoint {
     return new Challenges(res);
   }
 }
+export default getChallenges;

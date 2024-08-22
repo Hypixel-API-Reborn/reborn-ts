@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockFireSales extends Endpoint {
+class getSkyblockFireSales extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getSkyblockFireSales extends Endpoint {
     return res.sales.map((a: any) => new FireSale(a));
   }
 }
+
+export default getSkyblockFireSales;

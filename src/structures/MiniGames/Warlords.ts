@@ -19,9 +19,6 @@ class WarlordsClass {
   }
 }
 
-/**
- * Warlords class
- */
 class Warlords {
   coins: number;
   kills: number;

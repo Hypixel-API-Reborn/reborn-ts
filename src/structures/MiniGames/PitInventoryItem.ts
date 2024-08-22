@@ -1,6 +1,3 @@
-/**
- * PitItem class
- */
 class PitInventoryItem {
   itemId: number;
   count: number;

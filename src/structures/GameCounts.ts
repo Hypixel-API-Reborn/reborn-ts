@@ -1,9 +1,6 @@
 import { recursive, removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Constants from '../utils/Constants';
 
-/**
- * GameCounts class
- */
 class GameCounts {
   playerCount: number;
   [x: string]: object | number;

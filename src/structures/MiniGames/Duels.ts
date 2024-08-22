@@ -2,9 +2,9 @@ import Constants from '../../utils/Constants';
 import romanize from '../../utils/romanize';
 import divide from '../../utils/divide';
 
-function getTitle(data: Record<string, any>, mode: string | null = null): string {
+function getTitle(data: Record<string, any>, mode: string): string {
   for (const div of Constants.duelsDivisions.slice().reverse()) {
-    const prestige = data[`${mode ? mode : 'all_modes'}_${div.key}_title_prestige`];
+    const prestige = data[`${mode}_${div.key}_title_prestige`];
     if (prestige) {
       return `${div.name} ${romanize(prestige)}`;
     }
@@ -115,6 +115,7 @@ class DuelsUHC {
       this.deathmatch.goldenApplesEatan;
   }
 }
+
 class DuelsSkyWars {
   title: string;
   winstreak: number;
@@ -161,6 +162,7 @@ class DuelsSkyWars {
     this.goldenApplesEatan = this.solo.goldenApplesEatan + this.doubles.goldenApplesEatan;
   }
 }
+
 class DuelsMegaWalls {
   title: string;
   winstreak: number;
@@ -207,6 +209,7 @@ class DuelsMegaWalls {
     this.goldenApplesEatan = this.solo.goldenApplesEatan + this.doubles.goldenApplesEatan;
   }
 }
+
 class DuelsOP {
   title: string;
   winstreak: number;
@@ -253,6 +256,7 @@ class DuelsOP {
     this.goldenApplesEatan = this.solo.goldenApplesEatan + this.doubles.goldenApplesEatan;
   }
 }
+
 class DuelsBridge {
   title: string;
   winstreak: number;
@@ -394,9 +398,6 @@ class DuelsBridge {
   }
 }
 
-/**
- * Duels class
- */
 class Duels {
   tokens: number;
   title: string | null;
@@ -435,7 +436,7 @@ class Duels {
   arena: DuelsGamemode;
   constructor(data: Record<string, any>) {
     this.tokens = data.coins || 0;
-    this.title = getTitle(data);
+    this.title = getTitle(data, 'all_modes');
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
     this.KDRatio = divide(this.kills, this.deaths);

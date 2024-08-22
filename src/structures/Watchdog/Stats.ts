@@ -1,6 +1,3 @@
-/**
- * WatchdogStats class
- */
 class WatchdogStats {
   byWatchdogTotal: number;
   byWatchdogLastMinute: number;

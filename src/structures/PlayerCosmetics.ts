@@ -2,9 +2,6 @@
 import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Pets from './Pets';
 
-/**
- * Player Cosmetics class
- */
 class PlayerCosmetics {
   allCosmetics: string[];
   petManager: Pets | null;
@@ -127,4 +124,5 @@ class PlayerCosmetics {
     return this._clickfx;
   }
 }
+
 export default PlayerCosmetics;

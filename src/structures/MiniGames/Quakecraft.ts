@@ -22,9 +22,6 @@ class QuakecraftMode {
   }
 }
 
-/**
- * Quakecraft class
- */
 class Quakecraft {
   coins: number;
   solo: QuakecraftMode;

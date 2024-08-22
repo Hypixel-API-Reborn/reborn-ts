@@ -1,5 +1,4 @@
 import Constants from '../utils/Constants';
-
 export type GameString =
   | 'Quake Craft'
   | 'Walls'
@@ -111,16 +110,12 @@ export type GameID =
   | -5
   | -6;
 
-/**
- * Game class
- */
 class Game {
   game: GameID | GameCode;
   id: GameID | null;
   code: GameCode | null;
   name: GameString | null;
   found: boolean;
-
   constructor(game: GameID | GameCode) {
     this.game = game;
     const result = Constants.games.find(
@@ -135,6 +130,7 @@ class Game {
   toString(): GameString | null {
     return this.name;
   }
+
   static get IDS(): GameID[] {
     return Constants.games.map((x) => x.id as GameID);
   }

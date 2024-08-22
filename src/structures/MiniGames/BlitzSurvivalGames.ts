@@ -43,9 +43,6 @@ class BlitzSGKit {
   }
 }
 
-/**
- * Blitz SG class
- */
 class BlitzSurvivalGames {
   coins: number;
   kills: number;

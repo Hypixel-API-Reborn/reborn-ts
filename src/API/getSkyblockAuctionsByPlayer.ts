@@ -3,7 +3,7 @@ import { AuctionRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockActionsByPlayer extends Endpoint {
+class getSkyblockActionsByPlayer extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -18,3 +18,5 @@ export default class getSkyblockActionsByPlayer extends Endpoint {
     return res.auctions.length ? res.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false)) : [];
   }
 }
+
+export default getSkyblockActionsByPlayer;

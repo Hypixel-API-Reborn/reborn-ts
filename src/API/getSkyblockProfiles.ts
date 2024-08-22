@@ -2,7 +2,8 @@ import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import { SkyblockRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
-export default class getSkyblockProfiles extends Endpoint {
+
+class getSkyblockProfiles extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -35,7 +36,8 @@ export default class getSkyblockProfiles extends Endpoint {
         museum: options?.garden ? await this.client.getSkyblockMuseum(query, res.profiles[i].profile_id) : null
       });
     }
-
     return profiles.map((p) => new SkyblockProfile(p));
   }
 }
+
+export default getSkyblockProfiles;

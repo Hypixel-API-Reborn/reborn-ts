@@ -57,16 +57,12 @@ export type StaticGameNames =
 declare module 'hypixel-api-reborn' {
   class Client {
     readonly key: string;
-
     declare requests: Requests;
     declare cacheHandler: CacheHandler;
     declare updater: Updater;
     declare errors: Errors;
-
     declare options: ClientOptions;
-
     constructor(key: string, options?: ClientOptions);
-
     getAchievements(options?: RequestOptions): Promise<Achievements>;
     getActiveHouses(options?: RequestOptions): Promise<House[]>;
     getBoosters(options?: RequestOptions): Promise<Booster[]>;

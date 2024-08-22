@@ -3,7 +3,7 @@ import Endpoint from '../Private/Endpoint';
 import Player from '../structures/Player';
 import Client from '../Client';
 
-export default class getPlayer extends Endpoint {
+class getPlayer extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -29,3 +29,5 @@ export default class getPlayer extends Endpoint {
     });
   }
 }
+
+export default getPlayer;

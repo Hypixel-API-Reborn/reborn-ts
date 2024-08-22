@@ -3,7 +3,7 @@ import RecentGame from '../structures/RecentGame';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getRecentGames extends Endpoint {
+class getRecentGames extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -18,3 +18,5 @@ export default class getRecentGames extends Endpoint {
     return res.games.map((x: any) => new RecentGame(x));
   }
 }
+
+export default getRecentGames;

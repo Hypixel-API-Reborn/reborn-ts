@@ -9,9 +9,7 @@ export interface PitArmor {
   leggings: PitInventoryItem | null;
   boots: PitInventoryItem | null;
 }
-/**
- * Pit Class
- */
+
 class Pit {
   prestige: number;
   xp: number;
@@ -46,7 +44,7 @@ class Pit {
     this.prestige = data.profile?.prestiges?.[data.profile?.prestiges?.length - 1].index || 0;
     this.xp = data.profile?.xp || 0;
     this.level =
-      Pit.calcLevel(
+      this.calcLevel(
         this.prestige,
         0 < this.prestige ? this.xp - Constants.pit.Prestiges[this.prestige - 1].SumXp : this.xp
       ) ?? 0;
@@ -76,7 +74,6 @@ class Pit {
     this.getInventory = async (): Promise<PitInventoryItem[]> => {
       let inventory = data.profile.inv_contents;
       if (!inventory) return [];
-
       try {
         inventory = await decode(inventory.data);
         const edited = [];
@@ -94,7 +91,6 @@ class Pit {
     this.getEnterChest = async () => {
       let chest = data.profile.inv_enderchest;
       if (!chest) return [];
-
       try {
         chest = await decode(chest.data);
         const edited = [];
@@ -122,7 +118,7 @@ class Pit {
     };
   }
   // Credit https://github.com/PitPanda/PitPandaProduction/blob/b1971f56ea1aa8c829b722cbb33247c96591c0cb/structures/Pit.js
-  static calcLevel(prestige: number, xp: number): number {
+  private calcLevel(prestige: number, xp: number): number {
     const multiplier = Constants.pit.Prestiges[prestige].Multiplier;
     let level = 0;
     while (0 < xp && 120 > level) {

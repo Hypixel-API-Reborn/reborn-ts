@@ -1,9 +1,6 @@
 import SkyblockMuseumItem from './SkyblockMuseumItem';
 import { decode } from '../../utils/SkyblockUtils';
 
-/**
- * Skyblock Museum class
- */
 class SkyblockMuseum {
   raw: Record<string, any>;
   value: number;

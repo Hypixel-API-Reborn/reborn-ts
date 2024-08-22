@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint.js';
 import Client from '../Client.js';
 
-export default class getSkyblockGovernment extends Endpoint {
+class getSkyblockGovernment extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getSkyblockGovernment extends Endpoint {
     return new GovernmentData(res);
   }
 }
+
+export default getSkyblockGovernment;

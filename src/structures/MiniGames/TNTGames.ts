@@ -18,6 +18,7 @@ class TNTRun {
     this.prefix = data.prefix_tntrun || '';
   }
 }
+
 class PVPRun {
   wins: number;
   bestTime: number;
@@ -42,6 +43,7 @@ class PVPRun {
     this.prefix = data.prefix_pvprun || '';
   }
 }
+
 class BowSpleef {
   wins: number;
   tags: number;
@@ -76,6 +78,7 @@ class TNTTag {
     this.prefix = data.prefix_tntag || '';
   }
 }
+
 class TNTWizards {
   wins: number;
   kills: number;
@@ -99,9 +102,6 @@ class TNTWizards {
   }
 }
 
-/**
- * The TNT Games class
- */
 class TNTGames {
   coins: number;
   winstreak: number;

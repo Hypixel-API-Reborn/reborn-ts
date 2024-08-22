@@ -13,9 +13,6 @@ class VampireZRole {
   }
 }
 
-/**
- * VampireZ class
- */
 class VampireZ {
   coins: number;
   goldBought: number;

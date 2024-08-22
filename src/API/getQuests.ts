@@ -3,7 +3,7 @@ import Quests from '../structures/Static/Quests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getQuests extends Endpoint {
+class getQuests extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getQuests extends Endpoint {
     return new Quests(res);
   }
 }
+
+export default getQuests;

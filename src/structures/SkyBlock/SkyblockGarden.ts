@@ -4,6 +4,7 @@ export interface SkyblockGardenVisitorServed {
   total: number;
   unique: number;
 }
+
 export interface SkyblockGardenVisitor {
   visited: Record<string, number>;
   completed: Record<string, number>;
@@ -53,9 +54,6 @@ export interface SkyblockGardenCropMilestones {
   netherWart: SkyblockSkillLevel;
 }
 
-/**
- * Skyblock Garden class
- */
 class SkyblockGarden {
   level: SkyblockSkillLevel;
   barnSkin: string;

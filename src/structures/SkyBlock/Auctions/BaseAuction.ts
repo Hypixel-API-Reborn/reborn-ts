@@ -1,8 +1,5 @@
 import ItemBytes from '../../ItemBytes';
 
-/**
- * Base auction class
- */
 class BaseAuction {
   auctionId: string | null;
   auctioneerUuid: string | null;

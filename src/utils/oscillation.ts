@@ -2,7 +2,6 @@
 // Month oscillation started in December 2014, so every month that is pair ( odd in js!! ) is month A
 // Weekly oscillation started... just refer to the code in the docs
 const weeklyOscillationStart = 1417237200000;
-
 export function monthAB() {
   return new Date().getMonth() % 2 ? 'a' : 'b';
 }

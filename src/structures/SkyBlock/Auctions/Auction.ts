@@ -2,9 +2,6 @@ import { SkyblockRarity } from '../../../utils/SkyblockUtils';
 import BaseAuction from './BaseAuction';
 import Bid from './Bid';
 
-/**
- * Auction class
- */
 class Auction extends BaseAuction {
   coop: string[];
   auctionStartTimestamp: number;

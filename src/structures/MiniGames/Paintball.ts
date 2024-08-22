@@ -1,7 +1,5 @@
 import divide from '../../utils/divide';
-/**
- * Paintball class
- */
+
 class Paintball {
   coins: number;
   kills: number;
@@ -36,4 +34,5 @@ class Paintball {
     this.transfusion = data.transfusion || 0;
   }
 }
+
 export default Paintball;

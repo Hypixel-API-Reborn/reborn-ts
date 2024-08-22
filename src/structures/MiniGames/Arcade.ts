@@ -1,9 +1,7 @@
 // IMPORTANT : a lot of the properties from the API seem to be nonsense
-
 import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 import { weekAB, monthAB } from '../../utils/oscillation';
 import divide from '../../utils/divide';
-
 function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   const matches = Array.from(Object.keys(data))
     .map((x) => x.match(/^([A-Za-z]+)_zombie_kills_zombies$/))
@@ -11,9 +9,7 @@ function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   // From entries might be broken
   return Object.fromEntries(matches.map((x: any) => [removeSnakeCaseString(x[1]), data[x[0]] || 0]));
 }
-/**
- * Zombies - Stats by Map + Difficulty
- */
+
 export class ZombiesStats {
   bestRound: number;
   deaths: number;
@@ -44,9 +40,6 @@ export class ZombiesStats {
   }
 }
 
-/**
- * Zombies - Overall stats
- */
 export class Zombies {
   overall: ZombiesStats;
   deadEnd: ZombiesStats;
@@ -74,9 +67,6 @@ export class Zombies {
   }
 }
 
-/**
- * Dropper stats by map
- */
 export class DropperMap {
   bestTime: number;
   completions: number;
@@ -86,9 +76,6 @@ export class DropperMap {
   }
 }
 
-/**
- * Blocking Dead class
- */
 export class BlockingDead {
   wins: number;
   kills: number;
@@ -99,9 +86,7 @@ export class BlockingDead {
     this.headshots = data.headshots_dayone || 0;
   }
 }
-/**
- * Bounty Hunters class
- */
+
 export class BountyHunters {
   wins: number;
   kills: number;
@@ -120,9 +105,7 @@ export class BountyHunters {
     this.swordKills = data.sword_kills_oneinthequiver || 0;
   }
 }
-/**
- * Capture The Wool class
- */
+
 export class CaptureTheWool {
   wins: number;
   losses: number;
@@ -151,9 +134,7 @@ export class CaptureTheWool {
     this.longestGame = data.woolhunt_longest_game || 0;
   }
 }
-/**
- * Dragon Wars class
- */
+
 export class DragonWars {
   wins: number;
   kills: number;
@@ -162,9 +143,7 @@ export class DragonWars {
     this.kills = data.kills_dragonwars2 || 0;
   }
 }
-/**
- * Dropper class
- */
+
 export class Dropper {
   wins: number;
   fails: number;
@@ -188,9 +167,7 @@ export class Dropper {
     });
   }
 }
-/**
- * Ender Spleef class
- */
+
 export class EnderSpleef {
   wins: number;
   kills: number;
@@ -209,9 +186,7 @@ export class EnderSpleef {
     this.totalPowerUpActivations = this.bigShotActivations + this.tripleShotActivations;
   }
 }
-/**
- * Farm Hunt class
- */
+
 export class FarmHunt {
   wins: number;
   winsAsAnimal: number;
@@ -240,9 +215,7 @@ export class FarmHunt {
     this.poop = (data.poop_collected_farm_hunt || 0) + (data.poop_collected || 0);
   }
 }
-/**
- * Football class
- */
+
 export class Football {
   wins: number;
   goals: number;
@@ -255,9 +228,7 @@ export class Football {
     this.powerKicks = data.powerkicks_soccer || 0;
   }
 }
-/**
- * Galxy Wars
- */
+
 export class GalaxyWars {
   wins: number;
   kills: number;
@@ -278,9 +249,7 @@ export class GalaxyWars {
     this.defenderKills = data.sw_empire_kills || 0;
   }
 }
-/**
- * Party Popper Stats (Sub gamemode of Hide and Seek)
- */
+
 export class PartyPopper {
   winsAsSeeker: number;
   winsAsHider: number;
@@ -291,9 +260,7 @@ export class PartyPopper {
     this.wins = this.winsAsSeeker + this.winsAsHider;
   }
 }
-/**
- * Prop Hunt Stats (Sub gamemode of Hide and Seek)
- */
+
 export class PropHunt {
   winsAsSeeker: number;
   winsAsHider: number;
@@ -304,9 +271,7 @@ export class PropHunt {
     this.wins = this.winsAsSeeker + this.winsAsHider;
   }
 }
-/**
- * Hide And Seek Stats
- */
+
 export class HideAndSeek {
   partyPopper: PartyPopper;
   propHunt: PropHunt;
@@ -319,9 +284,7 @@ export class HideAndSeek {
     this.winsAsHider = data.hider_wins_hide_and_seek || 0;
   }
 }
-/**
- * Hide And Seek Stats
- */
+
 export class HoleInTheWall {
   wins: number;
   rounds: number;
@@ -336,9 +299,7 @@ export class HoleInTheWall {
     this.scoreRecordOverall = this.scoreRecordFinals + this.scoreRecordNormal;
   }
 }
-/**
- * Hypixel Says Stats
- */
+
 export class HypixelSays {
   wins: number;
   rounds: number;
@@ -351,9 +312,7 @@ export class HypixelSays {
     this.topScore = data.top_score_simon_says || 0;
   }
 }
-/**
- * Mini Walls class
- */
+
 export class MiniWalls {
   kit: string;
   wins: number;
@@ -380,9 +339,7 @@ export class MiniWalls {
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
   }
 }
-/**
- * Party Games class
- */
+
 export class PartyGames {
   wins: number;
   roundWins: number;
@@ -393,9 +350,7 @@ export class PartyGames {
     this.stars = data.total_stars_party || 0;
   }
 }
-/**
- * Pixel Party Game Mode
- */
+
 export class PixelPartyGameMode {
   wins: number;
   gamesPlayed: number;
@@ -412,9 +367,7 @@ export class PixelPartyGameMode {
     this.powerUpsCollected = data?.[`power_ups_collected_${modeName}`] || 0;
   }
 }
-/**
- * Party Games class
- */
+
 export class PixelParty {
   wins: number;
   gamesPlayed: number;
@@ -441,9 +394,7 @@ export class PixelParty {
     this.colorBlind = data.pixelparty || {};
   }
 }
-/**
- * Throw Out class
- */
+
 export class ThrowOut {
   wins: number;
   kills: number;
@@ -456,9 +407,7 @@ export class ThrowOut {
     this.KDRatio = divide(this.kills, this.deaths);
   }
 }
-/**
- * Arcade class
- */
+
 class Arcade {
   coins: number;
   weeklyCoins: number;
