@@ -1,9 +1,9 @@
-import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import SkyblockGarden from '../../structures/SkyBlock/SkyblockGarden';
+import { RequestOptions } from '../../Private/Requests';
+import Endpoint from '../../Private/Endpoint';
+import Client from '../../Client';
 
-class getSkyblockGarden extends Endpoint {
+class getGarden extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);

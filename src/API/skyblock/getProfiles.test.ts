@@ -1,41 +1,41 @@
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
+import SkyblockProfile from '../../structures/SkyBlock/SkyblockProfile';
+import SkyblockMember from '../../structures/SkyBlock/SkyblockMember';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
+import Client from '../../Client';
 
-test('getSkyblockProfiles (raw)', async () => {
+test('Client#skyblock.Profiles (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockProfiles('14727faefbdc4aff848cd2713eb9939e', { raw: true });
+  const data = await client.skyblock.getProfiles('14727faefbdc4aff848cd2713eb9939e', { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
 });
 
-test('getSkyblockProfiles (no input)', () => {
+test('Client#skyblock.Profiles (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockProfiles()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
+  expect(() => client.skyblock.getProfiles()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
 
-test('getSkyblockProfiles (no profiles)', () => {
+test('Client#skyblock.Profiles (no profiles)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockProfiles('b45add7b081443909fb00aa9a3e15eb0')).rejects.toThrowError(
+  expect(() => client.skyblock.getProfiles('b45add7b081443909fb00aa9a3e15eb0')).rejects.toThrowError(
     client.errors.NO_SKYBLOCK_PROFILES
   );
   client.destroy();
 });
 
-test('getSkyblockProfiles', async () => {
+test('Client#skyblock.Profiles', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockProfiles('14727faefbdc4aff848cd2713eb9939e');
+  const data = await client.skyblock.getProfiles('14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<SkyblockProfile[]>();
 
@@ -75,11 +75,11 @@ test('getSkyblockProfiles', async () => {
   client.destroy();
 });
 
-test('getSkyblockProfiles (garden)', async () => {
+test('Client#skyblock.Profiles (garden)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockProfiles('kathund', { garden: true });
+  const data = await client.skyblock.getProfiles('kathund', { garden: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<SkyblockProfile[]>();
 
@@ -119,11 +119,11 @@ test('getSkyblockProfiles (garden)', async () => {
   client.destroy();
 });
 
-test('getSkyblockProfiles (museum)', async () => {
+test('Client#skyblock.Profiles (museum)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockProfiles('14727faefbdc4aff848cd2713eb9939e', { museum: true });
+  const data = await client.skyblock.getProfiles('14727faefbdc4aff848cd2713eb9939e', { museum: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<SkyblockProfile[]>();
 

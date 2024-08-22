@@ -1,22 +1,22 @@
-import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
+import SkyblockNews from '../../structures/SkyBlock/News/SkyblockNews';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
+import Client from '../../Client';
 
-test('getSkyblockNews (raw)', async () => {
+test('Client#skyblock.News (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockNews({ raw: true });
+  const data = await client.skyblock.getNews({ raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
 });
 
-test('getSkyblockNews', async () => {
+test('Client#skyblock.News', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockNews();
+  const data = await client.skyblock.getNews();
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<SkyblockNews[]>();
 

@@ -1,9 +1,9 @@
-import FireSale from '../structures/SkyBlock/Static/FireSale';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import FireSale from '../../structures/SkyBlock/Static/FireSale';
+import { RequestOptions } from '../../Private/Requests';
+import Endpoint from '../../Private/Endpoint';
+import Client from '../../Client';
 
-class getSkyblockFireSales extends Endpoint {
+class getFireSales extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);

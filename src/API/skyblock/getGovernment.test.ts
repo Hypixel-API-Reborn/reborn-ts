@@ -1,24 +1,24 @@
-import GovernmentData from '../structures/SkyBlock/Static/Government';
-import Candidate from '../structures/SkyBlock/Static/Candidate';
-import Perk from '../structures/SkyBlock/Static/Perk';
+import GovernmentData from '../../structures/SkyBlock/Static/Government';
+import Candidate from '../../structures/SkyBlock/Static/Candidate';
+import Perk from '../../structures/SkyBlock/Static/Perk';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
+import Client from '../../Client';
 
-test('getSkyblockGovernment (raw)', async () => {
+test('Client#skyblock.Government (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockGovernment({ raw: true });
+  const data = await client.skyblock.getGovernment({ raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
 });
 
-test('getSkyblockGovernment', async () => {
+test('Client#skyblock.Government', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockGovernment();
+  const data = await client.skyblock.getGovernment();
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(GovernmentData);
   expectTypeOf(data).toEqualTypeOf<GovernmentData>();

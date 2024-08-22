@@ -1,23 +1,23 @@
-import BingoData from '../structures/SkyBlock/Static/BingoData';
-import Bingo from '../structures/SkyBlock/Static/Bingo';
+import BingoData from '../../structures/SkyBlock/Static/BingoData';
+import Bingo from '../../structures/SkyBlock/Static/Bingo';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
+import Client from '../../Client';
 
-test('getSkyblockBingo (raw)', async () => {
+test('Client#skyblock.Bingo (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockBingo({ raw: true });
+  const data = await client.skyblock.getBingo({ raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
 });
 
-test('getSkyblockBingo', async () => {
+test('Client#skyblock.Bingo', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockBingo();
+  const data = await client.skyblock.getBingo();
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf(BingoData);
   expect(data.lastUpdatedTimestamp).toBeDefined();

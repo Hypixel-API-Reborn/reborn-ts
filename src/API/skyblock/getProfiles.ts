@@ -1,9 +1,9 @@
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
-import { SkyblockRequestOptions } from './API';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import SkyblockProfile from '../../structures/SkyBlock/SkyblockProfile';
+import { SkyblockRequestOptions } from '../API';
+import Endpoint from '../../Private/Endpoint';
+import Client from '../../Client';
 
-class getSkyblockProfiles extends Endpoint {
+class getProfiles extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);

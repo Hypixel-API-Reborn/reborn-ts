@@ -15,7 +15,7 @@ import Quests from '../structures/Static/Quests';
 import RecentGame from '../structures/RecentGame';
 import { AuctionRequestOptions, SkyblockRequestOptions } from '../API/API';
 import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { getSkyblockAuctionsOptions } from '../API/getSkyblockAuctions';
+import { getSkyblockAuctionsOptions } from '../API/skyblock/getAuctions';
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import Product from '../structures/SkyBlock/Bazzar/Product';
 import BingoData from '../structures/SkyBlock/Static/BingoData';

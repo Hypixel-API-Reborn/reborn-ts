@@ -1,55 +1,82 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { SkyblockRarity } from '../utils/SkyblockUtils';
-import Bid from '../structures/SkyBlock/Auctions/Bid';
+import AuctionInfo from '../../structures/SkyBlock/Auctions/AuctionInfo';
+import Auction from '../../structures/SkyBlock/Auctions/Auction';
+import { SkyblockRarity } from '../../utils/SkyblockUtils';
+import Bid from '../../structures/SkyBlock/Auctions/Bid';
 import { expect, expectTypeOf, test } from 'vitest';
-import ItemBytes from '../structures/ItemBytes';
-import Client from '../Client';
+import ItemBytes from '../../structures/ItemBytes';
+import Client from '../../Client';
 
-test('getSkyblockAuction (raw)', async () => {
+test('Client#skyblock.Auctions (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid, { raw: true });
+  const data = await client.skyblock.getAuctions(1, { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
 });
 
-test('getSkyblockAuction (No Query)', () => {
+test('Client#skyblock.Auctions (No input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuction('player')).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
+  expect(() => client.skyblock.getAuctions()).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 
-test('getSkyblockAuction (Bad Filter)', () => {
+test('Client#skyblock.Auctions (Negative Input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuction('meow')).rejects.toThrowError(client.errors.BAD_AUCTION_FILTER);
+  expect(() => client.skyblock.getAuctions(-1)).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 
-test('getSkyblockAuction (Auction)', async () => {
+test('Client#skyblock.Auctions (Page 0)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const auctions = await client.getSkyblockAuctions(1);
+  expect(() => client.skyblock.getAuctions(0)).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
+  client.destroy();
+});
+
+test('Client#skyblock.Auctions (String Input)', () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockAuction('auction', auctions.auctions[0].auctioneerUuid);
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(() => client.skyblock.getAuctions('hi')).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
+  client.destroy();
+});
 
+test('Client#skyblock.Auctions (One Page)', async () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const data = await client.skyblock.getAuctions(1);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
-  expectTypeOf(data.length).toEqualTypeOf<number>();
-  data.forEach((auction: Auction) => {
+  expectTypeOf(data).toEqualTypeOf<{ info: AuctionInfo; auctions: Auction[] }>();
+  expect(data.info).toBeDefined();
+  expect(data.info).toBeInstanceOf(AuctionInfo);
+  expectTypeOf(data.info).toEqualTypeOf<AuctionInfo>();
+  expect(data.info.page).toBeDefined();
+  expect(data.info.page).greaterThanOrEqual(0);
+  expectTypeOf(data.info.page).toEqualTypeOf<number>();
+  expect(data.info.totalPages).toBeDefined();
+  expect(data.info.totalPages).greaterThanOrEqual(0);
+  expectTypeOf(data.info.totalPages).toEqualTypeOf<number>();
+  expect(data.info.totalAuctions).toBeDefined();
+  expect(data.info.totalAuctions).greaterThanOrEqual(0);
+  expectTypeOf(data.info.totalAuctions).toEqualTypeOf<number>();
+  expect(data.info.lastUpdatedTimestamp).toBeDefined();
+  expect(data.info.lastUpdatedTimestamp).greaterThanOrEqual(0);
+  expectTypeOf(data.info.lastUpdatedTimestamp).toEqualTypeOf<number>();
+  expect(data.info.lastUpdatedAt).toBeDefined();
+  expectTypeOf(data.info.lastUpdatedAt).toEqualTypeOf<Date>();
+  expect(data.auctions).toBeDefined();
+  expectTypeOf(data.auctions).toEqualTypeOf<Auction[]>();
+  expect(data.auctions.length).greaterThanOrEqual(0);
+  expectTypeOf(data.auctions.length).toEqualTypeOf<number>();
+  data.auctions.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
     expect(auction).toBeInstanceOf(Auction);
     expectTypeOf(auction).toEqualTypeOf<Auction>();
@@ -120,22 +147,35 @@ test('getSkyblockAuction (Auction)', async () => {
   client.destroy();
 });
 
-test('getSkyblockAuction (Player)', async () => {
+test('Client#skyblock.Auctions (One Page Include Item Bytes)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid);
+  const data = await client.skyblock.getAuctions(1, { includeItemBytes: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
-  expectTypeOf(data.length).toEqualTypeOf<number>();
-  data.forEach((auction: Auction) => {
+  expectTypeOf(data).toEqualTypeOf<{ info: AuctionInfo; auctions: Auction[] }>();
+  expect(data.info).toBeDefined();
+  expect(data.info).toBeInstanceOf(AuctionInfo);
+  expectTypeOf(data.info).toEqualTypeOf<AuctionInfo>();
+  expect(data.info.page).toBeDefined();
+  expect(data.info.page).greaterThanOrEqual(0);
+  expectTypeOf(data.info.page).toEqualTypeOf<number>();
+  expect(data.info.totalPages).toBeDefined();
+  expect(data.info.totalPages).greaterThanOrEqual(0);
+  expectTypeOf(data.info.totalPages).toEqualTypeOf<number>();
+  expect(data.info.totalAuctions).toBeDefined();
+  expect(data.info.totalAuctions).greaterThanOrEqual(0);
+  expectTypeOf(data.info.totalAuctions).toEqualTypeOf<number>();
+  expect(data.info.lastUpdatedTimestamp).toBeDefined();
+  expect(data.info.lastUpdatedTimestamp).greaterThanOrEqual(0);
+  expectTypeOf(data.info.lastUpdatedTimestamp).toEqualTypeOf<number>();
+  expect(data.info.lastUpdatedAt).toBeDefined();
+  expectTypeOf(data.info.lastUpdatedAt).toEqualTypeOf<Date>();
+  expect(data.auctions).toBeDefined();
+  expectTypeOf(data.auctions).toEqualTypeOf<Auction[]>();
+  expect(data.auctions.length).greaterThanOrEqual(0);
+  expectTypeOf(data.auctions.length).toEqualTypeOf<number>();
+  data.auctions.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
     expect(auction).toBeInstanceOf(Auction);
     expectTypeOf(auction).toEqualTypeOf<Auction>();
@@ -206,22 +246,35 @@ test('getSkyblockAuction (Player)', async () => {
   client.destroy();
 });
 
-test('getSkyblockAuction (Profile)', async () => {
+test('Client#skyblock.Auctions (All Pages)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile);
+  const data = await client.skyblock.getAuctions('*');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
-  expectTypeOf(data.length).toEqualTypeOf<number>();
-  data.forEach((auction: Auction) => {
+  expectTypeOf(data).toEqualTypeOf<{ info: AuctionInfo; auctions: Auction[] }>();
+  expect(data.info).toBeDefined();
+  expect(data.info).toBeInstanceOf(AuctionInfo);
+  expectTypeOf(data.info).toEqualTypeOf<AuctionInfo>();
+  expect(data.info.page).toBeDefined();
+  expect(data.info.page).greaterThanOrEqual(0);
+  expectTypeOf(data.info.page).toEqualTypeOf<number>();
+  expect(data.info.totalPages).toBeDefined();
+  expect(data.info.totalPages).greaterThanOrEqual(0);
+  expectTypeOf(data.info.totalPages).toEqualTypeOf<number>();
+  expect(data.info.totalAuctions).toBeDefined();
+  expect(data.info.totalAuctions).greaterThanOrEqual(0);
+  expectTypeOf(data.info.totalAuctions).toEqualTypeOf<number>();
+  expect(data.info.lastUpdatedTimestamp).toBeDefined();
+  expect(data.info.lastUpdatedTimestamp).greaterThanOrEqual(0);
+  expectTypeOf(data.info.lastUpdatedTimestamp).toEqualTypeOf<number>();
+  expect(data.info.lastUpdatedAt).toBeDefined();
+  expectTypeOf(data.info.lastUpdatedAt).toEqualTypeOf<Date>();
+  expect(data.auctions).toBeDefined();
+  expectTypeOf(data.auctions).toEqualTypeOf<Auction[]>();
+  expect(data.auctions.length).greaterThanOrEqual(0);
+  expectTypeOf(data.auctions.length).toEqualTypeOf<number>();
+  data.auctions.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
     expect(auction).toBeInstanceOf(Auction);
     expectTypeOf(auction).toEqualTypeOf<Auction>();
