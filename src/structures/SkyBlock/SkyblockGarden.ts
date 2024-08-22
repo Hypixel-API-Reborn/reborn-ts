@@ -53,9 +53,6 @@ export interface SkyblockGardenCropMilestones {
   netherWart: SkyblockSkillLevel;
 }
 
-/**
- * Skyblock Garden class
- */
 class SkyblockGarden {
   level: SkyblockSkillLevel;
   barnSkin: string;

@@ -6,9 +6,7 @@ export interface ChallengeData {
   reward: number;
   rewardType: string;
 }
-/**
- * Game challenges class
- */
+
 class GameChallenges {
   category: StaticGameNames;
   challenges: Map<string, ChallengeData>;

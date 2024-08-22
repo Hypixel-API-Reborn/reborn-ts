@@ -1,6 +1,3 @@
-/**
- * SB Fire Sale
- */
 class FireSale {
   itemId: string | null;
   startTimestamp: number;

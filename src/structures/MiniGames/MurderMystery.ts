@@ -1,8 +1,5 @@
 import divide from '../../utils/divide';
 
-/**
- * MurderMystery stats by gamemode
- */
 class MurderMysteryModeStats {
   goldPickedUp: number;
   kills: number;
@@ -36,9 +33,6 @@ class MurderMysteryModeStats {
   }
 }
 
-/**
- * MurderMystery class
- */
 class MurderMystery {
   tokens: number;
   goldPickedUp: number;

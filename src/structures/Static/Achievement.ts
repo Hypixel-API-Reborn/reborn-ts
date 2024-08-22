@@ -14,9 +14,6 @@ function collectAll(data: AchievementTier | null) {
   return { totalPoints, totalAmount };
 }
 
-/**
- * Achievement Class
- */
 class Achievement {
   name: string;
   codeName: string;

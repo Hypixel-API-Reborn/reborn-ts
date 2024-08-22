@@ -137,9 +137,6 @@ class SkywarsModeStats {
   }
 }
 
-/**
- * Parses SkyWars Kit
- */
 class SkywarsKit {
   kitData: string[] | null;
   isKit: boolean;
@@ -155,9 +152,6 @@ class SkywarsKit {
   }
 }
 
-/**
- * Parses SkyWars Kits
- */
 class SkywarsKits {
   kits: SkywarsKit[];
   constructor(kits: Record<string, any>) {
@@ -168,9 +162,6 @@ class SkywarsKits {
     return this.kits.filter((kit) => kit.gameMode.startsWith(gameMode) && kit.kitType.startsWith(type));
   }
 }
-/**
- * Skywars Packages - parses every package player has
- */
 class SkywarsPackages {
   rawPackages: Record<string, any>;
   cages: any;
@@ -194,9 +185,6 @@ class SkywarsPackages {
       .map((x: string[]) => x[1].replace(/-[a-z]/g, (x) => x[1].toUpperCase()));
   }
 }
-/**
- * SkyWars class
- */
 class SkyWars {
   coins: number;
   souls: number;

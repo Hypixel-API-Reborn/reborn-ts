@@ -99,9 +99,6 @@ class TNTWizards {
   }
 }
 
-/**
- * The TNT Games class
- */
 class TNTGames {
   coins: number;
   winstreak: number;

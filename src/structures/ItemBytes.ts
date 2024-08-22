@@ -1,8 +1,5 @@
 import { decode } from '../utils/SkyblockUtils';
 
-/**
- * Item Bytes class
- */
 class ItemBytes {
   bytesBuffer: Buffer;
   constructor(data: Record<string, any>) {

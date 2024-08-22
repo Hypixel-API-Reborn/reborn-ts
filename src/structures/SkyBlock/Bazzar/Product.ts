@@ -11,9 +11,6 @@ export interface ProductStatus {
   buyOrders: number;
 }
 
-/**
- * Product class
- */
 class Product {
   productId: string;
   sellSummary: Order[];

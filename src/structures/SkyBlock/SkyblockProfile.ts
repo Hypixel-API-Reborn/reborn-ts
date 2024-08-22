@@ -1,8 +1,5 @@
 import SkyblockMember from './SkyblockMember';
 
-/**
- * Skyblock Profile class
- */
 class SkyblockProfile {
   profileId: string;
   profileName: string;
@@ -34,11 +31,8 @@ class SkyblockProfile {
     );
     this.me = this.members.find((x) => x.uuid === data.uuid);
   }
-  /**
-   * Profile Name
-   * @return {string}
-   */
-  toString() {
+
+  toString(): string {
     return this.profileName;
   }
 }

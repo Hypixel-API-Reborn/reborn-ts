@@ -1,6 +1,3 @@
-/**
- * Candidate class
- */
 class Perk {
   name: string;
   description: string;

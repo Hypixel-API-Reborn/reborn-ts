@@ -1,6 +1,3 @@
-/**
- * House class
- */
 class House {
   name: string;
   uuid: string;

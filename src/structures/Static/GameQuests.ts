@@ -1,9 +1,6 @@
 import { StaticGameNames } from '../../typings';
 import Quest from './Quest';
 
-/**
- * Game quests class
- */
 class GameQuests {
   game: StaticGameNames;
   quests: Quest[];

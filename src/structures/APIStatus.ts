@@ -1,7 +1,5 @@
 import APIIncident from './APIIncident';
-/**
- * API status class
- */
+
 class APIStatus {
   sourceUrl: string | null;
   title: string | null;

@@ -111,9 +111,6 @@ export type GameID =
   | -5
   | -6;
 
-/**
- * Game class
- */
 class Game {
   game: GameID | GameCode;
   id: GameID | null;

@@ -1,8 +1,5 @@
 import Candidate from './Candidate';
 
-/**
- * SB Government Class
- */
 class GovernmentData {
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date | null;

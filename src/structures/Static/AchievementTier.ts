@@ -1,6 +1,3 @@
-/**
- * AchievementTier class
- */
 class AchievementTier {
   maxTier: number;
   tierInfo: any;

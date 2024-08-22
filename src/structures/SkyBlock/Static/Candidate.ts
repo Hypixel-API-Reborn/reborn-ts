@@ -1,8 +1,5 @@
 import Perk from './Perk';
 
-/**
- * Candidate class
- */
 class Candidate {
   name: string;
   keyBenefit: string;

@@ -1,7 +1,5 @@
 import divide from '../../utils/divide';
-/**
- * Walls class
- */
+
 class Walls {
   coins: number;
   kills: number;

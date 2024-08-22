@@ -394,9 +394,6 @@ class DuelsBridge {
   }
 }
 
-/**
- * Duels class
- */
 class Duels {
   tokens: number;
   title: string | null;

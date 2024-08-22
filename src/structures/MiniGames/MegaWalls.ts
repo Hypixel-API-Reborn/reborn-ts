@@ -90,9 +90,6 @@ class MegaWallsKitStats {
   }
 }
 
-/**
- * MegaWalls class
- */
 class MegaWalls {
   selectedClass: string | null;
   coins: number;

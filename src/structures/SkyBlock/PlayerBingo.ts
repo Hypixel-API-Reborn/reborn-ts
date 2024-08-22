@@ -5,9 +5,7 @@ export interface PlayerBingoDataPerEvent {
   points: number;
   goalsCompleted: Bingo[] | string[];
 }
-/**
- * Player Bingo Class
- */
+
 class PlayerBingo {
   dataPerEvent: PlayerBingoDataPerEvent[];
   constructor(data: Record<string, any>) {

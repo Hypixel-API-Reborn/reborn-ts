@@ -1,9 +1,6 @@
 import { recursive, removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Constants from '../utils/Constants';
 
-/**
- * GameCounts class
- */
 class GameCounts {
   [x: string]: object | number;
   constructor(data: Record<string, any>) {

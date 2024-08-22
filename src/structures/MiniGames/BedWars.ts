@@ -374,9 +374,7 @@ function generateStatsForPractice(data: Record<string, any>): BedWarsPracticeSta
     }
   };
 }
-/**
- * BedWars class
- */
+
 class BedWars {
   tokens: number;
   level: number;

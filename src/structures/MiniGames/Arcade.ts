@@ -11,9 +11,6 @@ function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   // From entries might be broken
   return Object.fromEntries(matches.map((x: any) => [removeSnakeCaseString(x[1]), data[x[0]] || 0]));
 }
-/**
- * Zombies - Stats by Map + Difficulty
- */
 class ZombiesStats {
   bestRound: number;
   deaths: number;
@@ -44,9 +41,6 @@ class ZombiesStats {
   }
 }
 
-/**
- * Zombies - Overall stats
- */
 class Zombies {
   overall: ZombiesStats;
   deadEnd: ZombiesStats;
@@ -74,9 +68,6 @@ class Zombies {
   }
 }
 
-/**
- * Dropper stats by map
- */
 class DropperMap {
   bestTime: number;
   completions: number;
@@ -86,9 +77,6 @@ class DropperMap {
   }
 }
 
-/**
- * Blocking Dead class
- */
 class BlockingDead {
   wins: number;
   kills: number;
@@ -99,9 +87,6 @@ class BlockingDead {
     this.headshots = data.headshots_dayone || 0;
   }
 }
-/**
- * Bounty Hunters class
- */
 class BountyHunters {
   wins: number;
   kills: number;
@@ -120,9 +105,6 @@ class BountyHunters {
     this.swordKills = data.sword_kills_oneinthequiver || 0;
   }
 }
-/**
- * Capture The Wool class
- */
 class CaptureTheWool {
   wins: number;
   losses: number;
@@ -151,9 +133,6 @@ class CaptureTheWool {
     this.longestGame = data.woolhunt_longest_game || 0;
   }
 }
-/**
- * Dragon Wars class
- */
 class DragonWars {
   wins: number;
   kills: number;
@@ -162,9 +141,6 @@ class DragonWars {
     this.kills = data.kills_dragonwars2 || 0;
   }
 }
-/**
- * Dropper class
- */
 class Dropper {
   wins: number;
   fails: number;
@@ -188,9 +164,6 @@ class Dropper {
     });
   }
 }
-/**
- * Ender Spleef class
- */
 class EnderSpleef {
   wins: number;
   kills: number;
@@ -209,9 +182,6 @@ class EnderSpleef {
     this.totalPowerUpActivations = this.bigShotActivations + this.tripleShotActivations;
   }
 }
-/**
- * Farm Hunt class
- */
 class FarmHunt {
   wins: number;
   winsAsAnimal: number;
@@ -240,9 +210,6 @@ class FarmHunt {
     this.poop = (data.poop_collected_farm_hunt || 0) + (data.poop_collected || 0);
   }
 }
-/**
- * Football class
- */
 class Football {
   wins: number;
   goals: number;
@@ -255,9 +222,6 @@ class Football {
     this.powerKicks = data.powerkicks_soccer || 0;
   }
 }
-/**
- * Galxy Wars
- */
 class GalaxyWars {
   wins: number;
   kills: number;
@@ -278,9 +242,6 @@ class GalaxyWars {
     this.defenderKills = data.sw_empire_kills || 0;
   }
 }
-/**
- * Party Popper Stats (Sub gamemode of Hide and Seek)
- */
 class PartyPopper {
   winsAsSeeker: number;
   winsAsHider: number;
@@ -291,9 +252,6 @@ class PartyPopper {
     this.wins = this.winsAsSeeker + this.winsAsHider;
   }
 }
-/**
- * Prop Hunt Stats (Sub gamemode of Hide and Seek)
- */
 class PropHunt {
   winsAsSeeker: number;
   winsAsHider: number;
@@ -304,9 +262,6 @@ class PropHunt {
     this.wins = this.winsAsSeeker + this.winsAsHider;
   }
 }
-/**
- * Hide And Seek Stats
- */
 class HideAndSeek {
   partyPopper: PartyPopper;
   propHunt: PropHunt;
@@ -319,9 +274,6 @@ class HideAndSeek {
     this.winsAsHider = data.hider_wins_hide_and_seek || 0;
   }
 }
-/**
- * Hide And Seek Stats
- */
 class HoleInTheWall {
   wins: number;
   rounds: number;
@@ -336,9 +288,6 @@ class HoleInTheWall {
     this.scoreRecordOverall = this.scoreRecordFinals + this.scoreRecordNormal;
   }
 }
-/**
- * Hypixel Says Stats
- */
 class HypixelSays {
   wins: number;
   rounds: number;
@@ -351,9 +300,6 @@ class HypixelSays {
     this.topScore = data.top_score_simon_says || 0;
   }
 }
-/**
- * Mini Walls class
- */
 class MiniWalls {
   kit: string;
   wins: number;
@@ -380,9 +326,6 @@ class MiniWalls {
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
   }
 }
-/**
- * Party Games class
- */
 class PartyGames {
   wins: number;
   roundWins: number;
@@ -393,9 +336,6 @@ class PartyGames {
     this.stars = data.total_stars_party || 0;
   }
 }
-/**
- * Pixel Party Game Mode
- */
 class PixelPartyGameMode {
   wins: number;
   gamesPlayed: number;
@@ -412,9 +352,6 @@ class PixelPartyGameMode {
     this.powerUpsCollected = data?.[`power_ups_collected_${modeName}`] || 0;
   }
 }
-/**
- * Party Games class
- */
 class PixelParty {
   wins: number;
   gamesPlayed: number;
@@ -441,9 +378,6 @@ class PixelParty {
     this.colorBlind = data.pixelparty || {};
   }
 }
-/**
- * Throw Out class
- */
 class ThrowOut {
   wins: number;
   kills: number;
@@ -456,9 +390,6 @@ class ThrowOut {
     this.KDRatio = divide(this.kills, this.deaths);
   }
 }
-/**
- * Arcade class
- */
 class Arcade {
   coins: number;
   weeklyCoins: number;

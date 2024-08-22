@@ -9,9 +9,7 @@ class SkyblockGemstone {
     this.quality = data.quality;
   }
 }
-/**
- * Item class
- */
+
 class SkyblockInventoryItem {
   itemId: number;
   count: number;

@@ -44,9 +44,6 @@ class SmashHeoresHero {
   }
 }
 
-/**
- * SmashHeroes class
- */
 class SmashHeroes {
   coins: number;
   level: number;

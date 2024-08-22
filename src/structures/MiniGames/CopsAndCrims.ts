@@ -1,7 +1,4 @@
 import divide from '../../utils/divide';
-/**
- * Cops and crims Defusal class
- */
 class CopsAndCrimsDefusal {
   kills: number;
   headshotKills: number;
@@ -36,9 +33,6 @@ class CopsAndCrimsDefusal {
     this.killsAsCop = data.cop_kills || 0;
   }
 }
-/**
- * Cops and crims Deathmatch class
- */
 class CopsAndCrimsDeathmatch {
   kills: number;
   assists: number;
@@ -63,9 +57,6 @@ class CopsAndCrimsDeathmatch {
     this.killsAsCop = data.cop_kills_deathmatch || 0;
   }
 }
-/**
- * Cops and crims Gun Game class
- */
 class CopsAndCrimsGunGame {
   kills: number;
   assists: number;
@@ -92,9 +83,6 @@ class CopsAndCrimsGunGame {
     this.fastestWin = data.fastest_win_gungame || 0;
   }
 }
-/**
- * Cops and crims class
- */
 class CopsAndCrims {
   defusal: CopsAndCrimsDefusal;
   deathmath: CopsAndCrimsDeathmatch;

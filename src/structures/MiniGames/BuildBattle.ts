@@ -7,9 +7,6 @@ export interface BuildBattleWins {
   gtb: number;
 }
 
-/**
- * BuildBattle class
- */
 class BuildBattle {
   score: number;
   totalWins: number;

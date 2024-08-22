@@ -1,9 +1,6 @@
 import { SkyblockRarity } from '../../utils/SkyblockUtils';
 import Constants from '../../utils/Constants';
 
-/**
- * Skyblock Pet class
- */
 class SkyblockPet {
   uuid: string;
   type: string;

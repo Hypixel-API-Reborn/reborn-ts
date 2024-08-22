@@ -1,8 +1,5 @@
 import SkyblockInventoryItem from './SkyblockInventoryItem';
 
-/**
- * Item class
- */
 class SkyblockMuseumItem {
   name: string | null;
   items: SkyblockInventoryItem[];

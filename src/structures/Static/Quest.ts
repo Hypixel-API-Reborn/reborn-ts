@@ -9,9 +9,6 @@ export interface QuestReward {
   amount: number;
 }
 
-/**
- * Quest Class
- */
 class Quest {
   questName: string;
   questID: string;

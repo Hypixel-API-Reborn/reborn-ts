@@ -12,9 +12,6 @@ function parseVer(stringVer: string): string | null {
   if (!matches?.length) return null;
   return matches[0];
 }
-/**
- * SkyblockNews
- */
 class SkyblockNews {
   title: string;
   link: string;

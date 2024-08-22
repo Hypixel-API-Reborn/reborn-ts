@@ -1,6 +1,3 @@
-/**
- * Auction info class
- */
 class AuctionInfo {
   page: number;
   totalPages: number;

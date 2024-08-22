@@ -23,11 +23,7 @@ class GuildMember {
     this.expHistory = parseHistory(data.expHistory);
     this.weeklyExperience = xpCheck ? Object.values(data.expHistory).reduce((pV: any, cV: any) => pV + cV, 0) : null;
   }
-  /**
-   * UUID
-   * @return {string}
-   */
-  toString() {
+  toString(): string {
     return this.uuid;
   }
 }

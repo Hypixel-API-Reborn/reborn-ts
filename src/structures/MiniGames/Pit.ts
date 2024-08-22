@@ -9,9 +9,7 @@ export interface PitArmor {
   leggings: PitInventoryItem | null;
   boots: PitInventoryItem | null;
 }
-/**
- * Pit Class
- */
+
 class Pit {
   prestige: number;
   xp: number;

@@ -40,9 +40,6 @@ export interface SkyblockMemberArmor {
   boots: SkyblockInventoryItem | null;
 }
 
-/**
- * Skyblock member class
- */
 class SkyblockMember {
   uuid: string;
   gameMode: string | null;

@@ -1,9 +1,6 @@
 import { StaticGameNames } from '../../typings';
 import GameQuests from './GameQuests';
 
-/**
- * Quest class
- */
 class Quests {
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date | null;

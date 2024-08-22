@@ -6,9 +6,6 @@ function parseType(data: Record<string, any>): 'STACKED' | 'QUEUED' | 'ACTIVE' {
   return 'ACTIVE';
 }
 
-/**
- * Booster class
- */
 class Booster {
   purchaser: string;
   amount: number;
