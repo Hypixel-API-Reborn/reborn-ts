@@ -10,6 +10,5 @@ export default function (bytes: any) {
       return NaN;
     }
   } while (numRead < bytes.length);
-
   return result;
 }

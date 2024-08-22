@@ -11,6 +11,7 @@ class Status {
     this.mode = data.mode ?? null;
     this.map = data.map ?? null;
   }
+
   toString(): string {
     return this.online ? 'Online' : 'Offline';
   }

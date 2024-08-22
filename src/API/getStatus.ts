@@ -3,7 +3,7 @@ import Endpoint from '../Private/Endpoint';
 import Status from '../structures/Status';
 import Client from '../Client';
 
-export default class getStatus extends Endpoint {
+class getStatus extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -17,3 +17,5 @@ export default class getStatus extends Endpoint {
     return new Status(res.session);
   }
 }
+
+export default getStatus;

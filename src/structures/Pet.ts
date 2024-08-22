@@ -16,7 +16,6 @@ class Pet {
   rawNickname: string | null;
   nickname: string | null;
   experience: number;
-
   constructor(name: string, data: Record<string, any>) {
     this.isFavorite = data.vanityFavorites ? Boolean(data.vanityFavorites.includes(name.toUpperCase())) : false;
     name = name.replace('pet_', '');

@@ -87,6 +87,7 @@ export interface BedWarsModeStats {
   WLRatio: number;
   finalKDRatio: number;
 }
+
 export interface BedwarsDreamModeStats {
   doubles: BedWarsModeStats;
   fours: BedWarsModeStats;
@@ -154,28 +155,22 @@ function generateStatsForMode(data: Record<string, any>, mode: string): BedWarsM
   return {
     winstreak: data[`${mode}_winstreak`] || 0,
     playedGames: data[`${mode}_games_played_bedwars`] || 0,
-
     kills: data[`${mode}_kills_bedwars`] || 0,
     deaths: data[`${mode}_deaths_bedwars`] || 0,
-
     wins: data[`${mode}_wins_bedwars`] || 0,
     losses: data[`${mode}_losses_bedwars`] || 0,
-
     finalKills: data[`${mode}_final_kills_bedwars`] || 0,
     finalDeaths: data[`${mode}_final_deaths_bedwars`] || 0,
-
     beds: {
       broken: data[`${mode}_beds_broken_bedwars`] || 0,
       lost: data[`${mode}_beds_lost_bedwars`] || 0,
       BLRatio: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_beds_lost_bedwars`])
     },
-
     avg: {
       kills: divide(data[`${mode}_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
       finalKills: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
       bedsBroken: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_games_played_bedwars`])
     },
-
     KDRatio: divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]),
     WLRatio: divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]),
     finalKDRatio: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`])
@@ -245,7 +240,6 @@ const EASY_LEVELS_XP = 7000;
 const XP_PER_PRESTIGE = 96 * 5000 + EASY_LEVELS_XP;
 const LEVELS_PER_PRESTIGE = 100;
 const HIGHEST_PRESTIGE = 10;
-
 function getLevelRespectingPrestige(level: number) {
   if (level > HIGHEST_PRESTIGE * LEVELS_PER_PRESTIGE) {
     return level - HIGHEST_PRESTIGE * LEVELS_PER_PRESTIGE;
@@ -276,7 +270,6 @@ function getLevelForExp(exp: number) {
   const prestiges = Math.floor(exp / XP_PER_PRESTIGE);
   let level = prestiges * LEVELS_PER_PRESTIGE;
   let expWithoutPrestiges = exp - prestiges * XP_PER_PRESTIGE;
-
   for (let i = 1; i <= EASY_LEVELS; ++i) {
     const expForEasyLevel = getExpForLevel(i);
     if (expWithoutPrestiges < expForEasyLevel) {

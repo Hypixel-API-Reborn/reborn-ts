@@ -26,7 +26,6 @@ import getSkyblockNews from './getSkyblockNews';
 import getSkyblockProfiles from './getSkyblockProfiles';
 import getStatus from './getStatus';
 import getWatchdogStats from './getWatchdogStats';
-
 export default {
   getAchievements,
   getActiveHouses,

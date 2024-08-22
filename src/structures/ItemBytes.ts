@@ -14,4 +14,5 @@ class ItemBytes {
     return await decode(this.bytesBuffer, true);
   }
 }
+
 export default ItemBytes;

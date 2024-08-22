@@ -13,7 +13,6 @@ class GameChallenges {
   constructor(name: StaticGameNames, data: Record<string, any>) {
     this.category = name;
     this.challenges = new Map();
-
     data.forEach((challenge: any) => {
       const content = {
         id: challenge.id,

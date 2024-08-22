@@ -28,6 +28,7 @@ class Quest {
     }));
     this.rewards = data.rewards || [];
   }
+
   toString(): string {
     return this.questName;
   }

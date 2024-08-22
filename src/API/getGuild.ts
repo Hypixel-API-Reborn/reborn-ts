@@ -4,7 +4,7 @@ import isGuildID from '../utils/isGuildID';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getGuild extends Endpoint {
+class getGuild extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -28,7 +28,8 @@ export default class getGuild extends Endpoint {
     if (!res.guild && 'player' !== searchParameter) {
       throw new Error(this.client.errors.GUILD_DOES_NOT_EXIST);
     }
-
     return res.guild ? new Guild(res.guild, isPlayerQuery ? query : undefined) : null;
   }
 }
+
+export default getGuild;

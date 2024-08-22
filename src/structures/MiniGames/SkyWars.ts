@@ -45,13 +45,7 @@ function getSkyWarsLevelProgress(xp: number) {
     xpToNextLevel = 10000 - currentLevelXp;
     percent = Math.round(currentLevelXp) / 100;
     const percentRemaining = Math.round((100 - percent) * 100) / 100;
-    return {
-      currentLevelXp,
-      xpToNextLevel,
-      percent,
-      xpNextLevel: 10000,
-      percentRemaining
-    };
+    return { currentLevelXp, xpToNextLevel, percent, xpNextLevel: 10000, percentRemaining };
   }
   const totalXptoNextLevel = xpToNextLvl[totalXp.findIndex((x) => 0 < x * 10 - xp)] * 10;
   for (let i = 0; i < xpToNextLvl.length; i++) {
@@ -60,12 +54,7 @@ function getSkyWarsLevelProgress(xp: number) {
   }
   xpToNextLevel = totalXptoNextLevel - currentLevelXp;
   percent = Math.round((currentLevelXp / totalXptoNextLevel) * 10000) / 100;
-  return {
-    currentLevelXp,
-    xpToNextLevel,
-    percent,
-    xpNextLevel: totalXptoNextLevel
-  };
+  return { currentLevelXp, xpToNextLevel, percent, xpNextLevel: totalXptoNextLevel };
 }
 
 class SkywarsMode {
@@ -84,6 +73,7 @@ class SkywarsMode {
     this.WLRatio = divide(data.wins, data.losses);
   }
 }
+
 class SkywarsModeStats {
   activeKit: string;
   killstreak: number;
@@ -157,18 +147,17 @@ class SkywarsKits {
   constructor(kits: Record<string, any>) {
     this.kits = kits.map((kit: any) => new SkywarsKit(kit)).filter((kit: SkywarsKit) => kit.isKit);
   }
-
   get(gameMode: string = '', type: string = ''): SkywarsKit[] {
     return this.kits.filter((kit) => kit.gameMode.startsWith(gameMode) && kit.kitType.startsWith(type));
   }
 }
+
 class SkywarsPackages {
   rawPackages: Record<string, any>;
   cages: any;
   kits: SkywarsKits;
   achievements: any;
   constructor(data: Record<string, any>) {
-    // TODO : a lot more
     this.rawPackages = data;
     this.cages = this.parseCages();
     this.kits = new SkywarsKits(data);
@@ -185,6 +174,7 @@ class SkywarsPackages {
       .map((x: string[]) => x[1].replace(/-[a-z]/g, (x) => x[1].toUpperCase()));
   }
 }
+
 class SkyWars {
   coins: number;
   souls: number;

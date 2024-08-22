@@ -1,4 +1,5 @@
 import divide from '../../utils/divide';
+
 class CopsAndCrimsDefusal {
   kills: number;
   headshotKills: number;
@@ -33,6 +34,7 @@ class CopsAndCrimsDefusal {
     this.killsAsCop = data.cop_kills || 0;
   }
 }
+
 class CopsAndCrimsDeathmatch {
   kills: number;
   assists: number;
@@ -57,6 +59,7 @@ class CopsAndCrimsDeathmatch {
     this.killsAsCop = data.cop_kills_deathmatch || 0;
   }
 }
+
 class CopsAndCrimsGunGame {
   kills: number;
   assists: number;
@@ -83,6 +86,7 @@ class CopsAndCrimsGunGame {
     this.fastestWin = data.fastest_win_gungame || 0;
   }
 }
+
 class CopsAndCrims {
   defusal: CopsAndCrimsDefusal;
   deathmath: CopsAndCrimsDeathmatch;

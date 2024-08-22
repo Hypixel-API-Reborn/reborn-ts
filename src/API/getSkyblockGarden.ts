@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockGarden extends Endpoint {
+class getSkyblockGarden extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getSkyblockGarden extends Endpoint {
     return new SkyblockGarden(res);
   }
 }
+
+export default getSkyblockGarden;

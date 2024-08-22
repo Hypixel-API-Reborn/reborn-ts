@@ -8,11 +8,9 @@ class RateLimit {
   declare interval: NodeJS.Timeout;
   constructor(client: Client) {
     this.client = client;
-
     this.requests = 0;
     this.limit = 0;
     this.initialized = false;
-
     this.interval = setInterval(() => this.reset(), 300000);
   }
 

@@ -15,7 +15,6 @@ class ServerInfo {
   faviconB64: string;
   favicon: Buffer;
   ping: number;
-
   constructor(data: Record<string, any>, ping: string | number) {
     this.protocolUsed = data.version.protocol || 736;
     this.versionInfo = data.version.name || 'Unknown';
@@ -32,6 +31,7 @@ class ServerInfo {
     this.favicon = Buffer.from(this.faviconB64, 'base64');
     this.ping = parseInt(String(ping), 10);
   }
+
   toString(): string {
     return `${this.textMOTD} - ${this.players} Players (${this.ping} ms) - ${this.versionInfo}`;
   }

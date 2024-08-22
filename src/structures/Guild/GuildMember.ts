@@ -10,7 +10,6 @@ class GuildMember {
   mutedUntil: Date | null;
   expHistory: ExpHistory[];
   weeklyExperience: any | null;
-
   constructor(data: Record<string, any>) {
     this.uuid = data.uuid;
     this.joinedAtTimestamp = data.joined;
@@ -23,6 +22,7 @@ class GuildMember {
     this.expHistory = parseHistory(data.expHistory);
     this.weeklyExperience = xpCheck ? Object.values(data.expHistory).reduce((pV: any, cV: any) => pV + cV, 0) : null;
   }
+
   toString(): string {
     return this.uuid;
   }

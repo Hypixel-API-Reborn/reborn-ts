@@ -12,6 +12,7 @@ export interface WoolWarsStats {
   assists: number;
   powerups: number;
 }
+
 export interface WoolWarsPrivateGamesConfig {
   one_hit_one_kil: boolean;
   rainbow_wool: 'Enabled' | 'Disabled';

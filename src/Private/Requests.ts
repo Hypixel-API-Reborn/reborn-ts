@@ -15,10 +15,7 @@ class Requests {
   }
 
   async request(endpoint: string, options?: RequestOptions): Promise<any> {
-    const info = {
-      raw: options?.raw ?? false,
-      noCache: options?.noCache ?? false
-    };
+    const info = { raw: options?.raw ?? false, noCache: options?.noCache ?? false };
     if (this.client.cacheHandler.has(endpoint)) {
       return this.client.cacheHandler.get(endpoint);
     }
@@ -47,7 +44,6 @@ class Requests {
       throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, res.statusText));
     }
     this.client.rateLimit.requests++;
-
     // eslint-disable-next-line no-underscore-dangle
     parsedRes._headers = res.headers;
     parsedRes.raw = Boolean(info.raw);
@@ -55,7 +51,6 @@ class Requests {
     if (this.client.options.cache && !info.raw) {
       this.client.cacheHandler.set(endpoint, parsedRes);
     }
-
     return parsedRes;
   }
 

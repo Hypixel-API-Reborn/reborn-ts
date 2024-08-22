@@ -72,13 +72,7 @@ export function playerLevelProgress(xp: number): LevelProgress {
   currentXP = currentXP - 2500;
   const percent = Math.round((currentXP / xpToNext) * 100 * 100) / 100;
   const percentRemaining = Math.round((100 - percent) * 100) / 100;
-  return {
-    xpToNext,
-    remainingXP,
-    currentXP,
-    percent,
-    percentRemaining
-  };
+  return { xpToNext, remainingXP, currentXP, percent, percentRemaining };
 }
 
 export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia[] {

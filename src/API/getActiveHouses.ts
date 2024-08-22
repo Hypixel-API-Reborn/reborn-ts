@@ -3,7 +3,7 @@ import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
 import Client from '../Client';
 
-export default class getActiveHouses extends Endpoint {
+class getActiveHouses extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getActiveHouses extends Endpoint {
     return res.length ? res.map((b: any) => new House(b)) : [];
   }
 }
+
+export default getActiveHouses;

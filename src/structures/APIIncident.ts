@@ -24,6 +24,7 @@ class APIIncident {
     this.categories = data.categories || [];
     this.isResolved = this.HTMLContent.includes('Resolved -') || this.HTMLContent.includes('Completed -');
   }
+
   toString(): string {
     return this.HTMLContent;
   }

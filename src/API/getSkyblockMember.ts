@@ -3,7 +3,7 @@ import { SkyblockRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockMember extends Endpoint {
+class getSkyblockMember extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -41,3 +41,5 @@ export default class getSkyblockMember extends Endpoint {
     return memberByProfileName;
   }
 }
+
+export default getSkyblockMember;

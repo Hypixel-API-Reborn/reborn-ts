@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getBingoByPlayer extends Endpoint {
+class getBingoByPlayer extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -18,3 +18,5 @@ export default class getBingoByPlayer extends Endpoint {
     return new PlayerBingo(res);
   }
 }
+
+export default getBingoByPlayer;

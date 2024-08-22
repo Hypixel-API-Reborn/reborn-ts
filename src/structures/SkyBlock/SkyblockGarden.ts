@@ -4,6 +4,7 @@ export interface SkyblockGardenVisitorServed {
   total: number;
   unique: number;
 }
+
 export interface SkyblockGardenVisitor {
   visited: Record<string, number>;
   completed: Record<string, number>;

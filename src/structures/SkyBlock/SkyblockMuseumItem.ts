@@ -1,7 +1,7 @@
 import SkyblockInventoryItem from './SkyblockInventoryItem';
 
 class SkyblockMuseumItem {
-  name: string | null;
+  name: string;
   items: SkyblockInventoryItem[];
   donatedTime: number;
   donatedTimeAt: Date;
@@ -20,7 +20,7 @@ class SkyblockMuseumItem {
     this.featuredSlot = data.featuredSlot;
   }
 
-  toString(): string | null {
+  toString(): string {
     return this.name;
   }
 }

@@ -5,7 +5,6 @@ class GuildRank {
   createdAtTimestamp: number;
   createdAt: Date;
   priority: number;
-
   constructor(data: Record<string, any>) {
     this.name = data.name;
     this.default = data.default;
@@ -14,6 +13,7 @@ class GuildRank {
     this.createdAt = new Date(data.created ? data.created : data.createdAtTimestamp);
     this.priority = data.priority;
   }
+
   toString() {
     return this.name;
   }

@@ -15,23 +15,18 @@ class Client {
   declare updater: Updater;
   declare errors: Errors;
   declare rateLimit: RateLimit;
-
   readonly key: string;
-
   declare interval: NodeJS.Timeout;
-
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
     this.parasOptions(options);
     if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
-
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
     this.errors = new Errors();
     this.rateLimit = new RateLimit(this);
     if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
-
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -40,7 +35,6 @@ class Client {
       // @ts-expect-error
       this[func] = endpoint.execute.bind(endpoint);
     }
-
     if (clients.find((x) => x.key === key)) {
       // eslint-disable-next-line no-console
       console.warn(this.errors.MULTIPLE_INSTANCES);
@@ -52,7 +46,6 @@ class Client {
       }
       return;
     }
-
     if (this.options.checkForUpdates) {
       this.interval = setInterval(
         () => {
@@ -61,7 +54,6 @@ class Client {
         1000 * 60 * (this.options.checkForUpdatesInterval ?? 60)
       );
     }
-
     clients.push(this);
   }
 

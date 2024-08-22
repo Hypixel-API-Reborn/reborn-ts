@@ -43,6 +43,7 @@ class MegaWallsModeStats {
     this.damageDealt = data[`${kit}damage_dealt_${mode}`] || 0;
   }
 }
+
 class MegaWallsKitStats {
   kills: number;
   assists: number;

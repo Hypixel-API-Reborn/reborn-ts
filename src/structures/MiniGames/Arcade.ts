@@ -1,9 +1,7 @@
 // IMPORTANT : a lot of the properties from the API seem to be nonsense
-
 import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 import { weekAB, monthAB } from '../../utils/oscillation';
 import divide from '../../utils/divide';
-
 function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   const matches = Array.from(Object.keys(data))
     .map((x) => x.match(/^([A-Za-z]+)_zombie_kills_zombies$/))
@@ -11,6 +9,7 @@ function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   // From entries might be broken
   return Object.fromEntries(matches.map((x: any) => [removeSnakeCaseString(x[1]), data[x[0]] || 0]));
 }
+
 class ZombiesStats {
   bestRound: number;
   deaths: number;
@@ -87,6 +86,7 @@ class BlockingDead {
     this.headshots = data.headshots_dayone || 0;
   }
 }
+
 class BountyHunters {
   wins: number;
   kills: number;
@@ -105,6 +105,7 @@ class BountyHunters {
     this.swordKills = data.sword_kills_oneinthequiver || 0;
   }
 }
+
 class CaptureTheWool {
   wins: number;
   losses: number;
@@ -133,6 +134,7 @@ class CaptureTheWool {
     this.longestGame = data.woolhunt_longest_game || 0;
   }
 }
+
 class DragonWars {
   wins: number;
   kills: number;
@@ -141,6 +143,7 @@ class DragonWars {
     this.kills = data.kills_dragonwars2 || 0;
   }
 }
+
 class Dropper {
   wins: number;
   fails: number;
@@ -164,6 +167,7 @@ class Dropper {
     });
   }
 }
+
 class EnderSpleef {
   wins: number;
   kills: number;
@@ -182,6 +186,7 @@ class EnderSpleef {
     this.totalPowerUpActivations = this.bigShotActivations + this.tripleShotActivations;
   }
 }
+
 class FarmHunt {
   wins: number;
   winsAsAnimal: number;
@@ -210,6 +215,7 @@ class FarmHunt {
     this.poop = (data.poop_collected_farm_hunt || 0) + (data.poop_collected || 0);
   }
 }
+
 class Football {
   wins: number;
   goals: number;
@@ -222,6 +228,7 @@ class Football {
     this.powerKicks = data.powerkicks_soccer || 0;
   }
 }
+
 class GalaxyWars {
   wins: number;
   kills: number;
@@ -242,6 +249,7 @@ class GalaxyWars {
     this.defenderKills = data.sw_empire_kills || 0;
   }
 }
+
 class PartyPopper {
   winsAsSeeker: number;
   winsAsHider: number;
@@ -252,6 +260,7 @@ class PartyPopper {
     this.wins = this.winsAsSeeker + this.winsAsHider;
   }
 }
+
 class PropHunt {
   winsAsSeeker: number;
   winsAsHider: number;
@@ -262,6 +271,7 @@ class PropHunt {
     this.wins = this.winsAsSeeker + this.winsAsHider;
   }
 }
+
 class HideAndSeek {
   partyPopper: PartyPopper;
   propHunt: PropHunt;
@@ -274,6 +284,7 @@ class HideAndSeek {
     this.winsAsHider = data.hider_wins_hide_and_seek || 0;
   }
 }
+
 class HoleInTheWall {
   wins: number;
   rounds: number;
@@ -288,6 +299,7 @@ class HoleInTheWall {
     this.scoreRecordOverall = this.scoreRecordFinals + this.scoreRecordNormal;
   }
 }
+
 class HypixelSays {
   wins: number;
   rounds: number;
@@ -300,6 +312,7 @@ class HypixelSays {
     this.topScore = data.top_score_simon_says || 0;
   }
 }
+
 class MiniWalls {
   kit: string;
   wins: number;
@@ -326,6 +339,7 @@ class MiniWalls {
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
   }
 }
+
 class PartyGames {
   wins: number;
   roundWins: number;
@@ -336,6 +350,7 @@ class PartyGames {
     this.stars = data.total_stars_party || 0;
   }
 }
+
 class PixelPartyGameMode {
   wins: number;
   gamesPlayed: number;
@@ -352,6 +367,7 @@ class PixelPartyGameMode {
     this.powerUpsCollected = data?.[`power_ups_collected_${modeName}`] || 0;
   }
 }
+
 class PixelParty {
   wins: number;
   gamesPlayed: number;
@@ -378,6 +394,7 @@ class PixelParty {
     this.colorBlind = data.pixelparty || {};
   }
 }
+
 class ThrowOut {
   wins: number;
   kills: number;
@@ -390,6 +407,7 @@ class ThrowOut {
     this.KDRatio = divide(this.kills, this.deaths);
   }
 }
+
 class Arcade {
   coins: number;
   weeklyCoins: number;

@@ -23,9 +23,9 @@ import Walls from './MiniGames/Walls';
 import Duels from './MiniGames/Duels';
 import UHC from './MiniGames/UHC';
 import Pit from './MiniGames/Pit';
+import Guild from './Guild/Guild';
 import Color from './Color';
 import Game from './Game';
-import Guild from './Guild/Guild';
 
 export interface LevelProgress {
   xpToNext: number;
@@ -88,7 +88,6 @@ class Player {
   claimedLevelingRewards: number[];
   globalCosmetics: PlayerCosmetics | null;
   ranksPurchaseTime: RanksPurchaseTime;
-
   constructor(data: Record<string, any>, guild?: Guild) {
     this.nickname = data.displayname;
     this.uuid = data.uuid;

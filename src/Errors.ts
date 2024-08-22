@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-
 class Errors {
   INVALID_API_KEY: string =
     '[Hypixel-API-Reborn] Invalid API Key! For help join our Discord Server https://discord.gg/NSEBNMM';

@@ -2,7 +2,8 @@ import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import { SkyblockRequestOptions } from './API';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
-export default class getSkyblockProfiles extends Endpoint {
+
+class getSkyblockProfiles extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -15,7 +16,6 @@ export default class getSkyblockProfiles extends Endpoint {
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
     if (res.raw) return res;
     if (!res.profiles || !res.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
-
     const profiles = [];
     for (let i = 0; i < res.profiles.length; i++) {
       profiles.push({
@@ -32,7 +32,8 @@ export default class getSkyblockProfiles extends Endpoint {
         members: res.profiles[i].members
       });
     }
-
     return profiles.map((p) => new SkyblockProfile(p));
   }
 }
+
+export default getSkyblockProfiles;

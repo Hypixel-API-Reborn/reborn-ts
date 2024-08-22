@@ -12,7 +12,7 @@ export interface getSkyblockAuctionsOptions extends AuctionRequestOptions {
   noInfo?: boolean;
 }
 
-export default class getSkyblockAuctions extends Endpoint {
+class getSkyblockAuctions extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -101,3 +101,5 @@ export default class getSkyblockAuctions extends Endpoint {
     };
   }
 }
+
+export default getSkyblockAuctions;

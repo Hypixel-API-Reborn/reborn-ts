@@ -3,7 +3,7 @@ import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
-export default class getSkyblockNews extends Endpoint {
+class getSkyblockNews extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -16,3 +16,5 @@ export default class getSkyblockNews extends Endpoint {
     return res.items.map((i: any) => new SkyblockNews(i));
   }
 }
+
+export default getSkyblockNews;

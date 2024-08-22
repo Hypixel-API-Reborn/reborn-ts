@@ -23,4 +23,5 @@ class SkyblockPet {
     this.skin = data.skin;
   }
 }
+
 export default SkyblockPet;

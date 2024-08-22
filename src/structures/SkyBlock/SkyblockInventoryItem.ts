@@ -50,10 +50,7 @@ class SkyblockInventoryItem {
     this.enchantments = data.tag.ExtraAttributes.enchantments ?? null;
     this.reforge = data.tag.ExtraAttributes.modifier ?? null;
     this.gemstones = Object.entries(data.tag.ExtraAttributes.gems).map((gem) => {
-      return {
-        type: gem[0].split('_')[0],
-        quality: gem[1] as SkyblockGemstoneQuality
-      };
+      return { type: gem[0].split('_')[0], quality: gem[1] as SkyblockGemstoneQuality };
     });
     this.damage = data.Damage || 0;
     this.rarity = parseRarity(this.loreArray[this.loreArray.length - 1]);

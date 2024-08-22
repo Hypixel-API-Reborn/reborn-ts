@@ -3,7 +3,7 @@ import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
 import Client from '../Client';
 
-export default class getHouse extends Endpoint {
+class getHouse extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -17,3 +17,5 @@ export default class getHouse extends Endpoint {
     return new House(res);
   }
 }
+
+export default getHouse;

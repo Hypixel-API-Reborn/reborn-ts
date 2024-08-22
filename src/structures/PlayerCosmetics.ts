@@ -124,4 +124,5 @@ class PlayerCosmetics {
     return this._clickfx;
   }
 }
+
 export default PlayerCosmetics;

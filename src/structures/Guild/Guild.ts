@@ -26,7 +26,6 @@ class Guild {
   expHistory: ExpHistory[];
   achievements: { winners: number; experienceKings: number; onlinePlayers: number };
   preferredGames: Game[];
-
   constructor(data: Record<string, any>, uuid?: string) {
     // eslint-disable-next-line no-underscore-dangle
     this.id = data._id;
@@ -55,9 +54,11 @@ class Guild {
     };
     this.preferredGames = data.preferredGames ? data.preferredGames.map((g: any) => new Game(g)) : [];
   }
+
   toString(): string {
     return this.name;
   }
+
   guildMaster(): GuildMember {
     return this.members.find(
       (member) => 'Guild Master' === member.rank || 'GUILDMASTER' === member.rank
