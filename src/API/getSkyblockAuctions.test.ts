@@ -5,8 +5,6 @@ import Bid from '../structures/SkyBlock/Auctions/Bid';
 import { expect, expectTypeOf, test } from 'vitest';
 import ItemBytes from '../structures/ItemBytes';
 import Client from '../Client';
-import Errors from '../Errors';
-const errors = new Errors();
 
 test('getSkyblockAuctions (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -22,7 +20,7 @@ test('getSkyblockAuctions (No input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuctions()).rejects.toThrowError(errors.INVALID_OPTION_VALUE);
+  expect(() => client.getSkyblockAuctions()).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 
@@ -30,7 +28,7 @@ test('getSkyblockAuctions (Negative Input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuctions(-1)).rejects.toThrowError(errors.INVALID_OPTION_VALUE);
+  expect(() => client.getSkyblockAuctions(-1)).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 
@@ -38,7 +36,7 @@ test('getSkyblockAuctions (Page 0)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuctions(0)).rejects.toThrowError(errors.INVALID_OPTION_VALUE);
+  expect(() => client.getSkyblockAuctions(0)).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 
@@ -46,7 +44,7 @@ test('getSkyblockAuctions (String Input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuctions('hi')).rejects.toThrowError(errors.INVALID_OPTION_VALUE);
+  expect(() => client.getSkyblockAuctions('hi')).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 

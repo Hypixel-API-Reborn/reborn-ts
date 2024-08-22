@@ -5,7 +5,6 @@ import Guild from '../structures/Guild/Guild';
 import Color from '../structures/Color';
 import Game from '../structures/Game';
 import Client from '../Client';
-import Errors from '../Errors';
 import Arcade from '../structures/MiniGames/Arcade';
 import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
 import BedWars from '../structures/MiniGames/BedWars';
@@ -32,13 +31,11 @@ import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import House from '../structures/House';
 import RecentGame from '../structures/RecentGame';
 
-const errors = new Errors();
-
 test('No Player Input', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getPlayer()).rejects.toThrowError(errors.NO_NICKNAME_UUID);
+  expect(() => client.getPlayer()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
 

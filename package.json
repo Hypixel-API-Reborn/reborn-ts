@@ -21,8 +21,8 @@
     "prettier:check": "npx prettier --check src/",
     "prettier": "npx prettier --write src/",
     "build": "npx tsc",
-    "test": "npx vitest run --root src/",
-    "test:coverage": "npx vitest --ui --coverage --root src/"
+    "test": "npx vitest run",
+    "test:coverage": "npx vitest --ui --coverage"
   },
   "engines": {
     "node": ">=20.16.0"

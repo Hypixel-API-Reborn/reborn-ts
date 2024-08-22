@@ -4,9 +4,6 @@ import Bid from '../structures/SkyBlock/Auctions/Bid';
 import { expect, expectTypeOf, test } from 'vitest';
 import ItemBytes from '../structures/ItemBytes';
 import Client from '../Client';
-import Errors from '../Errors';
-
-const errors = new Errors();
 
 test('getSkyblockAuctionsByPlayer (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -25,7 +22,7 @@ test('getSkyblockAuctionsByPlayer (No Input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuctionsByPlayer()).rejects.toThrowError(errors.NO_NICKNAME_UUID);
+  expect(() => client.getSkyblockAuctionsByPlayer()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
 

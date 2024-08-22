@@ -6,7 +6,7 @@ test('getSkyblockNews (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockNews('Pixelic', { raw: true });
+  const data = await client.getSkyblockNews({ raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();

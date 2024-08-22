@@ -7,14 +7,12 @@ import SkyblockGarden, {
 import { SkyblockSkillLevel } from '../utils/SkyblockUtils';
 import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
-import Errors from '../Errors';
-const errors = new Errors();
 
 test('getSkyblockGarden (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockGarden()).rejects.toThrowError(errors.NO_UUID);
+  expect(() => client.getSkyblockGarden()).rejects.toThrowError(client.errors.NO_UUID);
   client.destroy();
 });
 

@@ -2,8 +2,6 @@ import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
 import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
-import Errors from '../Errors';
-const errors = new Errors();
 
 test('getSkyblockProfiles (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -19,7 +17,7 @@ test('getSkyblockProfiles (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockProfiles()).rejects.toThrowError(errors.NO_NICKNAME_UUID);
+  expect(() => client.getSkyblockProfiles()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
 
@@ -28,7 +26,7 @@ test('getSkyblockProfiles (no profiles)', () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getSkyblockProfiles('b45add7b081443909fb00aa9a3e15eb0')).rejects.toThrowError(
-    errors.NO_SKYBLOCK_PROFILES
+    client.errors.NO_SKYBLOCK_PROFILES
   );
   client.destroy();
 });

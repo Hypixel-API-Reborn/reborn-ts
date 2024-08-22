@@ -1,8 +1,6 @@
 import { expect, expectTypeOf, test } from 'vitest';
 import Endpoint from './Endpoint';
 import Client from '../Client';
-import Errors from '../Errors';
-const errors = new Errors();
 
 test('Endpoint', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');
@@ -19,7 +17,7 @@ test('Endpoint', () => {
 
   expect(endpoint.execute).toBeDefined();
   expectTypeOf(endpoint.execute).toBeFunction();
-  expect(() => endpoint.execute()).toThrowError(errors.NOT_IMPLEMENTED);
+  expect(() => endpoint.execute()).toThrowError(client.errors.NOT_IMPLEMENTED);
 
   client.destroy();
 });

@@ -7,7 +7,7 @@ test('getStatus (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getStatus('Pixelic', { raw: true });
+  const data = await client.getStatus('14727faefbdc4aff848cd2713eb9939e', { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
@@ -17,7 +17,7 @@ test('getStatus', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getStatus('Pixelic');
+  const data = await client.getStatus('14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Status);
   expectTypeOf(data).toEqualTypeOf<Status>();

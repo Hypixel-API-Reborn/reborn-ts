@@ -5,7 +5,6 @@ import Requests from './Private/Requests';
 import Updater from './Private/Updater';
 import Client from './Client';
 import Errors from './Errors';
-
 const errors = new Errors();
 
 test('Client (No Key)', () => {

@@ -1,8 +1,6 @@
 import { expect, expectTypeOf, test } from 'vitest';
 import House from '../structures/House';
 import Client from '../Client';
-import Errors from '../Errors';
-const errors = new Errors();
 
 test('getHouse (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -21,7 +19,7 @@ test('getHouse (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getHouse()).rejects.toThrowError(errors.NO_UUID);
+  expect(() => client.getHouse()).rejects.toThrowError(client.errors.NO_UUID);
   client.destroy();
 });
 

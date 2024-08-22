@@ -4,9 +4,6 @@ import Bid from '../structures/SkyBlock/Auctions/Bid';
 import { expect, expectTypeOf, test } from 'vitest';
 import ItemBytes from '../structures/ItemBytes';
 import Client from '../Client';
-import Errors from '../Errors';
-
-const errors = new Errors();
 
 test('getSkyblockAuction (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -25,7 +22,7 @@ test('getSkyblockAuction (No Query)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuction('player')).rejects.toThrowError(errors.NO_NICKNAME_UUID);
+  expect(() => client.getSkyblockAuction('player')).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
 
@@ -33,7 +30,7 @@ test('getSkyblockAuction (Bad Filter)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  expect(() => client.getSkyblockAuction('meow')).rejects.toThrowError(errors.BAD_AUCTION_FILTER);
+  expect(() => client.getSkyblockAuction('meow')).rejects.toThrowError(client.errors.BAD_AUCTION_FILTER);
   client.destroy();
 });
 
