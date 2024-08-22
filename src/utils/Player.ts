@@ -1,4 +1,4 @@
-import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../structures/Player';
+import { PlayerRank } from '../structures/Player';
 
 export function getRank(player: Record<string, any>): PlayerRank {
   let rank;
@@ -64,6 +64,15 @@ export function levelToXP(xp: number): number {
   return 1250 * level ** 2 + 8750 * level;
 }
 
+export interface LevelProgress {
+  level: number;
+  xpToNext: number;
+  remainingXP: number;
+  currentXP: number;
+  percent: number;
+  percentRemaining: number;
+}
+
 export function playerLevelProgress(xp: number): LevelProgress {
   const xpFromLevel = levelToXP(xp);
   let currentXP = xp - xpFromLevel;
@@ -73,6 +82,7 @@ export function playerLevelProgress(xp: number): LevelProgress {
   const percent = Math.round((currentXP / xpToNext) * 100 * 100) / 100;
   const percentRemaining = Math.round((100 - percent) * 100) / 100;
   return {
+    level: getPlayerLevel(xp),
     xpToNext,
     remainingXP,
     currentXP,
@@ -81,14 +91,24 @@ export function playerLevelProgress(xp: number): LevelProgress {
   };
 }
 
-export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia[] {
-  const links = data.links;
+export class SocialMedia {
+  name: string;
+  link: string;
+  id: string;
+  constructor(data: { name: string; link: string; id: string }) {
+    this.name = data.name;
+    this.link = data.link;
+    this.id = data.id;
+  }
+}
+
+export function getSocialMedia(links: Record<string, any>): SocialMedia[] {
   const formattedNames = ['Twitter', 'YouTube', 'Instagram', 'Twitch', 'Hypixel', 'Discord'];
   const upperNames = ['TWITTER', 'YOUTUBE', 'INSTAGRAM', 'TWITCH', 'HYPIXEL', 'DISCORD'];
   return Object.keys(links)
     .map((x) => upperNames.indexOf(x))
     .filter((x) => -1 !== x)
-    .map((x) => ({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
+    .map((x) => new SocialMedia({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
 }
 
 export function parseClaimedRewards(data: Record<string, any>): number[] {

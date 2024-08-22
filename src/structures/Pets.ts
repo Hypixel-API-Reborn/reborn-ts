@@ -35,7 +35,7 @@ class Pets {
   lastJourneyTimestamp: number | null;
   lastJourneyAt: Date | null;
   petConsumables: PetConsumables;
-  constructor(pets: string[], data: Record<string, any>) {
+  constructor(data: Record<string, any>, pets: string[]) {
     this.pets = pets.map((x) => new Pet(x, data));
     this.lastJourneyTimestamp = data.petJourneyTimestamp || null;
     this.lastJourneyAt = this.lastJourneyTimestamp ? new Date(this.lastJourneyTimestamp) : null;
