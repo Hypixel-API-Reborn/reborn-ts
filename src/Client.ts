@@ -22,9 +22,9 @@ class Client {
 
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
+    this.parasOptions(options);
     if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
 
-    this.options = this.parasOptions(options);
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
@@ -72,17 +72,15 @@ class Client {
     if (this.rateLimit.interval) clearInterval(this.rateLimit.interval);
   }
 
-  private parasOptions(options?: ClientOptions): ClientOptions {
-    return {
-      cache: options?.cache ?? true,
-      cacheTime: options?.cacheTime ?? 300,
-      cacheMaxKeys: options?.cacheMaxKeys ?? -1,
-      cacheCheckPeriod: options?.cacheCheckPeriod ?? 180,
-      rateLimit: options?.rateLimit ?? 'AUTO',
-      silent: options?.silent ?? false,
-      checkForUpdates: options?.checkForUpdates ?? true,
-      checkForUpdatesInterval: options?.checkForUpdatesInterval ?? 60
-    };
+  private parasOptions(options?: ClientOptions) {
+    this.options.cache = options?.cache ?? true;
+    this.options.cacheTime = options?.cacheTime ?? 300;
+    this.options.cacheMaxKeys = options?.cacheMaxKeys ?? -1;
+    this.options.cacheCheckPeriod = options?.cacheCheckPeriod ?? 180;
+    this.options.rateLimit = options?.rateLimit ?? 'AUTO';
+    this.options.silent = options?.silent ?? false;
+    this.options.checkForUpdates = options?.checkForUpdates ?? true;
+    this.options.checkForUpdatesInterval = options?.checkForUpdatesInterval ?? 60;
   }
 }
 
