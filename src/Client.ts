@@ -22,13 +22,13 @@ class Client {
 
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
+    this.errors = new Errors();
     if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
 
     this.options = this.parasOptions(options);
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
-    this.errors = new Errors();
     this.rateLimit = new RateLimit(this);
     if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
 
