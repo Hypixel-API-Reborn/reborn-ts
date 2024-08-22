@@ -12,8 +12,8 @@ class getSkyblockGovernment extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<GovernmentData> {
     const res = await this.client.requests.request('/resources/skyblock/election', options);
-    if (res.raw) return res;
-    return new GovernmentData(res);
+    if (res.options.raw) return res.data;
+    return new GovernmentData(res.data);
   }
 }
 

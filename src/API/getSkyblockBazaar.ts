@@ -12,9 +12,8 @@ class getSkyblockBazaar extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<Product[]> {
     const res = await this.client.requests.request('/skyblock/bazaar', options);
-    if (res.raw) return res;
-    const productsKeys = Object.keys(res.products);
-    return productsKeys.map((x) => new Product(res.products[x]));
+    if (res.options.raw) return res.data;
+    return Object.keys(res.data.products).map((x) => new Product(res.data.products[x]));
   }
 }
 

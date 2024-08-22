@@ -12,8 +12,8 @@ class getGuildAchievements extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<GuildAchievements> {
     const res = await this.client.requests.request('/resources/guilds/achievements', options);
-    if (res.raw) return res;
-    return new GuildAchievements(res);
+    if (res.options.raw) return res.data;
+    return new GuildAchievements(res.data);
   }
 }
 

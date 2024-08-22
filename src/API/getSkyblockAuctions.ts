@@ -40,10 +40,10 @@ class getSkyblockAuctions extends Endpoint {
   }
 
   async getPage(page: number): Promise<{ info: AuctionInfo; auctions: Auction[] }> {
-    const data = await this.client.requests.request(`/skyblock/auctions?page=${page}`, this.options);
+    const res = await this.client.requests.request(`/skyblock/auctions?page=${page}`, this.options);
     return {
-      info: new AuctionInfo(data),
-      auctions: data.auctions.map((a: any) => new Auction(a))
+      info: new AuctionInfo(res.data),
+      auctions: res.data.auctions.map((a: any) => new Auction(a))
     };
   }
 

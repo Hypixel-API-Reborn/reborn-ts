@@ -12,8 +12,8 @@ class getSkyblockBingo extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<BingoData> {
     const res = await this.client.requests.request('/resources/skyblock/bingo', options);
-    if (res.raw) return res;
-    return new BingoData(res);
+    if (res.options.raw) return res.data;
+    return new BingoData(res.data);
   }
 }
 

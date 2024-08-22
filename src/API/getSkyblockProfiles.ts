@@ -14,26 +14,26 @@ class getSkyblockProfiles extends Endpoint {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
-    if (res.raw) return res;
-    if (!res.profiles || !res.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
+    if (res.options.raw) return res.data;
+    if (!res.data.profiles || !res.data.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
     const profiles = [];
-    for (let i = 0; i < res.profiles.length; i++) {
+    for (let i = 0; i < res.data.profiles.length; i++) {
       profiles.push({
         uuid: query,
-        profileId: res.profiles[i].profile_id,
-        profileName: res.profiles[i].cute_name,
-        gameMode: res.profiles[i].game_mode || null,
-        m: res.profiles[i].members[query],
-        banking: res.profiles[i].banking,
-        communityUpgrades: res.profiles[i].community_upgrades,
-        selected: res.profiles[i].selected,
-        members: res.profiles[i].members,
+        profileId: res.data.profiles[i].profile_id,
+        profileName: res.data.profiles[i].cute_name,
+        gameMode: res.data.profiles[i].game_mode || null,
+        m: res.data.profiles[i].members[query],
+        banking: res.data.profiles[i].banking,
+        communityUpgrades: res.data.profiles[i].community_upgrades,
+        selected: res.data.profiles[i].selected,
+        members: res.data.profiles[i].members,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        garden: options?.garden ? await this.client.getSkyblockGarden(res.profiles[i].profile_id) : null,
+        garden: options?.garden ? await this.client.getSkyblockGarden(res.data.profiles[i].profile_id) : null,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        museum: options?.garden ? await this.client.getSkyblockMuseum(query, res.profiles[i].profile_id) : null
+        museum: options?.garden ? await this.client.getSkyblockMuseum(query, res.data.profiles[i].profile_id) : null
       });
     }
     return profiles.map((p) => new SkyblockProfile(p));

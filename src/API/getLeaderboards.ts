@@ -13,12 +13,14 @@ class getLeaderboards extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<any> {
     const res = await this.client.requests.request('/leaderboards', options);
-    if (res.raw) return res;
-    if (!res.leaderboards) throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));
+    if (res.options.raw) return res.data;
+    if (!res.data.leaderboards) {
+      throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));
+    }
     const lbnames = Object.create(Constants.leaderboardNames);
     for (const name in lbnames) {
-      lbnames[name] = res.leaderboards[lbnames[name]].length
-        ? res.leaderboards[lbnames[name]].map((lb: any) => new Leaderboard(lb))
+      lbnames[name] = res.data.leaderboards[lbnames[name]].length
+        ? res.data.leaderboards[lbnames[name]].map((lb: any) => new Leaderboard(lb))
         : [];
     }
     return lbnames;

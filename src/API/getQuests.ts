@@ -12,8 +12,8 @@ class getQuests extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<Quests> {
     const res = await this.client.requests.request('/resources/quests', options);
-    if (res.raw) return res;
-    return new Quests(res);
+    if (res.options.raw) return res.data;
+    return new Quests(res.data);
   }
 }
 

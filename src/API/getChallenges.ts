@@ -12,8 +12,8 @@ class getChallenges extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<Challenges> {
     const res = await this.client.requests.request('/resources/challenges', options);
-    if (res.raw) return res;
-    return new Challenges(res);
+    if (res.options.raw) return res.data;
+    return new Challenges(res.data);
   }
 }
 export default getChallenges;

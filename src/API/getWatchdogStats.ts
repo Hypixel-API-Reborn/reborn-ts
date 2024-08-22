@@ -12,8 +12,8 @@ class getWatchdogStats extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<WatchdogStats> {
     const res = await this.client.requests.request('/punishmentstats', options);
-    if (res.raw) return res;
-    return new WatchdogStats(res);
+    if (res.options.raw) return res.data;
+    return new WatchdogStats(res.data);
   }
 }
 

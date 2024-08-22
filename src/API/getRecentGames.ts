@@ -14,8 +14,8 @@ class getRecentGames extends Endpoint {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/recentgames?uuid=${query}`, options);
-    if (res.raw) return res;
-    return res.games.map((x: any) => new RecentGame(x));
+    if (res.options.raw) return res.data;
+    return res.data.games.map((x: any) => new RecentGame(x));
   }
 }
 

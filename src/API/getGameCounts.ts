@@ -12,8 +12,8 @@ class getGameCounts extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<GameCounts> {
     const res = await this.client.requests.request('/counts', options);
-    if (res.raw) return res;
-    return new GameCounts(res);
+    if (res.options.raw) return res.data;
+    return new GameCounts(res.data);
   }
 }
 

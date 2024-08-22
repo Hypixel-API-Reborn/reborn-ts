@@ -24,11 +24,11 @@ class getGuild extends Endpoint {
       throw new Error(this.client.errors.INVALID_GUILD_SEARCH_PARAMETER);
     }
     const res = await this.client.requests.request(`/guild?${searchParameter}=${encodeURI(query)}`, options);
-    if (res.raw) return res;
-    if (!res.guild && 'player' !== searchParameter) {
+    if (res.options.raw) return res.data;
+    if (!res.data.guild && 'player' !== searchParameter) {
       throw new Error(this.client.errors.GUILD_DOES_NOT_EXIST);
     }
-    return res.guild ? new Guild(res.guild, isPlayerQuery ? query : undefined) : null;
+    return res.data.guild ? new Guild(res.data.guild, isPlayerQuery ? query : undefined) : null;
   }
 }
 

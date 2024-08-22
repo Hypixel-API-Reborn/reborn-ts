@@ -12,8 +12,8 @@ class getActiveHouses extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<House[]> {
     const res = await this.client.requests.request('/housing/active', options);
-    if (res.raw) return res;
-    return res.map((b: any) => new House(b));
+    if (res.options.raw) return res.data;
+    return res.data.map((b: any) => new House(b));
   }
 }
 

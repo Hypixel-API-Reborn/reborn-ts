@@ -13,8 +13,8 @@ class getHouse extends Endpoint {
   async execute(query: string, options?: RequestOptions): Promise<House> {
     if (!query) throw new Error(this.client.errors.NO_UUID);
     const res = await this.client.requests.request(`/housing/house?house=${query}`, options);
-    if (res.raw) return res;
-    return new House(res);
+    if (res.options.raw) return res.data;
+    return new House(res.data);
   }
 }
 

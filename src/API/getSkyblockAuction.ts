@@ -28,8 +28,8 @@ class getSkyblockAction extends Endpoint {
     }
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`, options);
-    if (res.raw) return res;
-    return res.auctions.length ? res.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false)) : [];
+    if (res.options.raw) return res.data;
+    return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));
   }
 }
 

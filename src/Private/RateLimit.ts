@@ -15,7 +15,7 @@ class RateLimit {
   }
 
   async sync() {
-    const { _headers: headers } = await this.client.requests.request('/boosters', { raw: true });
+    const { headers } = await this.client.requests.request('/boosters', { raw: true });
     if (headers?.['ratelimit-limit'] === undefined || headers?.['ratelimit-remaining'] === undefined) {
       throw new Error(this.client.errors.RATE_LIMIT_INIT_ERROR);
     }

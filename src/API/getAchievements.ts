@@ -12,8 +12,8 @@ class getAchievements extends Endpoint {
 
   async execute(options?: RequestOptions): Promise<Achievements> {
     const res = await this.client.requests.request('/resources/achievements', options);
-    if (res.raw) return res;
-    return new Achievements(res);
+    if (res.options.raw) return res.data;
+    return new Achievements(res.data);
   }
 }
 

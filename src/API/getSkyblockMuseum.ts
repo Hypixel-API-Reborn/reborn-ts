@@ -14,8 +14,8 @@ class getSkyblockMuseum extends Endpoint {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/museum?uuid=${query}&profile=${profileId}`, options);
-    if (res.raw) return res;
-    return new SkyblockMuseum({ uuid: query, m: res, profileId: profileId });
+    if (res.options.raw) return res.data;
+    return new SkyblockMuseum({ uuid: query, m: res.data, profileId: profileId });
   }
 }
 

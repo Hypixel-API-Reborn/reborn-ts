@@ -14,10 +14,10 @@ class getSkyblockMember extends Endpoint {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
-    if (res.raw) return res;
-    if (!res.profiles || !res.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
+    if (res.options.raw) return res.data;
+    if (!res.data.profiles || !res.data.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
     const memberByProfileName = new Map();
-    for (const profile of res.profiles) {
+    for (const profile of res.data.profiles) {
       memberByProfileName.set(
         profile.cute_name,
         new SkyblockMember({

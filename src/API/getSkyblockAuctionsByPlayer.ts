@@ -14,8 +14,8 @@ class getSkyblockActionsByPlayer extends Endpoint {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/auction?player=${query}`);
-    if (res.raw) return res;
-    return res.auctions.length ? res.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false)) : [];
+    if (res.options.raw) return res.data;
+    return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));
   }
 }
 
