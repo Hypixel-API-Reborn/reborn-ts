@@ -22,7 +22,6 @@ export * from './API/getSkyblockAuctions';
 export * from './API/getSkyblockAuctionsByPlayer';
 export * from './API/getSkyblockBazaar';
 export * from './API/getSkyblockBingo';
-export * from './API/getSkyblockBingoByPlayer';
 export * from './API/getSkyblockFireSales';
 export * from './API/getSkyblockGarden';
 export * from './API/getSkyblockGovernment';

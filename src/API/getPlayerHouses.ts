@@ -15,7 +15,7 @@ class getPlayerHouses extends Endpoint {
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/housing/houses?player=${query}`, options);
     if (res.raw) return res;
-    return res.length ? res.map((h: any) => new House(h)) : [];
+    return res.map((h: any) => new House(h));
   }
 }
 

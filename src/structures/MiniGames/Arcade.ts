@@ -10,7 +10,7 @@ function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   return Object.fromEntries(matches.map((x: any) => [removeSnakeCaseString(x[1]), data[x[0]] || 0]));
 }
 
-class ZombiesStats {
+export class ZombiesStats {
   bestRound: number;
   deaths: number;
   doorsOpened: number;
@@ -40,7 +40,7 @@ class ZombiesStats {
   }
 }
 
-class Zombies {
+export class Zombies {
   overall: ZombiesStats;
   deadEnd: ZombiesStats;
   badBlood: ZombiesStats;
@@ -67,7 +67,7 @@ class Zombies {
   }
 }
 
-class DropperMap {
+export class DropperMap {
   bestTime: number;
   completions: number;
   constructor(data: Record<string, any>, mapName: string) {
@@ -76,7 +76,7 @@ class DropperMap {
   }
 }
 
-class BlockingDead {
+export class BlockingDead {
   wins: number;
   kills: number;
   headshots: number;
@@ -87,7 +87,7 @@ class BlockingDead {
   }
 }
 
-class BountyHunters {
+export class BountyHunters {
   wins: number;
   kills: number;
   deaths: number;
@@ -106,7 +106,7 @@ class BountyHunters {
   }
 }
 
-class CaptureTheWool {
+export class CaptureTheWool {
   wins: number;
   losses: number;
   WLRatio: number;
@@ -135,7 +135,7 @@ class CaptureTheWool {
   }
 }
 
-class DragonWars {
+export class DragonWars {
   wins: number;
   kills: number;
   constructor(data: Record<string, any>) {
@@ -144,7 +144,7 @@ class DragonWars {
   }
 }
 
-class Dropper {
+export class Dropper {
   wins: number;
   fails: number;
   fastestGame: number;
@@ -168,7 +168,7 @@ class Dropper {
   }
 }
 
-class EnderSpleef {
+export class EnderSpleef {
   wins: number;
   kills: number;
   trail: string;
@@ -187,7 +187,7 @@ class EnderSpleef {
   }
 }
 
-class FarmHunt {
+export class FarmHunt {
   wins: number;
   winsAsAnimal: number;
   winsAsHunter: number;
@@ -216,7 +216,7 @@ class FarmHunt {
   }
 }
 
-class Football {
+export class Football {
   wins: number;
   goals: number;
   kicks: number;
@@ -229,7 +229,7 @@ class Football {
   }
 }
 
-class GalaxyWars {
+export class GalaxyWars {
   wins: number;
   kills: number;
   deaths: number;
@@ -250,7 +250,7 @@ class GalaxyWars {
   }
 }
 
-class PartyPopper {
+export class PartyPopper {
   winsAsSeeker: number;
   winsAsHider: number;
   wins: number;
@@ -261,7 +261,7 @@ class PartyPopper {
   }
 }
 
-class PropHunt {
+export class PropHunt {
   winsAsSeeker: number;
   winsAsHider: number;
   wins: number;
@@ -272,7 +272,7 @@ class PropHunt {
   }
 }
 
-class HideAndSeek {
+export class HideAndSeek {
   partyPopper: PartyPopper;
   propHunt: PropHunt;
   winsAsSeeker: number;
@@ -285,7 +285,7 @@ class HideAndSeek {
   }
 }
 
-class HoleInTheWall {
+export class HoleInTheWall {
   wins: number;
   rounds: number;
   scoreRecordFinals: number;
@@ -300,7 +300,7 @@ class HoleInTheWall {
   }
 }
 
-class HypixelSays {
+export class HypixelSays {
   wins: number;
   rounds: number;
   roundWins: number;
@@ -313,7 +313,7 @@ class HypixelSays {
   }
 }
 
-class MiniWalls {
+export class MiniWalls {
   kit: string;
   wins: number;
   kills: number;
@@ -340,7 +340,7 @@ class MiniWalls {
   }
 }
 
-class PartyGames {
+export class PartyGames {
   wins: number;
   roundWins: number;
   stars: number;
@@ -351,7 +351,7 @@ class PartyGames {
   }
 }
 
-class PixelPartyGameMode {
+export class PixelPartyGameMode {
   wins: number;
   gamesPlayed: number;
   losses: number;
@@ -368,7 +368,7 @@ class PixelPartyGameMode {
   }
 }
 
-class PixelParty {
+export class PixelParty {
   wins: number;
   gamesPlayed: number;
   losses: number;
@@ -395,7 +395,7 @@ class PixelParty {
   }
 }
 
-class ThrowOut {
+export class ThrowOut {
   wins: number;
   kills: number;
   deaths: number;

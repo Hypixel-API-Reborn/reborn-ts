@@ -21,6 +21,8 @@ class SkyblockProfile {
         new SkyblockMember({
           uuid: uuid,
           profileId: this.profileId,
+          garden: data.garden,
+          museum: data.museum,
           profileName: this.profileName,
           gameMode: this.gameMode,
           m: data.members[uuid],

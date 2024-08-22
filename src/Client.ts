@@ -25,7 +25,6 @@ class Client {
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
-    this.errors = new Errors();
     this.rateLimit = new RateLimit(this);
     if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
     for (const func in API) {

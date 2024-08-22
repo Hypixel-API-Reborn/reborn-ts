@@ -16,7 +16,6 @@ import getSkyblockAuctions from './getSkyblockAuctions';
 import getSkyblockAuctionsByPlayer from './getSkyblockAuctionsByPlayer';
 import getSkyblockBazaar from './getSkyblockBazaar';
 import getSkyblockBingo from './getSkyblockBingo';
-import getSkyblockBingoByPlayer from './getSkyblockBingoByPlayer';
 import getSkyblockFireSales from './getSkyblockFireSales';
 import getSkyblockGarden from './getSkyblockGarden';
 import getSkyblockGovernment from './getSkyblockGovernment';
@@ -45,7 +44,6 @@ export default {
   getSkyblockAuctionsByPlayer,
   getSkyblockBazaar,
   getSkyblockBingo,
-  getSkyblockBingoByPlayer,
   getSkyblockFireSales,
   getSkyblockGarden,
   getSkyblockGovernment,

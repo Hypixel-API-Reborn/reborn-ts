@@ -1,43 +1,42 @@
 import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../structures/Player';
 
 export function getRank(player: Record<string, any>): PlayerRank {
-  let rank;
   if (player.prefix) {
-    rank = player.prefix.replace(/§[0-9|a-z]|\[|\]/g, '');
-  } else if (player.rank && 'NORMAL' !== player.rank) {
-    switch (player.rank) {
-      case 'YOUTUBER':
-        rank = 'YouTube';
-        break;
-      case 'GAME_MASTER':
-        rank = 'Game Master';
-        break;
-      case 'ADMIN':
-        rank = 'Admin';
-        break;
+    switch (player.prefix.replace(/§[0-9|a-z]|\[|\]/g, '')) {
+      case 'EVENTS':
+        return 'Events';
+      case 'MOJANG':
+        return 'Mojang';
+      case 'PIG+++':
+        return 'PIG+++';
+      case 'INNIT':
+        return 'Innit';
       default:
-        rank = '';
-        break;
+        return 'Default';
+    }
+  } else if (player.rank) {
+    switch (player.rank) {
+      case 'ADMIN':
+        return 'Admin';
+      case 'GAME_MASTER':
+        return 'Game Master';
+      default:
+        return 'Default';
     }
   } else {
     switch (player.newPackageRank) {
       case 'MVP_PLUS':
-        rank = player.monthlyPackageRank && 'SUPERSTAR' === player.monthlyPackageRank ? 'MVP++' : 'MVP+';
-        break;
+        return 'SUPERSTAR' !== player.monthlyPackageRank ? 'MVP+' : 'MVP++';
       case 'MVP':
-        rank = 'MVP';
-        break;
+        return 'MVP';
       case 'VIP_PLUS':
-        rank = 'VIP+';
-        break;
+        return 'VIP+';
       case 'VIP':
-        rank = 'VIP';
-        break;
+        return 'VIP';
       default:
-        rank = player.monthlyPackageRank && 'SUPERSTAR' === player.monthlyPackageRank ? 'MVP++' : '';
+        return 'Default';
     }
   }
-  return rank;
 }
 
 export function getPlayerLevel(exp: number): number {

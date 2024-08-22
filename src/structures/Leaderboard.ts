@@ -1,7 +1,7 @@
 class Leaderboard {
   name: string | null;
   title: string;
-  playerCount: string;
+  playerCount: number;
   leaders: string[];
   constructor(data: Record<string, any>) {
     this.name = data.prefix || null;

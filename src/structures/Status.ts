@@ -12,7 +12,7 @@ class Status {
     this.map = data.map ?? null;
   }
 
-  toString(): string {
+  toString(): 'Online' | 'Offline' {
     return this.online ? 'Online' : 'Offline';
   }
 }

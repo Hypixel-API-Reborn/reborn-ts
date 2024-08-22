@@ -1,7 +1,9 @@
 import { RequestOptions } from '../Private/Requests';
 
 export interface PlayerRequestOptions extends RequestOptions {
-  getGuild?: boolean;
+  guild?: boolean;
+  houses?: boolean;
+  recentGames?: boolean;
 }
 
 export interface AuctionRequestOptions extends RequestOptions {

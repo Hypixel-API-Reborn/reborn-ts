@@ -5,7 +5,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./build",
+    "outDir": "./dist",
     "module": "ES2022",
     "target": "ES2022",
     "strict": true

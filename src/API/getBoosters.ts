@@ -13,7 +13,7 @@ class getBoosters extends Endpoint {
   async execute(options?: RequestOptions): Promise<Booster[]> {
     const res = await this.client.requests.request('/boosters', options);
     if (res.raw) return res;
-    return res.boosters.length ? res.boosters.map((b: any) => new Booster(b)).reverse() : [];
+    return res.boosters.map((b: any) => new Booster(b)).reverse();
   }
 }
 

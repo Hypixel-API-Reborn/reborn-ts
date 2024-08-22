@@ -4,25 +4,16 @@ class AuctionInfo {
   totalAuctions: number;
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date;
-  age: number;
-  [key: string]: any;
   constructor(data: Record<string, any>) {
-    this.page = parseInt(data.page, 10) || 0;
-    this.totalPages = parseInt(data.totalPages, 10) || 1;
-    this.totalAuctions = parseInt(data.totalAuctions, 10) || 0;
+    this.page = parseInt(data.page, 10);
+    this.totalPages = parseInt(data.totalPages, 10);
+    this.totalAuctions = parseInt(data.totalAuctions, 10);
     this.lastUpdatedTimestamp = data.lastUpdated;
-    this.lastUpdatedAt = new Date(data.lastUpdated);
-    // eslint-disable-next-line no-underscore-dangle
-    this.age = parseInt(data._headers.get('age'), 10) || 0;
-  }
-
-  _extend(name: any, value: any) {
-    this[name] = value;
-    return this;
+    this.lastUpdatedAt = new Date(this.lastUpdatedTimestamp);
   }
 
   toString(): string {
-    return `${this.page} / ${this.totalPages}`;
+    return `${this.page}/${this.totalPages}`;
   }
 }
 

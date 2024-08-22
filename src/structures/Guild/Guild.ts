@@ -11,7 +11,7 @@ class Guild {
   experience: number;
   level: number;
   members: GuildMember[];
-  me: GuildMember | any;
+  me: GuildMember | null;
   ranks: GuildRank[];
   totalWeeklyGexp: number;
   createdAtTimestamp: string;
@@ -34,15 +34,15 @@ class Guild {
     this.experience = data.exp || 0;
     this.level = getGuildLevel(this.experience);
     this.members = members(data);
-    this.me = uuid ? this.members.find((member) => member.uuid === uuid) : null;
+    this.me = uuid ? (this.members.find((member) => member.uuid === uuid) as GuildMember) : null;
     this.ranks = ranks(data);
     this.totalWeeklyGexp = totalWeeklyGexp(data);
     this.createdAtTimestamp = data.created;
-    this.createdAt = new Date(data.created);
+    this.createdAt = new Date(this.createdAtTimestamp);
     this.joinable = data.joinable ?? false;
     this.publiclyListed = Boolean(data.publiclyListed);
     this.chatMuteUntilTimestamp = data.chatMute ?? null;
-    this.chatMuteUntil = data.chatMute ? new Date(data.chatMute) : null;
+    this.chatMuteUntil = this.chatMuteUntilTimestamp ? new Date(this.chatMuteUntilTimestamp) : null;
     this.banner = data.banner ?? null;
     this.tag = data.tag ?? null;
     this.tagColor = data.tagColor ? new Color(data.tagColor) : null;
@@ -60,9 +60,7 @@ class Guild {
   }
 
   guildMaster(): GuildMember {
-    return this.members.find(
-      (member) => 'Guild Master' === member.rank || 'GUILDMASTER' === member.rank
-    ) as GuildMember;
+    return this.members.find((member) => 'Guild Master' === member.rank) as GuildMember;
   }
 }
 

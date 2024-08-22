@@ -11,7 +11,11 @@ class Candidate {
     this.keyBenefit = data.key;
     this.perks = data.perks.map((x: any) => new Perk(x));
     this.isMayor = isMayor || false;
-    this.votesReceived = parseInt(data.votes, 10) || 0;
+    this.votesReceived = parseInt(data.votes, 10);
+  }
+
+  toString(): string {
+    return this.name;
   }
 }
 

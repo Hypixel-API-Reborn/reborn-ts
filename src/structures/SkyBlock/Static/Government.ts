@@ -2,7 +2,7 @@ import Candidate from './Candidate';
 
 class GovernmentData {
   lastUpdatedTimestamp: number;
-  lastUpdatedAt: Date | null;
+  lastUpdatedAt: Date;
   lastElectionResults: Map<string, Candidate>;
   mayor: Candidate | undefined;
   runningYear: number;

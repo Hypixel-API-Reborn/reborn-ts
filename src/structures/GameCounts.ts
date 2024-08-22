@@ -2,6 +2,7 @@ import { recursive, removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Constants from '../utils/Constants';
 
 class GameCounts {
+  playerCount: number;
   [x: string]: object | number;
   constructor(data: Record<string, any>) {
     this.playerCount = data.playerCount;
@@ -18,7 +19,7 @@ class GameCounts {
   }
 
   toString(): number {
-    return this.playerCount as number;
+    return this.playerCount;
   }
 }
 

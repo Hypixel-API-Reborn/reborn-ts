@@ -1,7 +1,8 @@
 node_modules/
 oldreborn/
 .env
-build/
+dist/
 .eslintcache
 .git
 .gitignore
+coverage/

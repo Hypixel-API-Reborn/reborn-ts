@@ -19,7 +19,6 @@ import { getSkyblockAuctionsOptions } from '../API/getSkyblockAuctions';
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import Product from '../structures/SkyBlock/Bazzar/Product';
 import BingoData from '../structures/SkyBlock/Static/BingoData';
-import PlayerBingo from '../structures/SkyBlock/PlayerBingo';
 import FireSale from '../structures/SkyBlock/Static/FireSale';
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
 import GovernmentData from '../structures/SkyBlock/Static/Government';
@@ -79,7 +78,7 @@ declare module 'hypixel-api-reborn' {
     getRecentGames(query: string, options?: RequestOptions): Promise<RecentGame[]>;
     getSkyblockAuction(
       query: string,
-      type: 'PROFILE' | 'PLAYER' | 'AUCTION',
+      type: 'profile' | 'player' | 'auction',
       options?: AuctionRequestOptions
     ): Promise<Auction[]>;
     getSkyblockAuctions(
@@ -89,7 +88,6 @@ declare module 'hypixel-api-reborn' {
     getSkyblockAuctionsByPlayer(query: string, options?: AuctionRequestOptions): Promise<Auction[]>;
     getSkyblockBazaar(options?: RequestOptions): Promise<Product[]>;
     getSkyblockBingo(options?: RequestOptions): Promise<BingoData>;
-    getSkyblockBingoByPlayer(query: string, options?: RequestOptions): Promise<PlayerBingo>;
     getSkyblockFireSales(options?: RequestOptions): Promise<FireSale[]>;
     getSkyblockGarden(profileId: string, options?: RequestOptions): Promise<SkyblockGarden>;
     getSkyblockGovernment(options?: RequestOptions): Promise<GovernmentData>;

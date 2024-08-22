@@ -21,11 +21,13 @@ import BedWars from './MiniGames/BedWars';
 import Arcade from './MiniGames/Arcade';
 import Walls from './MiniGames/Walls';
 import Duels from './MiniGames/Duels';
+import RecentGame from './RecentGame';
 import UHC from './MiniGames/UHC';
 import Pit from './MiniGames/Pit';
 import Guild from './Guild/Guild';
 import Color from './Color';
 import Game from './Game';
+import House from './House';
 
 export interface LevelProgress {
   xpToNext: number;
@@ -41,7 +43,21 @@ export interface PlayerSocialMedia {
   id: string;
 }
 
-export type PlayerRank = 'VIP' | 'VIP+' | 'MVP' | 'MVP+' | 'MVP++' | 'Game Master' | 'Admin' | 'YouTube';
+export type PlayerRank =
+  | 'Default'
+  | 'VIP'
+  | 'VIP+'
+  | 'MVP'
+  | 'MVP+'
+  | 'MVP++'
+  | 'Game Master'
+  | 'Admin'
+  | 'YouTube'
+  | 'Events'
+  | 'Mojang'
+  | 'Owner'
+  | 'PIG+++'
+  | 'Innit';
 
 export interface RanksPurchaseTime {
   VIP: Date | null;
@@ -55,6 +71,8 @@ class Player {
   uuid: string;
   rank: PlayerRank;
   guild: Guild | null;
+  houses: House[] | null;
+  recentGames: RecentGame[] | null;
   channel: string | null;
   firstLoginTimestamp: number | null;
   firstLogin: Date | null;
@@ -83,16 +101,22 @@ class Player {
   rewardScore: number | null;
   rewardHighScore: number | null;
   levelProgress: LevelProgress;
-  stats: any | null;
+  stats: object | null;
   userLanguage: string;
   claimedLevelingRewards: number[];
   globalCosmetics: PlayerCosmetics | null;
   ranksPurchaseTime: RanksPurchaseTime;
-  constructor(data: Record<string, any>, guild?: Guild) {
+
+  constructor(
+    data: Record<string, any>,
+    extra: { guild: Guild | null; houses: House[] | null; recentGames: RecentGame[] | null }
+  ) {
     this.nickname = data.displayname;
     this.uuid = data.uuid;
     this.rank = getRank(data);
-    this.guild = guild || null;
+    this.guild = extra.guild;
+    this.houses = extra.houses;
+    this.recentGames = extra.recentGames;
     this.channel = data.channel || null;
     this.firstLoginTimestamp = data.firstLogin || null;
     this.firstLogin = data.firstLogin ? new Date(data.firstLogin) : null;
