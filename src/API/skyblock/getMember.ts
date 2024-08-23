@@ -23,12 +23,8 @@ class getMember extends Endpoint {
         new SkyblockMember({
           uuid: query,
           profileId: profile.profile_id,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-          garden: options?.garden ? await this.client.getSkyblockGarden(profile.profile_id) : null,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-          museum: options?.garden ? await this.client.getSkyblockMuseum(query, profile.profile_id) : null,
+          garden: options?.garden ? await this.client.skyblock.getGarden(profile.profile_id) : null,
+          museum: options?.garden ? await this.client.skyblock.getMuseum(query, profile.profile_id) : null,
           profileName: profile.cute_name,
           gameMode: profile.game_mode || null,
           m: profile.members[query],
@@ -42,4 +38,4 @@ class getMember extends Endpoint {
   }
 }
 
-export default getSkyblockMember;
+export default getMember;

@@ -3,7 +3,7 @@ import { AuctionRequestOptions } from '../API';
 import Endpoint from '../../Private/Endpoint';
 import Client from '../../Client';
 
-class getAction extends Endpoint {
+class getAuction extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -33,4 +33,4 @@ class getAction extends Endpoint {
   }
 }
 
-export default getSkyblockAction;
+export default getAuction;

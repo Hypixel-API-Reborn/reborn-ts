@@ -17,4 +17,4 @@ class getNews extends Endpoint {
   }
 }
 
-export default getSkyblockNews;
+export default getNews;

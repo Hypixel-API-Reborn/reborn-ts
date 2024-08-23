@@ -56,4 +56,4 @@ class getAuctions extends Endpoint {
   }
 }
 
-export default getSkyblockAuctions;
+export default getAuctions;

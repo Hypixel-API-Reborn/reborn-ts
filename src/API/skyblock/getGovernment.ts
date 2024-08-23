@@ -17,4 +17,4 @@ class getGovernment extends Endpoint {
   }
 }
 
-export default getSkyblockGovernment;
+export default getGovernment;

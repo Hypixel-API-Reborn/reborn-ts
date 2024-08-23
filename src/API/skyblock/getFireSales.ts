@@ -17,4 +17,4 @@ class getFireSales extends Endpoint {
   }
 }
 
-export default getSkyblockFireSales;
+export default getFireSales;

@@ -2,6 +2,7 @@ import CacheHandler from './Private/CacheHandler';
 import { ClientOptions } from './typings/Client';
 import RateLimit from './Private/RateLimit';
 import Requests from './Private/Requests';
+import SkyblockAPI from './API/skyblock/';
 import Updater from './Private/Updater';
 import Errors from './Errors';
 import API from './API';
@@ -17,6 +18,7 @@ class Client {
   declare rateLimit: RateLimit;
   readonly key: string;
   declare interval: NodeJS.Timeout;
+  declare skyblock: any;
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
     this.errors = new Errors();
@@ -34,6 +36,13 @@ class Client {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       this[func] = endpoint.execute.bind(endpoint);
+    }
+    this.skyblock = {};
+    for (const func in SkyblockAPI) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      const endpoint = new SkyblockAPI[func](this);
+      this.skyblock[func] = endpoint.execute.bind(endpoint);
     }
     if (clients.find((x) => x.key === key)) {
       // eslint-disable-next-line no-console

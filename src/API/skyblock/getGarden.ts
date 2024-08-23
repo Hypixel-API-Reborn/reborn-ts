@@ -18,4 +18,4 @@ class getGarden extends Endpoint {
   }
 }
 
-export default getSkyblockGarden;
+export default getGarden;

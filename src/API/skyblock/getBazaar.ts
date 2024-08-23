@@ -17,4 +17,4 @@ class getBazaar extends Endpoint {
   }
 }
 
-export default getSkyblockBazaar;
+export default getBazaar;

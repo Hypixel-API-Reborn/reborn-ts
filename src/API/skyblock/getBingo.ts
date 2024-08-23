@@ -17,4 +17,4 @@ class getBingo extends Endpoint {
   }
 }
 
-export default getSkyblockBingo;
+export default getBingo;

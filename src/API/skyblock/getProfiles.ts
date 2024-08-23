@@ -28,16 +28,12 @@ class getProfiles extends Endpoint {
         communityUpgrades: res.data.profiles[i].community_upgrades,
         selected: res.data.profiles[i].selected,
         members: res.data.profiles[i].members,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        garden: options?.garden ? await this.client.getSkyblockGarden(res.data.profiles[i].profile_id) : null,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        museum: options?.garden ? await this.client.getSkyblockMuseum(query, res.data.profiles[i].profile_id) : null
+        garden: options?.garden ? await this.client.skyblock.getGarden(res.data.profiles[i].profile_id) : null,
+        museum: options?.garden ? await this.client.skyblock.getMuseum(query, res.data.profiles[i].profile_id) : null
       });
     }
     return profiles.map((p) => new SkyblockProfile(p));
   }
 }
 
-export default getSkyblockProfiles;
+export default getProfiles;

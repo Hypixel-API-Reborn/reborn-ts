@@ -19,4 +19,4 @@ class getMuseum extends Endpoint {
   }
 }
 
-export default getSkyblockMuseum;
+export default getMuseum;

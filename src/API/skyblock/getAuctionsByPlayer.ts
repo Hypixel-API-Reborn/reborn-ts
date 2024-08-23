@@ -3,7 +3,7 @@ import { AuctionRequestOptions } from '../API';
 import Endpoint from '../../Private/Endpoint';
 import Client from '../../Client';
 
-class getActionsByPlayer extends Endpoint {
+class getAuctionsByPlayer extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -19,4 +19,4 @@ class getActionsByPlayer extends Endpoint {
   }
 }
 
-export default getSkyblockActionsByPlayer;
+export default getAuctionsByPlayer;
