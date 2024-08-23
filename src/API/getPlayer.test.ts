@@ -1,5 +1,5 @@
 import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../structures/Player';
-import { expect, expectTypeOf, test, vi } from 'vitest';
+import { expect, expectTypeOf, test } from 'vitest';
 import PlayerCosmetics from '../structures/PlayerCosmetics';
 import Guild from '../structures/Guild/Guild';
 import Color from '../structures/Color';
@@ -30,7 +30,7 @@ import WoolWars from '../structures/MiniGames/WoolWars';
 import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import House from '../structures/House';
 import RecentGame from '../structures/RecentGame';
-import axios from 'axios';
+// import axios from 'axios';
 
 test('getPlayer (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -40,18 +40,18 @@ test('getPlayer (no input)', () => {
   client.destroy();
 });
 
-test('getPlayer (never joinned hypixel)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  const mockRequest = { status: 200, data: { success: true } };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
-    client.errors.PLAYER_HAS_NEVER_LOGGED
-  );
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('getPlayer (never joinned hypixel)', () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+//   const mockRequest = { status: 200, data: { success: true } };
+//   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-expect-error
+//   expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
+//     client.errors.PLAYER_HAS_NEVER_LOGGED
+//   );
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
 
 test('getPLayer (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });

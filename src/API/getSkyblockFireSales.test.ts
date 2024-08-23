@@ -24,7 +24,7 @@ test('getSkyblockFireSales', async () => {
     expect(firesale).toBeInstanceOf(FireSale);
     expectTypeOf(firesale).toEqualTypeOf<FireSale>();
     expect(firesale.itemId).toBeDefined();
-    expectTypeOf(firesale.itemId).toEqualTypeOf<string | null>();
+    expectTypeOf(firesale.itemId).toEqualTypeOf<string>();
     expect(firesale.startTimestamp).toBeDefined();
     expect(firesale.startTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(firesale.startTimestamp).toEqualTypeOf<number>();
@@ -38,6 +38,9 @@ test('getSkyblockFireSales', async () => {
     expect(firesale.amount).toBeDefined();
     expectTypeOf(firesale.amount).toEqualTypeOf<number>();
     expect(firesale.amount).toBeGreaterThanOrEqual(0);
+    expect(firesale.toString()).toBeDefined();
+    expectTypeOf(firesale.toString()).toEqualTypeOf < string();
+    expect(firesale.toString()).toBe(firesale.itemId);
   });
   client.destroy();
 });
