@@ -39,7 +39,7 @@ test('getSkyblockFireSales', async () => {
     expectTypeOf(firesale.amount).toEqualTypeOf<number>();
     expect(firesale.amount).toBeGreaterThanOrEqual(0);
     expect(firesale.toString()).toBeDefined();
-    expectTypeOf(firesale.toString()).toEqualTypeOf < string();
+    expectTypeOf(firesale.toString()).toEqualTypeOf<string>();
     expect(firesale.toString()).toBe(firesale.itemId);
   });
   client.destroy();
