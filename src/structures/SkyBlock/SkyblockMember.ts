@@ -25,6 +25,7 @@ import Constants from '../../utils/Constants';
 import SkyblockGarden from './SkyblockGarden';
 import SkyblockMuseum from './SkyblockMuseum';
 import SkyblockPet from './SkyblockPet';
+import { createFarmingWeightCalculator } from 'farming-weight';
 
 export interface SkyblockMemberEquipment {
   gauntlet: SkyblockInventoryItem | null;
@@ -61,7 +62,7 @@ class SkyblockMember {
   bestiary: number;
   slayer: SkyblockMemberSlayer | null;
   dungeons: SkyblockMemberDungeons | null;
-  collections: object;
+  collections: Record<string, number>;
   purse: number;
   stats: SkyblockMemberStats | null;
   pets: SkyblockPet[];
@@ -75,6 +76,7 @@ class SkyblockMember {
   getEquipment: () => Promise<SkyblockMemberEquipment>;
   getPersonalVault: () => Promise<SkyblockInventoryItem[]>;
   getNetworth: () => Promise<NetworthResult | null>;
+  getFarmingWeight: () => number;
   constructor(data: Record<string, any>) {
     this.uuid = data.uuid;
     this.gameMode = data.gameMode;
@@ -227,6 +229,22 @@ class SkyblockMember {
         return nw;
       } catch {
         return null;
+      }
+    };
+    this.getFarmingWeight = () => {
+      try {
+        return createFarmingWeightCalculator({
+          collection: this.collections,
+          farmingXp: this.skills.farming.xp,
+          levelCapUpgrade: this.jacob.perks.farmingLevelCap,
+          anitaBonusFarmingFortuneLevel: this.jacob.perks.doubleDrops,
+          minions: data.m.player_data.crafted_generators,
+          contests: Object.values(this.jacob.contests),
+          pests: data.m.bestiary.kills
+        }).getWeightInfo().totalWeight
+      } catch (e) {
+        console.log(e);
+        return 0;
       }
     };
   }
