@@ -241,9 +241,8 @@ class SkyblockMember {
           minions: data.m.player_data.crafted_generators,
           contests: Object.values(this.jacob.contests),
           pests: data.m.bestiary.kills
-        }).getWeightInfo().totalWeight
-      } catch (e) {
-        console.log(e);
+        }).getWeightInfo().totalWeight;
+      } catch {
         return 0;
       }
     };
