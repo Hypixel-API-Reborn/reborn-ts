@@ -1,142 +1,16 @@
+import {
+  ChocolateFactoryData,
+  TrophyFishRank,
+  SlayerLevel,
+  SkillLevel,
+  JacobData,
+  Dungeons,
+  Rarity,
+  Skills,
+  Slayer
+} from '../structures/SkyBlock/SkyblockMemberTypes';
 import { parse, simplify } from 'prismarine-nbt';
 import Constants from './Constants';
-
-export type SkyblockRarity =
-  | 'COMMON'
-  | 'UNCOMMON'
-  | 'RARE'
-  | 'EPIC'
-  | 'LEGENDARY'
-  | 'MYTHIC'
-  | 'DIVINE'
-  | 'SPECIAL'
-  | 'VERY_SPECIAL';
-
-export interface SkyblockMemberJacobDataMedals {
-  gold: number;
-  silver: number;
-  bronze: number;
-}
-
-export interface SkyblockMemberJacobDataPerks {
-  doubleDrops: number;
-  farmingLevelCap: number;
-  personalBests: boolean;
-}
-
-export interface SkyblockMemberJacobData {
-  medals: SkyblockMemberJacobDataMedals;
-  perks: SkyblockMemberJacobDataPerks;
-  contests: Record<string, any>;
-}
-
-export interface SkyblockMemberChocolateFactoryDataEmployees {
-  bro: number;
-  cousin: number;
-  sis: number;
-  father: number;
-  grandma: number;
-  dog: number;
-  uncle: number;
-}
-
-export interface SkyblockMemberChocolateFactoryDataChocolate {
-  current: number;
-  total: number;
-  sincePrestige: number;
-}
-
-export interface SkyblockMemberChocolateFactoryDataTimeTower {
-  charges: number;
-  level: number;
-}
-
-export interface SkyblockMemberChocolateFactoryDataUpgrades {
-  click: number;
-  multiplier: number;
-  rabbitRarity: number;
-}
-
-export interface SkyblockMemberChocolateFactoryDataGoldenClick {
-  amount: number;
-  year: number;
-}
-
-export interface SkyblockMemberChocolateFactoryData {
-  employees: SkyblockMemberChocolateFactoryDataEmployees;
-  chocolate: SkyblockMemberChocolateFactoryDataChocolate;
-  timeTower: SkyblockMemberChocolateFactoryDataTimeTower;
-  upgrades: SkyblockMemberChocolateFactoryDataUpgrades;
-  goldenClick: SkyblockMemberChocolateFactoryDataGoldenClick;
-  barnCapacity: number;
-  prestige: number;
-}
-
-export interface SkyblockMemberSlayerLevel {
-  xp: number;
-  tier1: number;
-  tier2: number;
-  tier3: number;
-  tier4: number;
-  tier5: number;
-  level: number;
-}
-
-export interface SkyblockMemberSlayer {
-  zombie: SkyblockMemberSlayerLevel;
-  spider: SkyblockMemberSlayerLevel;
-  wolf: SkyblockMemberSlayerLevel;
-  enderman: SkyblockMemberSlayerLevel;
-  blaze: SkyblockMemberSlayerLevel;
-  vampire: SkyblockMemberSlayerLevel;
-}
-export type SkyblockMemberTrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
-export interface SkyblockSkillLevel {
-  xp: number;
-  level: number;
-  maxLevel: number;
-  xpCurrent: number;
-  xpForNext: number;
-  progress: number;
-  cosmetic: boolean;
-}
-
-export interface SkyblockMemberStats {
-  kills: Record<string, any>;
-  deaths: Record<string, any>;
-}
-
-export interface SkyblockMemberSkills {
-  combat: SkyblockSkillLevel;
-  farming: SkyblockSkillLevel;
-  fishing: SkyblockSkillLevel;
-  mining: SkyblockSkillLevel;
-  foraging: SkyblockSkillLevel;
-  enchanting: SkyblockSkillLevel;
-  alchemy: SkyblockSkillLevel;
-  carpentry: SkyblockSkillLevel;
-  runecrafting: SkyblockSkillLevel;
-  taming: SkyblockSkillLevel;
-  social: SkyblockSkillLevel;
-  average: number;
-}
-
-export interface SkyblockMemberDungeonsTypes {
-  catacombs: SkyblockSkillLevel;
-}
-
-export interface SkyblockMemberDungeonsClasses {
-  healer: SkyblockSkillLevel;
-  mage: SkyblockSkillLevel;
-  berserk: SkyblockSkillLevel;
-  archer: SkyblockSkillLevel;
-  tank: SkyblockSkillLevel;
-}
-
-export interface SkyblockMemberDungeons {
-  types: SkyblockMemberDungeonsTypes;
-  classes: SkyblockMemberDungeonsClasses;
-}
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
   // Credit: https://github.com/SkyCryptWebsite/SkyCryptv2/blob/3b5b3ae4fe77c60eff90691797f09024baf68872/src/lib/server/stats/items/processing.ts#L215-L218
@@ -150,7 +24,7 @@ export async function decode(base64: any, isBuffer: boolean = false): Promise<an
   return newdata;
 }
 
-export function getLevelByXp(xp: number, type: string): SkyblockSkillLevel {
+export function getLevelByXp(xp: number, type: string): SkillLevel {
   let xpTable: Record<number, number>;
   switch (type) {
     case 'runecrafting':
@@ -240,7 +114,7 @@ export function getLevelByXp(xp: number, type: string): SkyblockSkillLevel {
   };
 }
 
-export function getSlayerLevel(slayer: Record<string, any>): SkyblockMemberSlayerLevel {
+export function getSlayerLevel(slayer: Record<string, any>): SlayerLevel {
   if (!slayer) {
     return { xp: 0, tier1: 0, tier2: 0, tier3: 0, tier4: 0, tier5: 0, level: 0 };
   }
@@ -267,28 +141,7 @@ export function getSlayerLevel(slayer: Record<string, any>): SkyblockMemberSlaye
   };
 }
 
-export function getMemberStats(obj: Record<string, any>): SkyblockMemberStats {
-  return Object.keys(obj).reduce(
-    (result, currentKey) => {
-      const key = currentKey.replace(/_[a-z]/gi, (match) => match[1].toUpperCase());
-      if (currentKey.startsWith('kills') || currentKey.startsWith('deaths')) {
-        const category = currentKey.startsWith('kills') ? 'kills' : 'deaths';
-        const subKey = key === category ? 'total' : key;
-        result[category as keyof typeof result][
-          subKey.replace(category, (sub, _, key) => {
-            return key[sub.length].toLowerCase() + key.slice(sub.length + 1);
-          })
-        ] = obj[currentKey];
-      } else {
-        result[key as keyof typeof result] = obj[currentKey];
-      }
-      return result;
-    },
-    { kills: {}, deaths: {} } as { kills: Record<string, any>; deaths: Record<string, any> }
-  );
-}
-
-export function getTrophyFishRank(level: number): SkyblockMemberTrophyFishRank {
+export function getTrophyFishRank(level: number): TrophyFishRank {
   if (1 === level) {
     return 'Bronze';
   } else if (2 === level) {
@@ -301,8 +154,8 @@ export function getTrophyFishRank(level: number): SkyblockMemberTrophyFishRank {
   return 'Bronze';
 }
 
-export function getSkills(data: Record<string, any>): SkyblockMemberSkills {
-  const skillsObject: SkyblockMemberSkills = {
+export function getSkills(data: Record<string, any>): Skills {
+  const skillsObject: Skills = {
     combat: getLevelByXp(data?.player_data?.experience?.SKILL_COMBAT ?? 0, 'combat'),
     farming: getLevelByXp(data?.player_data?.experience?.SKILL_FARMING ?? 0, 'farming'),
     fishing: getLevelByXp(data?.player_data?.experience?.SKILL_FISHING ?? 0, 'fishing'),
@@ -338,32 +191,28 @@ function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
 }
 
 export function getBestiaryLevel(userProfile: Record<string, any>): number {
-  try {
-    if (userProfile.bestiary?.kills === undefined) {
-      return 0;
-    }
-    const output: { [key: string]: any } = {};
-    let tiersUnlocked = 0;
-    for (const [category, data] of Object.entries(Constants.bestiary)) {
-      const { mobs } = data as { mobs: any };
-      output[category] = {};
-      if ('fishing' === category) {
-        for (const [key, value] of Object.entries(data)) {
-          output[category][key] = { mobs: formatBestiaryMobs(userProfile, value.mobs) };
-          tiersUnlocked += output[category][key].mobs.reduce((acc: any, cur: any) => acc + cur.tier, 0);
-        }
-      } else {
-        output[category].mobs = formatBestiaryMobs(userProfile, mobs);
-        tiersUnlocked += output[category].mobs.reduce((acc: any, cur: any) => acc + cur.tier, 0);
-      }
-    }
-    return tiersUnlocked / 10;
-  } catch {
+  if (userProfile.bestiary?.kills === undefined) {
     return 0;
   }
+  const output: { [key: string]: any } = {};
+  let tiersUnlocked = 0;
+  for (const [category, data] of Object.entries(Constants.bestiary)) {
+    const { mobs } = data as { mobs: any };
+    output[category] = {};
+    if ('fishing' === category) {
+      for (const [key, value] of Object.entries(data)) {
+        output[category][key] = { mobs: formatBestiaryMobs(userProfile, value.mobs) };
+        tiersUnlocked += output[category][key].mobs.reduce((acc: any, cur: any) => acc + cur.tier, 0);
+      }
+    } else {
+      output[category].mobs = formatBestiaryMobs(userProfile, mobs);
+      tiersUnlocked += output[category].mobs.reduce((acc: any, cur: any) => acc + cur.tier, 0);
+    }
+  }
+  return tiersUnlocked / 10;
 }
 
-export function getSlayer(data: Record<string, any>): SkyblockMemberSlayer | null {
+export function getSlayer(data: Record<string, any>): Slayer | null {
   if (!data?.slayer?.slayer_bosses) return null;
   return {
     zombie: getSlayerLevel(data?.slayer?.slayer_bosses?.zombie),
@@ -375,7 +224,7 @@ export function getSlayer(data: Record<string, any>): SkyblockMemberSlayer | nul
   };
 }
 
-export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons | null {
+export function getDungeons(data: Record<string, any>): Dungeons | null {
   return {
     types: { catacombs: getLevelByXp(data.dungeons?.dungeon_types?.catacombs ?? 0, 'dungeons') },
     classes: {
@@ -388,34 +237,23 @@ export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons |
   };
 }
 
-export function getJacobData(data: Record<string, any>): SkyblockMemberJacobData {
-  if (!data.jacobs_contest) {
-    return {
-      medals: { bronze: 0, silver: 0, gold: 0 },
-      perks: { doubleDrops: 0, farmingLevelCap: 0, personalBests: false },
-      contests: {}
-    };
-  }
+export function getJacobData(data: Record<string, any>): JacobData {
   return {
-    medals: data.jacobs_contest.medals_inv
-      ? {
-          bronze: data.jacobs_contest.medals_inv.bronze || 0,
-          silver: data.jacobs_contest.medals_inv.silver || 0,
-          gold: data.jacobs_contest.medals_inv.gold || 0
-        }
-      : { bronze: 0, silver: 0, gold: 0 },
-    perks: data.jacobs_contest.perks
-      ? {
-          doubleDrops: data.jacobs_contest.perks.double_drops || 0,
-          farmingLevelCap: data.jacobs_contest.perks.farming_level_cap || 0,
-          personalBests: data.jacobs_contest.perks.personal_bests || false
-        }
-      : { doubleDrops: 0, farmingLevelCap: 0, personalBests: false },
-    contests: data.jacobs_contest.contests || {}
+    medals: {
+      bronze: data?.jacobs_contest?.medals_inv?.bronze || 0,
+      silver: data?.jacobs_contest?.medals_inv?.silver || 0,
+      gold: data?.jacobs_contest?.medals_inv?.gold || 0
+    },
+    perks: {
+      doubleDrops: data?.jacobs_contest?.perks?.double_drops || 0,
+      farmingLevelCap: data?.jacobs_contest?.perks?.farming_level_cap || 0,
+      personalBests: data?.jacobs_contest?.perks?.personal_bests || false
+    },
+    contests: data?.jacobs_contestcontests || {}
   };
 }
 
-export function getChocolateFactory(data: Record<string, any>): SkyblockMemberChocolateFactoryData {
+export function getChocolateFactory(data: Record<string, any>): ChocolateFactoryData {
   if (!data?.events?.easter) {
     return {
       employees: { bro: 0, cousin: 0, sis: 0, father: 0, grandma: 0, dog: 0, uncle: 0 },
@@ -490,7 +328,7 @@ export function getPetLevel(petExp: number, offsetRarity: number, maxLevel: numb
   return { level, xpCurrent, xpForNext, progress, xpMaxLevel };
 }
 
-export function parseRarity(str: string): SkyblockRarity {
+export function parseRarity(str: string): Rarity {
   const rarityArray = [
     'COMMON',
     'UNCOMMON',
@@ -503,7 +341,7 @@ export function parseRarity(str: string): SkyblockRarity {
     'VERY SPECIAL'
   ];
   for (const rarity of rarityArray) {
-    if (str.includes(rarity)) return rarity as SkyblockRarity;
+    if (str.includes(rarity)) return rarity as Rarity;
   }
   return 'COMMON';
 }

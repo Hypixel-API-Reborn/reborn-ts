@@ -1,4 +1,5 @@
-import { getLevelByXp, SkyblockSkillLevel } from '../../utils/SkyblockUtils';
+import { getLevelByXp } from '../../utils/SkyblockUtils';
+import { SkillLevel } from './SkyblockMemberTypes';
 
 export interface SkyblockGardenVisitorServed {
   total: number;
@@ -42,20 +43,20 @@ export interface SkyblockGarenCrops {
 }
 
 export interface SkyblockGardenCropMilestones {
-  wheat: SkyblockSkillLevel;
-  carrot: SkyblockSkillLevel;
-  sugarCane: SkyblockSkillLevel;
-  potato: SkyblockSkillLevel;
-  pumpkin: SkyblockSkillLevel;
-  melon: SkyblockSkillLevel;
-  cactus: SkyblockSkillLevel;
-  cocoaBeans: SkyblockSkillLevel;
-  mushroom: SkyblockSkillLevel;
-  netherWart: SkyblockSkillLevel;
+  wheat: SkillLevel;
+  carrot: SkillLevel;
+  sugarCane: SkillLevel;
+  potato: SkillLevel;
+  pumpkin: SkillLevel;
+  melon: SkillLevel;
+  cactus: SkillLevel;
+  cocoaBeans: SkillLevel;
+  mushroom: SkillLevel;
+  netherWart: SkillLevel;
 }
 
 class SkyblockGarden {
-  level: SkyblockSkillLevel;
+  level: SkillLevel;
   barnSkin: string;
   unlockedPlots: string[];
   visitors: SkyblockGardenVisitor;

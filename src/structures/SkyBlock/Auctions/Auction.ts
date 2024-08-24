@@ -1,4 +1,4 @@
-import { SkyblockRarity } from '../../../utils/SkyblockUtils';
+import { Rarity } from '../SkyblockMemberTypes';
 import BaseAuction from './BaseAuction';
 import Bid from './Bid';
 
@@ -11,7 +11,7 @@ class Auction extends BaseAuction {
   item: string;
   itemLore: string;
   itemLoreRaw: string;
-  rarity: SkyblockRarity;
+  rarity: Rarity;
   startingBid: number;
   highestBid: number;
   bids: Bid[];

@@ -1,16 +1,17 @@
 import {
-  SkyblockMemberChocolateFactoryData,
-  SkyblockMemberTrophyFishRank,
-  SkyblockMemberJacobData,
-  SkyblockMemberDungeons,
-  SkyblockMemberSkills,
-  SkyblockMemberSlayer,
-  SkyblockMemberStats,
-  SkyblockSkillLevel,
-  SkyblockRarity
-} from '../utils/SkyblockUtils';
-import SkyblockMember, { SkyblockMemberArmor, SkyblockMemberEquipment } from '../structures/SkyBlock/SkyblockMember';
+  ChocolateFactoryData,
+  TrophyFishRank,
+  SkillLevel,
+  Equipment,
+  JacobData,
+  Dungeons,
+  Slayer,
+  Skills,
+  Rarity,
+  Armor
+} from '../structures/SkyBlock/SkyblockMemberTypes';
 import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem';
+import SkyblockMember, { MemberStats } from '../structures/SkyBlock/SkyblockMember';
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockPet from '../structures/SkyBlock/SkyblockPet';
@@ -94,10 +95,10 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.level).toEqualTypeOf<number>();
 
     expect(member.hotm).toBeDefined();
-    expectTypeOf(member.hotm).toEqualTypeOf<SkyblockSkillLevel>();
+    expectTypeOf(member.hotm).toEqualTypeOf<SkillLevel>();
 
     expect(member.trophyFish).toBeDefined();
-    expectTypeOf(member.trophyFish).toEqualTypeOf<SkyblockMemberTrophyFishRank>();
+    expectTypeOf(member.trophyFish).toEqualTypeOf<TrophyFishRank>();
 
     expect(member.highestMagicalPower).toBeDefined();
     expectTypeOf(member.highestMagicalPower).toEqualTypeOf<number>();
@@ -109,16 +110,16 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.fairyExchanges).toEqualTypeOf<number>();
 
     expect(member.skills).toBeDefined();
-    expectTypeOf(member.skills).toEqualTypeOf<SkyblockMemberSkills>();
+    expectTypeOf(member.skills).toEqualTypeOf<Skills>();
 
     expect(member.bestiary).toBeDefined();
     expectTypeOf(member.bestiary).toEqualTypeOf<number>();
 
     expect(member.slayer).toBeDefined();
-    expectTypeOf(member.slayer).toEqualTypeOf<SkyblockMemberSlayer | null>();
+    expectTypeOf(member.slayer).toEqualTypeOf<Slayer | null>();
 
     expect(member.dungeons).toBeDefined();
-    expectTypeOf(member.dungeons).toEqualTypeOf<SkyblockMemberDungeons | null>();
+    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons | null>();
 
     expect(member.collections).toBeDefined();
     expectTypeOf(member.collections).toEqualTypeOf<object>();
@@ -127,7 +128,7 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.purse).toEqualTypeOf<number>();
 
     expect(member.stats).toBeDefined();
-    expectTypeOf(member.stats).toEqualTypeOf<SkyblockMemberStats | null>();
+    expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();
 
     expect(member.pets).toBeDefined();
     expectTypeOf(member.pets).toEqualTypeOf<SkyblockPet[]>();
@@ -149,7 +150,7 @@ test('getSkyblockMember', async () => {
       expectTypeOf(pet.active).toEqualTypeOf<boolean>();
 
       expect(pet.rarity).toBeDefined();
-      expectTypeOf(pet.rarity).toEqualTypeOf<SkyblockRarity>();
+      expectTypeOf(pet.rarity).toEqualTypeOf<Rarity>();
 
       expect(pet.petScore).toBeDefined();
       expectTypeOf(pet.petScore).toEqualTypeOf<number>();
@@ -169,14 +170,14 @@ test('getSkyblockMember', async () => {
     });
 
     expect(member.jacob).toBeDefined();
-    expectTypeOf(member.jacob).toEqualTypeOf<SkyblockMemberJacobData>();
+    expectTypeOf(member.jacob).toEqualTypeOf<JacobData>();
 
     expect(member.chocolate).toBeDefined();
-    expectTypeOf(member.chocolate).toEqualTypeOf<SkyblockMemberChocolateFactoryData>();
+    expectTypeOf(member.chocolate).toEqualTypeOf<ChocolateFactoryData>();
 
     expect(member.getArmor()).toBeDefined();
-    expectTypeOf(member.getArmor).toEqualTypeOf<() => Promise<SkyblockMemberArmor>>();
-    expectTypeOf(member.getArmor()).toEqualTypeOf<Promise<SkyblockMemberArmor>>();
+    expectTypeOf(member.getArmor).toEqualTypeOf<() => Promise<Armor>>();
+    expectTypeOf(member.getArmor()).toEqualTypeOf<Promise<Armor>>();
 
     expect(member.getWardrobe()).toBeDefined();
     expectTypeOf(member.getWardrobe).toEqualTypeOf<() => Promise<SkyblockInventoryItem[]>>();
@@ -283,8 +284,8 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.getPetScore()).toEqualTypeOf<number>();
 
     expect(member.getEquipment()).toBeDefined();
-    expectTypeOf(member.getEquipment).toEqualTypeOf<() => Promise<SkyblockMemberEquipment>>();
-    expectTypeOf(member.getEquipment()).toEqualTypeOf<Promise<SkyblockMemberEquipment>>();
+    expectTypeOf(member.getEquipment).toEqualTypeOf<() => Promise<Equipment>>();
+    expectTypeOf(member.getEquipment()).toEqualTypeOf<Promise<Equipment>>();
 
     expect(member.getPersonalVault()).toBeDefined();
     expectTypeOf(member.getPersonalVault).toEqualTypeOf<() => Promise<SkyblockInventoryItem[]>>();

@@ -1,6 +1,6 @@
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
+import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
 import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { SkyblockRarity } from '../utils/SkyblockUtils';
 import Bid from '../structures/SkyBlock/Auctions/Bid';
 import { expect, expectTypeOf, test } from 'vitest';
 import ItemBytes from '../structures/ItemBytes';
@@ -118,7 +118,7 @@ test('getSkyblockAuctions (One Page)', async () => {
     expect(auction.itemLoreRaw).toBeDefined();
     expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
     expect(auction.rarity).toBeDefined();
-    expectTypeOf(auction.rarity).toEqualTypeOf<SkyblockRarity>();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
     expect(auction.startingBid).toBeDefined();
     expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
     expect(auction.highestBid).toBeDefined();
@@ -227,7 +227,7 @@ test('getSkyblockAuctions (One Page Include Item Bytes)', async () => {
     expect(auction.itemLoreRaw).toBeDefined();
     expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
     expect(auction.rarity).toBeDefined();
-    expectTypeOf(auction.rarity).toEqualTypeOf<SkyblockRarity>();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
     expect(auction.startingBid).toBeDefined();
     expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
     expect(auction.highestBid).toBeDefined();
@@ -336,7 +336,7 @@ test('getSkyblockAuctions (All Pages)', async () => {
     expect(auction.itemLoreRaw).toBeDefined();
     expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
     expect(auction.rarity).toBeDefined();
-    expectTypeOf(auction.rarity).toEqualTypeOf<SkyblockRarity>();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
     expect(auction.startingBid).toBeDefined();
     expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
     expect(auction.highestBid).toBeDefined();

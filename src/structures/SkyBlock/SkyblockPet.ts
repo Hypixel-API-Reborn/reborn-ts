@@ -1,4 +1,4 @@
-import { SkyblockRarity } from '../../utils/SkyblockUtils';
+import { Rarity } from './SkyblockMemberTypes';
 import Constants from '../../utils/Constants';
 
 class SkyblockPet {
@@ -6,7 +6,7 @@ class SkyblockPet {
   name: string;
   xp: number;
   active: boolean;
-  rarity: SkyblockRarity;
+  rarity: Rarity;
   petScore: number;
   heldItem: string | null;
   candyUsed: number;
@@ -22,6 +22,7 @@ class SkyblockPet {
     this.candyUsed = data.candyUsed || 0;
     this.skin = data.skin;
   }
+
   toString(): string {
     return this.name;
   }

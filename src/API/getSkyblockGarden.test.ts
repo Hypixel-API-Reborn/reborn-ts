@@ -4,7 +4,7 @@ import SkyblockGarden, {
   SkyblockGardenVisitor,
   SkyblockGarenCrops
 } from '../structures/SkyBlock/SkyblockGarden';
-import { SkyblockSkillLevel } from '../utils/SkyblockUtils';
+import { SkillLevel } from '../structures/SkyBlock/SkyblockMemberTypes';
 import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
 
@@ -36,7 +36,7 @@ test('getSkyblockGarden', async () => {
   expectTypeOf(data).toEqualTypeOf<SkyblockGarden>();
 
   expect(data.level).toBeDefined();
-  expectTypeOf(data.level).toEqualTypeOf<SkyblockSkillLevel>();
+  expectTypeOf(data.level).toEqualTypeOf<SkillLevel>();
 
   expect(data.barnSkin).toBeDefined();
   expectTypeOf(data.barnSkin).toEqualTypeOf<string>();
