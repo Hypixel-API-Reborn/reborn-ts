@@ -13,7 +13,7 @@ class Booster {
   remaining: number;
   activatedTimestamp: number;
   activated: Date;
-  game: Game | null;
+  game: Game;
   isActive: boolean;
   type: 'STACKED' | 'QUEUED' | 'ACTIVE';
   stackers: string[];
@@ -25,7 +25,7 @@ class Booster {
     this.remaining = data.length;
     this.activatedTimestamp = data.dateActivated;
     this.activated = new Date(data.dateActivated);
-    this.game = data.gameType ? new Game(data.gameType) : null;
+    this.game = new Game(data.gameType);
     this.isActive = Array.isArray(data.stacked);
     this.type = parseType(data);
     this.stackers = Array.isArray(data.stacked) ? Array.from(data.stacked) : [];
