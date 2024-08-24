@@ -63,6 +63,16 @@ test('getSkyblockAuction (Auction)', async () => {
     expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
     expect(auction.itemBytes).toBeDefined();
     expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
+    if (auction.itemBytes) {
+      expect(auction.itemBytes).toBeDefined();
+      expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes>();
+      expect(auction.itemBytes.bytesBuffer).toBeDefined();
+      expectTypeOf(auction.itemBytes.bytesBuffer).toEqualTypeOf<Buffer>();
+      expect(auction.itemBytes.base64).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64).toEqualTypeOf<() => string>();
+      expect(auction.itemBytes.base64()).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64()).toEqualTypeOf<string>();
+    }
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
@@ -149,6 +159,16 @@ test('getSkyblockAuction (Player)', async () => {
     expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
     expect(auction.itemBytes).toBeDefined();
     expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
+    if (auction.itemBytes) {
+      expect(auction.itemBytes).toBeDefined();
+      expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes>();
+      expect(auction.itemBytes.bytesBuffer).toBeDefined();
+      expectTypeOf(auction.itemBytes.bytesBuffer).toEqualTypeOf<Buffer>();
+      expect(auction.itemBytes.base64).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64).toEqualTypeOf<() => string>();
+      expect(auction.itemBytes.base64()).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64()).toEqualTypeOf<string>();
+    }
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
@@ -235,6 +255,16 @@ test('getSkyblockAuction (Profile)', async () => {
     expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
     expect(auction.itemBytes).toBeDefined();
     expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
+    if (auction.itemBytes) {
+      expect(auction.itemBytes).toBeDefined();
+      expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes>();
+      expect(auction.itemBytes.bytesBuffer).toBeDefined();
+      expectTypeOf(auction.itemBytes.bytesBuffer).toEqualTypeOf<Buffer>();
+      expect(auction.itemBytes.base64).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64).toEqualTypeOf<() => string>();
+      expect(auction.itemBytes.base64()).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64()).toEqualTypeOf<string>();
+    }
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
