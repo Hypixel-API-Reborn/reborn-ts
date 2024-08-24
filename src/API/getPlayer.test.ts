@@ -30,7 +30,6 @@ import WoolWars from '../structures/MiniGames/WoolWars';
 import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import House from '../structures/House';
 import RecentGame from '../structures/RecentGame';
-// import axios from 'axios';
 
 test('getPlayer (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -39,19 +38,6 @@ test('getPlayer (no input)', () => {
   expect(() => client.getPlayer()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
-
-// test('getPlayer (never joinned hypixel)', () => {
-//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-//   const mockRequest = { status: 200, data: { success: true } };
-//   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
-//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//   // @ts-expect-error
-//   expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
-//     client.errors.PLAYER_HAS_NEVER_LOGGED
-//   );
-//   vi.restoreAllMocks();
-//   client.destroy();
-// });
 
 test('getPLayer (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
