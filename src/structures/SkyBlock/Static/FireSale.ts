@@ -16,7 +16,7 @@ class FireSale {
     this.price = data.price;
   }
 
-  toString(): string | null {
+  toString(): string {
     return this.itemId;
   }
 }
