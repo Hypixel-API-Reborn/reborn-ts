@@ -1,6 +1,7 @@
 import { expect, expectTypeOf, test } from 'vitest';
 import RecentGame from '../structures/RecentGame';
 import Client from '../Client';
+import Game from '../structures/Game';
 
 test('getRecentGames (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
@@ -31,9 +32,10 @@ test('getRecentGames', async () => {
     expect(game).toBeDefined();
     expectTypeOf(game).toEqualTypeOf<RecentGame>();
     expect(game).toBeInstanceOf(RecentGame);
+    expect(game.game).toBeDefined();
+    expectTypeOf(game.game).toEqualTypeOf<Game>();
     expect(game.dateTimestamp).toBeDefined();
     expectTypeOf(game.dateTimestamp).toEqualTypeOf<number | null>();
-    expect(data.dateTimestamp).toBeGreaterThanOrEqual(0);
     expect(game.date).toBeDefined();
     expectTypeOf(game.date).toEqualTypeOf<Date | null>();
     expect(game.mode).toBeDefined();
@@ -42,10 +44,10 @@ test('getRecentGames', async () => {
     expectTypeOf(game.map).toEqualTypeOf<string | null>();
     expect(game.ongoing).toBeDefined();
     expectTypeOf(game.ongoing).toEqualTypeOf<boolean>();
-    expect(data.endedAt).toBeDefined();
-    expectTypeOf(data.endedAt).toEqualTypeOf<Date | null>();
-    expect(data.endedTimestamp).toBeDefined();
-    expectTypeOf(data.endedTimestamp).toEqualTypeOf<number | null>();
+    expect(game.endedAt).toBeDefined();
+    expectTypeOf(game.endedAt).toEqualTypeOf<Date | null>();
+    expect(game.endedTimestamp).toBeDefined();
+    expectTypeOf(game.endedTimestamp).toEqualTypeOf<number | null>();
   });
   client.destroy();
 });

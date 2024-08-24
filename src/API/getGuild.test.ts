@@ -1,10 +1,10 @@
+import Game, { GameCode, GameID, GameString } from '../structures/Game';
 import GuildMember from '../structures/Guild/GuildMember';
 import GuildRank from '../structures/Guild/GuildRank';
 import { expect, expectTypeOf, test } from 'vitest';
 import Guild from '../structures/Guild/Guild';
 import { ExpHistory } from '../utils/Guild';
 import Color from '../structures/Color';
-import Game from '../structures/Game';
 import Client from '../Client';
 
 test('Invalid Guild Type', () => {
@@ -192,6 +192,29 @@ test('getGuild (Name)', async () => {
   expect(data.achievements.experienceKings).toBeGreaterThanOrEqual(0);
   expect(data.preferredGames).toBeDefined();
   expectTypeOf(data.preferredGames).toEqualTypeOf<Game[]>();
+  data.preferredGames.forEach((game: Game) => {
+    expect(game).toBeDefined();
+    expectTypeOf(game).toEqualTypeOf<Game>();
+    expect(game.game).toBeDefined();
+    expectTypeOf(game.game).toEqualTypeOf<GameID | GameCode>();
+    expect(game.id).toBeDefined();
+    expectTypeOf(game.id).toEqualTypeOf<GameID | null>();
+    expect(game.code).toBeDefined();
+    expectTypeOf(game.code).toEqualTypeOf<GameCode | null>();
+    expect(game.name).toBeDefined();
+    expectTypeOf(game.name).toEqualTypeOf<GameString | null>();
+    expect(game.found).toBeDefined();
+    expectTypeOf(game.found).toEqualTypeOf<boolean>();
+    expect(game.toString()).toBeDefined();
+    expect(game.toString()).toBe(game.name);
+    expectTypeOf(game.toString()).toEqualTypeOf<GameString | null>();
+    expect(Game.IDS).toBeDefined();
+    expectTypeOf(Game.IDS).toEqualTypeOf<GameID[]>();
+    expect(Game.CODES).toBeDefined();
+    expectTypeOf(Game.CODES).toEqualTypeOf<GameCode[]>();
+    expect(Game.NAMES).toBeDefined();
+    expectTypeOf(Game.NAMES).toEqualTypeOf<GameString[]>();
+  });
   expect(data.toString()).toBeDefined();
   expectTypeOf(data.toString()).toEqualTypeOf<string>();
   expect(data.guildMaster()).toBeDefined();

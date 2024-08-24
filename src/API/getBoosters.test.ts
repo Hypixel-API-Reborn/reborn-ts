@@ -1,6 +1,6 @@
+import Game, { GameCode, GameID, GameString } from '../structures/Game';
 import Booster from '../structures/Boosters/Booster';
 import { expect, expectTypeOf, test } from 'vitest';
-import Game from '../structures/Game';
 import Client from '../Client';
 
 test('getBoosters (raw)', async () => {
@@ -38,6 +38,29 @@ test('getBoosters', async () => {
     expectTypeOf(booster.activated).toEqualTypeOf<Date>();
     expect(booster.game).toBeDefined();
     expectTypeOf(booster.game).toEqualTypeOf<Game | null>();
+    if (booster.game) {
+      expect(booster.game).toBeDefined();
+      expectTypeOf(booster.game).toEqualTypeOf<Game>();
+      expect(booster.game.game).toBeDefined();
+      expectTypeOf(booster.game.game).toEqualTypeOf<GameID | GameCode>();
+      expect(booster.game.id).toBeDefined();
+      expectTypeOf(booster.game.id).toEqualTypeOf<GameID | null>();
+      expect(booster.game.code).toBeDefined();
+      expectTypeOf(booster.game.code).toEqualTypeOf<GameCode | null>();
+      expect(booster.game.name).toBeDefined();
+      expectTypeOf(booster.game.name).toEqualTypeOf<GameString | null>();
+      expect(booster.game.found).toBeDefined();
+      expectTypeOf(booster.game.found).toEqualTypeOf<boolean>();
+      expect(booster.game.toString()).toBeDefined();
+      expect(booster.game.toString()).toBe(booster.game.name);
+      expectTypeOf(booster.game.toString()).toEqualTypeOf<GameString | null>();
+      expect(Game.IDS).toBeDefined();
+      expectTypeOf(Game.IDS).toEqualTypeOf<GameID[]>();
+      expect(Game.CODES).toBeDefined();
+      expectTypeOf(Game.CODES).toEqualTypeOf<GameCode[]>();
+      expect(Game.NAMES).toBeDefined();
+      expectTypeOf(Game.NAMES).toEqualTypeOf<GameString[]>();
+    }
     expect(booster.isActive).toBeDefined();
     expectTypeOf(booster.isActive).toEqualTypeOf<boolean>();
     expect(booster.type).toBeDefined();
