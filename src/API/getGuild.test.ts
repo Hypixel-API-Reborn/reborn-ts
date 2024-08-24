@@ -1,10 +1,10 @@
+import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
 import Game, { GameCode, GameID, GameString } from '../structures/Game';
 import GuildMember from '../structures/Guild/GuildMember';
 import GuildRank from '../structures/Guild/GuildRank';
 import { expect, expectTypeOf, test } from 'vitest';
 import Guild from '../structures/Guild/Guild';
 import { ExpHistory } from '../utils/Guild';
-import Color from '../structures/Color';
 import Client from '../Client';
 
 test('Invalid Guild Type', () => {
@@ -180,6 +180,28 @@ test('getGuild (Name)', async () => {
   expectTypeOf(data.tag).toEqualTypeOf<string>();
   expect(data.tagColor).toBeDefined();
   expectTypeOf(data.tagColor).toEqualTypeOf<Color | null>();
+  if (data.tagColor) {
+    expect(data.tagColor).toBeDefined();
+    expectTypeOf(data.tagColor).toEqualTypeOf<Color>();
+    expect(data.tagColor.color).toBeDefined();
+    expectTypeOf(data.tagColor.color).toEqualTypeOf<ColorCode>();
+    expect(data.tagColor.toString).toBeDefined();
+    expectTypeOf(data.tagColor.toString).toEqualTypeOf<() => ColorString>();
+    expect(data.tagColor.toString()).toBeDefined();
+    expectTypeOf(data.tagColor.toString()).toEqualTypeOf<ColorString>();
+    expect(data.tagColor.toHex).toBeDefined();
+    expectTypeOf(data.tagColor.toHex).toEqualTypeOf<() => ColorHex>();
+    expect(data.tagColor.toHex()).toBeDefined();
+    expectTypeOf(data.tagColor.toHex()).toEqualTypeOf<ColorHex>();
+    expect(data.tagColor.toCode).toBeDefined();
+    expectTypeOf(data.tagColor.toCode).toEqualTypeOf<() => ColorCode>();
+    expect(data.tagColor.toCode()).toBeDefined();
+    expectTypeOf(data.tagColor.toCode()).toEqualTypeOf<ColorCode>();
+    expect(data.tagColor.toInGameCode).toBeDefined();
+    expectTypeOf(data.tagColor.toInGameCode).toEqualTypeOf<() => InGameCode>();
+    expect(data.tagColor.toInGameCode()).toBeDefined();
+    expectTypeOf(data.tagColor.toInGameCode()).toEqualTypeOf<InGameCode>();
+  }
   expect(data.expHistory).toBeDefined();
   expectTypeOf(data.expHistory).toEqualTypeOf<ExpHistory[]>();
   expect(data.achievements).toBeDefined();

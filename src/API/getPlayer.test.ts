@@ -1,4 +1,5 @@
 import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../structures/Player';
+import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
 import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
 import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import Game, { GameCode, GameID, GameString } from '../structures/Game';
@@ -27,7 +28,6 @@ import Duels from '../structures/MiniGames/Duels';
 import Walls from '../structures/MiniGames/Walls';
 import UHC from '../structures/MiniGames/UHC';
 import Guild from '../structures/Guild/Guild';
-import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
 import House from '../structures/House';
 import Client from '../Client';
 
@@ -153,8 +153,52 @@ test('getPlayer', async () => {
   }
   expect(data.plusColor).toBeDefined();
   expectTypeOf(data.plusColor).toEqualTypeOf<Color | null>();
+  if (data.plusColor) {
+    expect(data.plusColor).toBeDefined();
+    expectTypeOf(data.plusColor).toEqualTypeOf<Color>();
+    expect(data.plusColor.color).toBeDefined();
+    expectTypeOf(data.plusColor.color).toEqualTypeOf<ColorCode>();
+    expect(data.plusColor.toString).toBeDefined();
+    expectTypeOf(data.plusColor.toString).toEqualTypeOf<() => ColorString>();
+    expect(data.plusColor.toString()).toBeDefined();
+    expectTypeOf(data.plusColor.toString()).toEqualTypeOf<ColorString>();
+    expect(data.plusColor.toHex).toBeDefined();
+    expectTypeOf(data.plusColor.toHex).toEqualTypeOf<() => ColorHex>();
+    expect(data.plusColor.toHex()).toBeDefined();
+    expectTypeOf(data.plusColor.toHex()).toEqualTypeOf<ColorHex>();
+    expect(data.plusColor.toCode).toBeDefined();
+    expectTypeOf(data.plusColor.toCode).toEqualTypeOf<() => ColorCode>();
+    expect(data.plusColor.toCode()).toBeDefined();
+    expectTypeOf(data.plusColor.toCode()).toEqualTypeOf<ColorCode>();
+    expect(data.plusColor.toInGameCode).toBeDefined();
+    expectTypeOf(data.plusColor.toInGameCode).toEqualTypeOf<() => InGameCode>();
+    expect(data.plusColor.toInGameCode()).toBeDefined();
+    expectTypeOf(data.plusColor.toInGameCode()).toEqualTypeOf<InGameCode>();
+  }
   expect(data.prefixColor).toBeDefined();
   expectTypeOf(data.prefixColor).toEqualTypeOf<Color | null>();
+  if (data.prefixColor) {
+    expect(data.prefixColor).toBeDefined();
+    expectTypeOf(data.prefixColor).toEqualTypeOf<Color>();
+    expect(data.prefixColor.color).toBeDefined();
+    expectTypeOf(data.prefixColor.color).toEqualTypeOf<ColorCode>();
+    expect(data.prefixColor.toString).toBeDefined();
+    expectTypeOf(data.prefixColor.toString).toEqualTypeOf<() => ColorString>();
+    expect(data.prefixColor.toString()).toBeDefined();
+    expectTypeOf(data.prefixColor.toString()).toEqualTypeOf<ColorString>();
+    expect(data.prefixColor.toHex).toBeDefined();
+    expectTypeOf(data.prefixColor.toHex).toEqualTypeOf<() => ColorHex>();
+    expect(data.prefixColor.toHex()).toBeDefined();
+    expectTypeOf(data.prefixColor.toHex()).toEqualTypeOf<ColorHex>();
+    expect(data.prefixColor.toCode).toBeDefined();
+    expectTypeOf(data.prefixColor.toCode).toEqualTypeOf<() => ColorCode>();
+    expect(data.prefixColor.toCode()).toBeDefined();
+    expectTypeOf(data.prefixColor.toCode()).toEqualTypeOf<ColorCode>();
+    expect(data.prefixColor.toInGameCode).toBeDefined();
+    expectTypeOf(data.prefixColor.toInGameCode).toEqualTypeOf<() => InGameCode>();
+    expect(data.prefixColor.toInGameCode()).toBeDefined();
+    expectTypeOf(data.prefixColor.toInGameCode()).toEqualTypeOf<InGameCode>();
+  }
   expect(data.karma).toBeDefined();
   expectTypeOf(data.karma).toEqualTypeOf<number>();
   expect(data.achievements).toBeDefined();
