@@ -1,35 +1,49 @@
-import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../structures/Player';
+import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
+import Client from '../Client';
 import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
-import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
-import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
 import Game, { GameCode, GameID, GameString } from '../structures/Game';
-import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
-import MurderMystery from '../structures/MiniGames/MurderMystery';
-import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
-import BuildBattle from '../structures/MiniGames/BuildBattle';
-import SmashHeroes from '../structures/MiniGames/SmashHeroes';
-import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
-import Pit, { PitArmor } from '../structures/MiniGames/Pit';
-import Quakecraft from '../structures/MiniGames/Quakecraft';
-import PlayerCosmetics from '../structures/PlayerCosmetics';
-import MegaWalls from '../structures/MiniGames/MegaWalls';
-import Paintball from '../structures/MiniGames/Paintball';
-import VampireZ from '../structures/MiniGames/VampireZ';
-import Warlords from '../structures/MiniGames/Warlords';
-import WoolWars from '../structures/MiniGames/WoolWars';
-import SpeedUHC from '../structures/MiniGames/SpeedUHC';
-import TNTGames from '../structures/MiniGames/TNTGames';
-import SkyWars from '../structures/MiniGames/SkyWars';
-import BedWars from '../structures/MiniGames/BedWars';
-import Arcade from '../structures/MiniGames/Arcade';
-import { expect, expectTypeOf, test } from 'vitest';
-import RecentGame from '../structures/RecentGame';
-import Duels from '../structures/MiniGames/Duels';
-import Walls from '../structures/MiniGames/Walls';
-import UHC from '../structures/MiniGames/UHC';
 import Guild from '../structures/Guild/Guild';
 import House from '../structures/House';
-import Client from '../Client';
+import Arcade from '../structures/MiniGames/Arcade';
+import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
+import BedWars from '../structures/MiniGames/BedWars';
+import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
+import BuildBattle from '../structures/MiniGames/BuildBattle';
+import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
+import Duels from '../structures/MiniGames/Duels';
+import MegaWalls from '../structures/MiniGames/MegaWalls';
+import MurderMystery from '../structures/MiniGames/MurderMystery';
+import Paintball from '../structures/MiniGames/Paintball';
+import Pit, { PitArmor } from '../structures/MiniGames/Pit';
+import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
+import Quakecraft from '../structures/MiniGames/Quakecraft';
+import SkyWars from '../structures/MiniGames/SkyWars';
+import SmashHeroes from '../structures/MiniGames/SmashHeroes';
+import SpeedUHC from '../structures/MiniGames/SpeedUHC';
+import TNTGames from '../structures/MiniGames/TNTGames';
+import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
+import UHC from '../structures/MiniGames/UHC';
+import VampireZ from '../structures/MiniGames/VampireZ';
+import Walls from '../structures/MiniGames/Walls';
+import Warlords from '../structures/MiniGames/Warlords';
+import WoolWars from '../structures/MiniGames/WoolWars';
+import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../structures/Player';
+import PlayerCosmetics from '../structures/PlayerCosmetics';
+import RecentGame from '../structures/RecentGame';
+
+test('getPlayer (never joinned hypixel)', async () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const mockRequest = { status: 200, data: { success: true } };
+  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
+    client.errors.PLAYER_HAS_NEVER_LOGGED
+  );
+  vi.restoreAllMocks();
+  client.destroy();
+});
 
 test('getPlayer (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
