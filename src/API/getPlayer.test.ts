@@ -34,8 +34,7 @@ import RecentGame from '../structures/RecentGame';
 
 test('getPlayer (never joinned hypixel)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  const mockRequest = { status: 200, data: { success: true } };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { success: true } });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(

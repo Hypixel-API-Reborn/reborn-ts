@@ -29,8 +29,7 @@ test('Requests (Invalid API Key)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client.requests.request).toBeDefined();
   expectTypeOf(client.requests.request).toBeFunction();
-  const mockRequest = { status: 403, data: {} };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  vi.spyOn(axios, 'get').mockResolvedValue({ status: 403, data: {} });
   expect(() => client.requests.request('/boosters')).rejects.toThrowError(client.errors.INVALID_API_KEY);
   vi.restoreAllMocks();
   client.destroy();
@@ -40,8 +39,7 @@ test('Requests (Unprocessable Entity)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client.requests.request).toBeDefined();
   expectTypeOf(client.requests.request).toBeFunction();
-  const mockRequest = { status: 422, data: {} };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  vi.spyOn(axios, 'get').mockResolvedValue({ status: 422, data: {} });
   expect(() => client.requests.request('/boosters')).rejects.toThrowError(client.errors.UNEXPECTED_ERROR);
   vi.restoreAllMocks();
   client.destroy();
@@ -51,8 +49,7 @@ test('Requests (Rate Limited)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');
   expect(client.requests.request).toBeDefined();
   expectTypeOf(client.requests.request).toBeFunction();
-  const mockRequest = { status: 429, data: {} };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  vi.spyOn(axios, 'get').mockResolvedValue({ status: 429, data: {} });
   expect(() => client.requests.request('/boosters')).rejects.toThrowError(client.errors.RATE_LIMIT_EXCEEDED);
   vi.restoreAllMocks();
   client.destroy();

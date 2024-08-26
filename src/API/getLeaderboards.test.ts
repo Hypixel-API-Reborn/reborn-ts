@@ -43,8 +43,7 @@ test('getLeaderboards', async () => {
 
 test('getLeaderboards (Missing Data)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');
-  const mockRequest = { status: 200, data: { success: true } };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+  vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { success: true } });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getLeaderboards()).rejects.toThrowError(
