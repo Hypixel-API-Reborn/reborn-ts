@@ -79,7 +79,7 @@ jobs:
 
   build:
     name: build
-    needs: [pnpm]
+    needs: [pnpm, eslint]
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
