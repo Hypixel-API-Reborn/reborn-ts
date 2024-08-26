@@ -79,7 +79,7 @@ jobs:
 
   build:
     name: build
-    needs: [pnpm]
+    needs: [pnpm, eslint]
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -124,3 +124,31 @@ jobs:
         env:
           HYPIXEL_KEY: ${{ secrets.HYPIXEL_KEY }}
         run: pnpm test
+
+  coverage:
+    name: Check Coverage
+    needs: [pnpm, eslint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install node dependencies
+        run: pnpm i
+
+      - name: Run Coverage
+        env:
+          HYPIXEL_KEY: ${{ secrets.HYPIXEL_KEY }}
+        run: pnpm test:coverage
+
+      - name: Check Coverage
+        run: npx tsx utils/checkCoverage.ts
