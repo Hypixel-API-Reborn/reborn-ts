@@ -2,7 +2,7 @@ import Requests, { RequestOptions } from '../Private/Requests';
 import CacheHandler from '../Private/CacheHandler';
 import { ClientOptions } from '../Client';
 import Updater from '../Private/Updater';
-import Errors from '../Errors';
+import Errors from '../Private/ErrorHandler';
 import Achievements from '../structures/Static/Achievements';
 import House from '../structures/House';
 import Booster from '../structures/Boosters/Booster';

@@ -1,3 +1,4 @@
+import Error from '../Private/ErrorHandler';
 import Client from '../Client';
 
 class Endpoint {
@@ -7,7 +8,7 @@ class Endpoint {
   }
 
   execute(...args: any[]): Promise<any> | any {
-    throw new Error(this.client.errors.NOT_IMPLEMENTED);
+    throw new Error(this.client.errors.NOT_IMPLEMENTED, 'Unknown endpoint');
   }
 }
 

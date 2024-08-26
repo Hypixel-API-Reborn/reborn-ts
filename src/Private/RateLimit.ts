@@ -1,3 +1,4 @@
+import Error from '../Private/ErrorHandler';
 import Client from '../Client';
 
 class RateLimit {
@@ -17,7 +18,7 @@ class RateLimit {
   async sync() {
     const { headers } = await this.client.requests.request('/boosters', { raw: true });
     if (headers?.['ratelimit-limit'] === undefined || headers?.['ratelimit-remaining'] === undefined) {
-      throw new Error(this.client.errors.RATE_LIMIT_INIT_ERROR);
+      throw new Error(this.client.errors.RATE_LIMIT_INIT_ERROR, 'initializing rate limit.');
     }
     this.requests = headers['ratelimit-limit'] - headers['ratelimit-remaining'];
     this.limit = Number(headers['ratelimit-limit']);

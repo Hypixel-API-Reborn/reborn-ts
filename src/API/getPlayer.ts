@@ -1,4 +1,5 @@
 import { PlayerRequestOptions } from './API';
+import Error from '../Private/ErrorHandler';
 import Endpoint from '../Private/Endpoint';
 import Player from '../structures/Player';
 import Client from '../Client';
@@ -11,11 +12,11 @@ class getPlayer extends Endpoint {
   }
 
   async execute(query: string, options?: PlayerRequestOptions): Promise<Player> {
-    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
+    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID, 'Fetching Player');
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/player?uuid=${query}`, options);
     if (res.options.raw) return res.data;
-    if (query && !res.data.player) throw new Error(this.client.errors.PLAYER_HAS_NEVER_LOGGED);
+    if (query && !res.data.player) throw new Error(this.client.errors.PLAYER_HAS_NEVER_LOGGED, 'Fetching Player');
     return new Player(res.data.player, {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error

@@ -1,5 +1,6 @@
 import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
 import { SkyblockRequestOptions } from './API';
+import Error from '../Private/ErrorHandler';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
 
@@ -11,11 +12,13 @@ class getSkyblockMember extends Endpoint {
   }
 
   async execute(query: string, options?: SkyblockRequestOptions): Promise<Map<string, SkyblockMember>> {
-    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
+    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID, 'Fetching Skyblock Member');
     query = await this.client.requests.toUUID(query);
     const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
     if (res.options.raw) return res.data;
-    if (!res.data.profiles || !res.data.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
+    if (!res.data.profiles || !res.data.profiles.length) {
+      throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES, 'Fetching Skyblock Member');
+    }
     const memberByProfileName = new Map();
     for (const profile of res.data.profiles) {
       memberByProfileName.set(

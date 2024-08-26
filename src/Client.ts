@@ -1,9 +1,9 @@
+import Error, { Errors } from './Private/ErrorHandler';
 import CacheHandler from './Private/CacheHandler';
 import { ClientOptions } from './typings/Client';
 import RateLimit from './Private/RateLimit';
 import Requests from './Private/Requests';
 import Updater from './Private/Updater';
-import Errors from './Errors';
 import API from './API';
 
 const clients: Client[] = [];
@@ -20,7 +20,7 @@ class Client {
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
     this.errors = new Errors();
-    if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
+    if (!this.key.length) throw new Error(this.errors.NO_API_KEY, 'Initializing Client');
     this.options = this.parasOptions(options);
     this.requests = new Requests(this);
     this.cacheHandler = new CacheHandler(this);

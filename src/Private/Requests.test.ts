@@ -31,7 +31,7 @@ test('Requests (Invalid API Key)', () => {
   expectTypeOf(client.requests.request).toBeFunction();
   const mockRequest = { status: 403, data: {} };
   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
-  expect(() => client.requests.request('/boosters')).rejects.toThrowError(client.errors.INVALID_API_KEY);
+  expect(() => client.requests.request('/boosters')).rejects.toThrowError('Invalid API Key!');
   vi.restoreAllMocks();
   client.destroy();
 });

@@ -1,5 +1,5 @@
 export * from './Client';
-export * from './Errors';
+export * from './Private/ErrorHandler';
 export * from './Private/CacheHandler';
 export * from './Private/Updater';
 export * from './Private/Endpoint';

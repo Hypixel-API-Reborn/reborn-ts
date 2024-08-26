@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { version } from '../../package.json';
+import Error from '../Private/ErrorHandler';
 import Client from '../Client';
 import axios from 'axios';
 
@@ -27,7 +28,9 @@ class Updater {
 
   async getLatestVersion(): Promise<string> {
     const request = await axios.get('https://registry.npmjs.org/hypixel-api-reborn');
-    if (200 !== request.status) throw new Error(this.client.errors.UPDATER_REQUEST_NOT_OK);
+    if (200 !== request.status) {
+      throw new Error(this.client.errors.UPDATER_REQUEST_NOT_OK, 'Fetching Latest {packageName} version');
+    }
     return request.data['dist-tags'].latest;
   }
 
