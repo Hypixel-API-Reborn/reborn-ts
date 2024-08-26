@@ -8,7 +8,7 @@ import { ExpHistory } from '../utils/Guild';
 import Client from '../Client';
 
 test('Invalid Guild Type', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getGuild('invalid', 'invalid')).rejects.toThrowError(
@@ -18,7 +18,7 @@ test('Invalid Guild Type', () => {
 });
 
 test('Invalid Guild', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getGuild('name', 'this guild dose not exist')).rejects.toThrowError(
@@ -28,7 +28,7 @@ test('Invalid Guild', () => {
 });
 
 test('Invalid Guild ID', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getGuild('id', 'invalid guild id')).rejects.toThrowError(client.errors.INVALID_GUILD_ID);
@@ -36,7 +36,7 @@ test('Invalid Guild ID', () => {
 });
 
 test('No Guild Query', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getGuild('id')).rejects.toThrowError(client.errors.NO_GUILD_QUERY);
@@ -44,7 +44,7 @@ test('No Guild Query', () => {
 });
 
 test('User not in a guild', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGuild('player', '37501e7512b845ab8796e2baf9e9677a');
@@ -54,7 +54,7 @@ test('User not in a guild', async () => {
 });
 
 test('getGuild (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGuild('name', 'Pixelic', { raw: true });
@@ -64,7 +64,7 @@ test('getGuild (raw)', async () => {
 });
 
 test('getGuild (Name)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGuild('name', 'Pixelic');
@@ -247,7 +247,7 @@ test('getGuild (Name)', async () => {
 });
 
 test('getGuild (Id)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGuild('id', '64b54f9d8ea8c96aaedafe84');
@@ -385,7 +385,7 @@ test('getGuild (Id)', async () => {
 });
 
 test('getGuild (Player)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getGuild('player', '14727faefbdc4aff848cd2713eb9939e');

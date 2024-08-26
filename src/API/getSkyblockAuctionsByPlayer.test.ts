@@ -6,7 +6,7 @@ import ItemBytes from '../structures/ItemBytes';
 import Client from '../Client';
 
 test('getSkyblockAuctionsByPlayer (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
@@ -19,7 +19,7 @@ test('getSkyblockAuctionsByPlayer (raw)', async () => {
 });
 
 test('getSkyblockAuctionsByPlayer (No Input)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getSkyblockAuctionsByPlayer()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
@@ -27,7 +27,7 @@ test('getSkyblockAuctionsByPlayer (No Input)', () => {
 });
 
 test('getSkyblockAuctionsByPlayer', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
@@ -148,7 +148,7 @@ test('getSkyblockAuctionsByPlayer', async () => {
 });
 
 test('getSkyblockAuctionsByPlayer (Item Bytes)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);

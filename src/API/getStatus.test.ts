@@ -4,7 +4,7 @@ import Status from '../structures/Status';
 import Client from '../Client';
 
 test('getStatus (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getStatus('14727faefbdc4aff848cd2713eb9939e', { raw: true });
@@ -14,7 +14,7 @@ test('getStatus (raw)', async () => {
 });
 
 test('getStatus', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getStatus('14727faefbdc4aff848cd2713eb9939e');

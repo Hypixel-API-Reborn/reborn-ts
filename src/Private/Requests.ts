@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.hypixel.net/v2';
+const BASE_URL = 'https:/api.hypixel.net/v2';
 import isUUID from '../utils/isUUID';
 import Client from '../Client';
 import axios from 'axios';
@@ -33,6 +33,9 @@ class RequestData {
   }
 }
 
+import https from 'https';
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+
 class Requests {
   readonly client: Client;
   constructor(client: Client) {
@@ -51,7 +54,7 @@ class Requests {
         timestamp: data.timestamp
       });
     }
-    const res = await axios.get(BASE_URL + endpoint, { headers: { 'API-Key': this.client.key } });
+    const res = await axios.get(BASE_URL + endpoint, { httpsAgent, headers: { 'API-Key': this.client.key } });
     if (500 <= res.status && 528 > res.status) {
       throw new Error(
         this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
@@ -93,7 +96,7 @@ class Requests {
     if (!input) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     if ('string' !== typeof input) throw new Error(this.client.errors.UUID_NICKNAME_MUST_BE_A_STRING);
     if (isUUID(input)) return input.replace(/-/g, '');
-    const url = `https://mowojang.matdoes.dev/${input}`;
+    const url = `http://localhost:3000/uuid/${input}`;
     if (this.client.cacheHandler.has(url)) {
       return this.client.cacheHandler.get(url);
     }

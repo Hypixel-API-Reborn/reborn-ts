@@ -32,6 +32,7 @@ class RateLimit {
     if (this.initialized) return;
     await this.sync();
     this.initialized = true;
+    console.log(this);
   }
 }
 
