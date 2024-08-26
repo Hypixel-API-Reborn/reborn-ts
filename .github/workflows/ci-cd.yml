@@ -127,7 +127,7 @@ jobs:
 
   coverage:
     name: Check Coverage
-    needs: [pnpm, eslint, build]
+    needs: [pnpm, eslint, build, tests]
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
