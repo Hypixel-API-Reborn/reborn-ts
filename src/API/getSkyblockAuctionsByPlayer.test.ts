@@ -108,26 +108,19 @@ test('getSkyblockAuctionsByPlayer', async () => {
       expect(bid).toBeDefined();
       expect(bid).toBeInstanceOf(Bid);
       expectTypeOf(bid).toEqualTypeOf<Bid>();
-
       expect(bid.auctionId).toBeDefined();
-      expectTypeOf(bid.auctionId).toEqualTypeOf<string | null>();
-
+      expectTypeOf(bid.auctionId).toEqualTypeOf<string>();
       expect(bid.profileId).toBeDefined();
-      expectTypeOf(bid.profileId).toEqualTypeOf<string | null>();
-
+      expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
       expect(bid.amount).greaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
-
       expect(bid.timestamp).toBeDefined();
-      expectTypeOf(bid.timestamp).toEqualTypeOf<number | null>();
-
+      expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
       expect(bid.at).toBeDefined();
-      expectTypeOf(bid.at).toEqualTypeOf<Date | null>();
-
+      expectTypeOf(bid.at).toEqualTypeOf<Date>();
       expect(bid.bidder).toBeDefined();
-      expectTypeOf(bid.bidder).toEqualTypeOf<string | null>();
-
+      expectTypeOf(bid.bidder).toEqualTypeOf<string>();
       expect(bid.toString()).toBeDefined();
       expect(bid.toString()).toBe(`${bid.bidder} bid ${bid.amount} coins`);
       expectTypeOf(bid.toString()).toEqualTypeOf<string>();
@@ -230,26 +223,19 @@ test('getSkyblockAuctionsByPlayer (Item Bytes)', async () => {
       expect(bid).toBeDefined();
       expect(bid).toBeInstanceOf(Bid);
       expectTypeOf(bid).toEqualTypeOf<Bid>();
-
       expect(bid.auctionId).toBeDefined();
-      expectTypeOf(bid.auctionId).toEqualTypeOf<string | null>();
-
+      expectTypeOf(bid.auctionId).toEqualTypeOf<string>();
       expect(bid.profileId).toBeDefined();
-      expectTypeOf(bid.profileId).toEqualTypeOf<string | null>();
-
+      expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
       expect(bid.amount).greaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
-
       expect(bid.timestamp).toBeDefined();
-      expectTypeOf(bid.timestamp).toEqualTypeOf<number | null>();
-
+      expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
       expect(bid.at).toBeDefined();
-      expectTypeOf(bid.at).toEqualTypeOf<Date | null>();
-
+      expectTypeOf(bid.at).toEqualTypeOf<Date>();
       expect(bid.bidder).toBeDefined();
-      expectTypeOf(bid.bidder).toEqualTypeOf<string | null>();
-
+      expectTypeOf(bid.bidder).toEqualTypeOf<string>();
       expect(bid.toString()).toBeDefined();
       expect(bid.toString()).toBe(`${bid.bidder} bid ${bid.amount} coins`);
       expectTypeOf(bid.toString()).toEqualTypeOf<string>();

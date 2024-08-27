@@ -1,4 +1,4 @@
-const BASE_URL = 'https:/api.hypixel.net/v2';
+const BASE_URL = 'http://localhost:3000/hypixel/v2';
 import isUUID from '../utils/isUUID';
 import Client from '../Client';
 import axios from 'axios';

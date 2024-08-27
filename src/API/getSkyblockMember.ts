@@ -28,7 +28,7 @@ class getSkyblockMember extends Endpoint {
           garden: options?.garden ? await this.client.getSkyblockGarden(profile.profile_id) : null,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
-          museum: options?.garden ? await this.client.getSkyblockMuseum(query, profile.profile_id) : null,
+          museum: options?.museum ? await this.client.getSkyblockMuseum(query, profile.profile_id) : null,
           profileName: profile.cute_name,
           gameMode: profile.game_mode || null,
           m: profile.members[query],

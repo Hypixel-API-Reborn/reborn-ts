@@ -15,7 +15,7 @@ test('getRecentGames (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getRecentGames('14727faefbdc4aff848cd2713eb9939e', { raw: true });
+  const data = await client.getRecentGames('add71246c46e455c8345c129ea6f146c', { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
@@ -25,7 +25,7 @@ test('getRecentGames', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getRecentGames('14727faefbdc4aff848cd2713eb9939e');
+  const data = await client.getRecentGames('add71246c46e455c8345c129ea6f146c');
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<RecentGame[]>();
   data.forEach((game: RecentGame) => {
@@ -48,6 +48,9 @@ test('getRecentGames', async () => {
     expectTypeOf(game.endedAt).toEqualTypeOf<Date | null>();
     expect(game.endedTimestamp).toBeDefined();
     expectTypeOf(game.endedTimestamp).toEqualTypeOf<number | null>();
+    expect(game.toString()).toBeDefined();
+    expect(game.toString()).toEqual(game.mode);
+    expectTypeOf(game.toString()).toEqualTypeOf<string | null>();
   });
   client.destroy();
 });
