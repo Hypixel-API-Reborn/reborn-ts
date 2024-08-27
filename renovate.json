@@ -6,6 +6,7 @@
   "assignees": ["kathund"],
   "reviewers": ["kathund"],
   "schedule": "before 5am every weekday",
+  "ignoreDeps": ["pnpm", "node"],
   "npm": {
     "rangeStrategy": "bump",
     "packageRules": [
