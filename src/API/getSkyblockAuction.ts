@@ -26,30 +26,7 @@ class getSkyblockAction extends Endpoint {
     } else {
       throw new Error(this.client.errors.BAD_AUCTION_FILTER);
     }
-    if (!query) {
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
-      throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    }
+    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`, options);
     if (res.options.raw) return res.data;
     return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));
