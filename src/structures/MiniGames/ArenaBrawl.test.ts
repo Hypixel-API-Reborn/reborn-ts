@@ -20,7 +20,6 @@ test('ArenaBrawl', () => {
   expectTypeOf(data.chests).toEqualTypeOf<number>();
   expect(data.rune).toBeDefined();
   expectTypeOf(data.rune).toEqualTypeOf<string>();
-
   expect(data['1v1']).toBeDefined();
   expectTypeOf(data['1v1']).toEqualTypeOf<ArenaBrawlMode>();
   expect(data['1v1'].damage).toBeDefined();

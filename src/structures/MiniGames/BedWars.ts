@@ -227,7 +227,7 @@ function getLevelRespectingPrestige(level: number) {
   return level % LEVELS_PER_PRESTIGE;
 }
 
-function getExpForLevel(level: number) {
+export function getExpForLevel(level: number) {
   if (0 === level) return 0;
   const respectedLevel = getLevelRespectingPrestige(level);
   if (respectedLevel > EASY_LEVELS) return 5000;
@@ -348,6 +348,14 @@ function generateStatsForPractice(data: Record<string, any>): BedWarsPracticeSta
   };
 }
 
+export interface BedwarsDreamStats {
+  ultimate: BedwarsDreamMode;
+  rush: BedwarsDreamMode;
+  armed: BedwarsDreamMode;
+  lucky: BedwarsDreamMode;
+  voidless: BedwarsDreamMode;
+}
+
 class BedWars {
   tokens: number;
   level: number;
@@ -371,7 +379,7 @@ class BedWars {
   threes: BedwarsMode;
   fours: BedwarsMode;
   '4v4': BedwarsMode;
-  dream: BedwarsDreamMode;
+  dream: BedwarsDreamStats;
   castle: BedwarsMode;
   practice: BedWarsPracticeStats;
   slumberTickets: number;

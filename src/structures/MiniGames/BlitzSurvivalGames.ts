@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class BlitzSGKit {
+export class BlitzSGKit {
   level: number;
   exp: number;
   kills: number;

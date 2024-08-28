@@ -12,7 +12,7 @@ function getTitle(data: Record<string, any>, mode: string): string {
   return '';
 }
 
-class DuelsGamemode {
+export class DuelsGamemode {
   title: string;
   winstreak: number;
   bestWinstreak: number;
@@ -55,7 +55,7 @@ class DuelsGamemode {
   }
 }
 
-class DuelsUHC {
+export class DuelsUHC {
   title: string;
   winstreak: number;
   bestWinstreak: number;
@@ -116,7 +116,7 @@ class DuelsUHC {
   }
 }
 
-class DuelsSkyWars {
+export class DuelsSkyWars {
   title: string;
   winstreak: number;
   bestWinstreak: number;
@@ -163,7 +163,7 @@ class DuelsSkyWars {
   }
 }
 
-class DuelsMegaWalls {
+export class DuelsMegaWalls {
   title: string;
   winstreak: number;
   bestWinstreak: number;
@@ -210,7 +210,7 @@ class DuelsMegaWalls {
   }
 }
 
-class DuelsOP {
+export class DuelsOP {
   title: string;
   winstreak: number;
   bestWinstreak: number;
@@ -257,7 +257,7 @@ class DuelsOP {
   }
 }
 
-class DuelsBridge {
+export class DuelsBridge {
   title: string;
   winstreak: number;
   bestWinstreak: number;
@@ -398,7 +398,7 @@ class DuelsBridge {
   }
 }
 
-class Duels {
+export class Duels {
   tokens: number;
   title: string | null;
   kills: number;

@@ -72,7 +72,7 @@ class Pit {
     this.bowDamageRatio = divide(this.bowDamageDealt, this.bowDamageReceived);
     this.goldenHeadsEaten = data.pit_stats_ptl?.ghead_eaten || 0;
     this.getInventory = async (): Promise<PitInventoryItem[]> => {
-      let inventory = data.profile.inv_contents;
+      let inventory = data?.profile?.inv_contents || undefined;
       if (!inventory) return [];
       try {
         inventory = await decode(inventory.data);
@@ -89,7 +89,7 @@ class Pit {
       }
     };
     this.getEnterChest = async () => {
-      let chest = data.profile.inv_enderchest;
+      let chest = data?.profile?.inv_enderchest || undefined;
       if (!chest) return [];
       try {
         chest = await decode(chest.data);
@@ -106,7 +106,8 @@ class Pit {
       }
     };
     this.getArmor = async () => {
-      const base64 = data.profile.inv_armor;
+      const base64 = data?.profile?.inv_armor || undefined;
+      if (!base64) return { helmet: null, chestplate: null, leggings: null, boots: null };
       const decoded = await decode(base64.data);
       const armor = {
         helmet: decoded[3].id ? new PitInventoryItem(decoded[3]) : null,

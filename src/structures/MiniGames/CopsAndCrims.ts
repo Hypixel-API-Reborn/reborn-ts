@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class CopsAndCrimsDefusal {
+export class CopsAndCrimsDefusal {
   kills: number;
   headshotKills: number;
   assists: number;
@@ -35,7 +35,7 @@ class CopsAndCrimsDefusal {
   }
 }
 
-class CopsAndCrimsDeathmatch {
+export class CopsAndCrimsDeathmatch {
   kills: number;
   assists: number;
   deaths: number;
@@ -60,7 +60,7 @@ class CopsAndCrimsDeathmatch {
   }
 }
 
-class CopsAndCrimsGunGame {
+export class CopsAndCrimsGunGame {
   kills: number;
   assists: number;
   deaths: number;

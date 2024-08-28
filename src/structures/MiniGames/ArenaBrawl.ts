@@ -12,16 +12,16 @@ export class ArenaBrawlMode {
   games: number;
   winstreak: number;
   constructor(data: Record<string, any>, mode: string) {
-    this.damage = data[`damage_${mode}`];
-    this.kills = data[`kills_${mode}`];
-    this.deaths = data[`deaths_${mode}`];
+    this.damage = data[`damage_${mode}`] || 0;
+    this.kills = data[`kills_${mode}`] || 0;
+    this.deaths = data[`deaths_${mode}`] || 0;
     this.KDRatio = divide(this.kills, this.deaths);
-    this.healed = data[`healed_${mode}`];
-    this.wins = data[`wins_${mode}`];
-    this.losses = data[`losses_${mode}`];
+    this.healed = data[`healed_${mode}`] || 0;
+    this.wins = data[`wins_${mode}`] || 0;
+    this.losses = data[`losses_${mode}`] || 0;
     this.WLRatio = divide(this.wins, this.losses);
-    this.games = data[`games_${mode}`];
-    this.winstreak = data[`win_streaks_${mode}`];
+    this.games = data[`games_${mode}`] || 0;
+    this.winstreak = data[`win_streaks_${mode}`] || 0;
   }
 }
 

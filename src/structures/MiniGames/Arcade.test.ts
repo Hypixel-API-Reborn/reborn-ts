@@ -144,6 +144,7 @@ test('Arcade', () => {
   Object.keys(data.dropper.maps).forEach((map: string) => {
     expect(data.dropper.maps[map]).toBeDefined();
     expect(data.dropper.maps[map]).instanceOf(DropperMap);
+    expectTypeOf(data.dropper.maps[map]).toEqualTypeOf<DropperMap>();
     expect(data.dropper.maps[map].bestTime).toBeDefined();
     expect(data.dropper.maps[map].bestTime).greaterThanOrEqual(0);
     expectTypeOf(data.dropper.maps[map].bestTime).toEqualTypeOf<number>();
