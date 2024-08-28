@@ -121,7 +121,7 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.dungeons).toEqualTypeOf<SkyblockMemberDungeons | null>();
 
     expect(member.collections).toBeDefined();
-    expectTypeOf(member.collections).toEqualTypeOf<object>();
+    expectTypeOf(member.collections).toEqualTypeOf<Record<string, number>>();
 
     expect(member.purse).toBeDefined();
     expectTypeOf(member.purse).toEqualTypeOf<number>();
@@ -293,6 +293,11 @@ test('getSkyblockMember', async () => {
     expect(member.getNetworth()).toBeDefined();
     expectTypeOf(member.getNetworth).toEqualTypeOf<() => Promise<NetworthResult | null>>();
     expectTypeOf(member.getNetworth()).toEqualTypeOf<Promise<NetworthResult | null>>();
+
+    expect(member.getFarmingWeight()).toBeDefined();
+    expectTypeOf(member.getFarmingWeight).toEqualTypeOf<() => number>();
+    expectTypeOf(member.getFarmingWeight()).toEqualTypeOf<number>();
+    expect(member.getFarmingWeight()).greaterThanOrEqual(0);
 
     expect(member.toString()).toBeDefined();
     expect(member.toString()).toBe(member.uuid);
