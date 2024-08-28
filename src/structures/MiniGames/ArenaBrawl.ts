@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class ArenaBrawlMode {
+export class ArenaBrawlMode {
   damage: number;
   kills: number;
   deaths: number;

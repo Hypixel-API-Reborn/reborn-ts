@@ -1,0 +1,95 @@
+import { expect, expectTypeOf, test } from 'vitest';
+import BedWars, {
+  BedWarsBeds,
+  BedWarsCollectedItems,
+  BedwarsDreamStats,
+  BedwarsMode,
+  BedWarsPracticeStats,
+  BedWarsPrestige
+} from './BedWars';
+
+test('BedWars', () => {
+  const data = new BedWars({ stats: 'meow' });
+  expect(data.tokens).toBeDefined();
+  expect(data.tokens).greaterThanOrEqual(0);
+  expectTypeOf(data.tokens).toEqualTypeOf<number>();
+  expect(data.level).toBeDefined();
+  expect(data.level).greaterThanOrEqual(0);
+  expectTypeOf(data.level).toEqualTypeOf<number>();
+  expect(data.experience).toBeDefined();
+  expect(data.experience).greaterThanOrEqual(0);
+  expectTypeOf(data.experience).toEqualTypeOf<number>();
+  expect(data.prestige).toBeDefined();
+  expectTypeOf(data.prestige).toEqualTypeOf<BedWarsPrestige>();
+  expect(data.playedGames).toBeDefined();
+  expect(data.playedGames).greaterThanOrEqual(0);
+  expectTypeOf(data.playedGames).toEqualTypeOf<number>();
+  expect(data.wins).toBeDefined();
+  expect(data.wins).greaterThanOrEqual(0);
+  expectTypeOf(data.wins).toEqualTypeOf<number>();
+  expect(data.winstreak).toBeDefined();
+  expect(data.winstreak).greaterThanOrEqual(0);
+  expectTypeOf(data.winstreak).toEqualTypeOf<number>();
+  expect(data.kills).toBeDefined();
+  expect(data.kills).greaterThanOrEqual(0);
+  expectTypeOf(data.kills).toEqualTypeOf<number>();
+  expect(data.finalKills).toBeDefined();
+  expect(data.finalKills).greaterThanOrEqual(0);
+  expectTypeOf(data.finalKills).toEqualTypeOf<number>();
+  expect(data.losses).toBeDefined();
+  expect(data.losses).greaterThanOrEqual(0);
+  expectTypeOf(data.losses).toEqualTypeOf<number>();
+  expect(data.deaths).toBeDefined();
+  expect(data.deaths).greaterThanOrEqual(0);
+  expectTypeOf(data.deaths).toEqualTypeOf<number>();
+  expect(data.finalDeaths).toBeDefined();
+  expect(data.finalDeaths).greaterThanOrEqual(0);
+  expectTypeOf(data.finalDeaths).toEqualTypeOf<number>();
+  expect(data.collectedItemsTotal).toBeDefined();
+  expectTypeOf(data.collectedItemsTotal).toEqualTypeOf<BedWarsCollectedItems>();
+  expect(data.collectedItemsTotal.iron).toBeDefined();
+  expect(data.collectedItemsTotal.iron).greaterThanOrEqual(0);
+  expectTypeOf(data.collectedItemsTotal.iron).toEqualTypeOf<number>();
+  expect(data.collectedItemsTotal.gold).toBeDefined();
+  expect(data.collectedItemsTotal.gold).greaterThanOrEqual(0);
+  expectTypeOf(data.collectedItemsTotal.gold).toEqualTypeOf<number>();
+  expect(data.collectedItemsTotal.diamond).toBeDefined();
+  expect(data.collectedItemsTotal.diamond).greaterThanOrEqual(0);
+  expectTypeOf(data.collectedItemsTotal.diamond).toEqualTypeOf<number>();
+  expect(data.collectedItemsTotal.emerald).toBeDefined();
+  expect(data.collectedItemsTotal.emerald).greaterThanOrEqual(0);
+  expectTypeOf(data.collectedItemsTotal.emerald).toEqualTypeOf<number>();
+  expect(data.beds).toBeDefined();
+  expectTypeOf(data.beds).toEqualTypeOf<BedWarsBeds>();
+  expect(data.KDRatio).toBeDefined();
+  expect(data.KDRatio).greaterThanOrEqual(0);
+  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.finalKDRatio).toBeDefined();
+  expect(data.finalKDRatio).greaterThanOrEqual(0);
+  expectTypeOf(data.finalKDRatio).toEqualTypeOf<number>();
+  expect(data.WLRatio).toBeDefined();
+  expect(data.WLRatio).greaterThanOrEqual(0);
+  expectTypeOf(data.WLRatio).toEqualTypeOf<number>();
+  expect(data.solo).toBeDefined();
+  expectTypeOf(data.solo).toEqualTypeOf<BedwarsMode>();
+  expect(data.doubles).toBeDefined();
+  expectTypeOf(data.doubles).toEqualTypeOf<BedwarsMode>();
+  expect(data.threes).toBeDefined();
+  expectTypeOf(data.threes).toEqualTypeOf<BedwarsMode>();
+  expect(data.fours).toBeDefined();
+  expectTypeOf(data.fours).toEqualTypeOf<BedwarsMode>();
+  expect(data['4v4']).toBeDefined();
+  expectTypeOf(data['4v4']).toEqualTypeOf<BedwarsMode>();
+  expect(data.dream).toBeDefined();
+  expectTypeOf(data.dream).toEqualTypeOf<BedwarsDreamStats | object>();
+  expect(data.castle).toBeDefined();
+  expectTypeOf(data.castle).toEqualTypeOf<BedwarsMode>();
+  expect(data.practice).toBeDefined();
+  expectTypeOf(data.practice).toEqualTypeOf<BedWarsPracticeStats>();
+  expect(data.slumberTickets).toBeDefined();
+  expect(data.slumberTickets).greaterThanOrEqual(0);
+  expectTypeOf(data.slumberTickets).toEqualTypeOf<number>();
+  expect(data.totalSlumberTicket).toBeDefined();
+  expect(data.totalSlumberTicket).greaterThanOrEqual(0);
+  expectTypeOf(data.totalSlumberTicket).toEqualTypeOf<number>();
+});

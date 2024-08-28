@@ -43,6 +43,31 @@ export interface PlayerSocialMedia {
   id: string;
 }
 
+export interface PlayerStats {
+  arcade: Arcade;
+  arena: ArenaBrawl;
+  bedwars: BedWars;
+  blitzsg: BlitzSurvivalGames;
+  buildbattle: BuildBattle;
+  copsandcrims: CopsAndCrims;
+  duels: Duels;
+  megawalls: MegaWalls;
+  murdermystery: MurderMystery;
+  paintball: Paintball;
+  pit: Pit;
+  quakecraft: Quakecraft;
+  skywars: SkyWars;
+  smashheroes: SmashHeroes;
+  speeduhc: SpeedUHC;
+  tntgames: TNTGames;
+  turbokartracers: TurboKartRacers;
+  uhc: UHC;
+  vampirez: VampireZ;
+  walls: Walls;
+  warlords: Warlords;
+  woolwars: WoolWars;
+}
+
 export type PlayerRank =
   | 'Default'
   | 'VIP'
@@ -101,7 +126,7 @@ class Player {
   rewardScore: number | null;
   rewardHighScore: number | null;
   levelProgress: LevelProgress;
-  stats: object | null;
+  stats: PlayerStats;
   userLanguage: string;
   claimedLevelingRewards: number[];
   globalCosmetics: PlayerCosmetics | null;
@@ -154,32 +179,30 @@ class Player {
     this.rewardScore = data.rewardScore || null;
     this.rewardHighScore = data.rewardHighScore || null;
     this.levelProgress = playerLevelProgress(data.networkExp);
-    this.stats = data.stats
-      ? {
-          arcade: data.stats.Arcade ? new Arcade({ ...data.stats.Arcade, ...data.achievements }) : null,
-          arena: data.stats.Arena ? new ArenaBrawl(data.stats.Arena) : null,
-          bedwars: data.stats.Bedwars ? new BedWars(data.stats.Bedwars) : null,
-          blitzsg: data.stats.HungerGames ? new BlitzSurvivalGames(data.stats.HungerGames) : null,
-          buildbattle: data.stats.BuildBattle ? new BuildBattle(data.stats.BuildBattle) : null,
-          copsandcrims: data.stats.MCGO ? new CopsAndCrims(data.stats.MCGO) : null,
-          duels: data.stats.Duels ? new Duels(data.stats.Duels) : null,
-          megawalls: data.stats.Walls3 ? new MegaWalls(data.stats.Walls3) : null,
-          murdermystery: data.stats.MurderMystery ? new MurderMystery(data.stats.MurderMystery) : null,
-          paintball: data.stats.Paintball ? new Paintball(data.stats.Paintball) : null,
-          pit: data.stats.Pit ? new Pit(data.stats.Pit) : null,
-          quakecraft: data.stats.Quake ? new Quakecraft(data.stats.Quake) : null,
-          skywars: data.stats.SkyWars ? new SkyWars(data.stats.SkyWars) : null,
-          smashheroes: data.stats.SuperSmash ? new SmashHeroes(data.stats.SuperSmash) : null,
-          speeduhc: data.stats.SpeedUHC ? new SpeedUHC(data.stats.SpeedUHC) : null,
-          tntgames: data.stats.TNTGames ? new TNTGames(data.stats.TNTGames) : null,
-          turbokartracers: data.stats.GingerBread ? new TurboKartRacers(data.stats.GingerBread) : null,
-          uhc: data.stats.UHC ? new UHC(data.stats.UHC) : null,
-          vampirez: data.stats.VampireZ ? new VampireZ(data.stats.VampireZ) : null,
-          walls: data.stats.Walls ? new Walls(data.stats.Walls) : null,
-          warlords: data.stats.Battleground ? new Warlords(data.stats.Battleground) : null,
-          woolwars: data.stats.WoolGames ? new WoolWars(data.stats.WoolGames) : null
-        }
-      : null;
+    this.stats = {
+      arcade: new Arcade({ ...data.stats.Arcade, ...data.achievements }),
+      arena: new ArenaBrawl(data.stats.Arena),
+      bedwars: new BedWars(data.stats.Bedwars),
+      blitzsg: new BlitzSurvivalGames(data.stats.HungerGames),
+      buildbattle: new BuildBattle(data.stats.BuildBattle),
+      copsandcrims: new CopsAndCrims(data.stats.MCGO),
+      duels: new Duels(data.stats.Duels),
+      megawalls: new MegaWalls(data.stats.Walls3),
+      murdermystery: new MurderMystery(data.stats.MurderMystery),
+      paintball: new Paintball(data.stats.Paintball),
+      pit: new Pit(data.stats.Pit),
+      quakecraft: new Quakecraft(data.stats.Quake),
+      skywars: new SkyWars(data.stats.SkyWars),
+      smashheroes: new SmashHeroes(data.stats.SuperSmash),
+      speeduhc: new SpeedUHC(data.stats.SpeedUHC),
+      tntgames: new TNTGames(data.stats.TNTGames),
+      turbokartracers: new TurboKartRacers(data.stats.GingerBread),
+      uhc: new UHC(data.stats.UHC),
+      vampirez: new VampireZ(data.stats.VampireZ),
+      walls: new Walls(data.stats.Walls),
+      warlords: new Warlords(data.stats.Battleground),
+      woolwars: new WoolWars(data.stats.WoolGames)
+    };
     this.userLanguage = data.userLanguage || 'ENGLISH';
     this.claimedLevelingRewards = parseClaimedRewards(data) || [];
     this.globalCosmetics = data ? new PlayerCosmetics(data) : null;

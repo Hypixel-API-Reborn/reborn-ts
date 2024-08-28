@@ -60,19 +60,13 @@ export interface BedWarsCollectedItems {
   emerald: number;
 }
 
-export interface BedWarsAvg {
-  kills: number;
-  finalKills: number;
-  bedsBroken: number;
-}
-
 export interface BedWarsBeds {
   lost: number;
   broken: number;
   BLRatio: number;
 }
 
-export interface BedWarsModeStats {
+export class BedwarsMode {
   winstreak: number;
   playedGames: number;
   kills: number;
@@ -82,23 +76,36 @@ export interface BedWarsModeStats {
   finalKills: number;
   finalDeaths: number;
   beds: BedWarsBeds;
-  avg: BedWarsAvg;
   KDRatio: number;
   WLRatio: number;
   finalKDRatio: number;
+  constructor(data: Record<string, any>, mode: string) {
+    this.winstreak = data[`${mode}_winstreak`] || 0;
+    this.playedGames = data[`${mode}_games_played_bedwars`] || 0;
+    this.kills = data[`${mode}_kills_bedwars`] || 0;
+    this.deaths = data[`${mode}_deaths_bedwars`] || 0;
+    this.wins = data[`${mode}_wins_bedwars`] || 0;
+    this.losses = data[`${mode}_losses_bedwars`] || 0;
+    this.finalKills = data[`${mode}_final_kills_bedwars`] || 0;
+    this.finalDeaths = data[`${mode}_final_deaths_bedwars`] || 0;
+    this.beds = {
+      broken: data[`${mode}_beds_broken_bedwars`] || 0,
+      lost: data[`${mode}_beds_lost_bedwars`] || 0,
+      BLRatio: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_beds_lost_bedwars`])
+    };
+    this.KDRatio = divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]);
+    this.WLRatio = divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]);
+    this.finalKDRatio = divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`]);
+  }
 }
 
-export interface BedwarsDreamModeStats {
-  doubles: BedWarsModeStats;
-  fours: BedWarsModeStats;
-}
-
-export interface BedwarsDreamStats {
-  ultimate: BedwarsDreamModeStats;
-  rush: BedwarsDreamModeStats;
-  armed: BedwarsDreamModeStats;
-  lucky: BedwarsDreamModeStats;
-  voidless: BedwarsDreamModeStats;
+export class BedwarsDreamMode {
+  doubles: BedwarsMode;
+  fours: BedwarsMode;
+  constructor(data: Record<string, any>, mode: string) {
+    this.doubles = new BedwarsMode(data, `eight_two_${mode}`);
+    this.fours = new BedwarsMode(data, `four_four_${mode}`);
+  }
 }
 
 export interface BedWarsPracticeAttempts {
@@ -151,90 +158,63 @@ export interface BedWarsPracticeStats {
   mlg: BedWarsPracticeBase;
 }
 
-function generateStatsForMode(data: Record<string, any>, mode: string): BedWarsModeStats {
-  return {
-    winstreak: data[`${mode}_winstreak`] || 0,
-    playedGames: data[`${mode}_games_played_bedwars`] || 0,
-    kills: data[`${mode}_kills_bedwars`] || 0,
-    deaths: data[`${mode}_deaths_bedwars`] || 0,
-    wins: data[`${mode}_wins_bedwars`] || 0,
-    losses: data[`${mode}_losses_bedwars`] || 0,
-    finalKills: data[`${mode}_final_kills_bedwars`] || 0,
-    finalDeaths: data[`${mode}_final_deaths_bedwars`] || 0,
-    beds: {
-      broken: data[`${mode}_beds_broken_bedwars`] || 0,
-      lost: data[`${mode}_beds_lost_bedwars`] || 0,
-      BLRatio: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_beds_lost_bedwars`])
-    },
-    avg: {
-      kills: divide(data[`${mode}_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
-      finalKills: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
-      bedsBroken: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_games_played_bedwars`])
-    },
-    KDRatio: divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]),
-    WLRatio: divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]),
-    finalKDRatio: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`])
-  };
+function getBedWarsPrestige(level: number): BedWarsPrestige {
+  if (5000 <= level) return 'Eternal';
+  return ([
+    'Stone',
+    'Iron',
+    'Gold',
+    'Diamond',
+    'Emerald',
+    'Sapphire',
+    'Ruby',
+    'Crystal',
+    'Opal',
+    'Amethyst',
+    'Rainbow',
+    'Iron Prime',
+    'Gold Prime',
+    'Diamond Prime',
+    'Emerald Prime',
+    'Sapphire Prime',
+    'Ruby Prime',
+    'Crystal Prime',
+    'Opal Prime',
+    'Amethyst Prime',
+    'Mirror',
+    'Light',
+    'Dawn',
+    'Dusk',
+    'Air',
+    'Wind',
+    'Nebula',
+    'Thunder',
+    'Earth',
+    'Water',
+    'Fire',
+    'Sunrise',
+    'Eclipse',
+    'Gamma',
+    'Majestic',
+    'Andesine',
+    'Marine',
+    'Element',
+    'Galaxy',
+    'Atomic',
+    'Sunset',
+    'Time',
+    'Winter',
+    'Obsidian',
+    'Spring',
+    'Ice',
+    'Summer',
+    'Spinel',
+    'Autumn',
+    'Mystic',
+    'Eternal'
+  ][Math.floor(level / 100)] || 'Eternal') as BedWarsPrestige;
 }
 
-function getBedWarsPrestige(level: number): BedWarsPrestige | string {
-  if (5000 <= level) return 'Eternal';
-  return (
-    [
-      'Stone',
-      'Iron',
-      'Gold',
-      'Diamond',
-      'Emerald',
-      'Sapphire',
-      'Ruby',
-      'Crystal',
-      'Opal',
-      'Amethyst',
-      'Rainbow',
-      'Iron Prime',
-      'Gold Prime',
-      'Diamond Prime',
-      'Emerald Prime',
-      'Sapphire Prime',
-      'Ruby Prime',
-      'Crystal Prime',
-      'Opal Prime',
-      'Amethyst Prime',
-      'Mirror',
-      'Light',
-      'Dawn',
-      'Dusk',
-      'Air',
-      'Wind',
-      'Nebula',
-      'Thunder',
-      'Earth',
-      'Water',
-      'Fire',
-      'Sunrise',
-      'Eclipse',
-      'Gamma',
-      'Majestic',
-      'Andesine',
-      'Marine',
-      'Element',
-      'Galaxy',
-      'Atomic',
-      'Sunset',
-      'Time',
-      'Winter',
-      'Obsidian',
-      'Spring',
-      'Ice',
-      'Summer',
-      'Spinel',
-      'Autumn',
-      'Mystic',
-      'Eternal'
-    ][Math.floor(level / 100)] || 'Eternal'
-  );
-}
 const EASY_LEVELS = 4;
 const EASY_LEVELS_XP = 7000;
 const XP_PER_PRESTIGE = 96 * 5000 + EASY_LEVELS_XP;
@@ -372,7 +352,7 @@ class BedWars {
   tokens: number;
   level: number;
   experience: number;
-  prestige: BedWarsPrestige | string;
+  prestige: BedWarsPrestige;
   playedGames: number;
   wins: number;
   winstreak: number;
@@ -383,17 +363,16 @@ class BedWars {
   finalDeaths: number;
   collectedItemsTotal: BedWarsCollectedItems;
   beds: BedWarsBeds;
-  avg: BedWarsAvg;
   KDRatio: number;
   finalKDRatio: number;
   WLRatio: number;
-  solo: BedWarsModeStats;
-  doubles: BedWarsModeStats;
-  threes: BedWarsModeStats;
-  fours: BedWarsModeStats;
-  '4v4': BedWarsModeStats;
-  dream: BedwarsDreamStats | object;
-  castle: BedWarsModeStats;
+  solo: BedwarsMode;
+  doubles: BedwarsMode;
+  threes: BedwarsMode;
+  fours: BedwarsMode;
+  '4v4': BedwarsMode;
+  dream: BedwarsDreamMode;
+  castle: BedwarsMode;
   practice: BedWarsPracticeStats;
   slumberTickets: number;
   totalSlumberTicket: number;
@@ -421,30 +400,22 @@ class BedWars {
       broken: data.beds_broken_bedwars || 0,
       BLRatio: divide(data.beds_broken_bedwars, data.beds_lost_bedwars)
     };
-    this.avg = {
-      kills: divide(this.kills, this.playedGames),
-      finalKills: divide(this.finalKills, this.playedGames),
-      bedsBroken: divide(this.beds.broken, this.playedGames)
-    };
     this.KDRatio = divide(this.kills, this.deaths);
     this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
     this.WLRatio = divide(this.wins, this.losses);
-    this.solo = generateStatsForMode(data, 'eight_one');
-    this.doubles = generateStatsForMode(data, 'eight_two');
-    this.threes = generateStatsForMode(data, 'four_three');
-    this.fours = generateStatsForMode(data, 'four_four');
-    this['4v4'] = generateStatsForMode(data, 'two_four');
-    this.dream = ['ultimate', 'rush', 'armed', 'lucky', 'voidless'].reduce(
-      (ac, mode) => ({
-        [mode]: {
-          doubles: generateStatsForMode(data, `eight_two_${mode}`),
-          fours: generateStatsForMode(data, `four_four_${mode}`)
-        },
-        ...ac
-      }),
-      {}
-    );
-    this.castle = generateStatsForMode(data, 'castle');
+    this.solo = new BedwarsMode(data, 'eight_one');
+    this.doubles = new BedwarsMode(data, 'eight_two');
+    this.threes = new BedwarsMode(data, 'four_three');
+    this.fours = new BedwarsMode(data, 'four_four');
+    this['4v4'] = new BedwarsMode(data, 'two_four');
+    this.dream = {
+      ultimate: new BedwarsDreamMode(data, 'ultimate'),
+      rush: new BedwarsDreamMode(data, 'rush'),
+      armed: new BedwarsDreamMode(data, 'armed'),
+      lucky: new BedwarsDreamMode(data, 'lucky'),
+      voidless: new BedwarsDreamMode(data, 'voidless')
+    };
+    this.castle = new BedwarsMode(data, 'castle');
     this.practice = generateStatsForPractice(data);
     this.slumberTickets = data.slumber?.tickets ?? 0;
     this.totalSlumberTicket = data.slumber?.total_tickets ?? 0;
