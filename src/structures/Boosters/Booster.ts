@@ -1,6 +1,6 @@
 import Game from '../Game';
 
-function parseType(data: Record<string, any>): 'STACKED' | 'QUEUED' | 'ACTIVE' {
+export function parseType(data: Record<string, any>): 'STACKED' | 'QUEUED' | 'ACTIVE' {
   if (true === data.stacked) return 'STACKED';
   if (!data.stacked) return 'QUEUED';
   return 'ACTIVE';
