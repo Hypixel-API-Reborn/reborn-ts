@@ -41,6 +41,65 @@ export interface SkyblockMemberArmor {
   boots: SkyblockInventoryItem | null;
 }
 
+class SkyblockMemberMinion {
+  t1: boolean;
+  t2: boolean;
+  t3: boolean;
+  t4: boolean;
+  t5: boolean;
+  t6: boolean;
+  t7: boolean;
+  t8: boolean;
+  t9: boolean;
+  t10: boolean;
+  t11: boolean;
+  t12: boolean;
+  [key: string]: boolean;
+  constructor(data: number[]) {
+    this.t1 = false;
+    this.t2 = false;
+    this.t3 = false;
+    this.t4 = false;
+    this.t5 = false;
+    this.t6 = false;
+    this.t7 = false;
+    this.t8 = false;
+    this.t9 = false;
+    this.t10 = false;
+    this.t11 = false;
+    this.t12 = false;
+    data.forEach((tier) => {
+      if (1 <= tier && 12 >= tier) {
+        this[`t${tier}`] = true;
+      }
+    });
+  }
+}
+
+class SkyblockMemberMinions {
+  [key: string]: SkyblockMemberMinion;
+  constructor(data: string[]) {
+    const parsed = this.#parse(data);
+    Object.keys(parsed).forEach((minion) => {
+      this[minion] = new SkyblockMemberMinion(parsed[minion]);
+    });
+  }
+
+  #parse(data: string[]): { [key: string]: number[] } {
+    return data.reduce((acc: { [key: string]: number[] }, item: string) => {
+      const lastUnderscoreIndex = item.lastIndexOf('_');
+      if (-1 === lastUnderscoreIndex) return acc;
+      const name = item.substring(0, lastUnderscoreIndex);
+      const number = item.substring(lastUnderscoreIndex + 1);
+      const num = parseInt(number, 10);
+      if (isNaN(num)) return acc;
+      if (!acc[name]) acc[name] = [];
+      acc[name].push(num);
+      return acc;
+    }, {});
+  }
+}
+
 class SkyblockMember {
   uuid: string;
   gameMode: string | null;
@@ -68,6 +127,7 @@ class SkyblockMember {
   pets: SkyblockPet[];
   jacob: SkyblockMemberJacobData;
   chocolate: SkyblockMemberChocolateFactoryData;
+  minions: SkyblockMemberMinions;
   getArmor: () => Promise<SkyblockMemberArmor>;
   getWardrobe: () => Promise<SkyblockInventoryItem[]>;
   getEnderChest: () => Promise<SkyblockInventoryItem[]>;
@@ -104,6 +164,7 @@ class SkyblockMember {
     this.pets = data.m?.pets_data?.pets ? data.m.pets_data.pets.map((pet: any) => new SkyblockPet(pet)) : [];
     this.jacob = getJacobData(data.m);
     this.chocolate = getChocolateFactory(data.m);
+    this.minions = new SkyblockMemberMinions(data.m?.player_data?.crafted_generators ?? []);
     this.getArmor = async () => {
       const base64 = data.m.inventory.inv_armor;
       const decoded = await decode(base64.data);
