@@ -1,5 +1,5 @@
 import { parse, simplify } from 'prismarine-nbt';
-import Constants from './Constants';
+import Constants, { bestiaryBrackets } from './Constants';
 
 export type SkyblockRarity =
   | 'COMMON'
@@ -322,10 +322,11 @@ export function getSkills(data: Record<string, any>): SkyblockMemberSkills {
   skillsObject.average = levels.reduce((a, b) => a + b, 0) / levels.length;
   return skillsObject;
 }
+
 function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
   const output = [];
   for (const mob of mobs) {
-    const mobBracket = (Constants.bestiaryBrackets as { [key: number]: number[] })[mob.bracket];
+    const mobBracket = bestiaryBrackets[mob.bracket];
     const totalKills = mob.mobs.reduce((acc: any, cur: any) => {
       return acc + (userProfile.bestiary.kills[cur] ?? 0);
     }, 0);

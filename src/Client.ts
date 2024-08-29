@@ -5,6 +5,7 @@ import Requests from './Private/Requests';
 import Updater from './Private/Updater';
 import Errors from './Errors';
 import API from './API';
+import NEURepo from './Private/NEU-REPO';
 
 const clients: Client[] = [];
 
@@ -15,8 +16,10 @@ class Client {
   declare updater: Updater;
   declare errors: Errors;
   declare rateLimit: RateLimit;
+  declare NEU: NEURepo;
   readonly key: string;
   declare interval: NodeJS.Timeout;
+
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
     this.errors = new Errors();
@@ -27,6 +30,7 @@ class Client {
     this.updater = new Updater(this);
     this.rateLimit = new RateLimit(this);
     if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
+    this.NEU = new NEURepo(this);
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error

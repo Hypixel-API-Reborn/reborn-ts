@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.hypixel.net/v2';
+const BASE_URL = 'http://localhost:3000/hypixel/v2';
 import isUUID from '../utils/isUUID';
 import Client from '../Client';
 import axios from 'axios';
@@ -93,7 +93,7 @@ class Requests {
     if (!input) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     if ('string' !== typeof input) throw new Error(this.client.errors.UUID_NICKNAME_MUST_BE_A_STRING);
     if (isUUID(input)) return input.replace(/-/g, '');
-    const url = `https://mowojang.matdoes.dev/${input}`;
+    const url = `http://localhost:3000/uuid/${input}`;
     if (this.client.cacheHandler.has(url)) {
       return this.client.cacheHandler.get(url);
     }
@@ -122,6 +122,50 @@ class Requests {
       this.client.cacheHandler.set(url, parsedRes.id);
     }
     return parsedRes.id;
+  }
+
+  async fetchExternalData(url: string, options?: RequestOptions): Promise<RequestData> {
+    options = { raw: options?.raw ?? false, noCache: options?.noCache ?? false };
+    if (this.client.cacheHandler.has(url)) {
+      const data = this.client.cacheHandler.get(url);
+      return new RequestData(data.data, data.headers, {
+        status: 200,
+        options,
+        url: url,
+        cached: true,
+        timestamp: data.timestamp
+      });
+    }
+    const res = await axios.get(url);
+    if (500 <= res.status && 528 > res.status) {
+      throw new Error(
+        this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
+      );
+    }
+    const parsedRes = await res.data;
+    if (400 === res.status) {
+      throw new Error(
+        this.client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(
+          /{cause}/,
+          parsedRes.cause || ''
+        )
+      );
+    }
+    if (422 === res.status) throw new Error(this.client.errors.UNEXPECTED_ERROR);
+    if (200 !== res.status) {
+      throw new Error(this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, res.statusText));
+    }
+    const requestData = new RequestData(parsedRes, res.headers, {
+      status: res.status,
+      options,
+      url: url,
+      cached: false
+    });
+    if (options.noCache) return requestData;
+    if (this.client.options.cache && !options.raw) {
+      this.client.cacheHandler.set(url, requestData);
+    }
+    return requestData;
   }
 }
 

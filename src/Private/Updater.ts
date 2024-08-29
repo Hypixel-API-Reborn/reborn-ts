@@ -26,7 +26,7 @@ class Updater {
   }
 
   async getLatestVersion(): Promise<string> {
-    const request = await axios.get('https://registry.npmjs.org/hypixel-api-reborn');
+    const request = await axios.get('https://localhost:3000/npm/hypixel-api-reborn');
     if (200 !== request.status) throw new Error(this.client.errors.UPDATER_REQUEST_NOT_OK);
     return request.data['dist-tags'].latest;
   }
