@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class SmashHeroesMode {
+export class SmashHeroesMode {
   kills: number;
   deaths: number;
   KDRatio: number;
@@ -17,7 +17,7 @@ class SmashHeroesMode {
   }
 }
 
-class SmashHeoresHero {
+export class SmashHeoresHero {
   name: string;
   level: number;
   xp: number;

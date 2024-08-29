@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class MegaWallsModeStats {
+export class MegaWallsModeStats {
   kills: number;
   assists: number;
   deaths: number;
@@ -44,7 +44,7 @@ class MegaWallsModeStats {
   }
 }
 
-class MegaWallsKitStats {
+export class MegaWallsKitStats {
   kills: number;
   assists: number;
   deaths: number;
@@ -92,7 +92,7 @@ class MegaWallsKitStats {
 }
 
 class MegaWalls {
-  selectedClass: string | null;
+  selectedClass: string;
   coins: number;
   kills: number;
   assists: number;
@@ -142,7 +142,7 @@ class MegaWalls {
   renegade: MegaWallsKitStats;
   snowman: MegaWallsKitStats;
   constructor(data: Record<string, any>) {
-    this.selectedClass = data.chosen_class || null;
+    this.selectedClass = data.chosen_class || '';
     this.coins = data.coins || 0;
     this.kills = data.kills || 0;
     this.assists = data.assists || 0;

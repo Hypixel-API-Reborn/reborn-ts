@@ -1,10 +1,12 @@
 import divide from '../../utils/divide';
 
-class SpeedUHCMode {
+export class SpeedUHCMode {
   kills: number;
   deaths: number;
+  KDRatio: number;
   wins: number;
   losses: number;
+  WLRatio: number;
   playedGames: number;
   winstreak: number;
   killStreak: number;
@@ -12,8 +14,10 @@ class SpeedUHCMode {
   constructor(data: Record<string, any>, mode: string) {
     this.kills = data[`kills_${mode}`] || 0;
     this.deaths = data[`deaths_${mode}`] || 0;
+    this.KDRatio = divide(this.kills, this.deaths);
     this.wins = data[`wins_${mode}`] || 0;
     this.losses = data[`losses_${mode}`] || 0;
+    this.WLRatio = divide(this.wins, this.losses);
     this.playedGames = data[`games_${mode}`] || 0;
     this.winstreak = data[`win_streak_${mode}`] || 0;
     this.killStreak = data[`killstreak_${mode}`] || 0;

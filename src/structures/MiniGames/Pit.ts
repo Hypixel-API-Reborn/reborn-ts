@@ -74,36 +74,28 @@ class Pit {
     this.getInventory = async (): Promise<PitInventoryItem[]> => {
       let inventory = data?.profile?.inv_contents || undefined;
       if (!inventory) return [];
-      try {
-        inventory = await decode(inventory.data);
-        const edited = [];
-        for (let i = 1; i < inventory.length; i++) {
-          if (!inventory[i].id) {
-            continue;
-          }
-          edited.push(new PitInventoryItem(inventory[i]));
+      inventory = await decode(inventory.data);
+      const edited = [];
+      for (let i = 1; i < inventory.length; i++) {
+        if (!inventory[i].id) {
+          continue;
         }
-        return edited;
-      } catch {
-        return [];
+        edited.push(new PitInventoryItem(inventory[i]));
       }
+      return edited;
     };
     this.getEnterChest = async () => {
       let chest = data?.profile?.inv_enderchest || undefined;
       if (!chest) return [];
-      try {
-        chest = await decode(chest.data);
-        const edited = [];
-        for (let i = 1; i < chest.length; i++) {
-          if (!chest[i].id) {
-            continue;
-          }
-          edited.push(new PitInventoryItem(chest[i]));
+      chest = await decode(chest.data);
+      const edited = [];
+      for (let i = 1; i < chest.length; i++) {
+        if (!chest[i].id) {
+          continue;
         }
-        return edited;
-      } catch {
-        return [];
+        edited.push(new PitInventoryItem(chest[i]));
       }
+      return edited;
     };
     this.getArmor = async () => {
       const base64 = data?.profile?.inv_armor || undefined;

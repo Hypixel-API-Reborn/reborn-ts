@@ -158,7 +158,7 @@ export interface BedWarsPracticeStats {
   mlg: BedWarsPracticeBase;
 }
 
-function getBedWarsPrestige(level: number): BedWarsPrestige {
+export function getBedWarsPrestige(level: number): BedWarsPrestige {
   if (5000 <= level) return 'Eternal';
   return ([
     'Stone',

@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class QuakecraftMode {
+export class QuakecraftMode {
   wins: number;
   kills: number;
   deaths: number;

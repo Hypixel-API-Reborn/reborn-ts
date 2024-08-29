@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class MurderMysteryModeStats {
+export class MurderMysteryModeStats {
   goldPickedUp: number;
   kills: number;
   thrownKnifeKills: number;

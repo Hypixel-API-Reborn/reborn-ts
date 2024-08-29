@@ -23,9 +23,10 @@ function getSkyWarsPrestige(level: number): SkyWarsPrestige {
 
 function getSkyWarsLevel(xp: number): number {
   const totalXp = [0, 2, 7, 15, 25, 50, 100, 200, 350, 600, 1000, 1500];
+  if (0 === xp) return 0;
   if (15000 <= xp) return Math.floor((xp - 15000) / 10000 + 12);
   const level = totalXp.findIndex((x) => 0 < x * 10 - xp);
-  return level;
+  return -1 === level ? 0 : level;
 }
 
 function getSkyWarsLevelProgress(xp: number) {
@@ -57,7 +58,7 @@ function getSkyWarsLevelProgress(xp: number) {
   return { currentLevelXp, xpToNextLevel, percent, xpNextLevel: totalXptoNextLevel };
 }
 
-class SkywarsMode {
+export class SkywarsMode {
   kills: number;
   deaths: number;
   KDRatio: number;
@@ -74,7 +75,7 @@ class SkywarsMode {
   }
 }
 
-class SkywarsModeStats {
+export class SkywarsModeStats {
   activeKit: string;
   killstreak: number;
   kills: number;
@@ -99,6 +100,8 @@ class SkywarsModeStats {
   bowAccuracy: number;
   fastestWin: number;
   heads: number;
+  normal: SkywarsMode;
+  insane: SkywarsMode;
   constructor(data: Record<string, any>, gamemode: string) {
     this.activeKit = data[`activeKit_${gamemode.toUpperCase()}`] || '';
     this.killstreak = data[`killstreak_${gamemode}`] || 0;
@@ -124,6 +127,8 @@ class SkywarsModeStats {
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
     this.fastestWin = data[`fastest_win_${gamemode}`] || 0;
     this.heads = data[`heads_${gamemode}`] || 0;
+    this.insane = new SkywarsMode(data, `${gamemode}_insane`);
+    this.normal = new SkywarsMode(data, `${gamemode}_normal`);
   }
 }
 
@@ -152,7 +157,7 @@ class SkywarsKits {
   }
 }
 
-class SkywarsPackages {
+export class SkywarsPackages {
   rawPackages: Record<string, any>;
   cages: any;
   kits: SkywarsKits;
@@ -182,7 +187,7 @@ class SkyWars {
   experience: number;
   level: number;
   levelProgress: any;
-  levelFormatted: string;
+  levelFormatted: string | null;
   prestige: SkyWarsPrestige;
   opals: number;
   avarice: number;
@@ -217,11 +222,7 @@ class SkyWars {
   eggThrown: number;
   enderpearlsThrown: number;
   solo: SkywarsModeStats;
-  soloNormal: SkywarsMode;
-  soloInsane: SkywarsMode;
   team: SkywarsModeStats;
-  teamNormal: SkywarsMode;
-  teamInsane: SkywarsMode;
   mega: SkywarsMode;
   megaDoubles: SkywarsMode;
   lab: SkywarsMode;
@@ -273,11 +274,7 @@ class SkyWars {
     this.eggThrown = data.egg_thrown || 0;
     this.enderpearlsThrown = data.enderpearls_thrown || 0;
     this.solo = new SkywarsModeStats(data, 'solo');
-    this.soloNormal = new SkywarsMode(data, 'solo_normal');
-    this.soloInsane = new SkywarsMode(data, 'solo_insane');
     this.team = new SkywarsModeStats(data, 'team');
-    this.teamNormal = new SkywarsMode(data, 'team_normal');
-    this.teamInsane = new SkywarsMode(data, 'team_insane');
     this.mega = new SkywarsMode(data, 'mega');
     this.megaDoubles = new SkywarsMode(data, 'mega_doubles');
     this.lab = new SkywarsMode(data, 'lab');

@@ -7,8 +7,13 @@ import BedWars, {
   BedwarsMode,
   BedWarsPracticeStats,
   BedWarsPrestige,
+  getBedWarsPrestige,
   getExpForLevel
 } from './BedWars';
+
+test('BedWars (getBedWarsPrestige)', () => {
+  expect(getBedWarsPrestige(6000)).toBe('Eternal');
+});
 
 test('BedWars (getExpForLevel)', () => {
   expect(getExpForLevel(0)).toBe(0);
