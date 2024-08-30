@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class TNTRun {
+export class TNTRun {
   wins: number;
   bestTime: number;
   deaths: number;
@@ -19,7 +19,7 @@ class TNTRun {
   }
 }
 
-class PVPRun {
+export class PVPRun {
   wins: number;
   bestTime: number;
   kills: number;
@@ -44,7 +44,7 @@ class PVPRun {
   }
 }
 
-class BowSpleef {
+export class BowSpleef {
   wins: number;
   tags: number;
   deaths: number;
@@ -56,7 +56,8 @@ class BowSpleef {
     this.prefix = data.prefix_bowspleef || '';
   }
 }
-class TNTTag {
+
+export class TNTTag {
   wins: number;
   kills: number;
   deaths: number;
@@ -79,7 +80,7 @@ class TNTTag {
   }
 }
 
-class TNTWizards {
+export class TNTWizards {
   wins: number;
   kills: number;
   assists: number;

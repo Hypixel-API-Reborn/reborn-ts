@@ -1,4 +1,4 @@
-class TurboKartRacersMap {
+export class TurboKartRacersMap {
   map: string;
   plays: number;
   boxPickups: number;

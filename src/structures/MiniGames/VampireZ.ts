@@ -1,15 +1,15 @@
 import divide from '../../utils/divide';
 
-class VampireZRole {
+export class VampireZRole {
   kills: number;
   deaths: number;
   KDRatio: number;
   wins: number;
   constructor(data: Record<string, any>, role: string) {
-    this.kills = data[`${role}_kills`];
-    this.deaths = data[`${role}_deaths`];
+    this.kills = data[`${role}_kills`] || 0;
+    this.deaths = data[`${role}_deaths`] || 0;
     this.KDRatio = divide(this.kills, this.deaths);
-    this.wins = data[`${role}_wins`];
+    this.wins = data[`${role}_wins`] || 0;
   }
 }
 
