@@ -16,26 +16,11 @@ test('getSkyblockFireSales (raw)', async () => {
 test('getSkyblockFireSales', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   vi.spyOn(axios, 'get').mockResolvedValue({
-    status: 200,
-    data: {
-      success: true,
-      sales: [
-        {
-          item_id: 'JACOB_IS_A_WALKING_CLOWN_EMOJI',
-          start: 17,
-          end: 171,
-          amount: 69420,
-          price: 7
-        },
-        {
-          item_id: 'ZACH_IS_A_RESTARTED_CLOWN_EMOJI',
-          start: 17,
-          end: 171,
-          amount: 69420,
-          price: 7
-        }
-      ]
-    }
+    success: true,
+    sales: [
+      { item_id: 'PET_SKIN_LION_WHITE', start: 1725120000000, end: 1725552000000, amount: 6500, price: 650 },
+      { item_id: 'PET_SKIN_LION_BLACK', start: 1725120000000, end: 1725552000000, amount: 6500, price: 650 }
+    ]
   });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
