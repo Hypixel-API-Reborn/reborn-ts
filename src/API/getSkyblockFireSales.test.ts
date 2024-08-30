@@ -1,6 +1,7 @@
-import FireSale from '../structures/SkyBlock/Static/FireSale';
-import { expect, expectTypeOf, test } from 'vitest';
+import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 import Client from '../Client';
+import FireSale from '../structures/SkyBlock/Static/FireSale';
 
 test('getSkyblockFireSales (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
@@ -14,6 +15,28 @@ test('getSkyblockFireSales (raw)', async () => {
 
 test('getSkyblockFireSales', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  vi.spyOn(axios, 'get').mockResolvedValue({
+    status: 200,
+    data: {
+      success: true,
+      sales: [
+        {
+          item_id: 'JACOB_IS_A_WALKING_CLOWN_EMOJI',
+          start: 17,
+          end: 171,
+          amount: 69420,
+          price: 7
+        },
+        {
+          item_id: 'ZACH_IS_A_RESTARTED_CLOWN_EMOJI',
+          start: 17,
+          end: 171,
+          amount: 69420,
+          price: 7
+        }
+      ]
+    }
+  });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getSkyblockFireSales();
