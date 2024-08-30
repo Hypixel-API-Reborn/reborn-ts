@@ -1,6 +1,6 @@
+import Product from '../structures/SkyBlock/Bazaar/Product';
+import Order from '../structures/SkyBlock/Bazaar/Order';
 import { expect, expectTypeOf, test } from 'vitest';
-import Product from '../structures/SkyBlock/Bazzar/Product';
-import Order from '../structures/SkyBlock/Bazzar/Order';
 import Client from '../Client';
 
 test('getSkyblockBazarr (raw)', async () => {

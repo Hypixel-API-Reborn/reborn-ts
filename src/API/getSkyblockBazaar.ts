@@ -1,4 +1,4 @@
-import Product from '../structures/SkyBlock/Bazzar/Product';
+import Product from '../structures/SkyBlock/Bazaar/Product';
 import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';

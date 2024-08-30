@@ -17,7 +17,7 @@ import { AuctionRequestOptions, SkyblockRequestOptions } from '../API/API';
 import Auction from '../structures/SkyBlock/Auctions/Auction';
 import { getSkyblockAuctionsOptions } from '../API/getSkyblockAuctions';
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
-import Product from '../structures/SkyBlock/Bazzar/Product';
+import Product from '../structures/SkyBlock/Bazaar/Product';
 import BingoData from '../structures/SkyBlock/Static/BingoData';
 import FireSale from '../structures/SkyBlock/Static/FireSale';
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
