@@ -1,0 +1,33 @@
+import { expect, expectTypeOf, test } from 'vitest';
+import Walls from './Walls';
+
+test('Walls', () => {
+  const data = new Walls({ stats: 'meow' });
+  expect(data).toBeDefined();
+  expect(data).toBeInstanceOf(Walls);
+  expectTypeOf(data).toEqualTypeOf<Walls>();
+  expect(data.coins).toBeDefined();
+  expect(data.coins).greaterThanOrEqual(0);
+  expectTypeOf(data.coins).toEqualTypeOf<number>();
+  expect(data.kills).toBeDefined();
+  expect(data.kills).greaterThanOrEqual(0);
+  expectTypeOf(data.kills).toEqualTypeOf<number>();
+  expect(data.deaths).toBeDefined();
+  expect(data.deaths).greaterThanOrEqual(0);
+  expectTypeOf(data.deaths).toEqualTypeOf<number>();
+  expect(data.KDRatio).toBeDefined();
+  expect(data.KDRatio).greaterThanOrEqual(0);
+  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.wins).toBeDefined();
+  expect(data.wins).greaterThanOrEqual(0);
+  expectTypeOf(data.wins).toEqualTypeOf<number>();
+  expect(data.losses).toBeDefined();
+  expect(data.losses).greaterThanOrEqual(0);
+  expectTypeOf(data.losses).toEqualTypeOf<number>();
+  expect(data.WLRatio).toBeDefined();
+  expect(data.WLRatio).greaterThanOrEqual(0);
+  expectTypeOf(data.WLRatio).toEqualTypeOf<number>();
+  expect(data.assists).toBeDefined();
+  expect(data.assists).greaterThanOrEqual(0);
+  expectTypeOf(data.assists).toEqualTypeOf<number>();
+});

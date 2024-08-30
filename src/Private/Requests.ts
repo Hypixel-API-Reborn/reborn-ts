@@ -33,9 +33,6 @@ class RequestData {
   }
 }
 
-import https from 'https';
-const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-
 class Requests {
   readonly client: Client;
   constructor(client: Client) {
@@ -54,7 +51,7 @@ class Requests {
         timestamp: data.timestamp
       });
     }
-    const res = await axios.get(BASE_URL + endpoint, { httpsAgent, headers: { 'API-Key': this.client.key } });
+    const res = await axios.get(BASE_URL + endpoint, { headers: { 'API-Key': this.client.key } });
     if (500 <= res.status && 528 > res.status) {
       throw new Error(
         this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
