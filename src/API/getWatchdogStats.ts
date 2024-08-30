@@ -1,4 +1,4 @@
-import WatchdogStats from '../structures/Watchdog/Stats';
+import WatchdogStats from '../structures/WatchdogStats';
 import { RequestOptions } from '../Private/Requests';
 import Endpoint from '../Private/Endpoint';
 import Client from '../Client';

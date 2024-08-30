@@ -1,5 +1,5 @@
+import WatchdogStats from '../structures/WatchdogStats';
 import { expect, expectTypeOf, test } from 'vitest';
-import WatchdogStats from '../structures/Watchdog/Stats';
 import Client from '../Client';
 
 test('getWatchdogStats (raw)', async () => {

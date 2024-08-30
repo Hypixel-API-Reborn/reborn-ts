@@ -27,7 +27,7 @@ import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import Status from '../structures/Status';
-import WatchdogStats from '../structures/Watchdog/Stats';
+import WatchdogStats from '../structures/WatchdogStats';
 
 export type StaticGameNames =
   | 'arcade'
