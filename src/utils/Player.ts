@@ -75,7 +75,7 @@ export function playerLevelProgress(xp: number): LevelProgress {
 }
 
 export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia[] {
-  const links = data.links;
+  const links = data?.links || {};
   const formattedNames = ['Twitter', 'YouTube', 'Instagram', 'Twitch', 'Hypixel', 'Discord'];
   const upperNames = ['TWITTER', 'YOUTUBE', 'INSTAGRAM', 'TWITCH', 'HYPIXEL', 'DISCORD'];
   return Object.keys(links)

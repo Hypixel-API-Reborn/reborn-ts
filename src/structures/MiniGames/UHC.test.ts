@@ -1,6 +1,5 @@
 import { expect, expectTypeOf, test } from 'vitest';
-import UHC from './UHC';
-import { UHCGamemode } from 'hypixel-api-reborn';
+import UHC, { UHCGamemode } from './UHC';
 
 test('UHC', () => {
   const data = new UHC({ stats: 'meow' });

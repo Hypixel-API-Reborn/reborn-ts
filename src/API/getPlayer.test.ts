@@ -8,7 +8,6 @@ import Player, {
 } from '../structures/Player';
 import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
 import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
-import Game, { GameCode, GameID, GameString } from '../structures/Game';
 import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
 import MurderMystery from '../structures/MiniGames/MurderMystery';
 import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
@@ -144,31 +143,6 @@ test('getPlayer', async () => {
   expectTypeOf(data.lastLogoutTimestamp).toEqualTypeOf<number | null>();
   expect(data.lastLogout).toBeDefined();
   expectTypeOf(data.lastLogout).toEqualTypeOf<Date | null>();
-  expect(data.recentlyPlayedGame).toBeDefined();
-  expectTypeOf(data.recentlyPlayedGame).toEqualTypeOf<Game | null>();
-  if (data.recentlyPlayedGame) {
-    expect(data.recentlyPlayedGame).toBeDefined();
-    expectTypeOf(data.recentlyPlayedGame).toEqualTypeOf<Game>();
-    expect(data.recentlyPlayedGame.game).toBeDefined();
-    expectTypeOf(data.recentlyPlayedGame.game).toEqualTypeOf<GameID | GameCode>();
-    expect(data.recentlyPlayedGame.id).toBeDefined();
-    expectTypeOf(data.recentlyPlayedGame.id).toEqualTypeOf<GameID | null>();
-    expect(data.recentlyPlayedGame.code).toBeDefined();
-    expectTypeOf(data.recentlyPlayedGame.code).toEqualTypeOf<GameCode | null>();
-    expect(data.recentlyPlayedGame.name).toBeDefined();
-    expectTypeOf(data.recentlyPlayedGame.name).toEqualTypeOf<GameString | null>();
-    expect(data.recentlyPlayedGame.found).toBeDefined();
-    expectTypeOf(data.recentlyPlayedGame.found).toEqualTypeOf<boolean>();
-    expect(data.recentlyPlayedGame.toString()).toBeDefined();
-    expect(data.recentlyPlayedGame.toString()).toBe(data.recentlyPlayedGame.name);
-    expectTypeOf(data.recentlyPlayedGame.toString()).toEqualTypeOf<GameString | null>();
-    expect(Game.IDS).toBeDefined();
-    expectTypeOf(Game.IDS).toEqualTypeOf<GameID[]>();
-    expect(Game.CODES).toBeDefined();
-    expectTypeOf(Game.CODES).toEqualTypeOf<GameCode[]>();
-    expect(Game.NAMES).toBeDefined();
-    expectTypeOf(Game.NAMES).toEqualTypeOf<GameString[]>();
-  }
   expect(data.plusColor).toBeDefined();
   expectTypeOf(data.plusColor).toEqualTypeOf<Color | null>();
   if (data.plusColor) {
@@ -242,15 +216,15 @@ test('getPlayer', async () => {
   expect(data.lastDailyRewardTimestamp).toBeDefined();
   expectTypeOf(data.lastDailyRewardTimestamp).toEqualTypeOf<number | null>();
   expect(data.totalRewards).toBeDefined();
-  expectTypeOf(data.totalRewards).toEqualTypeOf<number | null>();
+  expectTypeOf(data.totalRewards).toEqualTypeOf<number>();
   expect(data.totalDailyRewards).toBeDefined();
-  expectTypeOf(data.totalDailyRewards).toEqualTypeOf<number | null>();
+  expectTypeOf(data.totalDailyRewards).toEqualTypeOf<number>();
   expect(data.rewardStreak).toBeDefined();
-  expectTypeOf(data.rewardStreak).toEqualTypeOf<number | null>();
+  expectTypeOf(data.rewardStreak).toEqualTypeOf<number>();
   expect(data.rewardScore).toBeDefined();
-  expectTypeOf(data.rewardScore).toEqualTypeOf<number | null>();
+  expectTypeOf(data.rewardScore).toEqualTypeOf<number>();
   expect(data.rewardHighScore).toBeDefined();
-  expectTypeOf(data.rewardHighScore).toEqualTypeOf<number | null>();
+  expectTypeOf(data.rewardHighScore).toEqualTypeOf<number>();
   expect(data.levelProgress).toBeDefined();
   expectTypeOf(data.levelProgress).toEqualTypeOf<LevelProgress>();
   expect(data.stats).toBeDefined();

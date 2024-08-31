@@ -8,7 +8,7 @@ function getStarLevel(kills: number, wins: number): number {
   return starLevel;
 }
 
-class UHCGamemode {
+export class UHCGamemode {
   kills: number;
   deaths: number;
   wins: number;

@@ -66,12 +66,12 @@ export class SkywarsMode {
   losses: number;
   WLRatio: number;
   constructor(data: Record<string, any>, gamemode: string) {
-    this.kills = data[`kills_${gamemode}`] || 0;
-    this.deaths = data[`deaths_${gamemode}`] || 0;
-    this.KDRatio = divide(data.kills, data.deaths);
-    this.wins = data[`wins_${gamemode}`] || 0;
-    this.losses = data[`losses_${gamemode}`] || 0;
-    this.WLRatio = divide(data.wins, data.losses);
+    this.kills = data?.[`kills_${gamemode}`] || 0;
+    this.deaths = data?.[`deaths_${gamemode}`] || 0;
+    this.KDRatio = divide(data?.kills, data?.deaths);
+    this.wins = data?.[`wins_${gamemode}`] || 0;
+    this.losses = data?.[`losses_${gamemode}`] || 0;
+    this.WLRatio = divide(data?.wins, data?.losses);
   }
 }
 
@@ -103,30 +103,30 @@ export class SkywarsModeStats {
   normal: SkywarsMode;
   insane: SkywarsMode;
   constructor(data: Record<string, any>, gamemode: string) {
-    this.activeKit = data[`activeKit_${gamemode.toUpperCase()}`] || '';
-    this.killstreak = data[`killstreak_${gamemode}`] || 0;
-    this.kills = data[`kills_${gamemode}`] || 0;
-    this.voidKills = data[`void_kills_${gamemode}`] || 0;
-    this.meleeKills = data[`melee_kills_${gamemode}`] || 0;
-    this.bowKills = data[`bow_kills_${gamemode}`] || 0;
-    this.mobKills = data[`mob_kills_${gamemode}`] || 0;
-    this.assists = data[`assists_${gamemode}`] || 0;
-    this.deaths = data[`deaths_${gamemode}`] || 0;
-    this.KDRatio = divide(data.kills, data.deaths);
-    this.wins = data[`wins_${gamemode}`] || 0;
-    this.losses = data[`losses_${gamemode}`] || 0;
-    this.WLRatio = divide(data.wins, data.losses);
-    this.gamesPlayed = data[`games_${gamemode}`] || 0;
-    this.survivedPlayers = data[`survived_players_${gamemode}`] || 0;
-    this.chestsOpened = data[`chests_opened_${gamemode}`] || 0;
-    this.timePlayed = data[`time_played_${gamemode}`] || 0;
-    this.shard = data[`shard_${gamemode}`] || 0;
-    this.longestBowShot = data[`longest_bow_shot_${gamemode}`] || 0;
-    this.arrowsShot = data[`arrows_shot_${gamemode}`] || 0;
-    this.arrowsHit = data[`arrows_hit_${gamemode}`] || 0;
+    this.activeKit = data?.[`activeKit_${gamemode?.toUpperCase()}`] || '';
+    this.killstreak = data?.[`killstreak_${gamemode}`] || 0;
+    this.kills = data?.[`kills_${gamemode}`] || 0;
+    this.voidKills = data?.[`void_kills_${gamemode}`] || 0;
+    this.meleeKills = data?.[`melee_kills_${gamemode}`] || 0;
+    this.bowKills = data?.[`bow_kills_${gamemode}`] || 0;
+    this.mobKills = data?.[`mob_kills_${gamemode}`] || 0;
+    this.assists = data?.[`assists_${gamemode}`] || 0;
+    this.deaths = data?.[`deaths_${gamemode}`] || 0;
+    this.KDRatio = divide(data?.kills, data?.deaths);
+    this.wins = data?.[`wins_${gamemode}`] || 0;
+    this.losses = data?.[`losses_${gamemode}`] || 0;
+    this.WLRatio = divide(data?.wins, data?.losses);
+    this.gamesPlayed = data?.[`games_${gamemode}`] || 0;
+    this.survivedPlayers = data?.[`survived_players_${gamemode}`] || 0;
+    this.chestsOpened = data?.[`chests_opened_${gamemode}`] || 0;
+    this.timePlayed = data?.[`time_played_${gamemode}`] || 0;
+    this.shard = data?.[`shard_${gamemode}`] || 0;
+    this.longestBowShot = data?.[`longest_bow_shot_${gamemode}`] || 0;
+    this.arrowsShot = data?.[`arrows_shot_${gamemode}`] || 0;
+    this.arrowsHit = data?.[`arrows_hit_${gamemode}`] || 0;
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
-    this.fastestWin = data[`fastest_win_${gamemode}`] || 0;
-    this.heads = data[`heads_${gamemode}`] || 0;
+    this.fastestWin = data?.[`fastest_win_${gamemode}`] || 0;
+    this.heads = data?.[`heads_${gamemode}`] || 0;
     this.insane = new SkywarsMode(data, `${gamemode}_insane`);
     this.normal = new SkywarsMode(data, `${gamemode}_normal`);
   }
@@ -139,21 +139,21 @@ class SkywarsKit {
   kitType: string;
   kitName: string;
   constructor(kit: Record<string, any>) {
-    this.kitData = kit.match(/^kit_([a-z]+)_([a-z]+)_([a-z]+)$/);
+    this.kitData = kit?.match(/^kit_([a-z]+)_([a-z]+)_([a-z]+)$/);
     this.isKit = Boolean(this.kitData);
-    this.gameMode = this.kitData ? this.kitData[2] : '';
-    this.kitType = this.kitData ? this.kitData[1] : '';
-    this.kitName = removeSnakeCaseString(this.kitData ? this.kitData[3] : '');
+    this.gameMode = this.kitData ? this.kitData?.[2] : '';
+    this.kitType = this.kitData ? this.kitData?.[1] : '';
+    this.kitName = removeSnakeCaseString(this.kitData ? this.kitData?.[3] : '');
   }
 }
 
 class SkywarsKits {
   kits: SkywarsKit[];
   constructor(kits: Record<string, any>) {
-    this.kits = kits.map((kit: any) => new SkywarsKit(kit)).filter((kit: SkywarsKit) => kit.isKit);
+    this.kits = kits?.map((kit: any) => new SkywarsKit(kit))?.filter((kit: SkywarsKit) => kit?.isKit);
   }
   get(gameMode: string = '', type: string = ''): SkywarsKit[] {
-    return this.kits.filter((kit) => kit.gameMode.startsWith(gameMode) && kit.kitType.startsWith(type));
+    return this.kits?.filter((kit) => kit?.gameMode?.startsWith(gameMode) && kit?.kitType?.startsWith(type));
   }
 }
 
@@ -167,16 +167,16 @@ export class SkywarsPackages {
     this.cages = this.parseCages();
     this.kits = new SkywarsKits(data);
     this.achievements = this.rawPackages
-      .map((pkg: string) => pkg.match(/^([A-Za-z]+)_?achievement([0-9]?)$/))
-      .filter((x: any) => x)
-      .map((x: any[]) => x.slice(1).join(''));
+      ?.map((pkg: string) => pkg?.match(/^([A-Za-z]+)_?achievement([0-9]?)$/))
+      ?.filter((x: any) => x)
+      ?.map((x: any[]) => x?.slice(1)?.join(''));
   }
 
   parseCages(): string[] {
     return this.rawPackages
-      .map((pkg: string) => pkg.match(/^cage_([A-Za-z]+)-cage$/))
-      .filter((x: any) => x)
-      .map((x: string[]) => x[1].replace(/-[a-z]/g, (x) => x[1].toUpperCase()));
+      ?.map((pkg: string) => pkg?.match(/^cage_([A-Za-z]+)-cage$/))
+      ?.filter((x: any) => x)
+      ?.map((x: string[]) => x[1]?.replace(/-[a-z]/g, (x) => x[1]?.toUpperCase()));
   }
 }
 
@@ -228,57 +228,57 @@ class SkyWars {
   lab: SkywarsMode;
   packages: SkywarsPackages;
   constructor(data: Record<string, any>) {
-    this.coins = data.coins || 0;
-    this.souls = data.souls || 0;
-    this.tokens = data.cosmetic_tokens || 0;
-    this.experience = data.skywars_experience || 0;
-    this.level = getSkyWarsLevel(data.skywars_experience);
-    this.levelProgress = getSkyWarsLevelProgress(data.skywars_experience);
-    this.levelFormatted = data.levelFormatted
-      ? data.levelFormatted
-          .replace(/§l/gm, '**')
-          .replace(/§([a-f]|[1-9])/gm, '')
-          .replace(/§r/gm, '')
+    this.coins = data?.coins || 0;
+    this.souls = data?.souls || 0;
+    this.tokens = data?.cosmetic_tokens || 0;
+    this.experience = data?.skywars_experience || 0;
+    this.level = getSkyWarsLevel(data?.skywars_experience);
+    this.levelProgress = getSkyWarsLevelProgress(data?.skywars_experience);
+    this.levelFormatted = data?.levelFormatted
+      ? data?.levelFormatted
+          ?.replace(/§l/gm, '**')
+          ?.replace(/§([a-f]|[1-9])/gm, '')
+          ?.replace(/§r/gm, '')
       : null;
     this.prestige = getSkyWarsPrestige(this.level);
-    this.opals = data.opals || 0;
-    this.avarice = data.avarice || 0;
-    this.tenacity = data.tenacity || 0;
-    this.shards = data.shard || 0;
-    this.angelOfDeathLevel = data.angel_of_death_level || 0;
-    this.killstreak = data.killstreak || 0;
-    this.kills = data.kills || 0;
-    this.voidKills = data.void_kills || 0;
-    this.meleeKills = data.melee_kills || 0;
-    this.bowKills = data.bow_kills || 0;
-    this.mobKills = data.mob_kills || 0;
-    this.assists = data.assists || 0;
-    this.deaths = data.deaths || 0;
-    this.KDRatio = divide(data.kills, data.deaths);
-    this.wins = data.wins || 0;
-    this.losses = data.losses || 0;
-    this.WLRatio = divide(data.wins, data.losses);
-    this.gamesPlayed = data.games || 0;
-    this.survivedPlayers = data.survived_players || 0;
-    this.chestsOpened = data.chests_opened || 0;
-    this.timePlayed = data.time_played || 0;
-    this.shard = data.shard || 0;
-    this.longestBowShot = data.longest_bow_shot || 0;
-    this.arrowsShot = data.arrows_shot || 0;
-    this.arrowsHit = data.arrows_hit || 0;
+    this.opals = data?.opals || 0;
+    this.avarice = data?.avarice || 0;
+    this.tenacity = data?.tenacity || 0;
+    this.shards = data?.shard || 0;
+    this.angelOfDeathLevel = data?.angel_of_death_level || 0;
+    this.killstreak = data?.killstreak || 0;
+    this.kills = data?.kills || 0;
+    this.voidKills = data?.void_kills || 0;
+    this.meleeKills = data?.melee_kills || 0;
+    this.bowKills = data?.bow_kills || 0;
+    this.mobKills = data?.mob_kills || 0;
+    this.assists = data?.assists || 0;
+    this.deaths = data?.deaths || 0;
+    this.KDRatio = divide(data?.kills, data?.deaths);
+    this.wins = data?.wins || 0;
+    this.losses = data?.losses || 0;
+    this.WLRatio = divide(data?.wins, data?.losses);
+    this.gamesPlayed = data?.games || 0;
+    this.survivedPlayers = data?.survived_players || 0;
+    this.chestsOpened = data?.chests_opened || 0;
+    this.timePlayed = data?.time_played || 0;
+    this.shard = data?.shard || 0;
+    this.longestBowShot = data?.longest_bow_shot || 0;
+    this.arrowsShot = data?.arrows_shot || 0;
+    this.arrowsHit = data?.arrows_hit || 0;
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
-    this.fastestWin = data.fastest_win || 0;
-    this.heads = data.heads || 0;
-    this.blocksPlaced = data.blocks_placed || 0;
-    this.blocksBroken = data.blocks_broken || 0;
-    this.eggThrown = data.egg_thrown || 0;
-    this.enderpearlsThrown = data.enderpearls_thrown || 0;
+    this.fastestWin = data?.fastest_win || 0;
+    this.heads = data?.heads || 0;
+    this.blocksPlaced = data?.blocks_placed || 0;
+    this.blocksBroken = data?.blocks_broken || 0;
+    this.eggThrown = data?.egg_thrown || 0;
+    this.enderpearlsThrown = data?.enderpearls_thrown || 0;
     this.solo = new SkywarsModeStats(data, 'solo');
     this.team = new SkywarsModeStats(data, 'team');
     this.mega = new SkywarsMode(data, 'mega');
     this.megaDoubles = new SkywarsMode(data, 'mega_doubles');
     this.lab = new SkywarsMode(data, 'lab');
-    this.packages = new SkywarsPackages(data.packages || []);
+    this.packages = new SkywarsPackages(data?.packages || []);
   }
 }
 

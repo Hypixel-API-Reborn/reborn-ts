@@ -385,28 +385,28 @@ class BedWars {
   slumberTickets: number;
   totalSlumberTicket: number;
   constructor(data: Record<string, any>) {
-    this.tokens = data.coins || 0;
-    this.level = data.Experience ? getLevelForExp(data.Experience) : 0;
-    this.experience = data.Experience || 0;
-    this.prestige = getBedWarsPrestige(getLevelForExp(data.Experience));
-    this.playedGames = data.games_played_bedwars || 0;
-    this.wins = data.wins_bedwars || 0;
-    this.winstreak = data.winstreak || 0;
-    this.kills = data.kills_bedwars || 0;
-    this.finalKills = data.final_kills_bedwars || 0;
-    this.losses = data.losses_bedwars || 0;
-    this.deaths = data.deaths_bedwars || 0;
-    this.finalDeaths = data.final_deaths_bedwars || 0;
+    this.tokens = data?.coins || 0;
+    this.level = data?.Experience ? getLevelForExp(data?.Experience) : 0;
+    this.experience = data?.Experience || 0;
+    this.prestige = getBedWarsPrestige(getLevelForExp(data?.Experience));
+    this.playedGames = data?.games_played_bedwars || 0;
+    this.wins = data?.wins_bedwars || 0;
+    this.winstreak = data?.winstreak || 0;
+    this.kills = data?.kills_bedwars || 0;
+    this.finalKills = data?.final_kills_bedwars || 0;
+    this.losses = data?.losses_bedwars || 0;
+    this.deaths = data?.deaths_bedwars || 0;
+    this.finalDeaths = data?.final_deaths_bedwars || 0;
     this.collectedItemsTotal = {
-      iron: data.iron_resources_collected_bedwars || 0,
-      gold: data.gold_resources_collected_bedwars || 0,
-      diamond: data.diamond_resources_collected_bedwars || 0,
-      emerald: data.emerald_resources_collected_bedwars || 0
+      iron: data?.iron_resources_collected_bedwars || 0,
+      gold: data?.gold_resources_collected_bedwars || 0,
+      diamond: data?.diamond_resources_collected_bedwars || 0,
+      emerald: data?.emerald_resources_collected_bedwars || 0
     };
     this.beds = {
-      lost: data.beds_lost_bedwars || 0,
-      broken: data.beds_broken_bedwars || 0,
-      BLRatio: divide(data.beds_broken_bedwars, data.beds_lost_bedwars)
+      lost: data?.beds_lost_bedwars || 0,
+      broken: data?.beds_broken_bedwars || 0,
+      BLRatio: divide(data?.beds_broken_bedwars, data?.beds_lost_bedwars)
     };
     this.KDRatio = divide(this.kills, this.deaths);
     this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
@@ -425,8 +425,8 @@ class BedWars {
     };
     this.castle = new BedwarsMode(data, 'castle');
     this.practice = generateStatsForPractice(data);
-    this.slumberTickets = data.slumber?.tickets ?? 0;
-    this.totalSlumberTicket = data.slumber?.total_tickets ?? 0;
+    this.slumberTickets = data?.slumber?.tickets || 0;
+    this.totalSlumberTicket = data?.slumber?.total_tickets || 0;
   }
 }
 
