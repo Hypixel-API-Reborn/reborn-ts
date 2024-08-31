@@ -3,7 +3,7 @@ import { readFile } from 'fs';
 
 function parseXMLFile(): Promise<any> {
   return new Promise((resolve, reject) => {
-    readFile('./coverage/clover.xml', 'utf8', (err, data) => {
+    readFile('.github/coverageData.xml', 'utf8', (err, data) => {
       if (err) {
         reject('File Dose not exist!');
         return;
