@@ -79,7 +79,7 @@ test('getSkyblockProfiles (garden)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockProfiles('kathund', { garden: true });
+  const data = await client.getSkyblockProfiles('add71246c46e455c8345c129ea6f146c', { garden: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<SkyblockProfile[]>();
 

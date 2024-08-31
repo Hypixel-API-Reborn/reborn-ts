@@ -17,11 +17,11 @@ test('getSkyblockMuseum (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const profiles = await client.getSkyblockProfiles('Skreewy');
+  const profiles = await client.getSkyblockProfiles('63fe6f4c4b0643b2abd02d15dc303e41');
   const profile = profiles.find((profile: SkyblockProfile) => true === profile.selected);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockMuseum('Skreewy', profile.profileId, { raw: true });
+  const data = await client.getSkyblockMuseum('63fe6f4c4b0643b2abd02d15dc303e41', profile.profileId, { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
@@ -31,11 +31,11 @@ test('getSkyblockMuseum', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const profiles = await client.getSkyblockProfiles('Skreewy');
+  const profiles = await client.getSkyblockProfiles('63fe6f4c4b0643b2abd02d15dc303e41');
   const profile = profiles.find((profile: SkyblockProfile) => true === profile.selected);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getSkyblockMuseum('Skreewy', profile.profileId);
+  const data = await client.getSkyblockMuseum('63fe6f4c4b0643b2abd02d15dc303e41', profile.profileId);
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<SkyblockMuseum>();
 
