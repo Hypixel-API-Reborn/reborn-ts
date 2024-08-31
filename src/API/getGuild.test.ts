@@ -1,11 +1,11 @@
-import GuildMember from '../structures/Guild/GuildMember';
-import GuildRank from '../structures/Guild/GuildRank';
-import { expect, expectTypeOf, test } from 'vitest';
-import Guild from '../structures/Guild/Guild';
-import { ExpHistory } from '../utils/Guild';
+import Client from '../Client';
 import Color from '../structures/Color';
 import Game from '../structures/Game';
-import Client from '../Client';
+import Guild from '../structures/Guild/Guild';
+import GuildMember from '../structures/Guild/GuildMember';
+import GuildRank from '../structures/Guild/GuildRank';
+import { ExpHistory } from '../utils/Guild';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Invalid Guild Type', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });

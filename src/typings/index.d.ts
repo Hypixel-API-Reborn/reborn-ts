@@ -1,33 +1,33 @@
-import Requests, { RequestOptions } from '../Private/Requests';
-import CacheHandler from '../Private/CacheHandler';
-import { ClientOptions } from '../Client';
-import Updater from '../Private/Updater';
-import Errors from '../Errors';
 import Achievements from '../structures/Static/Achievements';
-import House from '../structures/House';
+import Auction from '../structures/SkyBlock/Auctions/Auction';
+import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
+import BingoData from '../structures/SkyBlock/Static/BingoData';
 import Booster from '../structures/Boosters/Booster';
+import CacheHandler from '../Private/CacheHandler';
 import Challenges from '../structures/Static/Challenges';
+import Errors from '../Errors';
+import FireSale from '../structures/SkyBlock/Static/FireSale';
 import GameCounts from '../structures/GameCounts';
+import GovernmentData from '../structures/SkyBlock/Static/Government';
 import Guild from '../structures/Guild/Guild';
 import GuildAchievements from '../structures/Static/GuildAchievements';
+import House from '../structures/House';
 import Player from '../structures/Player';
+import Product from '../structures/SkyBlock/Bazzar/Product';
 import Quests from '../structures/Static/Quests';
 import RecentGame from '../structures/RecentGame';
-import { AuctionRequestOptions, SkyblockRequestOptions } from '../API/API';
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { getSkyblockAuctionsOptions } from '../API/getSkyblockAuctions';
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
-import Product from '../structures/SkyBlock/Bazzar/Product';
-import BingoData from '../structures/SkyBlock/Static/BingoData';
-import FireSale from '../structures/SkyBlock/Static/FireSale';
+import Requests, { RequestOptions } from '../Private/Requests';
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
-import GovernmentData from '../structures/SkyBlock/Static/Government';
 import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import Status from '../structures/Status';
+import Updater from '../Private/Updater';
 import WatchdogStats from '../structures/Watchdog/Stats';
+import { AuctionRequestOptions, SkyblockRequestOptions } from '../API/API';
+import { ClientOptions } from '../Client';
+import { getSkyblockAuctionsOptions } from '../API/getSkyblockAuctions';
 
 export type StaticGameNames =
   | 'arcade'

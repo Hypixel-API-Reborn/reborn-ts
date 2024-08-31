@@ -1,5 +1,5 @@
-import { StaticGameNames } from '../../typings';
 import Achievement from './Achievement';
+import { StaticGameNames } from '../../typings';
 
 class GameAchievements {
   category: StaticGameNames;

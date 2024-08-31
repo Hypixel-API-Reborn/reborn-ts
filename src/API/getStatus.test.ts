@@ -1,7 +1,7 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
-import Status from '../structures/Status';
 import Game from '../structures/Game';
+import Status from '../structures/Status';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getStatus (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });

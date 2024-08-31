@@ -1,7 +1,7 @@
-import { RequestOptions } from '../Private/Requests';
+import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Status from '../structures/Status';
-import Client from '../Client';
+import { RequestOptions } from '../Private/Requests';
 
 class getStatus extends Endpoint {
   readonly client: Client;

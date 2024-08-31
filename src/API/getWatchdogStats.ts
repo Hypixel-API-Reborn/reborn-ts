@@ -1,7 +1,7 @@
+import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
 import WatchdogStats from '../structures/Watchdog/Stats';
 import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
 
 class getWatchdogStats extends Endpoint {
   readonly client: Client;

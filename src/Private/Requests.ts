@@ -1,7 +1,7 @@
 const BASE_URL = 'https://api.hypixel.net/v2';
-import isUUID from '../utils/isUUID';
 import Client from '../Client';
 import axios from 'axios';
+import isUUID from '../utils/isUUID';
 
 export interface RequestOptions {
   raw?: boolean;

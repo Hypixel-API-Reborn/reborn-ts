@@ -1,7 +1,7 @@
 import Challenges from '../structures/Static/Challenges';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import { RequestOptions } from '../Private/Requests';
 
 class getChallenges extends Endpoint {
   readonly client: Client;

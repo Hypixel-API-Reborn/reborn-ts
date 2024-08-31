@@ -1,7 +1,7 @@
+import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
 
 class getSkyblockMuseum extends Endpoint {
   readonly client: Client;

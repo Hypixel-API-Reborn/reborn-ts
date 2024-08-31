@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Pets from './Pets';
+import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 
 class PlayerCosmetics {
   allCosmetics: string[];

@@ -1,7 +1,7 @@
 // IMPORTANT : a lot of the properties from the API seem to be nonsense
-import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
-import { weekAB, monthAB } from '../../utils/oscillation';
 import divide from '../../utils/divide';
+import { monthAB, weekAB } from '../../utils/oscillation';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 function parseZombiesKills(data: Record<string, any>): Record<string, number> {
   const matches = Array.from(Object.keys(data))
     .map((x) => x.match(/^([A-Za-z]+)_zombie_kills_zombies$/))

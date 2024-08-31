@@ -1,6 +1,6 @@
+import Client from '../Client';
 import FireSale from '../structures/SkyBlock/Static/FireSale';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getSkyblockFireSales (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });

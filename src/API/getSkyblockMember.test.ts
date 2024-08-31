@@ -1,22 +1,22 @@
-import {
-  SkyblockMemberChocolateFactoryData,
-  SkyblockMemberTrophyFishRank,
-  SkyblockMemberJacobData,
-  SkyblockMemberDungeons,
-  SkyblockMemberSkills,
-  SkyblockMemberSlayer,
-  SkyblockMemberStats,
-  SkyblockSkillLevel,
-  SkyblockRarity
-} from '../utils/SkyblockUtils';
-import SkyblockMember, { SkyblockMemberArmor, SkyblockMemberEquipment } from '../structures/SkyBlock/SkyblockMember';
-import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem';
+import Client from '../Client';
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
+import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem';
+import SkyblockMember, { SkyblockMemberArmor, SkyblockMemberEquipment } from '../structures/SkyBlock/SkyblockMember';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockPet from '../structures/SkyBlock/SkyblockPet';
 import { NetworthResult } from 'skyhelper-networth';
+import {
+  SkyblockMemberChocolateFactoryData,
+  SkyblockMemberDungeons,
+  SkyblockMemberJacobData,
+  SkyblockMemberSkills,
+  SkyblockMemberSlayer,
+  SkyblockMemberStats,
+  SkyblockMemberTrophyFishRank,
+  SkyblockRarity,
+  SkyblockSkillLevel
+} from '../utils/SkyblockUtils';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getSkyblockMember (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });

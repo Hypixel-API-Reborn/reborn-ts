@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import isUUID from './isUUID';
+import { expect, expectTypeOf, test } from 'vitest';
 
 const valid = [
   '37501e7512b845ab8796e2baf9e9677a',

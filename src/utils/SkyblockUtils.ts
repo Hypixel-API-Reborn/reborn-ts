@@ -1,5 +1,5 @@
-import { parse, simplify } from 'prismarine-nbt';
 import Constants from './Constants';
+import { parse, simplify } from 'prismarine-nbt';
 
 export type SkyblockRarity =
   | 'COMMON'

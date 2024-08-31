@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { version } from '../../package.json';
 import Client from '../Client';
 import axios from 'axios';
+import { version } from '../../package.json';
 
 class Updater {
   readonly client: Client;

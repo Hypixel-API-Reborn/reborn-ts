@@ -1,5 +1,5 @@
-import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 import divide from '../../utils/divide';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 
 export type SkyWarsPrestige =
   | 'Iron'

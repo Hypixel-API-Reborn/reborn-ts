@@ -1,10 +1,10 @@
+import API from './API';
 import CacheHandler from './Private/CacheHandler';
-import { ClientOptions } from './typings/Client';
+import Errors from './Errors';
 import RateLimit from './Private/RateLimit';
 import Requests from './Private/Requests';
 import Updater from './Private/Updater';
-import Errors from './Errors';
-import API from './API';
+import { ClientOptions } from './typings/Client';
 
 const clients: Client[] = [];
 

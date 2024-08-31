@@ -1,5 +1,5 @@
-import { StaticGameNames } from '../../typings';
 import Quest from './Quest';
+import { StaticGameNames } from '../../typings';
 
 class GameQuests {
   game: StaticGameNames;

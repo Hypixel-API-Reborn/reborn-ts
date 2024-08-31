@@ -1,4 +1,4 @@
-import { getLevelByXp, SkyblockSkillLevel } from '../../utils/SkyblockUtils';
+import { SkyblockSkillLevel, getLevelByXp } from '../../utils/SkyblockUtils';
 
 export interface SkyblockGardenVisitorServed {
   total: number;

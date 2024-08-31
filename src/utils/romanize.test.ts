@@ -1,5 +1,5 @@
-import { expect, test } from 'vitest';
 import romanize from './romanize';
+import { expect, test } from 'vitest';
 
 test('romanize', () => {
   expect(romanize('2')).toBe('II');

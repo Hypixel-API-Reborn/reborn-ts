@@ -1,10 +1,10 @@
-import GameAchievements from '../structures/Static/GameAchievements';
+import Achievement from '../structures/Static/Achievement';
 import AchievementTier from '../structures/Static/AchievementTier';
 import Achievements from '../structures/Static/Achievements';
-import Achievement from '../structures/Static/Achievement';
-import { expect, expectTypeOf, test } from 'vitest';
-import { StaticGameNames } from '../typings';
 import Client from '../Client';
+import GameAchievements from '../structures/Static/GameAchievements';
+import { StaticGameNames } from '../typings';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getAchievements (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });

@@ -1,7 +1,7 @@
+import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
 import GuildAchievements from '../structures/Static/GuildAchievements';
 import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
 
 class getGuildAchievements extends Endpoint {
   readonly client: Client;

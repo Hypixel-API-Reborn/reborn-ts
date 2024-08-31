@@ -1,6 +1,6 @@
-import { expect, expectTypeOf, test } from 'vitest';
-import Endpoint from './Endpoint';
 import Client from '../Client';
+import Endpoint from './Endpoint';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Endpoint', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');

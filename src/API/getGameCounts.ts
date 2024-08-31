@@ -1,7 +1,7 @@
-import { RequestOptions } from '../Private/Requests';
-import GameCounts from '../structures/GameCounts';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import GameCounts from '../structures/GameCounts';
+import { RequestOptions } from '../Private/Requests';
 
 class getGameCounts extends Endpoint {
   readonly client: Client;

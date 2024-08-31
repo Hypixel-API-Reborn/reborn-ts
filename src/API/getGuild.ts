@@ -1,8 +1,8 @@
-import { RequestOptions } from '../Private/Requests';
+import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
 import Guild from '../structures/Guild/Guild';
 import isGuildID from '../utils/isGuildID';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import { RequestOptions } from '../Private/Requests';
 
 class getGuild extends Endpoint {
   readonly client: Client;
