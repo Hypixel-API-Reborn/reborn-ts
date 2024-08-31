@@ -23,13 +23,32 @@ function parseXMLFile(): Promise<any> {
 
 const data = await parseXMLFile();
 const codeStats = data.coverage.project[0].metrics[0].$;
+const info = {
+  statements: Number(codeStats.statements),
+  coveredstatements: Number(codeStats.coveredstatements),
+  conditionals: Number(codeStats.conditionals),
+  coveredconditionals: Number(codeStats.coveredconditionals),
+  methods: Number(codeStats.methods),
+  coveredmethods: Number(codeStats.coveredmethods)
+};
 
-if (95 > Math.floor((Number(codeStats.coveredstatements) / Number(codeStats.statements)) * 100)) {
+if (95 > (info.coveredstatements / info.statements) * 100) {
   throw new Error('Statements is required to be 95% or higher');
 }
-if (95 > Math.floor((Number(codeStats.coveredconditionals) / Number(codeStats.conditionals)) * 100)) {
+
+if (95 > ((info.coveredconditionals / info.conditionals) * 100)) {
   throw new Error('Conditionals is required to be 95% or higher');
 }
-if (95 > Math.floor((Number(codeStats.coveredmethods) / Number(codeStats.methods)) * 100)) {
+
+if (95 > (info.coveredmethods / info.methods) * 100) {
   throw new Error('Methods is required to be 95% or higher');
+}
+
+if (
+  95 >
+  ((info.coveredstatements + info.coveredconditionals + info.coveredmethods) /
+    (info.statements + info.conditionals + info.methods)) *
+    100
+) {
+  throw new Error('Everythng Combinded is required to be 95% or higher');
 }
