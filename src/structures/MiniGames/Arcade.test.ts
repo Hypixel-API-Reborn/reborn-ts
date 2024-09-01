@@ -1,4 +1,3 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Arcade, {
   BlockingDead,
   BountyHunters,
@@ -23,6 +22,7 @@ import Arcade, {
   Zombies,
   ZombiesStats
 } from './Arcade';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Arcade', () => {
   const data = new Arcade({ stats: 'meow', achievements: 'meow' });
@@ -58,9 +58,9 @@ test('Arcade', () => {
   expect(data.bountyHunters.deaths).toBeDefined();
   expect(data.bountyHunters.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.bountyHunters.deaths).toEqualTypeOf<number>();
-  expect(data.bountyHunters.KDRatio).toBeDefined();
-  expect(data.bountyHunters.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.bountyHunters.KDRatio).toEqualTypeOf<number>();
+  expect(data.bountyHunters.KDR).toBeDefined();
+  expect(data.bountyHunters.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.bountyHunters.KDR).toEqualTypeOf<number>();
   expect(data.bountyHunters.bountyKills).toBeDefined();
   expect(data.bountyHunters.bountyKills).greaterThanOrEqual(0);
   expectTypeOf(data.bountyHunters.bountyKills).toEqualTypeOf<number>();
@@ -78,9 +78,9 @@ test('Arcade', () => {
   expect(data.captureTheWool.losses).toBeDefined();
   expect(data.captureTheWool.losses).greaterThanOrEqual(0);
   expectTypeOf(data.captureTheWool.losses).toEqualTypeOf<number>();
-  expect(data.captureTheWool.WLRatio).toBeDefined();
-  expect(data.captureTheWool.WLRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.WLRatio).toEqualTypeOf<number>();
+  expect(data.captureTheWool.WLR).toBeDefined();
+  expect(data.captureTheWool.WLR).greaterThanOrEqual(0);
+  expectTypeOf(data.captureTheWool.WLR).toEqualTypeOf<number>();
   expect(data.captureTheWool.draws).toBeDefined();
   expect(data.captureTheWool.draws).greaterThanOrEqual(0);
   expectTypeOf(data.captureTheWool.draws).toEqualTypeOf<number>();
@@ -90,9 +90,9 @@ test('Arcade', () => {
   expect(data.captureTheWool.deaths).toBeDefined();
   expect(data.captureTheWool.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.captureTheWool.deaths).toEqualTypeOf<number>();
-  expect(data.captureTheWool.KDRatio).toBeDefined();
-  expect(data.captureTheWool.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.KDRatio).toEqualTypeOf<number>();
+  expect(data.captureTheWool.KDR).toBeDefined();
+  expect(data.captureTheWool.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.captureTheWool.KDR).toEqualTypeOf<number>();
   expect(data.captureTheWool.assists).toBeDefined();
   expect(data.captureTheWool.assists).greaterThanOrEqual(0);
   expectTypeOf(data.captureTheWool.assists).toEqualTypeOf<number>();
@@ -326,9 +326,9 @@ test('Arcade', () => {
   expect(data.miniWalls.deaths).toBeDefined();
   expect(data.miniWalls.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.miniWalls.deaths).toEqualTypeOf<number>();
-  expect(data.miniWalls.KDRatio).toBeDefined();
-  expect(data.miniWalls.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.miniWalls.KDRatio).toEqualTypeOf<number>();
+  expect(data.miniWalls.KDR).toBeDefined();
+  expect(data.miniWalls.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.miniWalls.KDR).toEqualTypeOf<number>();
   expect(data.miniWalls.finalKills).toBeDefined();
   expect(data.miniWalls.finalKills).greaterThanOrEqual(0);
   expectTypeOf(data.miniWalls.finalKills).toEqualTypeOf<number>();
@@ -369,9 +369,9 @@ test('Arcade', () => {
   expect(data.pixelParty.losses).toBeDefined();
   expect(data.pixelParty.losses).greaterThanOrEqual(0);
   expectTypeOf(data.pixelParty.losses).toEqualTypeOf<number>();
-  expect(data.pixelParty.WLRatio).toBeDefined();
-  expect(data.pixelParty.WLRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.pixelParty.WLRatio).toEqualTypeOf<number>();
+  expect(data.pixelParty.WLR).toBeDefined();
+  expect(data.pixelParty.WLR).greaterThanOrEqual(0);
+  expectTypeOf(data.pixelParty.WLR).toEqualTypeOf<number>();
   expect(data.pixelParty.roundsPlayed).toBeDefined();
   expect(data.pixelParty.roundsPlayed).greaterThanOrEqual(0);
   expectTypeOf(data.pixelParty.roundsPlayed).toEqualTypeOf<number>();
@@ -389,9 +389,9 @@ test('Arcade', () => {
   expect(data.pixelParty.normal.losses).toBeDefined();
   expect(data.pixelParty.normal.losses).greaterThanOrEqual(0);
   expectTypeOf(data.pixelParty.normal.losses).toEqualTypeOf<number>();
-  expect(data.pixelParty.normal.WLRatio).toBeDefined();
-  expect(data.pixelParty.normal.WLRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.pixelParty.normal.WLRatio).toEqualTypeOf<number>();
+  expect(data.pixelParty.normal.WLR).toBeDefined();
+  expect(data.pixelParty.normal.WLR).greaterThanOrEqual(0);
+  expectTypeOf(data.pixelParty.normal.WLR).toEqualTypeOf<number>();
   expect(data.pixelParty.normal.roundsPlayed).toBeDefined();
   expect(data.pixelParty.normal.roundsPlayed).greaterThanOrEqual(0);
   expectTypeOf(data.pixelParty.normal.roundsPlayed).toEqualTypeOf<number>();
@@ -409,9 +409,9 @@ test('Arcade', () => {
   expect(data.pixelParty.hyper.losses).toBeDefined();
   expect(data.pixelParty.hyper.losses).greaterThanOrEqual(0);
   expectTypeOf(data.pixelParty.hyper.losses).toEqualTypeOf<number>();
-  expect(data.pixelParty.hyper.WLRatio).toBeDefined();
-  expect(data.pixelParty.hyper.WLRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.pixelParty.hyper.WLRatio).toEqualTypeOf<number>();
+  expect(data.pixelParty.hyper.WLR).toBeDefined();
+  expect(data.pixelParty.hyper.WLR).greaterThanOrEqual(0);
+  expectTypeOf(data.pixelParty.hyper.WLR).toEqualTypeOf<number>();
   expect(data.pixelParty.hyper.roundsPlayed).toBeDefined();
   expect(data.pixelParty.hyper.roundsPlayed).greaterThanOrEqual(0);
   expectTypeOf(data.pixelParty.hyper.roundsPlayed).toEqualTypeOf<number>();
@@ -437,9 +437,9 @@ test('Arcade', () => {
   expect(data.throwOut.deaths).toBeDefined();
   expect(data.throwOut.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.throwOut.deaths).toEqualTypeOf<number>();
-  expect(data.throwOut.KDRatio).toBeDefined();
-  expect(data.throwOut.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.throwOut.KDRatio).toEqualTypeOf<number>();
+  expect(data.throwOut.KDR).toBeDefined();
+  expect(data.throwOut.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.throwOut.KDR).toEqualTypeOf<number>();
   expect(data.zombies).toBeDefined();
   expectTypeOf(data.zombies).toEqualTypeOf<Zombies>();
   expect(data.zombies.overall).toBeDefined();

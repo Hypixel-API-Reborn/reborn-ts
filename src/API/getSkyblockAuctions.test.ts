@@ -1,10 +1,10 @@
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
-import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
 import Auction from '../structures/SkyBlock/Auctions/Auction';
+import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import Bid from '../structures/SkyBlock/Auctions/Bid';
-import { expect, expectTypeOf, test } from 'vitest';
-import ItemBytes from '../structures/ItemBytes';
 import Client from '../Client';
+import ItemBytes from '../structures/ItemBytes';
+import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockAuctions (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

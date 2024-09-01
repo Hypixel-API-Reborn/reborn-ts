@@ -1,7 +1,7 @@
-import { expect, expectTypeOf, test, vi } from 'vitest';
-import Leaderboard from '../structures/Leaderboard';
 import Client from '../Client';
+import Leaderboard from '../structures/Leaderboard';
 import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getLeaderboards (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

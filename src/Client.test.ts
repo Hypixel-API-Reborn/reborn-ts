@@ -1,10 +1,10 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import CacheHandler from './Private/CacheHandler';
-import { ClientOptions } from './typings/Client';
-import Requests from './Private/Requests';
-import Updater from './Private/Updater';
 import Client from './Client';
 import Errors from './Errors';
+import Requests from './Private/Requests';
+import Updater from './Private/Updater';
+import { ClientOptions } from './typings/Client';
+import { expect, expectTypeOf, test } from 'vitest';
 const errors = new Errors();
 
 test('Client (No Key)', () => {

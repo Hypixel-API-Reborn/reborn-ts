@@ -1,39 +1,39 @@
+import Constants from '../../utils/Constants';
+import SkyblockGarden from './SkyblockGarden';
+import SkyblockInventoryItem from './SkyblockInventoryItem';
+import SkyblockMuseum from './SkyblockMuseum';
+import SkyblockPet from './SkyblockPet';
 import {
-  MemberStatsPetMilestones,
+  Armor,
   ChocolateFactoryData,
-  MemberStatsAuctions,
-  MemberStatsFishing,
-  MemberStatsMythos,
-  MemberStatsGifts,
-  MemberStatsCandy,
-  TrophyFishRank,
-  SkillLevel,
+  Dungeons,
   Equipment,
   JacobData,
-  Dungeons,
+  MemberStatsAuctions,
+  MemberStatsCandy,
+  MemberStatsFishing,
+  MemberStatsGifts,
+  MemberStatsMythos,
+  MemberStatsPetMilestones,
+  SkillLevel,
   Skills,
   Slayer,
-  Armor
+  TrophyFishRank
 } from './SkyblockMemberTypes';
+import { NetworthResult, getNetworth } from 'skyhelper-networth';
+import { createFarmingWeightCalculator } from 'farming-weight';
 import {
-  getChocolateFactory,
-  getTrophyFishRank,
+  decode,
   getBestiaryLevel,
+  getChocolateFactory,
+  getDungeons,
   getJacobData,
   getLevelByXp,
-  getDungeons,
   getPetLevel,
   getSkills,
   getSlayer,
-  decode
+  getTrophyFishRank
 } from '../../utils/SkyblockUtils';
-import { getNetworth, NetworthResult } from 'skyhelper-networth';
-import SkyblockInventoryItem from './SkyblockInventoryItem';
-import Constants from '../../utils/Constants';
-import SkyblockGarden from './SkyblockGarden';
-import SkyblockMuseum from './SkyblockMuseum';
-import SkyblockPet from './SkyblockPet';
-import { createFarmingWeightCalculator } from 'farming-weight';
 
 export class MemberStats {
   candy: MemberStatsCandy;

@@ -1,8 +1,8 @@
-import { RequestOptions } from '../Private/Requests';
-import Leaderboard from '../structures/Leaderboard';
+import Client from '../Client';
 import Constants from '../utils/Constants';
 import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Leaderboard from '../structures/Leaderboard';
+import { RequestOptions } from '../Private/Requests';
 
 class getLeaderboards extends Endpoint {
   readonly client: Client;

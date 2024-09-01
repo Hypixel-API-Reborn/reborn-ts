@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import VampireZ, { VampireZRole } from './VampireZ';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('VampireZ', () => {
   const data = new VampireZ({ stats: 'meow' });
@@ -25,9 +25,9 @@ test('VampireZ', () => {
   expect(data.human.deaths).toBeDefined();
   expect(data.human.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.human.deaths).toEqualTypeOf<number>();
-  expect(data.human.KDRatio).toBeDefined();
-  expect(data.human.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.human.KDRatio).toEqualTypeOf<number>();
+  expect(data.human.KDR).toBeDefined();
+  expect(data.human.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.human.KDR).toEqualTypeOf<number>();
   expect(data.human.wins).toBeDefined();
   expect(data.human.wins).greaterThanOrEqual(0);
   expectTypeOf(data.human.wins).toEqualTypeOf<number>();
@@ -39,9 +39,9 @@ test('VampireZ', () => {
   expect(data.vampire.deaths).toBeDefined();
   expect(data.vampire.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.vampire.deaths).toEqualTypeOf<number>();
-  expect(data.vampire.KDRatio).toBeDefined();
-  expect(data.vampire.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.vampire.KDRatio).toEqualTypeOf<number>();
+  expect(data.vampire.KDR).toBeDefined();
+  expect(data.vampire.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.vampire.KDR).toEqualTypeOf<number>();
   expect(data.vampire.wins).toBeDefined();
   expect(data.vampire.wins).greaterThanOrEqual(0);
   expectTypeOf(data.vampire.wins).toEqualTypeOf<number>();
@@ -51,9 +51,9 @@ test('VampireZ', () => {
   expect(data.deaths).toBeDefined();
   expect(data.deaths).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeDefined();
-  expect(data.KDRatio).toBeGreaterThanOrEqual(0);
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.KDR).toBeDefined();
+  expect(data.KDR).toBeGreaterThanOrEqual(0);
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
   expect(data.wins).toBeDefined();
   expect(data.wins).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.wins).toEqualTypeOf<number>();

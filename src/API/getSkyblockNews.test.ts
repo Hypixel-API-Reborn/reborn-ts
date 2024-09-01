@@ -1,6 +1,6 @@
+import Client from '../Client';
 import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getSkyblockNews (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

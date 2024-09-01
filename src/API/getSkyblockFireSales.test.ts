@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { expect, expectTypeOf, test, vi } from 'vitest';
 import Client from '../Client';
 import FireSale from '../structures/SkyBlock/Static/FireSale';
+import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getSkyblockFireSales (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

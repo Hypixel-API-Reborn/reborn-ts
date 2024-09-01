@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import UHC, { UHCGamemode } from './UHC';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('UHC', () => {
   const data = new UHC({ stats: 'meow' });
@@ -163,9 +163,9 @@ test('UHC', () => {
   expect(data.deaths).toBeDefined();
   expect(data.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeDefined();
-  expect(data.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.KDR).toBeDefined();
+  expect(data.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
   expect(data.headsEaten).toBeDefined();
   expect(data.headsEaten).greaterThanOrEqual(0);
   expectTypeOf(data.headsEaten).toEqualTypeOf<number>();

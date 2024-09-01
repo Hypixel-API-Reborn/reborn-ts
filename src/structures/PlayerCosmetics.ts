@@ -1,5 +1,5 @@
-import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Pets from './Pets';
+import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 
 /**
  * Player Cosmetics class

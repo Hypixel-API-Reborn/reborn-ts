@@ -1,5 +1,5 @@
-import { getTrophyFishRank } from './SkyblockUtils';
 import { expect, test } from 'vitest';
+import { getTrophyFishRank } from './SkyblockUtils';
 
 test('getTrophyFishRank', () => {
   expect(getTrophyFishRank(1)).toBe('Bronze');

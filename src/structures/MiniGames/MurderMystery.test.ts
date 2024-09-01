@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import MurderMystery, { MurderMysteryModeStats } from './MurderMystery';
+import { expect, expectTypeOf, test } from 'vitest';
 test('MurderMystery', () => {
   const data = new MurderMystery({ stats: 'meow' });
   expect(data).toBeDefined();
@@ -35,9 +35,9 @@ test('MurderMystery', () => {
   expect(data.deaths).toBeDefined();
   expect(data.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeDefined();
-  expect(data.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.KDR).toBeDefined();
+  expect(data.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
   expect(data.winsAsMurderer).toBeDefined();
   expect(data.winsAsMurderer).greaterThanOrEqual(0);
   expectTypeOf(data.winsAsMurderer).toEqualTypeOf<number>();
@@ -88,9 +88,9 @@ test('MurderMystery', () => {
   expect(data.classic.suicides).toBeDefined();
   expect(data.classic.suicides).greaterThanOrEqual(0);
   expectTypeOf(data.classic.suicides).toEqualTypeOf<number>();
-  expect(data.classic.KDRatio).toBeDefined();
-  expect(data.classic.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.classic.KDRatio).toEqualTypeOf<number>();
+  expect(data.classic.KDR).toBeDefined();
+  expect(data.classic.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.classic.KDR).toEqualTypeOf<number>();
   expect(data.classic.wins).toBeDefined();
   expect(data.classic.wins).greaterThanOrEqual(0);
   expectTypeOf(data.classic.wins).toEqualTypeOf<number>();
@@ -132,9 +132,9 @@ test('MurderMystery', () => {
   expect(data.assassins.suicides).toBeDefined();
   expect(data.assassins.suicides).greaterThanOrEqual(0);
   expectTypeOf(data.assassins.suicides).toEqualTypeOf<number>();
-  expect(data.assassins.KDRatio).toBeDefined();
-  expect(data.assassins.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.assassins.KDRatio).toEqualTypeOf<number>();
+  expect(data.assassins.KDR).toBeDefined();
+  expect(data.assassins.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.assassins.KDR).toEqualTypeOf<number>();
   expect(data.assassins.wins).toBeDefined();
   expect(data.assassins.wins).greaterThanOrEqual(0);
   expectTypeOf(data.assassins.wins).toEqualTypeOf<number>();
@@ -176,9 +176,9 @@ test('MurderMystery', () => {
   expect(data.doubleUp.suicides).toBeDefined();
   expect(data.doubleUp.suicides).greaterThanOrEqual(0);
   expectTypeOf(data.doubleUp.suicides).toEqualTypeOf<number>();
-  expect(data.doubleUp.KDRatio).toBeDefined();
-  expect(data.doubleUp.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.doubleUp.KDRatio).toEqualTypeOf<number>();
+  expect(data.doubleUp.KDR).toBeDefined();
+  expect(data.doubleUp.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.doubleUp.KDR).toEqualTypeOf<number>();
   expect(data.doubleUp.wins).toBeDefined();
   expect(data.doubleUp.wins).greaterThanOrEqual(0);
   expectTypeOf(data.doubleUp.wins).toEqualTypeOf<number>();
@@ -220,9 +220,9 @@ test('MurderMystery', () => {
   expect(data.infection.suicides).toBeDefined();
   expect(data.infection.suicides).greaterThanOrEqual(0);
   expectTypeOf(data.infection.suicides).toEqualTypeOf<number>();
-  expect(data.infection.KDRatio).toBeDefined();
-  expect(data.infection.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.infection.KDRatio).toEqualTypeOf<number>();
+  expect(data.infection.KDR).toBeDefined();
+  expect(data.infection.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.infection.KDR).toEqualTypeOf<number>();
   expect(data.infection.wins).toBeDefined();
   expect(data.infection.wins).greaterThanOrEqual(0);
   expectTypeOf(data.infection.wins).toEqualTypeOf<number>();

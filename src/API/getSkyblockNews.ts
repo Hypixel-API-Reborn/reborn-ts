@@ -1,7 +1,7 @@
+import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
 import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
 import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
 
 class getSkyblockNews extends Endpoint {
   readonly client: Client;

@@ -1,7 +1,7 @@
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
-import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
+import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
+import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockProfiles (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

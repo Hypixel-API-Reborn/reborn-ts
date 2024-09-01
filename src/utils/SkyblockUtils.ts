@@ -1,16 +1,16 @@
+import Constants from './Constants';
 import {
   ChocolateFactoryData,
-  TrophyFishRank,
-  SlayerLevel,
-  SkillLevel,
-  JacobData,
   Dungeons,
+  JacobData,
   Rarity,
+  SkillLevel,
   Skills,
-  Slayer
+  Slayer,
+  SlayerLevel,
+  TrophyFishRank
 } from '../structures/SkyBlock/SkyblockMemberTypes';
 import { parse, simplify } from 'prismarine-nbt';
-import Constants from './Constants';
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
   // Credit: https://github.com/SkyCryptWebsite/SkyCryptv2/blob/3b5b3ae4fe77c60eff90691797f09024baf68872/src/lib/server/stats/items/processing.ts#L215-L218

@@ -1,9 +1,9 @@
+import Client from '../Client';
 import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem';
+import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockMuseumItem from '../structures/SkyBlock/SkyblockMuseumItem';
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
-import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getSkyblockMuseum (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

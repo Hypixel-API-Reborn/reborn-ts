@@ -1,7 +1,7 @@
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
 import GovernmentData from '../structures/SkyBlock/Static/Government.js';
 import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint.js';
-import Client from '../Client.js';
 
 class getSkyblockGovernment extends Endpoint {
   readonly client: Client;

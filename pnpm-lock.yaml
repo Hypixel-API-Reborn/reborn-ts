@@ -29,6 +29,9 @@ importers:
       '@eslint/js':
         specifier: ^9.9.1
         version: 9.9.1
+      '@j4cobi/eslint-plugin-sort-imports':
+        specifier: ^1.0.2
+        version: 1.0.2(eslint@9.9.1)(typescript@5.5.4)
       '@types/eslint':
         specifier: ^9.6.1
         version: 9.6.1
@@ -315,6 +318,10 @@ packages:
     resolution:
       { integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA== }
     engines: { node: '>=8' }
+
+  '@j4cobi/eslint-plugin-sort-imports@1.0.2':
+    resolution:
+      { integrity: sha512-0bTHYIohk2RnWW8+FQoE06s/80aF1iPxP62JiS2+9chUFrs9D7+p0niFtNctcZGRPo5aOKG9q/ypPlT8OWcwyg== }
 
   '@jridgewell/gen-mapping@0.3.5':
     resolution:
@@ -1735,6 +1742,14 @@ snapshots:
       wrap-ansi-cjs: wrap-ansi@7.0.0
 
   '@istanbuljs/schema@0.1.3': {}
+
+  '@j4cobi/eslint-plugin-sort-imports@1.0.2(eslint@9.9.1)(typescript@5.5.4)':
+    dependencies:
+      '@typescript-eslint/utils': 8.3.0(eslint@9.9.1)(typescript@5.5.4)
+    transitivePeerDependencies:
+      - eslint
+      - supports-color
+      - typescript
 
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:

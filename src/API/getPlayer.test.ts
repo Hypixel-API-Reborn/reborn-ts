@@ -1,4 +1,18 @@
 import Arcade from '../structures/MiniGames/Arcade';
+import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
+import BedWars from '../structures/MiniGames/BedWars';
+import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
+import BuildBattle from '../structures/MiniGames/BuildBattle';
+import Client from '../Client';
+import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
+import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
+import Duels from '../structures/MiniGames/Duels';
+import Guild from '../structures/Guild/Guild';
+import House from '../structures/House';
+import MegaWalls from '../structures/MiniGames/MegaWalls';
+import MurderMystery from '../structures/MiniGames/MurderMystery';
+import Paintball from '../structures/MiniGames/Paintball';
+import Pit from '../structures/MiniGames/Pit';
 import Player, {
   LevelProgress,
   PlayerRank,
@@ -6,35 +20,21 @@ import Player, {
   PlayerStats,
   RanksPurchaseTime
 } from '../structures/Player';
-import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
-import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
-import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
-import MurderMystery from '../structures/MiniGames/MurderMystery';
-import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
-import SmashHeroes from '../structures/MiniGames/SmashHeroes';
-import BuildBattle from '../structures/MiniGames/BuildBattle';
 import PlayerCosmetics from '../structures/PlayerCosmetics';
-import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
 import Quakecraft from '../structures/MiniGames/Quakecraft';
-import MegaWalls from '../structures/MiniGames/MegaWalls';
-import Paintball from '../structures/MiniGames/Paintball';
+import RecentGame from '../structures/RecentGame';
+import SkyWars from '../structures/MiniGames/SkyWars';
+import SmashHeroes from '../structures/MiniGames/SmashHeroes';
 import SpeedUHC from '../structures/MiniGames/SpeedUHC';
-import { expect, expectTypeOf, test, vi } from 'vitest';
 import TNTGames from '../structures/MiniGames/TNTGames';
+import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
+import UHC from '../structures/MiniGames/UHC';
 import VampireZ from '../structures/MiniGames/VampireZ';
+import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
 import WoolWars from '../structures/MiniGames/WoolWars';
-import BedWars from '../structures/MiniGames/BedWars';
-import SkyWars from '../structures/MiniGames/SkyWars';
-import RecentGame from '../structures/RecentGame';
-import Walls from '../structures/MiniGames/Walls';
-import Duels from '../structures/MiniGames/Duels';
-import Pit from '../structures/MiniGames/Pit';
-import UHC from '../structures/MiniGames/UHC';
-import Guild from '../structures/Guild/Guild';
-import House from '../structures/House';
-import Client from '../Client';
 import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getPlayer (never joinned hypixel)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

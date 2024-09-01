@@ -1,7 +1,7 @@
-import { expect, expectTypeOf, test, vi } from 'vitest';
-import Requests from './Requests';
 import Client from '../Client';
+import Requests from './Requests';
 import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('Requests', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');

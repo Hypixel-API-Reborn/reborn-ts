@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import BuildBattle, { BuildBattleWins } from './BuildBattle';
+import { expect, expectTypeOf, test } from 'vitest';
 test('BuildBattle', () => {
   const data = new BuildBattle({ stats: 'meow' });
   expect(data.score).toBeDefined();
@@ -11,9 +11,9 @@ test('BuildBattle', () => {
   expect(data.games).toBeDefined();
   expect(data.games).greaterThanOrEqual(0);
   expectTypeOf(data.games).toEqualTypeOf<number>();
-  expect(data.WLRatio).toBeDefined();
-  expect(data.WLRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.WLRatio).toEqualTypeOf<number>();
+  expect(data.WLR).toBeDefined();
+  expect(data.WLR).greaterThanOrEqual(0);
+  expectTypeOf(data.WLR).toEqualTypeOf<number>();
   expect(data.superVotes).toBeDefined();
   expect(data.superVotes).greaterThanOrEqual(0);
   expectTypeOf(data.superVotes).toEqualTypeOf<number>();

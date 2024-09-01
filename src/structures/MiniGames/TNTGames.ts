@@ -24,7 +24,7 @@ export class PVPRun {
   bestTime: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   regeneration: number;
   notoriety: number;
   fortitude: number;
@@ -35,7 +35,7 @@ export class PVPRun {
     this.bestTime = data?.record_pvprun || 0;
     this.kills = data?.kills_pvprun || 0;
     this.deaths = data?.deaths_pvprun || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.regeneration = data?.new_pvprun_regeneration || 0;
     this.notoriety = data?.new_pvprun_notoriety || 0;
     this.fortitude = data?.new_pvprun_fortitude || 0;
@@ -61,7 +61,7 @@ export class TNTTag {
   wins: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   speed: number;
   blastProtection: number;
   speedItUp: number;
@@ -71,7 +71,7 @@ export class TNTTag {
     this.wins = data?.wins_tntag || 0;
     this.kills = data?.kills_tntag || 0;
     this.deaths = data?.deaths_tntag || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.speed = data?.new_tntag_speedy || 0;
     this.blastProtection = data?.tag_blastprotection || 0;
     this.speedItUp = data?.tag_speeditup || 0;
@@ -85,7 +85,7 @@ export class TNTWizards {
   kills: number;
   assists: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   points: number;
   kineticHealing: number;
   airTime: number;
@@ -95,7 +95,7 @@ export class TNTWizards {
     this.kills = data?.kills_capture || 0;
     this.assists = data?.assists_capture || 0;
     this.deaths = data?.deaths_capture || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.points = data?.points_capture || 0;
     this.kineticHealing = data?.kinetic_healing_capture || 0;
     this.airTime = data?.air_time_capture || 0;

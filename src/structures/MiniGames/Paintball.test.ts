@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Paintball from './Paintball';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Paintball', () => {
   const data = new Paintball({ stats: 'meow' });
@@ -15,9 +15,9 @@ test('Paintball', () => {
   expect(data.deaths).toBeDefined();
   expect(data.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeDefined();
-  expect(data.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.KDR).toBeDefined();
+  expect(data.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
   expect(data.wins).toBeDefined();
   expect(data.wins).greaterThanOrEqual(0);
   expectTypeOf(data.wins).toEqualTypeOf<number>();

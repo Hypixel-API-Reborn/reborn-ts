@@ -9,7 +9,7 @@ export class MurderMysteryModeStats {
   trapKills: number;
   deaths: number;
   suicides: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   winsAsDetective: number;
   winsAsMurderer: number;
@@ -24,7 +24,7 @@ export class MurderMysteryModeStats {
     this.trapKills = data?.[`trap_kills_${gamemode}`] || 0;
     this.deaths = data?.[`deaths_${gamemode}`] || 0;
     this.suicides = data?.[`suicides_${gamemode}`] || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data?.[`wins_${gamemode}`] || 0;
     this.winsAsDetective = data?.[`detective_wins_${gamemode}`] || 0;
     this.winsAsMurderer = data?.[`murderer_wins_${gamemode}`] || 0;
@@ -44,7 +44,7 @@ class MurderMystery {
   bowKills: number;
   killsAsMurderer: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   winsAsMurderer: number;
   winsAsDetective: number;
   winsAsHero: number;
@@ -68,7 +68,7 @@ class MurderMystery {
     this.bowKills = data?.bow_kills || 0;
     this.killsAsMurderer = data?.kills_as_murderer || 0;
     this.deaths = data?.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.winsAsMurderer = data?.murderer_wins || 0;
     this.winsAsDetective = data?.detective_wins || 0;
     this.winsAsHero = data?.was_hero || 0;

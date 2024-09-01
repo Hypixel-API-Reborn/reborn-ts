@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Product from './Product';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Product', () => {
   const data = new Product({

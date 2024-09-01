@@ -1,7 +1,7 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import CacheHandler from './CacheHandler';
-import NodeCache from 'node-cache';
 import Client from '../Client';
+import NodeCache from 'node-cache';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('CacheHandler', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');

@@ -1,8 +1,8 @@
-import GameChallenges, { ChallengeData } from '../structures/Static/GameChallenges';
 import Challenges from '../structures/Static/Challenges';
-import { expect, expectTypeOf, test } from 'vitest';
-import { StaticGameNames } from '../typings';
 import Client from '../Client';
+import GameChallenges, { ChallengeData } from '../structures/Static/GameChallenges';
+import { StaticGameNames } from '../typings';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getChallenges (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

@@ -1,7 +1,7 @@
-import { expect, expectTypeOf, test, vi } from 'vitest';
-import RateLimit from './RateLimit';
 import Client from '../Client';
+import RateLimit from './RateLimit';
 import axios from 'axios';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('RateLimit (None)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { rateLimit: 'NONE' });

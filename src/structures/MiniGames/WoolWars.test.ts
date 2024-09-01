@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import WoolWars, { WoolWarsPrivateGamesConfig, WoolWarsStats } from './WoolWars';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('WoolWars', () => {
   const data = new WoolWars({ stats: 'meow' });
@@ -42,9 +42,9 @@ test('WoolWars', () => {
   expect(data.deaths).toBeDefined();
   expect(data.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeDefined();
-  expect(data.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.KDR).toBeDefined();
+  expect(data.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
   expect(data.assists).toBeDefined();
   expect(data.assists).greaterThanOrEqual(0);
   expectTypeOf(data.assists).toEqualTypeOf<number>();
@@ -78,9 +78,9 @@ test('WoolWars', () => {
   expect(data.assault.deaths).toBeDefined();
   expect(data.assault.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.assault.deaths).toEqualTypeOf<number>();
-  expect(data.assault.KDRatio).toBeDefined();
-  expect(data.assault.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.assault.KDRatio).toEqualTypeOf<number>();
+  expect(data.assault.KDR).toBeDefined();
+  expect(data.assault.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.assault.KDR).toEqualTypeOf<number>();
   expect(data.assault.assists).toBeDefined();
   expect(data.assault.assists).greaterThanOrEqual(0);
   expectTypeOf(data.assault.assists).toEqualTypeOf<number>();
@@ -110,9 +110,9 @@ test('WoolWars', () => {
   expect(data.tank.deaths).toBeDefined();
   expect(data.tank.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.tank.deaths).toEqualTypeOf<number>();
-  expect(data.tank.KDRatio).toBeDefined();
-  expect(data.tank.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.tank.KDRatio).toEqualTypeOf<number>();
+  expect(data.tank.KDR).toBeDefined();
+  expect(data.tank.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.tank.KDR).toEqualTypeOf<number>();
   expect(data.tank.assists).toBeDefined();
   expect(data.tank.assists).greaterThanOrEqual(0);
   expectTypeOf(data.tank.assists).toEqualTypeOf<number>();
@@ -142,9 +142,9 @@ test('WoolWars', () => {
   expect(data.golem.deaths).toBeDefined();
   expect(data.golem.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.golem.deaths).toEqualTypeOf<number>();
-  expect(data.golem.KDRatio).toBeDefined();
-  expect(data.golem.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.golem.KDRatio).toEqualTypeOf<number>();
+  expect(data.golem.KDR).toBeDefined();
+  expect(data.golem.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.golem.KDR).toEqualTypeOf<number>();
   expect(data.golem.assists).toBeDefined();
   expect(data.golem.assists).greaterThanOrEqual(0);
   expectTypeOf(data.golem.assists).toEqualTypeOf<number>();
@@ -174,9 +174,9 @@ test('WoolWars', () => {
   expect(data.swordsman.deaths).toBeDefined();
   expect(data.swordsman.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.swordsman.deaths).toEqualTypeOf<number>();
-  expect(data.swordsman.KDRatio).toBeDefined();
-  expect(data.swordsman.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.swordsman.KDRatio).toEqualTypeOf<number>();
+  expect(data.swordsman.KDR).toBeDefined();
+  expect(data.swordsman.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.swordsman.KDR).toEqualTypeOf<number>();
   expect(data.swordsman.assists).toBeDefined();
   expect(data.swordsman.assists).greaterThanOrEqual(0);
   expectTypeOf(data.swordsman.assists).toEqualTypeOf<number>();
@@ -206,9 +206,9 @@ test('WoolWars', () => {
   expect(data.engineer.deaths).toBeDefined();
   expect(data.engineer.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.engineer.deaths).toEqualTypeOf<number>();
-  expect(data.engineer.KDRatio).toBeDefined();
-  expect(data.engineer.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.engineer.KDRatio).toEqualTypeOf<number>();
+  expect(data.engineer.KDR).toBeDefined();
+  expect(data.engineer.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.engineer.KDR).toEqualTypeOf<number>();
   expect(data.engineer.assists).toBeDefined();
   expect(data.engineer.assists).greaterThanOrEqual(0);
   expectTypeOf(data.engineer.assists).toEqualTypeOf<number>();
@@ -238,9 +238,9 @@ test('WoolWars', () => {
   expect(data.archer.deaths).toBeDefined();
   expect(data.archer.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.archer.deaths).toEqualTypeOf<number>();
-  expect(data.archer.KDRatio).toBeDefined();
-  expect(data.archer.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.archer.KDRatio).toEqualTypeOf<number>();
+  expect(data.archer.KDR).toBeDefined();
+  expect(data.archer.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.archer.KDR).toEqualTypeOf<number>();
   expect(data.archer.assists).toBeDefined();
   expect(data.archer.assists).greaterThanOrEqual(0);
   expectTypeOf(data.archer.assists).toEqualTypeOf<number>();

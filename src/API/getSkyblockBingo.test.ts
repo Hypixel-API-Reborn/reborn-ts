@@ -1,7 +1,7 @@
-import BingoData from '../structures/SkyBlock/Static/BingoData';
 import Bingo from '../structures/SkyBlock/Static/Bingo';
-import { expect, expectTypeOf, test } from 'vitest';
+import BingoData from '../structures/SkyBlock/Static/BingoData';
 import Client from '../Client';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockBingo (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

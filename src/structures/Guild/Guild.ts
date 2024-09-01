@@ -1,8 +1,8 @@
-import { calculateExpHistory, ExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild';
-import GuildMember from './GuildMember';
-import GuildRank from './GuildRank';
 import Color from '../Color';
 import Game from '../Game';
+import GuildMember from './GuildMember';
+import GuildRank from './GuildRank';
+import { ExpHistory, calculateExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild';
 
 class Guild {
   id: string;

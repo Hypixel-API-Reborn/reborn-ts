@@ -36,7 +36,7 @@ if (95 > (info.coveredstatements / info.statements) * 100) {
   throw new Error('Statements is required to be 95% or higher');
 }
 
-if (95 > ((info.coveredconditionals / info.conditionals) * 100)) {
+if (95 > (info.coveredconditionals / info.conditionals) * 100) {
   throw new Error('Conditionals is required to be 95% or higher');
 }
 

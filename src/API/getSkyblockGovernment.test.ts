@@ -1,8 +1,8 @@
-import GovernmentData from '../structures/SkyBlock/Static/Government';
 import Candidate from '../structures/SkyBlock/Static/Candidate';
+import Client from '../Client';
+import GovernmentData from '../structures/SkyBlock/Static/Government';
 import Perk from '../structures/SkyBlock/Static/Perk';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getSkyblockGovernment (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

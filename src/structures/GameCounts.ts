@@ -1,5 +1,5 @@
-import { recursive, removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Constants from '../utils/Constants';
+import { recursive, removeSnakeCaseString } from '../utils/removeSnakeCase';
 
 class GameCounts {
   playerCount: number;

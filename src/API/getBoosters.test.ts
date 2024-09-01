@@ -1,7 +1,7 @@
-import Game, { GameCode, GameID, GameString } from '../structures/Game';
 import Booster from '../structures/Boosters/Booster';
-import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
+import Game, { GameCode, GameID, GameString } from '../structures/Game';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getBoosters (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

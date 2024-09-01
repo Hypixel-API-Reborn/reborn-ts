@@ -1,10 +1,10 @@
-import { expect, expectTypeOf, test } from 'vitest';
-import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, PlayerStats, RanksPurchaseTime } from './Player';
+import Color from './Color';
 import Guild from './Guild/Guild';
 import House from './House';
-import RecentGame from './RecentGame';
-import Color from './Color';
+import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, PlayerStats, RanksPurchaseTime } from './Player';
 import PlayerCosmetics from './PlayerCosmetics';
+import RecentGame from './RecentGame';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Player', () => {
   const data = new Player({ stats: 'meow' }, { guild: null, houses: null, recentGames: null });

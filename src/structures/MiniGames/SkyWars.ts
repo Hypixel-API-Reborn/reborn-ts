@@ -1,5 +1,5 @@
-import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 import divide from '../../utils/divide';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 
 export type SkyWarsPrestige =
   | 'Iron'
@@ -61,17 +61,17 @@ function getSkyWarsLevelProgress(xp: number) {
 export class SkywarsMode {
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   constructor(data: Record<string, any>, gamemode: string) {
     this.kills = data?.[`kills_${gamemode}`] || 0;
     this.deaths = data?.[`deaths_${gamemode}`] || 0;
-    this.KDRatio = divide(data?.kills, data?.deaths);
+    this.KDR = divide(data?.kills, data?.deaths);
     this.wins = data?.[`wins_${gamemode}`] || 0;
     this.losses = data?.[`losses_${gamemode}`] || 0;
-    this.WLRatio = divide(data?.wins, data?.losses);
+    this.WLR = divide(data?.wins, data?.losses);
   }
 }
 
@@ -85,10 +85,10 @@ export class SkywarsModeStats {
   mobKills: number;
   assists: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   gamesPlayed: number;
   survivedPlayers: number;
   chestsOpened: number;
@@ -112,10 +112,10 @@ export class SkywarsModeStats {
     this.mobKills = data?.[`mob_kills_${gamemode}`] || 0;
     this.assists = data?.[`assists_${gamemode}`] || 0;
     this.deaths = data?.[`deaths_${gamemode}`] || 0;
-    this.KDRatio = divide(data?.kills, data?.deaths);
+    this.KDR = divide(data?.kills, data?.deaths);
     this.wins = data?.[`wins_${gamemode}`] || 0;
     this.losses = data?.[`losses_${gamemode}`] || 0;
-    this.WLRatio = divide(data?.wins, data?.losses);
+    this.WLR = divide(data?.wins, data?.losses);
     this.gamesPlayed = data?.[`games_${gamemode}`] || 0;
     this.survivedPlayers = data?.[`survived_players_${gamemode}`] || 0;
     this.chestsOpened = data?.[`chests_opened_${gamemode}`] || 0;
@@ -202,10 +202,10 @@ class SkyWars {
   mobKills: number;
   assists: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   gamesPlayed: number;
   survivedPlayers: number;
   chestsOpened: number;
@@ -254,10 +254,10 @@ class SkyWars {
     this.mobKills = data?.mob_kills || 0;
     this.assists = data?.assists || 0;
     this.deaths = data?.deaths || 0;
-    this.KDRatio = divide(data?.kills, data?.deaths);
+    this.KDR = divide(data?.kills, data?.deaths);
     this.wins = data?.wins || 0;
     this.losses = data?.losses || 0;
-    this.WLRatio = divide(data?.wins, data?.losses);
+    this.WLR = divide(data?.wins, data?.losses);
     this.gamesPlayed = data?.games || 0;
     this.survivedPlayers = data?.survived_players || 0;
     this.chestsOpened = data?.chests_opened || 0;

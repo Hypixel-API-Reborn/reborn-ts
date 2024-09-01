@@ -1,23 +1,23 @@
-import {
-  ChocolateFactoryData,
-  TrophyFishRank,
-  SkillLevel,
-  Equipment,
-  JacobData,
-  Dungeons,
-  Slayer,
-  Skills,
-  Rarity,
-  Armor
-} from '../structures/SkyBlock/SkyblockMemberTypes';
+import Client from '../Client';
+import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
 import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem';
 import SkyblockMember, { MemberStats } from '../structures/SkyBlock/SkyblockMember';
-import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockPet from '../structures/SkyBlock/SkyblockPet';
+import {
+  Armor,
+  ChocolateFactoryData,
+  Dungeons,
+  Equipment,
+  JacobData,
+  Rarity,
+  SkillLevel,
+  Skills,
+  Slayer,
+  TrophyFishRank
+} from '../structures/SkyBlock/SkyblockMemberTypes';
 import { NetworthResult } from 'skyhelper-networth';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getSkyblockMember (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

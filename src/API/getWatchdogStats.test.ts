@@ -1,6 +1,6 @@
+import Client from '../Client';
 import WatchdogStats from '../structures/WatchdogStats';
 import { expect, expectTypeOf, test } from 'vitest';
-import Client from '../Client';
 
 test('getWatchdogStats (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

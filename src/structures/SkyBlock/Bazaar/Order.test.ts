@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Order from './Order';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Order', () => {
   const data = new Order({ stats: 'meow' });

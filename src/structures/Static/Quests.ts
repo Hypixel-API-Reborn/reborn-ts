@@ -1,5 +1,5 @@
-import { StaticGameNames } from '../../typings';
 import GameQuests from './GameQuests';
+import { StaticGameNames } from '../../typings';
 
 class Quests {
   lastUpdatedTimestamp: number;

@@ -1,8 +1,8 @@
-import GuildAchievements from '../structures/Static/GuildAchievements';
-import AchievementTier from '../structures/Static/AchievementTier';
 import Achievement from '../structures/Static/Achievement';
-import { expect, expectTypeOf, test } from 'vitest';
+import AchievementTier from '../structures/Static/AchievementTier';
 import Client from '../Client';
+import GuildAchievements from '../structures/Static/GuildAchievements';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getGuildAchievements (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

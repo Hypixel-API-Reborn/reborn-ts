@@ -11,7 +11,7 @@ class BuildBattle {
   score: number;
   totalWins: number;
   games: number;
-  WLRatio: number;
+  WLR: number;
   superVotes: number;
   coins: number;
   totalVotes: number;
@@ -20,7 +20,7 @@ class BuildBattle {
     this.score = data?.score || 0;
     this.totalWins = data?.wins || 0;
     this.games = data?.games_played || 0;
-    this.WLRatio = divide(this.totalWins, this.games);
+    this.WLR = divide(this.totalWins, this.games);
     this.superVotes = data?.super_votes || 0;
     this.coins = data?.coins || 0;
     this.totalVotes = data?.total_votes || 0;

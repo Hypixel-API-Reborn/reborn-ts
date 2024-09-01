@@ -1,9 +1,9 @@
-import GameQuests from '../structures/Static/GameQuests';
-import { expect, expectTypeOf, test } from 'vitest';
-import Quests from '../structures/Static/Quests';
-import Quest from '../structures/Static/Quest';
-import { StaticGameNames } from '../typings';
 import Client from '../Client';
+import GameQuests from '../structures/Static/GameQuests';
+import Quest from '../structures/Static/Quest';
+import Quests from '../structures/Static/Quests';
+import { StaticGameNames } from '../typings';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getQuests (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

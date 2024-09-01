@@ -1,7 +1,7 @@
-import { RequestOptions } from '../Private/Requests';
 import Booster from '../structures/Boosters/Booster';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import { RequestOptions } from '../Private/Requests';
 
 class getBoosters extends Endpoint {
   readonly client: Client;

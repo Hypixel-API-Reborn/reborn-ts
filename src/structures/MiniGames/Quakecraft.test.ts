@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import Quakecraft, { QuakecraftMode } from './Quakecraft';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Quakecraft', () => {
   const data = new Quakecraft({ stats: 'meow' });
@@ -20,9 +20,9 @@ test('Quakecraft', () => {
   expect(data.solo.deaths).toBeDefined();
   expect(data.solo.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.solo.deaths).toEqualTypeOf<number>();
-  expect(data.solo.KDRatio).toBeDefined();
-  expect(data.solo.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.solo.KDRatio).toEqualTypeOf<number>();
+  expect(data.solo.KDR).toBeDefined();
+  expect(data.solo.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.solo.KDR).toEqualTypeOf<number>();
   expect(data.solo.killstreaks).toBeDefined();
   expect(data.solo.killstreaks).greaterThanOrEqual(0);
   expectTypeOf(data.solo.killstreaks).toEqualTypeOf<number>();
@@ -46,9 +46,9 @@ test('Quakecraft', () => {
   expect(data.teams.deaths).toBeDefined();
   expect(data.teams.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.teams.deaths).toEqualTypeOf<number>();
-  expect(data.teams.KDRatio).toBeDefined();
-  expect(data.teams.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.teams.KDRatio).toEqualTypeOf<number>();
+  expect(data.teams.KDR).toBeDefined();
+  expect(data.teams.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.teams.KDR).toEqualTypeOf<number>();
   expect(data.teams.killstreaks).toBeDefined();
   expect(data.teams.killstreaks).greaterThanOrEqual(0);
   expectTypeOf(data.teams.killstreaks).toEqualTypeOf<number>();
@@ -70,9 +70,9 @@ test('Quakecraft', () => {
   expect(data.deaths).toBeDefined();
   expect(data.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeDefined();
-  expect(data.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
+  expect(data.KDR).toBeDefined();
+  expect(data.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
   expect(data.killstreaks).toBeDefined();
   expect(data.killstreaks).greaterThanOrEqual(0);
   expectTypeOf(data.killstreaks).toEqualTypeOf<number>();

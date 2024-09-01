@@ -1,7 +1,7 @@
-import { decode } from '../../utils/SkyblockUtils';
-import PitInventoryItem from './PitInventoryItem';
 import Constants from '../../utils/Constants';
+import PitInventoryItem from './PitInventoryItem';
 import divide from '../../utils/divide';
+import { decode } from '../../utils/SkyblockUtils';
 
 export interface PitArmor {
   helmet: PitInventoryItem | null;
@@ -16,7 +16,7 @@ class Pit {
   level: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   assists: number;
   maxKillStreak: number;
   playtime: number;
@@ -50,7 +50,7 @@ class Pit {
       ) ?? 0;
     this.kills = data?.pit_stats_ptl?.kills || 0;
     this.deaths = data?.pit_stats_ptl?.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.assists = data?.pit_stats_ptl?.assists || 0;
     this.maxKillStreak = data?.pit_stats_ptl?.max_streak || 0;
     this.playtime = (data?.pit_stats_ptl?.playtime_minutes || 0) * 60;

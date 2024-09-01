@@ -1,5 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest';
 import TNTGames, { BowSpleef, PVPRun, TNTRun, TNTTag, TNTWizards } from './TNTGames';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('TNTGames', () => {
   const data = new TNTGames({ stats: 'meow' });
@@ -51,9 +51,9 @@ test('TNTGames', () => {
   expect(data.pvpRun.deaths).toBeDefined();
   expect(data.pvpRun.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.pvpRun.deaths).toEqualTypeOf<number>();
-  expect(data.pvpRun.KDRatio).toBeDefined();
-  expect(data.pvpRun.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.pvpRun.KDRatio).toEqualTypeOf<number>();
+  expect(data.pvpRun.KDR).toBeDefined();
+  expect(data.pvpRun.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.pvpRun.KDR).toEqualTypeOf<number>();
   expect(data.pvpRun.regeneration).toBeDefined();
   expect(data.pvpRun.regeneration).greaterThanOrEqual(0);
   expectTypeOf(data.pvpRun.regeneration).toEqualTypeOf<number>();
@@ -92,9 +92,9 @@ test('TNTGames', () => {
   expect(data.tnttag.deaths).toBeDefined();
   expect(data.tnttag.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.tnttag.deaths).toEqualTypeOf<number>();
-  expect(data.tnttag.KDRatio).toBeDefined();
-  expect(data.tnttag.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.tnttag.KDRatio).toEqualTypeOf<number>();
+  expect(data.tnttag.KDR).toBeDefined();
+  expect(data.tnttag.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.tnttag.KDR).toEqualTypeOf<number>();
   expect(data.tnttag.speed).toBeDefined();
   expect(data.tnttag.speed).greaterThanOrEqual(0);
   expectTypeOf(data.tnttag.speed).toEqualTypeOf<number>();
@@ -123,9 +123,9 @@ test('TNTGames', () => {
   expect(data.wizards.deaths).toBeDefined();
   expect(data.wizards.deaths).greaterThanOrEqual(0);
   expectTypeOf(data.wizards.deaths).toEqualTypeOf<number>();
-  expect(data.wizards.KDRatio).toBeDefined();
-  expect(data.wizards.KDRatio).greaterThanOrEqual(0);
-  expectTypeOf(data.wizards.KDRatio).toEqualTypeOf<number>();
+  expect(data.wizards.KDR).toBeDefined();
+  expect(data.wizards.KDR).greaterThanOrEqual(0);
+  expectTypeOf(data.wizards.KDR).toEqualTypeOf<number>();
   expect(data.wizards.points).toBeDefined();
   expect(data.wizards.points).greaterThanOrEqual(0);
   expectTypeOf(data.wizards.points).toEqualTypeOf<number>();

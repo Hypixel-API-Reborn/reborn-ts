@@ -1,7 +1,7 @@
-import { PlayerRequestOptions } from './API';
+import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Player from '../structures/Player';
-import Client from '../Client';
+import { PlayerRequestOptions } from './API';
 
 class getPlayer extends Endpoint {
   readonly client: Client;

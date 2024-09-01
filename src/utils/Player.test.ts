@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
+import { describe, expect, test } from 'vitest';
 import {
+  getPlayerLevel,
+  getRank,
+  getSocialMedia,
+  levelToXP,
   parseClaimedRewards,
   playerLevelProgress,
-  getSocialMedia,
-  getPlayerLevel,
-  xpToNextLevel,
-  levelToXP,
-  getRank
+  xpToNextLevel
 } from '../utils/Player';
-import { describe, expect, test } from 'vitest';
 
 test('getRank', () => {
   expect(getRank({ prefix: '[EVENTS]' })).toBe('Events');

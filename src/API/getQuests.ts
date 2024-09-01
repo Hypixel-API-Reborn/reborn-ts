@@ -1,7 +1,7 @@
-import { RequestOptions } from '../Private/Requests';
-import Quests from '../structures/Static/Quests';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import Quests from '../structures/Static/Quests';
+import { RequestOptions } from '../Private/Requests';
 
 class getQuests extends Endpoint {
   readonly client: Client;

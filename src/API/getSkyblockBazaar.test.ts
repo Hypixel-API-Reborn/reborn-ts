@@ -1,7 +1,7 @@
-import Product from '../structures/SkyBlock/Bazaar/Product';
-import Order from '../structures/SkyBlock/Bazaar/Order';
-import { expect, expectTypeOf, test } from 'vitest';
 import Client from '../Client';
+import Order from '../structures/SkyBlock/Bazaar/Order';
+import Product from '../structures/SkyBlock/Bazaar/Product';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockBazarr (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

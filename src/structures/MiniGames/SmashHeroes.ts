@@ -3,17 +3,17 @@ import divide from '../../utils/divide';
 export class SmashHeroesMode {
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   constructor(data: Record<string, any>, mode: string) {
     this.kills = data?.[`kills_${mode}`] || 0;
     this.deaths = data?.[`deaths_${mode}`] || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data?.[`wins_${mode}`] || 0;
     this.losses = data?.[`losses_${mode}`] || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
   }
 }
 
@@ -25,10 +25,10 @@ export class SmashHeoresHero {
   playedGames: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   constructor(data: Record<string, any>, hero: string) {
     this.name = hero;
     this.level = data?.[`lastLevel_${hero}`] || 0;
@@ -37,10 +37,10 @@ export class SmashHeoresHero {
     this.playedGames = data?.class_stats?.[hero]?.games || 0;
     this.kills = data?.class_stats?.[hero]?.kills || 0;
     this.deaths = data?.class_stats?.[hero]?.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data?.class_stats?.[hero]?.wins || 0;
     this.losses = data?.class_stats?.[hero]?.losses || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
   }
 }
 
@@ -51,10 +51,10 @@ class SmashHeroes {
   playedGames: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   smashed: number;
   '1v1v1v1': SmashHeroesMode;
   '2v2': SmashHeroesMode;
@@ -83,10 +83,10 @@ class SmashHeroes {
     this.playedGames = data?.games || 0;
     this.kills = data?.kills || 0;
     this.deaths = data?.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data?.wins || 0;
     this.losses = data?.losses || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.smashed = data?.smashed || 0;
     this['1v1v1v1'] = new SmashHeroesMode(data, 'normal');
     this['2v2'] = new SmashHeroesMode(data, '2v2');

@@ -1,8 +1,8 @@
+import Client from '../Client';
+import Updater from './Updater';
+import axios from 'axios';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 import { version } from '../../package.json';
-import Updater from './Updater';
-import Client from '../Client';
-import axios from 'axios';
 
 test('Updater', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '');

@@ -1,7 +1,7 @@
-import { expect, expectTypeOf, test } from 'vitest';
-import PitInventoryItem from './PitInventoryItem';
-import Pit, { PitArmor } from './Pit';
 import Client from '../../Client';
+import Pit, { PitArmor } from './Pit';
+import PitInventoryItem from './PitInventoryItem';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('Pit', () => {
   const data = new Pit({ stats: 'meow' });
@@ -21,9 +21,9 @@ test('Pit', () => {
   expect(data.deaths).toBeDefined();
   expectTypeOf(data.deaths).toEqualTypeOf<number>();
   expect(data.deaths).toBeGreaterThanOrEqual(0);
-  expect(data.KDRatio).toBeDefined();
-  expectTypeOf(data.KDRatio).toEqualTypeOf<number>();
-  expect(data.KDRatio).toBeGreaterThanOrEqual(0);
+  expect(data.KDR).toBeDefined();
+  expectTypeOf(data.KDR).toEqualTypeOf<number>();
+  expect(data.KDR).toBeGreaterThanOrEqual(0);
   expect(data.assists).toBeDefined();
   expectTypeOf(data.assists).toEqualTypeOf<number>();
   expect(data.assists).toBeGreaterThanOrEqual(0);
