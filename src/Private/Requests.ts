@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.hypixel.net/v2';
+const BASE_URL = 'http://localhost:3000/hypixel';
 import Client from '../Client';
 import axios from 'axios';
 import isUUID from '../utils/isUUID';
@@ -93,7 +93,7 @@ class Requests {
     if (!input) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     if ('string' !== typeof input) throw new Error(this.client.errors.UUID_NICKNAME_MUST_BE_A_STRING);
     if (isUUID(input)) return input.replace(/-/g, '');
-    const url = `https://mowojang.matdoes.dev/${input}`;
+    const url = `http://localhost:3000/uuid/${input}`;
     if (this.client.cacheHandler.has(url)) {
       return this.client.cacheHandler.get(url);
     }

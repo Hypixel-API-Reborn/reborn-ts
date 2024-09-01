@@ -200,7 +200,7 @@ class SkyblockMemberMinion {
   }
 }
 
-class SkyblockMemberMinions {
+export class SkyblockMemberMinions {
   [key: string]: SkyblockMemberMinion;
   constructor(data: string[]) {
     const parsed = this.#parse(data);
@@ -232,8 +232,8 @@ class SkyblockMember {
   museum: SkyblockMuseum | null;
   profileName: string;
   profileId: string;
-  firstJoinTimestamp: number;
-  firstJoinAt: Date;
+  firstJoinTimestamp: number | null;
+  firstJoinAt: Date | null;
   experience: number;
   level: number;
   hotm: SkillLevel;
@@ -262,46 +262,46 @@ class SkyblockMember {
   getNetworth: () => Promise<NetworthResult | null>;
   getFarmingWeight: () => number;
   constructor(data: Record<string, any>) {
-    this.uuid = data.uuid;
-    this.gameMode = data.gameMode;
-    this.selected = data.selected;
-    this.garden = data.garden;
-    this.museum = data.museum;
-    this.profileName = data.profileName;
-    this.profileId = data.profileId;
-    this.firstJoinTimestamp = data.m.profile?.first_join;
-    this.firstJoinAt = new Date(data.m.profile?.first_join);
-    this.experience = data.m.leveling?.experience ?? 0;
-    this.level = this.experience ? this.experience / 100 : 0;
-    this.hotm = getLevelByXp(data.m.mining_core?.experience, 'hotm');
-    this.trophyFish = getTrophyFishRank(data.m.trophy_fish?.rewards?.length ?? 0);
-    this.highestMagicalPower = data.m.accessory_bag_storage?.highest_magical_power ?? 0;
-    this.fairySouls = data.m?.fairy_soul?.total_collected ?? 0;
-    this.fairyExchanges = data.m?.fairy_soul?.fairy_exchanges ?? 0;
-    this.skills = getSkills(data.m);
-    this.bestiary = getBestiaryLevel(data.m);
-    this.slayer = getSlayer(data.m);
-    this.dungeons = getDungeons(data.m);
-    this.collections = data.m.collection ? data.m.collection : null;
-    this.purse = data.m?.currencies?.coin_purse ?? 0;
-    this.stats = new MemberStats(data.m.player_stats);
-    this.pets = data.m?.pets_data?.pets ? data.m.pets_data.pets.map((pet: any) => new SkyblockPet(pet)) : [];
-    this.jacob = getJacobData(data.m);
-    this.chocolate = getChocolateFactory(data.m);
-    this.minions = new SkyblockMemberMinions(data.m?.player_data?.crafted_generators ?? []);
+    this.uuid = data?.uuid || '';
+    this.gameMode = data?.gameMode || null;
+    this.selected = data?.selected || false;
+    this.garden = data?.garden || null;
+    this.museum = data?.museum || null;
+    this.profileName = data?.profileName || '';
+    this.profileId = data?.profileId || '';
+    this.firstJoinTimestamp = data?.m?.profile?.first_join || null;
+    this.firstJoinAt = this.firstJoinTimestamp ? new Date(this.firstJoinTimestamp) : null;
+    this.experience = data?.m?.leveling?.experience || 0;
+    this.level = this.experience / 100;
+    this.hotm = getLevelByXp(data?.m?.mining_core?.experience, 'hotm');
+    this.trophyFish = getTrophyFishRank(data?.m?.trophy_fish?.rewards?.length || 0);
+    this.highestMagicalPower = data?.m?.accessory_bag_storage?.highest_magical_power || 0;
+    this.fairySouls = data?.m?.fairy_soul?.total_collected || 0;
+    this.fairyExchanges = data?.m?.fairy_soul?.fairy_exchanges || 0;
+    this.skills = getSkills(data?.m);
+    this.bestiary = getBestiaryLevel(data?.m);
+    this.slayer = getSlayer(data?.m);
+    this.dungeons = getDungeons(data?.m);
+    this.collections = data?.m?.collection || {};
+    this.purse = data?.m?.currencies?.coin_purse ?? 0;
+    this.stats = new MemberStats(data?.m?.player_stats);
+    this.pets = data?.m?.pets_data?.pets ? data?.m?.pets_data?.pets?.map((pet: any) => new SkyblockPet(pet)) : [];
+    this.jacob = getJacobData(data?.m);
+    this.chocolate = getChocolateFactory(data?.m);
+    this.minions = new SkyblockMemberMinions(data?.m?.player_data?.crafted_generators || []);
     this.getArmor = async () => {
-      const base64 = data.m.inventory.inv_armor;
-      const decoded = await decode(base64.data);
+      const base64 = data?.m?.inventory?.inv_armor;
+      const decoded = await decode(base64?.data);
       const armor = {
-        helmet: decoded[3].id ? new SkyblockInventoryItem(decoded[3]) : null,
-        chestplate: decoded[2].id ? new SkyblockInventoryItem(decoded[2]) : null,
-        leggings: decoded[1].id ? new SkyblockInventoryItem(decoded[1]) : null,
-        boots: decoded[0].id ? new SkyblockInventoryItem(decoded[0]) : null
+        helmet: decoded[3]?.id ? new SkyblockInventoryItem(decoded[3]) : null,
+        chestplate: decoded[2]?.id ? new SkyblockInventoryItem(decoded[2]) : null,
+        leggings: decoded[1]?.id ? new SkyblockInventoryItem(decoded[1]) : null,
+        boots: decoded[0]?.id ? new SkyblockInventoryItem(decoded[0]) : null
       };
       return armor;
     };
     this.getWardrobe = async () => {
-      const base64 = data.m?.inventory?.wardrobe_contents?.data;
+      const base64 = data?.m?.inventory?.wardrobe_contents?.data;
       if (!base64) return [];
       const decoded = await decode(base64);
       const armor = decoded
@@ -310,15 +310,13 @@ class SkyblockMember {
       return armor;
     };
     this.getEnderChest = async () => {
-      let chest = data.m.inventory.ender_chest_contents;
+      let chest = data?.m?.inventory?.ender_chest_contents;
       if (!chest) return [];
       try {
-        chest = await decode(chest.data);
+        chest = await decode(chest?.data);
         const edited = [];
         for (let i = 0; i < chest.length; i++) {
-          if (!chest[i].id) {
-            continue;
-          }
+          if (!chest[i]?.id) continue;
           edited.push(new SkyblockInventoryItem(chest[i]));
         }
         return edited;
@@ -327,15 +325,13 @@ class SkyblockMember {
       }
     };
     this.getInventory = async () => {
-      let inventory = data.m.inventory.inv_contents;
+      let inventory = data?.m?.inventory?.inv_contents;
       if (!inventory) return [];
       try {
-        inventory = await decode(inventory.data);
+        inventory = await decode(inventory?.data);
         const edited = [];
         for (let i = 0; i < inventory.length; i++) {
-          if (!inventory[i].id) {
-            continue;
-          }
+          if (!inventory[i]?.id) continue;
           edited.push(new SkyblockInventoryItem(inventory[i]));
         }
         return edited;
@@ -345,23 +341,23 @@ class SkyblockMember {
     };
     this.getPetScore = () => {
       const highestRarity: { [key: string]: any } = {};
-      for (const pet of data.m.pets_data.pets) {
+      for (const pet of data?.m?.pets_data?.pets) {
         if (
-          !(pet.type in highestRarity) ||
-          (Constants.petScore as { [key: number]: number })[pet.tier] > highestRarity[pet.type]
+          !(pet?.type in highestRarity) ||
+          (Constants.petScore as { [key: number]: number })[pet?.tier] > highestRarity[pet?.type]
         ) {
-          highestRarity[pet.type] = (Constants.petScore as { [key: number]: number })[pet.tier];
+          highestRarity[pet?.type] = (Constants.petScore as { [key: number]: number })[pet?.tier];
         }
       }
       const highestLevel: { [key: string]: any } = {};
-      for (const pet of data.m.pets_data.pets) {
-        const maxLevel = 'GOLDEN_DRAGON' === pet.type ? 200 : 100;
-        const petLevel = getPetLevel(pet.exp, pet.tier, maxLevel);
-        if (!(pet.type in highestLevel) || petLevel.level > highestLevel[pet.type]) {
-          if (petLevel.level < maxLevel) {
+      for (const pet of data?.m?.pets_data?.pets) {
+        const maxLevel = 'GOLDEN_DRAGON' === pet?.type ? 200 : 100;
+        const petLevel = getPetLevel(pet?.exp, pet?.tier, maxLevel);
+        if (!(pet?.type in highestLevel) || petLevel?.level > highestLevel[pet?.type]) {
+          if (petLevel?.level < maxLevel) {
             continue;
           }
-          highestLevel[pet.type] = 1;
+          highestLevel[pet?.type] = 1;
         }
       }
       return (
@@ -369,17 +365,17 @@ class SkyblockMember {
       );
     };
     this.getEquipment = async () => {
-      let equipment = data.m.inventory.equipment_contents;
+      let equipment = data?.m?.inventory?.equipment_contents;
       if (!equipment) {
         return { gauntlet: null, belt: null, cloak: null, necklace: null };
       }
       try {
-        equipment = await decode(equipment.data);
+        equipment = await decode(equipment?.data);
         const playerEquipment = {
-          gauntlet: equipment[3].id ? new SkyblockInventoryItem(equipment[3]) : null,
-          belt: equipment[2].id ? new SkyblockInventoryItem(equipment[2]) : null,
-          cloak: equipment[1].id ? new SkyblockInventoryItem(equipment[1]) : null,
-          necklace: equipment[0].id ? new SkyblockInventoryItem(equipment[0]) : null
+          gauntlet: equipment?.[3]?.id ? new SkyblockInventoryItem(equipment[3]) : null,
+          belt: equipment?.[2]?.id ? new SkyblockInventoryItem(equipment[2]) : null,
+          cloak: equipment?.[1]?.id ? new SkyblockInventoryItem(equipment[1]) : null,
+          necklace: equipment?.[0]?.id ? new SkyblockInventoryItem(equipment[0]) : null
         };
         return playerEquipment;
       } catch {
@@ -387,15 +383,13 @@ class SkyblockMember {
       }
     };
     this.getPersonalVault = async () => {
-      let vault = data.m.inventory.personal_vault_contents;
+      let vault = data?.m?.inventory?.personal_vault_contents;
       if (!vault) return [];
       try {
-        vault = await decode(vault.data);
+        vault = await decode(vault?.data);
         const edited = [];
-        for (let i = 0; i < vault.length; i++) {
-          if (!vault[i].id) {
-            continue;
-          }
+        for (let i = 0; i < vault?.length; i++) {
+          if (!vault[i]?.id) continue;
           edited.push(new SkyblockInventoryItem(vault[i]));
         }
         return edited;
@@ -405,11 +399,11 @@ class SkyblockMember {
     };
     this.getNetworth = async () => {
       try {
-        const nw = await getNetworth(data.m, data.banking?.balance ?? 0, {
+        const nw = await getNetworth(data?.m, data?.banking?.balance ?? 0, {
           onlyNetworth: true,
           v2Endpoint: true,
           cache: true,
-          museumData: data.museum?.raw ?? {}
+          museumData: data?.museum?.raw ?? {}
         });
         return nw;
       } catch {
@@ -423,9 +417,9 @@ class SkyblockMember {
           farmingXp: this.skills.farming.xp,
           levelCapUpgrade: this.jacob.perks.farmingLevelCap,
           anitaBonusFarmingFortuneLevel: this.jacob.perks.doubleDrops,
-          minions: data.m.player_data.crafted_generators,
+          minions: data?.m?.player_data?.crafted_generators,
           contests: Object.values(this.jacob.contests),
-          pests: data.m.bestiary.kills
+          pests: data?.m?.bestiary?.kills
         }).getWeightInfo().totalWeight;
       } catch {
         return 0;

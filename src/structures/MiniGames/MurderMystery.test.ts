@@ -1,5 +1,6 @@
 import MurderMystery, { MurderMysteryModeStats } from './MurderMystery';
 import { expect, expectTypeOf, test } from 'vitest';
+
 test('MurderMystery', () => {
   const data = new MurderMystery({ stats: 'meow' });
   expect(data).toBeDefined();

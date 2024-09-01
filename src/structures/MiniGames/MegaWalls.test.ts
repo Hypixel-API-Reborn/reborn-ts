@@ -1,11 +1,11 @@
 import MegaWalls, { MegaWallsKitStats, MegaWallsModeStats } from './MegaWalls';
 import { expect, expectTypeOf, test } from 'vitest';
+
 test('MegaWalls', () => {
   const data = new MegaWalls({ stats: 'meow' });
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(MegaWalls);
   expectTypeOf(data).toMatchTypeOf<MegaWalls>();
-
   expect(data.selectedClass).toBeDefined();
   expectTypeOf(data.selectedClass).toEqualTypeOf<string>();
   expect(data.coins).toBeDefined();

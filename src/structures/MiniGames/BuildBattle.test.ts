@@ -1,7 +1,10 @@
 import BuildBattle, { BuildBattleWins } from './BuildBattle';
 import { expect, expectTypeOf, test } from 'vitest';
+
 test('BuildBattle', () => {
   const data = new BuildBattle({ stats: 'meow' });
+  expect(data).toBeInstanceOf(BuildBattle);
+  expectTypeOf(data).toEqualTypeOf<BuildBattle>();
   expect(data.score).toBeDefined();
   expect(data.score).greaterThanOrEqual(0);
   expectTypeOf(data.score).toEqualTypeOf<number>();

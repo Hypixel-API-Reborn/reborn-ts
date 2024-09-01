@@ -229,9 +229,7 @@ function getLevelRespectingPrestige(level: number) {
 
 export function getExpForLevel(level: number) {
   if (0 === level) return 0;
-  const respectedLevel = getLevelRespectingPrestige(level);
-  if (respectedLevel > EASY_LEVELS) return 5000;
-  switch (respectedLevel) {
+  switch (getLevelRespectingPrestige(level)) {
     case 1:
       return 500;
     case 2:
@@ -240,9 +238,8 @@ export function getExpForLevel(level: number) {
       return 2000;
     case 4:
       return 3500;
-    default: {
+    default:
       return 5000;
-    }
   }
 }
 

@@ -3,6 +3,8 @@ import { expect, expectTypeOf, test } from 'vitest';
 
 test('ArenaBrawl', () => {
   const data = new ArenaBrawl({ stats: 'meow' });
+  expect(data).toBeInstanceOf(ArenaBrawl);
+  expectTypeOf(data).toEqualTypeOf<ArenaBrawl>();
   expect(data.coins).toBeDefined();
   expect(data.coins).greaterThanOrEqual(0);
   expectTypeOf(data.coins).toEqualTypeOf<number>();

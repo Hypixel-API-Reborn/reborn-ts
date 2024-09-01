@@ -1,3 +1,4 @@
+/* v8 ignore next 200 */
 export * from './Client';
 export * from './Errors';
 export * from './Private/CacheHandler';

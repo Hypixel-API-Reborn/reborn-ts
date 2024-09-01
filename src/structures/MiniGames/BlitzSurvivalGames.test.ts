@@ -1,7 +1,10 @@
 import BlitzSurvivalGames, { BlitzSGKit } from './BlitzSurvivalGames';
 import { expect, expectTypeOf, test } from 'vitest';
+
 test('BlitzSurvivalGames', () => {
   const data = new BlitzSurvivalGames({ stats: 'meow' });
+  expect(data).toBeInstanceOf(BlitzSurvivalGames);
+  expectTypeOf(data).toEqualTypeOf<BlitzSurvivalGames>();
   expect(data.coins).toBeDefined();
   expectTypeOf(data.coins).toEqualTypeOf<number>();
   expect(data.kills).toBeDefined();

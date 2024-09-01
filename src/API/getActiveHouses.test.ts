@@ -30,9 +30,9 @@ test('getActiveHouses', async () => {
     expect(house.owner).toBeDefined();
     expectTypeOf(house.owner).toEqualTypeOf<string>();
     expect(house.createdAtTimestamp).toBeDefined();
-    expectTypeOf(house.createdAtTimestamp).toEqualTypeOf<number>();
+    expectTypeOf(house.createdAtTimestamp).toEqualTypeOf<number | null>();
     expect(house.createdAt).toBeDefined();
-    expectTypeOf(house.createdAt).toEqualTypeOf<Date>();
+    expectTypeOf(house.createdAt).toEqualTypeOf<Date | null>();
     expect(house.players).toBeDefined();
     expectTypeOf(house.players).toEqualTypeOf<number>();
     expect(house.cookies).toBeDefined();

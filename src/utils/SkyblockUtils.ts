@@ -191,7 +191,7 @@ function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
 }
 
 export function getBestiaryLevel(userProfile: Record<string, any>): number {
-  if (userProfile.bestiary?.kills === undefined) {
+  if (userProfile?.bestiary?.kills === undefined) {
     return 0;
   }
   const output: { [key: string]: any } = {};
@@ -226,13 +226,13 @@ export function getSlayer(data: Record<string, any>): Slayer | null {
 
 export function getDungeons(data: Record<string, any>): Dungeons | null {
   return {
-    types: { catacombs: getLevelByXp(data.dungeons?.dungeon_types?.catacombs ?? 0, 'dungeons') },
+    types: { catacombs: getLevelByXp(data?.dungeons?.dungeon_types?.catacombs ?? 0, 'dungeons') },
     classes: {
-      healer: getLevelByXp(data.dungeons?.player_classes?.healer ?? 0, 'dungeons'),
-      mage: getLevelByXp(data.dungeons?.player_classes?.mage ?? 0, 'dungeons'),
-      berserk: getLevelByXp(data.dungeons?.player_classes?.berserk ?? 0, 'dungeons'),
-      archer: getLevelByXp(data.dungeons?.player_classes?.archer ?? 0, 'dungeons'),
-      tank: getLevelByXp(data.dungeons?.player_classes?.tank ?? 0, 'dungeons')
+      healer: getLevelByXp(data?.dungeons?.player_classes?.healer ?? 0, 'dungeons'),
+      mage: getLevelByXp(data?.dungeons?.player_classes?.mage ?? 0, 'dungeons'),
+      berserk: getLevelByXp(data?.dungeons?.player_classes?.berserk ?? 0, 'dungeons'),
+      archer: getLevelByXp(data?.dungeons?.player_classes?.archer ?? 0, 'dungeons'),
+      tank: getLevelByXp(data?.dungeons?.player_classes?.tank ?? 0, 'dungeons')
     }
   };
 }

@@ -34,6 +34,8 @@ test('BedWars (getExpForLevel)', () => {
 
 test('BedWars', () => {
   const data = new BedWars({ stats: 'meow' });
+  expect(data).toBeInstanceOf(BedWars);
+  expectTypeOf(data).toEqualTypeOf<BedWars>();
   expect(data.tokens).toBeDefined();
   expect(data.tokens).greaterThanOrEqual(0);
   expectTypeOf(data.tokens).toEqualTypeOf<number>();

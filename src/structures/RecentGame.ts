@@ -1,23 +1,23 @@
 import Game from './Game';
 
 class RecentGame {
-  game: Game;
+  game: Game | null;
   dateTimestamp: number | null;
-  date: Date | null;
+  dateAt: Date | null;
   mode: string | null;
   map: string | null;
   ongoing: boolean;
-  endedAt: Date | null;
   endedTimestamp: number | null;
+  endedAt: Date | null;
   constructor(data: Record<string, any>) {
-    this.game = new Game(data.gameType);
-    this.dateTimestamp = data.date || null;
-    this.date = this.dateTimestamp ? new Date(this.dateTimestamp) : null;
-    this.mode = data.mode || null;
-    this.map = data.map || null;
-    this.ongoing = Boolean(!data.ended);
-    this.endedAt = data.ended ? new Date(data.ended) : null;
-    this.endedTimestamp = data.ended ? data.ended : null;
+    this.game = data?.gameType ? new Game(data.gameType) : null;
+    this.dateTimestamp = data?.date || null;
+    this.dateAt = this.dateTimestamp ? new Date(this.dateTimestamp) : null;
+    this.mode = data?.mode || null;
+    this.map = data?.map || null;
+    this.ongoing = Boolean(!data?.ended) || false;
+    this.endedTimestamp = data?.ended ? data?.ended : null;
+    this.endedAt = this.endedTimestamp ? new Date(this.endedTimestamp) : null;
   }
 
   toString(): string | null {

@@ -1,7 +1,10 @@
 import CopsAndCrims, { CopsAndCrimsDeathmatch, CopsAndCrimsDefusal, CopsAndCrimsGunGame } from './CopsAndCrims';
 import { expect, expectTypeOf, test } from 'vitest';
+
 test('CopsAndCrims', () => {
   const data = new CopsAndCrims({ stats: 'meow' });
+  expect(data).toBeInstanceOf(CopsAndCrims);
+  expectTypeOf(data).toEqualTypeOf<CopsAndCrims>();
   expect(data.defusal).toBeDefined();
   expectTypeOf(data.defusal).toEqualTypeOf<CopsAndCrimsDefusal>();
   expect(data.defusal.kills).toBeDefined();
