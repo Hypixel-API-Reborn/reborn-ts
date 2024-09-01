@@ -25,18 +25,18 @@ export class ZombiesStats {
   zombieKills: number;
   constructor(data: Record<string, any>, type: string = '') {
     if (type) type = `_${type}`;
-    this.bestRound = data[`best_round_zombies${type}`] || 0;
-    this.deaths = data[`deaths_zombies${type}`] || 0;
-    this.doorsOpened = data[`doors_opened_zombies${type}`] || 0;
-    this.fastestRound10 = data[`fastest_time_10_zombies${type}_normal`] || 0;
-    this.fastestRound20 = data[`fastest_time_20_zombies${type}_normal`] || 0;
-    this.fastestRound30 = data[`fastest_time_30_zombies${type}_normal`] || 0;
-    this.playersRevived = data[`players_revived_zombies${type}`] || 0;
-    this.timesKnockedDown = data[`times_knocked_down_zombies${type}`] || 0;
-    this.roundsSurvived = data[`total_rounds_survived_zombies${type}`] || 0;
-    this.windowsRepaired = data[`windows_repaired_zombies${type}`] || 0;
-    this.wins = data[`wins_zombies${type}`] || 0;
-    this.zombieKills = data[`zombie_kills_zombies${type}`] || 0;
+    this.bestRound = data?.[`best_round_zombies${type}`] || 0;
+    this.deaths = data?.[`deaths_zombies${type}`] || 0;
+    this.doorsOpened = data?.[`doors_opened_zombies${type}`] || 0;
+    this.fastestRound10 = data?.[`fastest_time_10_zombies${type}_normal`] || 0;
+    this.fastestRound20 = data?.[`fastest_time_20_zombies${type}_normal`] || 0;
+    this.fastestRound30 = data?.[`fastest_time_30_zombies${type}_normal`] || 0;
+    this.playersRevived = data?.[`players_revived_zombies${type}`] || 0;
+    this.timesKnockedDown = data?.[`times_knocked_down_zombies${type}`] || 0;
+    this.roundsSurvived = data?.[`total_rounds_survived_zombies${type}`] || 0;
+    this.windowsRepaired = data?.[`windows_repaired_zombies${type}`] || 0;
+    this.wins = data?.[`wins_zombies${type}`] || 0;
+    this.zombieKills = data?.[`zombie_kills_zombies${type}`] || 0;
   }
 }
 
@@ -243,8 +243,8 @@ export class GalaxyWars {
     this.kills = data?.sw_kills || 0;
     this.deaths = data?.sw_deaths || 0;
     this.shotsFired = data?.sw_shots_fired || 0;
-    this.weeklyKills = parseInt(data[`weekly_kills_${weekAB()}`] || 0, 10);
-    this.monthlyKills = parseInt(data[`monthly_kills_${monthAB()}`] || 0, 10);
+    this.weeklyKills = parseInt(data?.[`weekly_kills_${weekAB()}`] || 0, 10);
+    this.monthlyKills = parseInt(data?.[`monthly_kills_${monthAB()}`] || 0, 10);
     this.attackerKills = data?.sw_rebel_kills || 0;
     this.defenderKills = data?.sw_empire_kills || 0;
   }
@@ -433,8 +433,8 @@ class Arcade {
   zombies: Zombies;
   constructor(data: Record<string, any> = {}) {
     this.coins = data?.coins || 0;
-    this.weeklyCoins = parseInt(data[`weekly_coins_${weekAB()}`] || 0, 10);
-    this.monthlyCoins = parseInt(data[`monthly_coins_${monthAB()}`] || 0, 10);
+    this.weeklyCoins = parseInt(data?.[`weekly_coins_${weekAB()}`] || 0, 10);
+    this.monthlyCoins = parseInt(data?.[`monthly_coins_${monthAB()}`] || 0, 10);
     this.hintsDisabled = !data?.hints;
     this.flashDisabled = !data?.flash;
     this.blockingDead = new BlockingDead(data);

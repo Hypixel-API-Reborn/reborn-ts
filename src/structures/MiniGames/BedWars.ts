@@ -80,22 +80,22 @@ export class BedwarsMode {
   WLR: number;
   FKDR: number;
   constructor(data: Record<string, any>, mode: string) {
-    this.winstreak = data[`${mode}_winstreak`] || 0;
-    this.playedGames = data[`${mode}_games_played_bedwars`] || 0;
-    this.kills = data[`${mode}_kills_bedwars`] || 0;
-    this.deaths = data[`${mode}_deaths_bedwars`] || 0;
-    this.wins = data[`${mode}_wins_bedwars`] || 0;
-    this.losses = data[`${mode}_losses_bedwars`] || 0;
-    this.finalKills = data[`${mode}_final_kills_bedwars`] || 0;
-    this.finalDeaths = data[`${mode}_final_deaths_bedwars`] || 0;
+    this.winstreak = data?.[`${mode}_winstreak`] || 0;
+    this.playedGames = data?.[`${mode}_games_played_bedwars`] || 0;
+    this.kills = data?.[`${mode}_kills_bedwars`] || 0;
+    this.deaths = data?.[`${mode}_deaths_bedwars`] || 0;
+    this.wins = data?.[`${mode}_wins_bedwars`] || 0;
+    this.losses = data?.[`${mode}_losses_bedwars`] || 0;
+    this.finalKills = data?.[`${mode}_final_kills_bedwars`] || 0;
+    this.finalDeaths = data?.[`${mode}_final_deaths_bedwars`] || 0;
     this.beds = {
-      broken: data[`${mode}_beds_broken_bedwars`] || 0,
-      lost: data[`${mode}_beds_lost_bedwars`] || 0,
-      BLRatio: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_beds_lost_bedwars`])
+      broken: data?.[`${mode}_beds_broken_bedwars`] || 0,
+      lost: data?.[`${mode}_beds_lost_bedwars`] || 0,
+      BLRatio: divide(data?.[`${mode}_beds_broken_bedwars`], data?.[`${mode}_beds_lost_bedwars`])
     };
-    this.KDR = divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]);
-    this.WLR = divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]);
-    this.FKDR = divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`]);
+    this.KDR = divide(data?.[`${mode}_kills_bedwars`], data?.[`${mode}_deaths_bedwars`]);
+    this.WLR = divide(data?.[`${mode}_wins_bedwars`], data?.[`${mode}_losses_bedwars`]);
+    this.FKDR = divide(data?.[`${mode}_final_kills_bedwars`], data?.[`${mode}_final_deaths_bedwars`]);
   }
 }
 

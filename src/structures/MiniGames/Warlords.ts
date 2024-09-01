@@ -9,13 +9,13 @@ export class WarlordsClass {
   heal: number;
   damagePrevented: number;
   constructor(data: Record<string, any>, className: string) {
-    this.wins = data[`wins_${className}`] || 0;
-    this.losses = data[`losses_${className}`] || 0;
+    this.wins = data?.[`wins_${className}`] || 0;
+    this.losses = data?.[`losses_${className}`] || 0;
     this.WLR = divide(this.wins, this.losses);
-    this.gamesPlayed = data[`${className}_plays`] || 0;
-    this.damage = data[`damage_${className}`] || 0;
-    this.heal = data[`heal_${className}`] || 0;
-    this.damagePrevented = data[`damage_prevented_${className}`] || 0;
+    this.gamesPlayed = data?.[`${className}_plays`] || 0;
+    this.damage = data?.[`damage_${className}`] || 0;
+    this.heal = data?.[`heal_${className}`] || 0;
+    this.damagePrevented = data?.[`damage_prevented_${className}`] || 0;
   }
 }
 
@@ -47,16 +47,16 @@ class Warlords {
   revenant: WarlordsClass;
   spiritguard: WarlordsClass;
   constructor(data: Record<string, any>) {
-    this.coins = data.coins || 0;
-    this.kills = data.kills || 0;
-    this.deaths = data.deaths || 0;
+    this.coins = data?.coins || 0;
+    this.kills = data?.kills || 0;
+    this.deaths = data?.deaths || 0;
     this.KDR = divide(this.kills, this.deaths);
-    this.wins = data.wins || 0;
-    this.losses = data.losses || 0;
+    this.wins = data?.wins || 0;
+    this.losses = data?.losses || 0;
     this.WLR = divide(this.wins, this.losses);
-    this.winstreak = data.win_streak || 0;
-    this.assists = data.assists || 0;
-    this.class = data.chosen_class || '';
+    this.winstreak = data?.win_streak || 0;
+    this.assists = data?.assists || 0;
+    this.class = data?.chosen_class || '';
     this.pyromancer = new WarlordsClass(data, 'pyromancer');
     this.mage = new WarlordsClass(data, 'mage');
     this.thunderlord = new WarlordsClass(data, 'thunderlord');

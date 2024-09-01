@@ -150,10 +150,10 @@ class SkywarsKit {
 class SkywarsKits {
   kits: SkywarsKit[];
   constructor(kits: Record<string, any>) {
-    this.kits = kits?.map((kit: any) => new SkywarsKit(kit))?.filter((kit: SkywarsKit) => kit?.isKit);
+    this.kits = kits.map((kit: any) => new SkywarsKit(kit)).filter((kit: SkywarsKit) => kit?.isKit);
   }
   get(gameMode: string = '', type: string = ''): SkywarsKit[] {
-    return this.kits?.filter((kit) => kit?.gameMode?.startsWith(gameMode) && kit?.kitType?.startsWith(type));
+    return this.kits.filter((kit) => kit?.gameMode?.startsWith(gameMode) && kit?.kitType.startsWith(type));
   }
 }
 
@@ -176,7 +176,7 @@ export class SkywarsPackages {
     return this.rawPackages
       ?.map((pkg: string) => pkg?.match(/^cage_([A-Za-z]+)-cage$/))
       ?.filter((x: any) => x)
-      ?.map((x: string[]) => x[1]?.replace(/-[a-z]/g, (x) => x[1]?.toUpperCase()));
+      ?.map((x: string[]) => x[1]?.replace(/-[a-z]/g, (x) => x[1].toUpperCase()));
   }
 }
 

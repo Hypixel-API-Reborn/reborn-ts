@@ -68,11 +68,10 @@ test('Player', () => {
   expectTypeOf(data.giftsSent).toEqualTypeOf<number>();
   expect(data.isOnline).toBeDefined();
   expectTypeOf(data.isOnline).toEqualTypeOf<boolean>();
+  expect(data.lastDailyRewardTimestamp).toBeDefined();
+  expectTypeOf(data.lastDailyRewardTimestamp).toEqualTypeOf<number | null>();
   expect(data.lastDailyReward).toBeDefined();
   expectTypeOf(data.lastDailyReward).toEqualTypeOf<Date | null>();
-  expect(data.lastDailyRewardTimestamp).toBeDefined();
-  expect(data.lastDailyRewardTimestamp).toBeGreaterThanOrEqual(0);
-  expectTypeOf(data.lastDailyRewardTimestamp).toEqualTypeOf<number | null>();
   expect(data.totalRewards).toBeDefined();
   expect(data.totalRewards).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.totalRewards).toEqualTypeOf<number>();

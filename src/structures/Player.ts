@@ -116,8 +116,8 @@ class Player {
   giftBundlesReceived: number;
   giftsSent: number;
   isOnline: boolean;
-  lastDailyReward: Date | null;
   lastDailyRewardTimestamp: number | null;
+  lastDailyReward: Date | null;
   totalRewards: number;
   totalDailyRewards: number;
   rewardStreak: number;
@@ -134,8 +134,8 @@ class Player {
     data: Record<string, any>,
     extra: { guild: Guild | null; houses: House[] | null; recentGames: RecentGame[] | null }
   ) {
-    this.nickname = data?.displayname;
-    this.uuid = data?.uuid;
+    this.nickname = data?.displayname || '';
+    this.uuid = data?.uuid || '';
     this.rank = getRank(data);
     this.guild = extra?.guild;
     this.houses = extra?.houses;
@@ -156,20 +156,20 @@ class Player {
     this.prefixColor =
       'MVP++' === this.rank ? (data?.monthlyRankColor ? new Color(data?.monthlyRankColor) : new Color('GOLD')) : null;
     this.karma = data?.karma || 0;
-    this.achievements = recursive(data?.achievements);
+    this.achievements = recursive(data?.achievements) || {};
     this.achievementPoints = data?.achievementPoints || 0;
     this.totalExperience = data?.networkExp || 0;
     this.level = getPlayerLevel(this.totalExperience) || 0;
     this.socialMedia = getSocialMedia(data?.socialMedia) || [];
-    this.giftBundlesSent = data?.giftingMeta ? data?.giftingMeta?.realBundlesGiven || 0 : null;
-    this.giftBundlesReceived = data?.giftingMeta ? data?.giftingMeta?.realBundlesReceived || 0 : null;
-    this.giftsSent = data?.giftingMeta ? data?.giftingMeta?.giftsGiven || 0 : null;
+    this.giftBundlesSent = data?.giftingMeta?.realBundlesGiven || 0;
+    this.giftBundlesReceived = data?.giftingMeta?.realBundlesReceived || 0;
+    this.giftsSent = data?.giftingMeta?.giftsGiven || 0;
     this.isOnline =
       null !== this.lastLoginTimestamp &&
       null !== this.lastLogoutTimestamp &&
       this.lastLoginTimestamp > this.lastLogoutTimestamp;
-    this.lastDailyReward = data?.lastAdsenseGenerateTime ? new Date(data?.lastAdsenseGenerateTime) : null;
     this.lastDailyRewardTimestamp = data?.lastAdsenseGenerateTime || null;
+    this.lastDailyReward = this.lastDailyRewardTimestamp ? new Date(this.lastDailyRewardTimestamp) : null;
     this.totalRewards = data?.totalRewards || 0;
     this.totalDailyRewards = data?.totalDailyRewards || 0;
     this.rewardStreak = data?.rewardStreak || 0;
@@ -202,7 +202,7 @@ class Player {
     };
     this.userLanguage = data?.userLanguage || 'ENGLISH';
     this.claimedLevelingRewards = parseClaimedRewards(data) || [];
-    this.globalCosmetics = data ? new PlayerCosmetics(data) : null;
+    this.globalCosmetics = new PlayerCosmetics(data);
     this.ranksPurchaseTime = {
       VIP: data?.levelUp_VIP ? new Date(data?.levelUp_VIP) : null,
       VIP_PLUS: data?.levelUp_VIP_PLUS ? new Date(data?.levelUp_VIP_PLUS) : null,
