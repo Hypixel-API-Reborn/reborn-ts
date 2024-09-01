@@ -18,10 +18,10 @@ class DuelsGamemode {
   bestWinstreak: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   swings: number;
   hits: number;
@@ -38,10 +38,10 @@ class DuelsGamemode {
     this.bestWinstreak = data[`best_winstreak_mode_${mode}`] || 0;
     this.kills = data[`${mode}_kills`] || 0;
     this.deaths = data[`${mode}_deaths`] || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data[`${mode}_wins`] || 0;
     this.losses = data[`${mode}_losses`] || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames = data[`${mode}_rounds_played`] || 0;
     this.swings = data[`${mode}_melee_swings`] || 0;
     this.hits = data[`${mode}_melee_hits`] || 0;
@@ -65,10 +65,10 @@ class DuelsUHC {
   deathmatch: DuelsGamemode;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   swings: number;
   hits: number;
@@ -89,10 +89,10 @@ class DuelsUHC {
     this.deathmatch = new DuelsGamemode(data, 'uhc_meetup', this.title);
     this.kills = this.solo.kills + this.doubles.kills + this.fours.kills + this.deathmatch.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths + this.fours.deaths + this.deathmatch.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins + this.fours.wins + this.deathmatch.wins;
     this.losses = this.solo.losses + this.doubles.losses + this.fours.losses + this.deathmatch.losses;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames =
       this.solo.playedGames + this.doubles.playedGames + this.fours.playedGames + this.deathmatch.playedGames;
     this.swings = this.solo.swings + this.doubles.swings + this.fours.swings + this.deathmatch.swings;
@@ -124,10 +124,10 @@ class DuelsSkyWars {
   doubles: DuelsGamemode;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   swings: number;
   hits: number;
@@ -146,10 +146,10 @@ class DuelsSkyWars {
     this.doubles = new DuelsGamemode(data, 'sw_doubles', this.title);
     this.kills = this.solo.kills + this.doubles.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins;
     this.losses = this.solo.losses + this.doubles.losses;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames = this.solo.playedGames + this.doubles.playedGames;
     this.swings = this.solo.swings + this.doubles.swings;
     this.hits = this.solo.hits + this.doubles.hits;
@@ -171,10 +171,10 @@ class DuelsMegaWalls {
   doubles: DuelsGamemode;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   swings: number;
   hits: number;
@@ -193,10 +193,10 @@ class DuelsMegaWalls {
     this.doubles = new DuelsGamemode(data, 'mw_doubles', this.title);
     this.kills = this.solo.kills + this.doubles.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins;
     this.losses = this.solo.losses + this.doubles.losses;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames = this.solo.playedGames + this.doubles.playedGames;
     this.swings = this.solo.swings + this.doubles.swings;
     this.hits = this.solo.hits + this.doubles.hits;
@@ -218,10 +218,10 @@ class DuelsOP {
   doubles: DuelsGamemode;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   swings: number;
   hits: number;
@@ -240,10 +240,10 @@ class DuelsOP {
     this.doubles = new DuelsGamemode(data, 'op_doubles', this.title);
     this.kills = this.solo.kills + this.doubles.kills;
     this.deaths = this.solo.deaths + this.doubles.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = this.solo.wins + this.doubles.wins;
     this.losses = this.solo.losses + this.doubles.losses;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames = this.solo.playedGames + this.doubles.playedGames;
     this.swings = this.solo.swings + this.doubles.swings;
     this.hits = this.solo.hits + this.doubles.hits;
@@ -270,10 +270,10 @@ class DuelsBridge {
   ctf: DuelsGamemode;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   swings: number;
   hits: number;
@@ -311,7 +311,7 @@ class DuelsBridge {
       this['2v2v2v2'].deaths +
       this['3v3v3v3'].deaths +
       this.ctf.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins =
       this.solo.wins +
       this.doubles.wins +
@@ -328,7 +328,7 @@ class DuelsBridge {
       this['2v2v2v2'].losses +
       this['3v3v3v3'].losses +
       this.ctf.losses;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames =
       this.solo.playedGames +
       this.doubles.playedGames +
@@ -403,10 +403,10 @@ class Duels {
   title: string | null;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   winstreak: number;
   bestWinstreak: number;
@@ -439,10 +439,10 @@ class Duels {
     this.title = getTitle(data, 'all_modes');
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames = data.games_played_duels || 0;
     this.winstreak = data.current_winstreak || 0;
     this.bestWinstreak = data.best_overall_winstreak || 0;

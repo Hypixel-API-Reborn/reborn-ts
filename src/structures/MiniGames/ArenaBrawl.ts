@@ -4,22 +4,22 @@ class ArenaBrawlMode {
   damage: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   healed: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   games: number;
   winstreak: number;
   constructor(data: Record<string, any>, mode: string) {
     this.damage = data[`damage_${mode}`];
     this.kills = data[`kills_${mode}`];
     this.deaths = data[`deaths_${mode}`];
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.healed = data[`healed_${mode}`];
     this.wins = data[`wins_${mode}`];
     this.losses = data[`losses_${mode}`];
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.games = data[`games_${mode}`];
     this.winstreak = data[`win_streaks_${mode}`];
   }

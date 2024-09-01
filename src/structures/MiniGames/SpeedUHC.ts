@@ -25,10 +25,10 @@ class SpeedUHC {
   coins: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   playedGames: number;
   winstreak: number;
   killstreak: number;
@@ -47,10 +47,10 @@ class SpeedUHC {
     this.coins = data.coins || 0;
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.playedGames = data.games || 0;
     this.winstreak = data.win_streak || 0;
     this.killstreak = data.killstreak || 0;

@@ -3,7 +3,7 @@ import divide from '../../utils/divide';
 class WarlordsClass {
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   gamesPlayed: number;
   damage: number;
   heal: number;
@@ -11,7 +11,7 @@ class WarlordsClass {
   constructor(data: Record<string, any>, className: string) {
     this.wins = data[`wins_${className}`] || 0;
     this.losses = data[`losses_${className}`] || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.gamesPlayed = data[`${className}_plays`];
     this.damage = data[`damage_${className}`] || 0;
     this.heal = data[`heal_${className}`] || 0;
@@ -23,10 +23,10 @@ class Warlords {
   coins: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   losses: number;
-  WLRatio: number;
+  WLR: number;
   winstreak: number;
   assists: number;
   class: string;
@@ -50,10 +50,10 @@ class Warlords {
     this.coins = data.coins || 0;
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data.wins || 0;
     this.losses = data.losses || 0;
-    this.WLRatio = divide(this.wins, this.losses);
+    this.WLR = divide(this.wins, this.losses);
     this.winstreak = data.win_streak || 0;
     this.assists = data.assists || 0;
     this.class = data.chosen_class || '';

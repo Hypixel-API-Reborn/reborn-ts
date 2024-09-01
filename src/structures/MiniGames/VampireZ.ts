@@ -3,12 +3,12 @@ import divide from '../../utils/divide';
 class VampireZRole {
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   constructor(data: Record<string, any>, role: string) {
     this.kills = data[`${role}_kills`];
     this.deaths = data[`${role}_deaths`];
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = data[`${role}_wins`];
   }
 }
@@ -22,7 +22,7 @@ class VampireZ {
   vampire: VampireZRole;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   wins: number;
   constructor(data: Record<string, any>) {
     this.coins = data.coins || 0;
@@ -33,7 +33,7 @@ class VampireZ {
     this.vampire = new VampireZRole(data, 'vampire');
     this.kills = this.human.kills + this.vampire.kills;
     this.deaths = this.human.deaths + this.vampire.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.wins = this.human.wins + this.vampire.wins;
   }
 }

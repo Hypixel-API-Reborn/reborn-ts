@@ -83,9 +83,9 @@ export interface BedWarsModeStats {
   finalDeaths: number;
   beds: BedWarsBeds;
   avg: BedWarsAvg;
-  KDRatio: number;
-  WLRatio: number;
-  finalKDRatio: number;
+  KDR: number;
+  WLR: number;
+  FKDR: number;
 }
 
 export interface BedwarsDreamModeStats {
@@ -171,9 +171,9 @@ function generateStatsForMode(data: Record<string, any>, mode: string): BedWarsM
       finalKills: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_games_played_bedwars`]),
       bedsBroken: divide(data[`${mode}_beds_broken_bedwars`], data[`${mode}_games_played_bedwars`])
     },
-    KDRatio: divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]),
-    WLRatio: divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]),
-    finalKDRatio: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`])
+    KDR: divide(data[`${mode}_kills_bedwars`], data[`${mode}_deaths_bedwars`]),
+    WLR: divide(data[`${mode}_wins_bedwars`], data[`${mode}_losses_bedwars`]),
+    FKDR: divide(data[`${mode}_final_kills_bedwars`], data[`${mode}_final_deaths_bedwars`])
   };
 }
 
@@ -384,9 +384,9 @@ class BedWars {
   collectedItemsTotal: BedWarsCollectedItems;
   beds: BedWarsBeds;
   avg: BedWarsAvg;
-  KDRatio: number;
-  finalKDRatio: number;
-  WLRatio: number;
+  KDR: number;
+  FKDR: number;
+  WLR: number;
   solo: BedWarsModeStats;
   doubles: BedWarsModeStats;
   threes: BedWarsModeStats;
@@ -426,9 +426,9 @@ class BedWars {
       finalKills: divide(this.finalKills, this.playedGames),
       bedsBroken: divide(this.beds.broken, this.playedGames)
     };
-    this.KDRatio = divide(this.kills, this.deaths);
-    this.finalKDRatio = divide(this.finalKills, this.finalDeaths);
-    this.WLRatio = divide(this.wins, this.losses);
+    this.KDR = divide(this.kills, this.deaths);
+    this.FKDR = divide(this.finalKills, this.finalDeaths);
+    this.WLR = divide(this.wins, this.losses);
     this.solo = generateStatsForMode(data, 'eight_one');
     this.doubles = generateStatsForMode(data, 'eight_two');
     this.threes = generateStatsForMode(data, 'four_three');

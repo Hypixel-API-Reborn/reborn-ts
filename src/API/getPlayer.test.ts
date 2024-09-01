@@ -236,9 +236,9 @@ test('getPlayer', async () => {
       expect(data.stats.pit.deaths).toBeDefined();
       expectTypeOf(data.stats.pit.deaths).toEqualTypeOf<number>();
       expect(data.stats.pit.deaths).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.KDRatio).toBeDefined();
-      expectTypeOf(data.stats.pit.KDRatio).toEqualTypeOf<number>();
-      expect(data.stats.pit.KDRatio).toBeGreaterThanOrEqual(0);
+      expect(data.stats.pit.KDR).toBeDefined();
+      expectTypeOf(data.stats.pit.KDR).toEqualTypeOf<number>();
+      expect(data.stats.pit.KDR).toBeGreaterThanOrEqual(0);
       expect(data.stats.pit.assists).toBeDefined();
       expectTypeOf(data.stats.pit.assists).toEqualTypeOf<number>();
       expect(data.stats.pit.assists).toBeGreaterThanOrEqual(0);

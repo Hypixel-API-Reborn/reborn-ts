@@ -40,7 +40,7 @@ class UHC {
   wins: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   headsEaten: number;
   ultimatesCrafted: number;
   extraUltimatesCrafted: number;
@@ -80,7 +80,7 @@ class UHC {
       this.brawl.deaths +
       this.soloBrawl.deaths +
       this.duoBrawl.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.headsEaten =
       this.solo.headsEaten +
       this.team.headsEaten +

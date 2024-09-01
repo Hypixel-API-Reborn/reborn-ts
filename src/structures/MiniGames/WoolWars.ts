@@ -8,7 +8,7 @@ export interface WoolWarsStats {
   placeBreakRatio: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   assists: number;
   powerups: number;
 }
@@ -44,7 +44,7 @@ function generateStatsFor(data: Record<string, any>, className: string): WoolWar
     placeBreakRatio: divide(workingData.wool_placed || 0, workingData.blocks_broken || 0),
     kills: workingData.kills || 0,
     deaths: workingData.deaths || 0,
-    KDRatio: divide(workingData.kills, workingData.deaths),
+    KDR: divide(workingData.kills, workingData.deaths),
     assists: workingData.assists || 0,
     powerups: workingData.powerups_gotten || 0
   };
@@ -63,7 +63,7 @@ class WoolWars {
   placeBreakRatio: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   assists: number;
   powerups: number;
   selectedClass: 'ASSAULT' | 'TANK' | 'GOLEM' | 'SWORDSMAN' | 'ENGINEER' | 'ARCHER' | 'NONE';
@@ -88,7 +88,7 @@ class WoolWars {
     this.placeBreakRatio = divide(this.woolsPlaced, this.blocksBroken);
     this.kills = data.kills || 0;
     this.deaths = data.deaths || 0;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.assists = data.assists || 0;
     this.powerups = data.powerups_gotten || 0;
     this.selectedClass = data.wool_wars?.selected_class || 'NONE';
