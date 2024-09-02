@@ -121,8 +121,16 @@ export interface SkyblockMemberSkills {
   average: number;
 }
 
+export interface SkyblockMemberDungeonsTypesCompletions {
+  completions: Record<string, number>;
+}
+export interface SkyblockMemberDungeonsTypesCatacombsCompletions extends SkyblockMemberDungeonsTypesCompletions {
+  experience: SkyblockSkillLevel;
+}
+
 export interface SkyblockMemberDungeonsTypes {
-  catacombs: SkyblockSkillLevel;
+  catacombs: SkyblockMemberDungeonsTypesCatacombsCompletions;
+  masterCatacombs: SkyblockMemberDungeonsTypesCompletions;
 }
 
 export interface SkyblockMemberDungeonsClasses {
@@ -375,9 +383,30 @@ export function getSlayer(data: Record<string, any>): SkyblockMemberSlayer | nul
   };
 }
 
-export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons | null {
+function getCompletions(data: Record<string, any>): Record<string, number> {
+  const completions: Record<string, number> = {};
+
+  for (const tier in data) {
+    completions[`Floor_${tier}`] = data[tier];
+  }
+
+  return completions;
+}
+
+export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons {
   return {
-    types: { catacombs: getLevelByXp(data.dungeons?.dungeon_types?.catacombs ?? 0, 'dungeons') },
+    types: {
+      catacombs: {
+        experience: getLevelByXp(
+          data.dungeons?.dungeon_types?.catacombs ? data.dungeons.dungeon_types.catacombs.experience : null,
+          'dungeons'
+        ),
+        completions: getCompletions(data.dungeons?.dungeon_types?.catacombs?.tier_completions)
+      },
+      masterCatacombs: {
+        completions: getCompletions(data.dungeons?.dungeon_types?.master_catacombs?.tier_completions)
+      }
+    },
     classes: {
       healer: getLevelByXp(data.dungeons?.player_classes?.healer ?? 0, 'dungeons'),
       mage: getLevelByXp(data.dungeons?.player_classes?.mage ?? 0, 'dungeons'),
