@@ -32,7 +32,7 @@
   "author": "Kathund",
   "dependencies": {
     "axios": "^1.7.7",
-    "farming-weight": "^0.4.12",
+    "farming-weight": "^0.4.13",
     "node-cache": "^5.1.2",
     "prismarine-nbt": "^2.5.0",
     "rss-parser": "^3.13.0",
