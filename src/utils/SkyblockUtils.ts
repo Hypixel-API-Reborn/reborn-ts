@@ -543,3 +543,29 @@ export function parseGearScore(lore: any): number {
   }
   return 0;
 }
+
+export interface SkyblockMemberKuudra {
+  none: number;
+  hot: number;
+  burning: number;
+  fiery: number;
+  highestWaveHot: number;
+  highestWaveFiery: number;
+  infernal: number;
+  highestWaveInfernal: number;
+  highestWaveBurning: number;
+}
+
+export function getKuudra(data: Record<string, any>): SkyblockMemberKuudra {
+  return {
+    none: data?.kuudra_completed_tiers?.none || 0,
+    hot: data?.kuudra_completed_tiers?.hot || 0,
+    burning: data?.kuudra_completed_tiers?.burning || 0,
+    fiery: data?.kuudra_completed_tiers?.fiery || 0,
+    highestWaveHot: data?.kuudra_completed_tiers?.highest_wave_hot || 0,
+    highestWaveFiery: data?.kuudra_completed_tiers?.highest_wave_fiery || 0,
+    infernal: data?.kuudra_completed_tiers?.infernal || 0,
+    highestWaveInfernal: data?.kuudra_completed_tiers?.highest_wave_infernal || 0,
+    highestWaveBurning: data?.kuudra_completed_tiers?.highest_wave_burning || 0
+  };
+}

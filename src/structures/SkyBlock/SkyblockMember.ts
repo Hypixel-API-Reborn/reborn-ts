@@ -8,6 +8,7 @@ import {
   SkyblockMemberChocolateFactoryData,
   SkyblockMemberDungeons,
   SkyblockMemberJacobData,
+  SkyblockMemberKuudra,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
   SkyblockMemberStats,
@@ -18,6 +19,7 @@ import {
   getChocolateFactory,
   getDungeons,
   getJacobData,
+  getKuudra,
   getLevelByXp,
   getMemberStats,
   getPetLevel,
@@ -120,6 +122,7 @@ class SkyblockMember {
   skills: SkyblockMemberSkills;
   bestiary: number;
   slayer: SkyblockMemberSlayer | null;
+  kuudra: SkyblockMemberKuudra;
   dungeons: SkyblockMemberDungeons | null;
   collections: Record<string, number>;
   purse: number;
@@ -157,6 +160,7 @@ class SkyblockMember {
     this.skills = getSkills(data.m);
     this.bestiary = getBestiaryLevel(data.m);
     this.slayer = getSlayer(data.m);
+    this.kuudra = getKuudra(data.m);
     this.dungeons = getDungeons(data.m);
     this.collections = data.m.collection ? data.m.collection : null;
     this.purse = data.m?.currencies?.coin_purse ?? 0;
