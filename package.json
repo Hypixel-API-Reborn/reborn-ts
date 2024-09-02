@@ -48,7 +48,7 @@
     "@eslint/js": "^9.9.1",
     "@j4cobi/eslint-plugin-sort-imports": "^1.0.2",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^20.16.2",
+    "@types/node": "^20.16.3",
     "@vitest/coverage-v8": "^2.0.5",
     "@vitest/ui": "^2.0.5",
     "dotenv": "^16.4.5",
