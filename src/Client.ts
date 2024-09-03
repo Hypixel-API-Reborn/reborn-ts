@@ -4,7 +4,17 @@ import Errors from './Errors';
 import RateLimit from './Private/RateLimit';
 import Requests from './Private/Requests';
 import Updater from './Private/Updater';
-import { ClientOptions } from './typings/Client';
+
+export interface ClientOptions {
+  cache?: boolean;
+  cacheTime?: number;
+  cacheMaxKeys?: number;
+  cacheCheckPeriod?: number;
+  rateLimit?: 'AUTO' | 'NONE';
+  silent?: boolean;
+  checkForUpdates?: boolean;
+  checkForUpdatesInterval?: number;
+}
 
 const clients: Client[] = [];
 
