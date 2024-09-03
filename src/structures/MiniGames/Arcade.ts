@@ -106,35 +106,6 @@ export class BountyHunters {
   }
 }
 
-export class CaptureTheWool {
-  wins: number;
-  losses: number;
-  WLR: number;
-  draws: number;
-  kills: number;
-  deaths: number;
-  KDR: number;
-  assists: number;
-  woolPickedUp: number;
-  woolCaptured: number;
-  fastestWin: number;
-  longestGame: number;
-  constructor(data: Record<string, any>) {
-    this.wins = data.woolhunt_participated_wins || 0;
-    this.losses = data.woolhunt_participated_losses || 0;
-    this.WLR = divide(this.wins, this.losses);
-    this.draws = data.woolhunt_participated_draws || 0;
-    this.kills = data.woolhunt_kills || 0;
-    this.deaths = data.woolhunt_deaths || 0;
-    this.KDR = divide(this.kills, this.deaths);
-    this.assists = data.woolhunt_assists || 0;
-    this.woolPickedUp = data.woolhunt_wools_stolen || 0;
-    this.woolCaptured = data.woolhunt_wools_captured || 0;
-    this.fastestWin = data.woolhunt_fastest_win || 0;
-    this.longestGame = data.woolhunt_longest_game || 0;
-  }
-}
-
 export class DragonWars {
   wins: number;
   kills: number;
@@ -416,7 +387,6 @@ class Arcade {
   flashDisabled: boolean;
   blockingDead: BlockingDead;
   bountyHunters: BountyHunters;
-  captureTheWool: CaptureTheWool;
   dragonWars: DragonWars;
   dropper: Dropper;
   enderSpleef: EnderSpleef;
@@ -439,7 +409,6 @@ class Arcade {
     this.flashDisabled = !data.flash;
     this.blockingDead = new BlockingDead(data);
     this.bountyHunters = new BountyHunters(data);
-    this.captureTheWool = new CaptureTheWool(data);
     this.dragonWars = new DragonWars(data);
     this.dropper = new Dropper(data.dropper);
     this.enderSpleef = new EnderSpleef(data);

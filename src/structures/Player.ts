@@ -25,7 +25,7 @@ import UHC from './MiniGames/UHC';
 import VampireZ from './MiniGames/VampireZ';
 import Walls from './MiniGames/Walls';
 import Warlords from './MiniGames/Warlords';
-import WoolWars from './MiniGames/WoolWars';
+import WoolGames from './MiniGames/WoolGames';
 import { getPlayerLevel, getRank, getSocialMedia, parseClaimedRewards, playerLevelProgress } from '../utils/Player';
 import { recursive } from '../utils/removeSnakeCase';
 
@@ -177,7 +177,7 @@ class Player {
           vampirez: data.stats.VampireZ ? new VampireZ(data.stats.VampireZ) : null,
           walls: data.stats.Walls ? new Walls(data.stats.Walls) : null,
           warlords: data.stats.Battleground ? new Warlords(data.stats.Battleground) : null,
-          woolwars: data.stats.WoolGames ? new WoolWars(data.stats.WoolGames) : null
+          woolgames: data.stats.WoolGames ? new WoolGames(data.stats.WoolGames) : null
         }
       : null;
     this.userLanguage = data.userLanguage || 'ENGLISH';
