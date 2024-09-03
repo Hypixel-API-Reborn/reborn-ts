@@ -121,16 +121,53 @@ export interface SkyblockMemberSkills {
   average: number;
 }
 
-export interface SkyblockMemberDungeonsTypesCompletions {
-  completions: Record<string, number>;
-}
-export interface SkyblockMemberDungeonsTypesCatacombsCompletions extends SkyblockMemberDungeonsTypesCompletions {
-  experience: SkyblockSkillLevel;
+export interface SkyblockMemberDungeonsCompletions {
+  catacombs: Record<string, number>;
+  masterMode: Record<string, number>;
 }
 
-export interface SkyblockMemberDungeonsTypes {
-  catacombs: SkyblockMemberDungeonsTypesCatacombsCompletions;
-  masterCatacombs: SkyblockMemberDungeonsTypesCompletions;
+export type SkyblockDungeonClass = 'healer' | 'mage' | 'berserk' | 'archer' | 'tank';
+
+export interface RawSkyblockDungeonRun {
+  timestamp: number;
+  score_exploration: number;
+  score_speed: number;
+  score_skill: number;
+  score_bonus: number;
+  dungeon_class: SkyblockDungeonClass;
+  teammates: string[];
+  elapsed_time: number;
+  damage_dealt: number;
+  deaths: number;
+  mobs_killed: number;
+  secrets_found: number;
+  damage_mitigated: number;
+  ally_healing: number;
+}
+
+export interface DungeonsFloorStats {
+  fastestRun: RawSkyblockDungeonRun;
+  fastestSRun: RawSkyblockDungeonRun;
+  fastestSPlusRun: RawSkyblockDungeonRun;
+  completions: number;
+}
+
+export interface SkyblockMemberDungeonsFloors {
+  entrance: DungeonsFloorStats;
+  floor1: DungeonsFloorStats;
+  floor2: DungeonsFloorStats;
+  floor3: DungeonsFloorStats;
+  floor4: DungeonsFloorStats;
+  floor5: DungeonsFloorStats;
+  floor6: DungeonsFloorStats;
+  floor7: DungeonsFloorStats;
+  masterMode1: DungeonsFloorStats;
+  masterMode2: DungeonsFloorStats;
+  masterMode3: DungeonsFloorStats;
+  masterMode4: DungeonsFloorStats;
+  masterMode5: DungeonsFloorStats;
+  masterMode6: DungeonsFloorStats;
+  masterMode7: DungeonsFloorStats;
 }
 
 export interface SkyblockMemberDungeonsClasses {
@@ -139,11 +176,27 @@ export interface SkyblockMemberDungeonsClasses {
   berserk: SkyblockSkillLevel;
   archer: SkyblockSkillLevel;
   tank: SkyblockSkillLevel;
+  selected: SkyblockDungeonClass;
+}
+
+export interface SkyblockMemberDungeonsEssence {
+  diamond: number;
+  dragon: number;
+  spider: number;
+  wither: number;
+  undead: number;
+  gold: number;
+  ice: number;
+  crimson: number;
 }
 
 export interface SkyblockMemberDungeons {
-  types: SkyblockMemberDungeonsTypes;
+  experience: SkyblockSkillLevel;
+  secrets: number;
+  completions: SkyblockMemberDungeonsCompletions;
+  floors: SkyblockMemberDungeonsFloors;
   classes: SkyblockMemberDungeonsClasses;
+  essence: SkyblockMemberDungeonsEssence;
 }
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
@@ -393,26 +446,73 @@ function getCompletions(data: Record<string, any>): Record<string, number> {
   return completions;
 }
 
+function getDungeonsFloor(
+  data: Record<string, any>,
+  type: 'catacombs' | 'master_catacombs',
+  floor: '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
+) {
+  return {
+    fastestRun: (data?.dungeons?.dungeon_types[type]?.best_runs[floor] || []).sort(
+      (a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time
+    )[0],
+    fastestSRun: (data?.dungeons?.dungeon_types[type]?.best_runs[floor] || [])
+      .filter(
+        (run: RawSkyblockDungeonRun) =>
+          270 >= run?.score_exploration + run?.score_speed + run?.score_skill + run?.score_bonus
+      )
+      .sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
+    fastestSPlusRun: (data?.dungeons?.dungeon_types[type]?.best_runs[floor] || [])
+      .filter(
+        (run: RawSkyblockDungeonRun) =>
+          300 >= run?.score_exploration + run?.score_speed + run?.score_skill + run?.score_bonus
+      )
+      .sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
+    completions: data?.dungeonXp?.dungeon_types[type]?.tier_completions[floor] || 0
+  };
+}
+
 export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons {
   return {
-    types: {
-      catacombs: {
-        experience: getLevelByXp(
-          data.dungeons?.dungeon_types?.catacombs ? data.dungeons.dungeon_types.catacombs.experience : null,
-          'dungeons'
-        ),
-        completions: getCompletions(data.dungeons?.dungeon_types?.catacombs?.tier_completions)
-      },
-      masterCatacombs: {
-        completions: getCompletions(data.dungeons?.dungeon_types?.master_catacombs?.tier_completions)
-      }
+    experience: getLevelByXp(data?.dungeons?.dungeon_types?.catacombs?.experience || 0, 'dungeons'),
+    secrets: data?.dungeons?.secrets || 0,
+    completions: {
+      catacombs: getCompletions(data?.dungeons?.dungeon_types?.catacombs?.tier_completions),
+      masterMode: getCompletions(data?.dungeons?.dungeon_types?.master_catacombs?.tier_completions)
+    },
+    floors: {
+      entrance: getDungeonsFloor(data, 'catacombs', '0'),
+      floor1: getDungeonsFloor(data, 'catacombs', '1'),
+      floor2: getDungeonsFloor(data, 'catacombs', '2'),
+      floor3: getDungeonsFloor(data, 'catacombs', '3'),
+      floor4: getDungeonsFloor(data, 'catacombs', '4'),
+      floor5: getDungeonsFloor(data, 'catacombs', '5'),
+      floor6: getDungeonsFloor(data, 'catacombs', '6'),
+      floor7: getDungeonsFloor(data, 'catacombs', '7'),
+      masterMode1: getDungeonsFloor(data, 'master_catacombs', '1'),
+      masterMode2: getDungeonsFloor(data, 'master_catacombs', '2'),
+      masterMode3: getDungeonsFloor(data, 'master_catacombs', '3'),
+      masterMode4: getDungeonsFloor(data, 'master_catacombs', '4'),
+      masterMode5: getDungeonsFloor(data, 'master_catacombs', '5'),
+      masterMode6: getDungeonsFloor(data, 'master_catacombs', '6'),
+      masterMode7: getDungeonsFloor(data, 'master_catacombs', '7')
     },
     classes: {
-      healer: getLevelByXp(data.dungeons?.player_classes?.healer ?? 0, 'dungeons'),
-      mage: getLevelByXp(data.dungeons?.player_classes?.mage ?? 0, 'dungeons'),
-      berserk: getLevelByXp(data.dungeons?.player_classes?.berserk ?? 0, 'dungeons'),
-      archer: getLevelByXp(data.dungeons?.player_classes?.archer ?? 0, 'dungeons'),
-      tank: getLevelByXp(data.dungeons?.player_classes?.tank ?? 0, 'dungeons')
+      healer: getLevelByXp(data?.dungeons?.player_classes?.healer?.experience || 0, 'dungeons'),
+      mage: getLevelByXp(data?.dungeons?.player_classes?.mage?.experience || 0, 'dungeons'),
+      berserk: getLevelByXp(data?.dungeons?.player_classes?.berserk?.experience || 0, 'dungeons'),
+      archer: getLevelByXp(data?.dungeons?.player_classes?.archer?.experience || 0, 'dungeons'),
+      tank: getLevelByXp(data?.dungeons?.player_classes?.tank?.experience || 0, 'dungeons'),
+      selected: data?.dungeons?.selected_dungeon_class || 'mage'
+    },
+    essence: {
+      diamond: data?.currencies?.essence?.DIAMOND?.current || 0,
+      dragon: data?.currencies?.essence?.DRAGON?.current || 0,
+      spider: data?.currencies?.essence?.SPIDER?.current || 0,
+      wither: data?.currencies?.essence?.WITHER?.current || 0,
+      undead: data?.currencies?.essence?.UNDEAD?.current || 0,
+      gold: data?.currencies?.essence?.GOLD?.current || 0,
+      ice: data?.currencies?.essence?.ICE?.current || 0,
+      crimson: data?.currencies?.essence?.CRIMSON?.current || 0
     }
   };
 }

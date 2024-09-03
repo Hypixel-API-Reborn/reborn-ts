@@ -118,7 +118,7 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.slayer).toEqualTypeOf<SkyblockMemberSlayer | null>();
 
     expect(member.dungeons).toBeDefined();
-    expectTypeOf(member.dungeons).toEqualTypeOf<SkyblockMemberDungeons | null>();
+    expectTypeOf(member.dungeons).toEqualTypeOf<SkyblockMemberDungeons>();
 
     expect(member.collections).toBeDefined();
     expectTypeOf(member.collections).toEqualTypeOf<Record<string, number>>();

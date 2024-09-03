@@ -123,7 +123,7 @@ class SkyblockMember {
   bestiary: number;
   slayer: SkyblockMemberSlayer | null;
   kuudra: SkyblockMemberKuudra;
-  dungeons: SkyblockMemberDungeons | null;
+  dungeons: SkyblockMemberDungeons;
   collections: Record<string, number>;
   purse: number;
   stats: SkyblockMemberStats | null;
