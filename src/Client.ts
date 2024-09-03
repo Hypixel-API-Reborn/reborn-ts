@@ -2,7 +2,7 @@ import API from './API';
 import CacheHandler from './Private/CacheHandler';
 import Errors from './Errors';
 import RateLimit from './Private/RateLimit';
-import Requests from './Private/Requests';
+import RequestHandler from './Private/RequestHandler';
 import Updater from './Private/Updater';
 
 export interface ClientOptions {
@@ -20,7 +20,7 @@ const clients: Client[] = [];
 
 class Client {
   declare options: ClientOptions;
-  declare requests: Requests;
+  declare requestHandler: RequestHandler;
   declare cacheHandler: CacheHandler;
   declare updater: Updater;
   declare errors: Errors;
@@ -32,7 +32,7 @@ class Client {
     this.errors = new Errors();
     if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
     this.options = this.parasOptions(options);
-    this.requests = new Requests(this);
+    this.requestHandler = new RequestHandler(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
     this.rateLimit = new RateLimit(this);

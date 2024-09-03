@@ -1,7 +1,7 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
-import { RequestOptions } from '../Private/Requests';
+import { RequestOptions } from '../Private/RequestHandler';
 
 class getActiveHouses extends Endpoint {
   readonly client: Client;
@@ -11,7 +11,7 @@ class getActiveHouses extends Endpoint {
   }
 
   async execute(options?: RequestOptions): Promise<House[]> {
-    const res = await this.client.requests.request('/housing/active', options);
+    const res = await this.client.requestHandler.request('/housing/active', options);
     if (res.options.raw) return res.data;
     return res.data.map((b: any) => new House(b));
   }
