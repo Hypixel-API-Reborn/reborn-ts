@@ -44,7 +44,7 @@ test('getSkyblockGovernment', async () => {
     expectTypeOf(candidate.keyBenefit).toEqualTypeOf<string>();
 
     expect(candidate.perks).toBeDefined();
-    expectTypeOf(candidate.perks).toEqualTypeOf<Perk[]>();
+    expectTypeOf(candidate.perks).toEqualTypeOf<Perk[] | null>();
 
     expect(candidate.isMayor).toBeDefined();
     expectTypeOf(candidate.isMayor).toEqualTypeOf<boolean>();
