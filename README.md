@@ -3,4 +3,4 @@
 <h1>Hypixel API • Reborn</h1>
 </div>
 
-hi? why are u seeing this
+hi? why are u seeing this ? why?
