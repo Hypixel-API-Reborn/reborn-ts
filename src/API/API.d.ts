@@ -1,4 +1,4 @@
-import { RequestOptions } from '../Private/Requests';
+import { RequestOptions } from '../Private/RequestHandler';
 
 export interface PlayerRequestOptions extends RequestOptions {
   guild?: boolean;

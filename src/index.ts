@@ -1,3 +1,4 @@
+/* v8 ignore next 200 */
 export * from './API/getAchievements';
 export * from './API/getActiveHouses';
 export * from './API/getBoosters';
@@ -29,7 +30,7 @@ export * from './API/getWatchdogStats';
 export * from './Private/CacheHandler';
 export * from './Private/Endpoint';
 export * from './Private/RateLimit';
-export * from './Private/Requests';
+export * from './Private/RequestHandler';
 export * from './Private/Updater';
 
 export * from './structures/Boosters/Booster';
