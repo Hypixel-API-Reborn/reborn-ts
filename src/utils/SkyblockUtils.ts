@@ -440,7 +440,7 @@ function getCompletions(data: Record<string, any>): Record<string, number> {
   const completions: Record<string, number> = {};
 
   for (const tier in data) {
-    completions[`Floor_${tier}`] = data[tier];
+    completions[`Floor_${tier}`] = data?.[tier];
   }
 
   return completions;
@@ -452,22 +452,22 @@ function getDungeonsFloor(
   floor: '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
 ) {
   return {
-    fastestRun: (data?.dungeons?.dungeon_types[type]?.best_runs[floor] || []).sort(
+    fastestRun: (data?.dungeons?.dungeon_types?.[type]?.best_runs?.[floor] || [])?.sort(
       (a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time
     )[0],
-    fastestSRun: (data?.dungeons?.dungeon_types[type]?.best_runs[floor] || [])
-      .filter(
+    fastestSRun: (data?.dungeons?.dungeon_types?.[type]?.best_runs?.[floor] || [])
+      ?.filter(
         (run: RawSkyblockDungeonRun) =>
           270 >= run?.score_exploration + run?.score_speed + run?.score_skill + run?.score_bonus
       )
-      .sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
-    fastestSPlusRun: (data?.dungeons?.dungeon_types[type]?.best_runs[floor] || [])
-      .filter(
+      ?.sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
+    fastestSPlusRun: (data?.dungeons?.dungeon_type?.s[type]?.best_runs?.[floor] || [])
+      ?.filter(
         (run: RawSkyblockDungeonRun) =>
           300 >= run?.score_exploration + run?.score_speed + run?.score_skill + run?.score_bonus
       )
-      .sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
-    completions: data?.dungeonXp?.dungeon_types[type]?.tier_completions[floor] || 0
+      ?.sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
+    completions: data?.dungeonXp?.dungeon_types?.[type]?.tier_completions?.[floor] || 0
   };
 }
 
@@ -644,7 +644,7 @@ export function parseGearScore(lore: any): number {
   return 0;
 }
 
-export interface SkyblockMemberKuudra {
+export interface SkyblockMemberCrimsonKuudra {
   none: number;
   hot: number;
   burning: number;
@@ -655,17 +655,145 @@ export interface SkyblockMemberKuudra {
   highestWaveInfernal: number;
   highestWaveBurning: number;
 }
+export interface SkyblockMemberCrimsonReputation {
+  mages: number;
+  barbarians: number;
+}
+export interface SkyblockMemberCrimsonTrophyFishCaught {
+  total: number;
+  bronze: number;
+  silver: number;
+  gold: number;
+  diamond: number;
+}
+export interface SkyblockMemberCrimsonTrophyFish {
+  rank: SkyblockMemberTrophyFishRank;
+  caught: SkyblockMemberCrimsonTrophyFishCaught;
+}
+export type CrimsonIsleDojoRank = 'S' | 'A' | 'B' | 'C' | 'D' | 'F';
+export type CrimsonIsleBelt = 'White' | 'Yellow' | 'Green' | 'Blue' | 'Brown' | 'Black';
 
-export function getKuudra(data: Record<string, any>): SkyblockMemberKuudra {
+export interface SkyblockMemberCrimsonDojoMinigame {
+  points: number;
+  rank: CrimsonIsleDojoRank;
+}
+export interface SkyblockMemberCrimsonDojo {
+  belt: CrimsonIsleBelt;
+  force: SkyblockMemberCrimsonDojoMinigame;
+  stamina: SkyblockMemberCrimsonDojoMinigame;
+  mastery: SkyblockMemberCrimsonDojoMinigame;
+  discipline: SkyblockMemberCrimsonDojoMinigame;
+  swiftness: SkyblockMemberCrimsonDojoMinigame;
+  control: SkyblockMemberCrimsonDojoMinigame;
+  tenacity: SkyblockMemberCrimsonDojoMinigame;
+}
+export interface SkyblockMemberCrimson {
+  faction: 'mages' | 'barbarians' | null;
+  reputation: SkyblockMemberCrimsonReputation;
+  trophyFish: SkyblockMemberCrimsonTrophyFish;
+  dojo: SkyblockMemberCrimsonDojo;
+  kuudra: SkyblockMemberCrimsonKuudra;
+}
+
+function getScore(points: number) {
+  if (1000 <= points) {
+    return 'S';
+  } else if (800 <= points) {
+    return 'A';
+  } else if (600 <= points) {
+    return 'B';
+  } else if (400 <= points) {
+    return 'C';
+  } else if (200 <= points) {
+    return 'D';
+  }
+  return 'F';
+}
+
+function getBelt(points: number) {
+  if (7000 <= points) {
+    return 'Black';
+  } else if (6000 <= points) {
+    return 'Brown';
+  } else if (4000 <= points) {
+    return 'Blue';
+  } else if (2000 <= points) {
+    return 'Green';
+  } else if (1000 <= points) {
+    return 'Yellow';
+  }
+  return 'White';
+}
+
+export function getCrimsonIsle(data: Record<string, any>): SkyblockMemberCrimson {
   return {
-    none: data?.kuudra_completed_tiers?.none || 0,
-    hot: data?.kuudra_completed_tiers?.hot || 0,
-    burning: data?.kuudra_completed_tiers?.burning || 0,
-    fiery: data?.kuudra_completed_tiers?.fiery || 0,
-    highestWaveHot: data?.kuudra_completed_tiers?.highest_wave_hot || 0,
-    highestWaveFiery: data?.kuudra_completed_tiers?.highest_wave_fiery || 0,
-    infernal: data?.kuudra_completed_tiers?.infernal || 0,
-    highestWaveInfernal: data?.kuudra_completed_tiers?.highest_wave_infernal || 0,
-    highestWaveBurning: data?.kuudra_completed_tiers?.highest_wave_burning || 0
+    faction: data?.nether_island_player_data?.selected_faction || null,
+    reputation: {
+      barbarians: data?.nether_island_player_data?.barbarians_reputation ?? 0,
+      mages: data?.nether_island_player_data?.mages_reputation ?? 0
+    },
+    trophyFish: {
+      rank: getTrophyFishRank((data?.nether_island_player_data?.trophy_fish?.rewards ?? [])?.length),
+      caught: {
+        total: data?.nether_island_player_data?.trophy_fish?.total_caught || 0,
+        bronze:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_bronze')).length ||
+          0,
+        silver:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_silver')).length ||
+          0,
+        gold:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_gold')).length || 0,
+        diamond:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_diamond')).length ||
+          0
+      }
+    },
+    dojo: {
+      belt: getBelt(
+        Object.keys(data?.nether_island_player_data?.dojo ?? {})
+          .filter((key) => key.startsWith('dojo_points'))
+          .reduce((acc, key) => acc + (data?.nether_island_player_data?.dojo[key] || 0), 0)
+      ),
+      force: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_mob_kb || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_mob_kb || 0)
+      },
+      stamina: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_wall_jump || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_wall_jump || 0)
+      },
+      mastery: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_archer || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_archer || 0)
+      },
+      discipline: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_sword_swap || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_sword_swap || 0)
+      },
+      swiftness: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_snake || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_snake || 0)
+      },
+      control: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_lock_head || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_lock_head || 0)
+      },
+      tenacity: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_fireball || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_fireball || 0)
+      }
+    },
+    kuudra: {
+      none: data?.nether_island_player_data?.kuudra_completed_tiers?.none || 0,
+      hot: data?.nether_island_player_data?.kuudra_completed_tiers?.hot || 0,
+      burning: data?.nether_island_player_data?.kuudra_completed_tiers?.burning || 0,
+      fiery: data?.nether_island_player_data?.kuudra_completed_tiers?.fiery || 0,
+      highestWaveHot: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_hot || 0,
+      highestWaveFiery: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_fiery || 0,
+      infernal: data?.nether_island_player_data?.kuudra_completed_tiers?.infernal || 0,
+      highestWaveInfernal: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_infernal || 0,
+      highestWaveBurning: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_burning || 0
+    }
   };
 }
