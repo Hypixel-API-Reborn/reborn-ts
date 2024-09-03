@@ -43,6 +43,9 @@
   "repository": {
     "url": "git+https://github.com/Hypixel-API-Reborn/hypixel-api-reborn.git"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "publisher": "Kathund",
   "devDependencies": {
     "@eslint/js": "^9.9.1",
