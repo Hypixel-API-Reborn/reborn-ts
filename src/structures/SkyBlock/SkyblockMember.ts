@@ -13,14 +13,14 @@ import {
   SkyblockMemberSlayer,
   SkyblockMemberStats,
   SkyblockMemberTrophyFishRank,
-  SkyblockSkillLevel,
+  SkyblockmemberHOTM,
   decode,
   getBestiaryLevel,
   getChocolateFactory,
   getCrimsonIsle,
   getDungeons,
+  getHOTM,
   getJacobData,
-  getLevelByXp,
   getMemberStats,
   getPetLevel,
   getSkills,
@@ -114,7 +114,7 @@ class SkyblockMember {
   firstJoinAt: Date;
   experience: number;
   level: number;
-  hotm: SkyblockSkillLevel;
+  hotm: SkyblockmemberHOTM;
   trophyFish: SkyblockMemberTrophyFishRank;
   highestMagicalPower: number;
   fairySouls: number;
@@ -152,7 +152,7 @@ class SkyblockMember {
     this.firstJoinAt = new Date(data.m.profile?.first_join);
     this.experience = data.m.leveling?.experience ?? 0;
     this.level = this.experience ? this.experience / 100 : 0;
-    this.hotm = getLevelByXp(data.m.mining_core?.experience, 'hotm');
+    this.hotm = getHOTM(data.m);
     this.trophyFish = getTrophyFishRank(data.m.trophy_fish?.rewards?.length ?? 0);
     this.highestMagicalPower = data.m.accessory_bag_storage?.highest_magical_power ?? 0;
     this.fairySouls = data.m?.fairy_soul?.total_collected ?? 0;

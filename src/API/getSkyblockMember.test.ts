@@ -14,7 +14,7 @@ import {
   SkyblockMemberStats,
   SkyblockMemberTrophyFishRank,
   SkyblockRarity,
-  SkyblockSkillLevel
+  SkyblockmemberHOTM
 } from '../utils/SkyblockUtils';
 import { expect, expectTypeOf, test } from 'vitest';
 
@@ -94,7 +94,7 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.level).toEqualTypeOf<number>();
 
     expect(member.hotm).toBeDefined();
-    expectTypeOf(member.hotm).toEqualTypeOf<SkyblockSkillLevel>();
+    expectTypeOf(member.hotm).toEqualTypeOf<SkyblockmemberHOTM>();
 
     expect(member.trophyFish).toBeDefined();
     expectTypeOf(member.trophyFish).toEqualTypeOf<SkyblockMemberTrophyFishRank>();
