@@ -250,7 +250,7 @@ export class GalaxyWars {
   }
 }
 
-export class PartyPopper {
+export class PartyPooper {
   winsAsSeeker: number;
   winsAsHider: number;
   wins: number;
@@ -273,12 +273,12 @@ export class PropHunt {
 }
 
 export class HideAndSeek {
-  partyPopper: PartyPopper;
+  partyPooper: PartyPooper;
   propHunt: PropHunt;
   winsAsSeeker: number;
   winsAsHider: number;
   constructor(data: Record<string, any>) {
-    this.partyPopper = new PartyPopper(data);
+    this.partyPooper = new PartyPooper(data);
     this.propHunt = new PropHunt(data);
     this.winsAsSeeker = data.seeker_wins_hide_and_seek || 0;
     this.winsAsHider = data.hider_wins_hide_and_seek || 0;
