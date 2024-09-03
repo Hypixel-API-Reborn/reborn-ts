@@ -437,12 +437,12 @@ export function getSlayer(data: Record<string, any>): SkyblockMemberSlayer | nul
 }
 
 function getCompletions(data: Record<string, any>): Record<string, number> {
-  const completions: Record<string, number> = {};
-
+  const completions: Record<string, number> = { total: 0 };
   for (const tier in data) {
+    if ('total' === tier) continue;
     completions[`Floor_${tier}`] = data?.[tier];
+    completions.total += data?.[tier];
   }
-
   return completions;
 }
 
