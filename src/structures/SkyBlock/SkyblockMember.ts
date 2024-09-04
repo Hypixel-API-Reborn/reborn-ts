@@ -8,12 +8,12 @@ import {
   SkyblockMemberChocolateFactoryData,
   SkyblockMemberCrimson,
   SkyblockMemberDungeons,
+  SkyblockMemberHOTM,
   SkyblockMemberJacobData,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
   SkyblockMemberStats,
   SkyblockMemberTrophyFishRank,
-  SkyblockmemberHOTM,
   decode,
   getBestiaryLevel,
   getChocolateFactory,
@@ -114,7 +114,7 @@ class SkyblockMember {
   firstJoinAt: Date;
   experience: number;
   level: number;
-  hotm: SkyblockmemberHOTM;
+  hotm: SkyblockMemberHOTM;
   trophyFish: SkyblockMemberTrophyFishRank;
   highestMagicalPower: number;
   fairySouls: number;

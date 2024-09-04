@@ -8,13 +8,13 @@ import { NetworthResult } from 'skyhelper-networth';
 import {
   SkyblockMemberChocolateFactoryData,
   SkyblockMemberDungeons,
+  SkyblockMemberHOTM,
   SkyblockMemberJacobData,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
   SkyblockMemberStats,
   SkyblockMemberTrophyFishRank,
-  SkyblockRarity,
-  SkyblockmemberHOTM
+  SkyblockRarity
 } from '../utils/SkyblockUtils';
 import { expect, expectTypeOf, test } from 'vitest';
 
@@ -94,7 +94,7 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.level).toEqualTypeOf<number>();
 
     expect(member.hotm).toBeDefined();
-    expectTypeOf(member.hotm).toEqualTypeOf<SkyblockmemberHOTM>();
+    expectTypeOf(member.hotm).toEqualTypeOf<SkyblockMemberHOTM>();
 
     expect(member.trophyFish).toBeDefined();
     expectTypeOf(member.trophyFish).toEqualTypeOf<SkyblockMemberTrophyFishRank>();

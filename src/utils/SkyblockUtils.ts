@@ -798,25 +798,25 @@ export function getCrimsonIsle(data: Record<string, any>): SkyblockMemberCrimson
   };
 }
 
-export interface SkyblockmemberHOTMPowderData {
+export interface SkyblockMemberHOTMPowderData {
   spent: number;
   current: number;
   total: number;
 }
 
-export interface SkyblockmemberHOTMPowder {
-  mithril: SkyblockmemberHOTMPowderData;
-  gemstone: SkyblockmemberHOTMPowderData;
-  glacite: SkyblockmemberHOTMPowderData;
+export interface SkyblockMemberHOTMPowder {
+  mithril: SkyblockMemberHOTMPowderData;
+  gemstone: SkyblockMemberHOTMPowderData;
+  glacite: SkyblockMemberHOTMPowderData;
 }
 
-export interface SkyblockmemberHOTM {
+export interface SkyblockMemberHOTM {
   experience: SkyblockSkillLevel;
   ability: string;
-  powder: SkyblockmemberHOTMPowder;
+  powder: SkyblockMemberHOTMPowder;
 }
 
-export function getHOTM(data: Record<string, any>): SkyblockmemberHOTM {
+export function getHOTM(data: Record<string, any>): SkyblockMemberHOTM {
   return {
     experience: getLevelByXp(data.mining_core?.experience, 'hotm'),
     ability: data.mining_core?.selected_pickaxe_ability || 'none',
