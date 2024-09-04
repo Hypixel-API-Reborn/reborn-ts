@@ -12,8 +12,8 @@ class getSkyblockProfiles extends Endpoint {
 
   async execute(query: string, options?: SkyblockRequestOptions): Promise<SkyblockProfile[]> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
+    query = await this.client.requestHandler.toUUID(query);
+    const res = await this.client.requestHandler.request(`/skyblock/profiles?uuid=${query}`, options);
     if (res.options.raw) return res.data;
     if (!res.data.profiles || !res.data.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
     const profiles = [];

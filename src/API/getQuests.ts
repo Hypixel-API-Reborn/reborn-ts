@@ -1,7 +1,7 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Quests from '../structures/Static/Quests';
-import { RequestOptions } from '../Private/Requests';
+import { RequestOptions } from '../Private/RequestHandler';
 
 class getQuests extends Endpoint {
   readonly client: Client;
@@ -11,7 +11,7 @@ class getQuests extends Endpoint {
   }
 
   async execute(options?: RequestOptions): Promise<Quests> {
-    const res = await this.client.requests.request('/resources/quests', options);
+    const res = await this.client.requestHandler.request('/resources/quests', options);
     if (res.options.raw) return res.data;
     return new Quests(res.data);
   }

@@ -19,7 +19,7 @@ class getSkyblockAction extends Endpoint {
     if ('profile' === type) {
       filter = 'profile';
     } else if ('player' === type) {
-      query = await this.client.requests.toUUID(query);
+      query = await this.client.requestHandler.toUUID(query);
       filter = 'player';
     } else if ('auction' === type) {
       filter = 'uuid';
@@ -27,7 +27,7 @@ class getSkyblockAction extends Endpoint {
       throw new Error(this.client.errors.BAD_AUCTION_FILTER);
     }
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`, options);
+    const res = await this.client.requestHandler.request(`/skyblock/auction?${filter}=${query}`, options);
     if (res.options.raw) return res.data;
     return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));
   }

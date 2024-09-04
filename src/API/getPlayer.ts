@@ -12,8 +12,8 @@ class getPlayer extends Endpoint {
 
   async execute(query: string, options?: PlayerRequestOptions): Promise<Player> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/player?uuid=${query}`, options);
+    query = await this.client.requestHandler.toUUID(query);
+    const res = await this.client.requestHandler.request(`/player?uuid=${query}`, options);
     if (res.options.raw) return res.data;
     if (query && !res.data.player) throw new Error(this.client.errors.PLAYER_HAS_NEVER_LOGGED);
     return new Player(res.data.player, {
