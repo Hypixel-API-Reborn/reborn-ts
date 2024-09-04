@@ -33,7 +33,7 @@ class RequestData {
   }
 }
 
-class Requests {
+class RequestHandler {
   readonly client: Client;
   constructor(client: Client) {
     this.client = client;
@@ -125,4 +125,4 @@ class Requests {
   }
 }
 
-export default Requests;
+export default RequestHandler;
