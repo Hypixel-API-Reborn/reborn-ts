@@ -5,7 +5,7 @@ import { expect, expectTypeOf, test, vi } from 'vitest';
 import { version } from '../../package.json';
 
 test('Updater', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 
@@ -35,7 +35,7 @@ test('Updater', () => {
 });
 
 test('Updater (get latest version)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { 'dist-tags': { latest: '1.0.0' } } });
   const data = await client.updater.getLatestVersion();
   expect(data).toBe('1.0.0');
@@ -44,7 +44,7 @@ test('Updater (get latest version)', async () => {
 });
 
 test('Updater (get latest version error)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   vi.spyOn(axios, 'get').mockResolvedValue({ status: 404, data: { 'dist-tags': { latest: '1.0.0' } } });
   expect(() => client.updater.getLatestVersion()).rejects.toThrowError(client.errors.UPDATER_REQUEST_NOT_OK);
   vi.restoreAllMocks();
@@ -52,7 +52,7 @@ test('Updater (get latest version error)', () => {
 });
 
 test('Updater (check version)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const consoleLogSpy = vi.spyOn(console, 'log');
   client.updater.currentVersion = '1.0.0';
   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { 'dist-tags': { latest: version } } });

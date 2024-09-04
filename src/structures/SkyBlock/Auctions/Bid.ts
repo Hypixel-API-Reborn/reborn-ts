@@ -8,7 +8,7 @@ class Bid {
   constructor(data: Record<string, any>) {
     this.auctionId = data.auction_id;
     this.profileId = data.profile_id;
-    this.amount = data.amount || 0;
+    this.amount = data.amount;
     this.timestamp = data.timestamp;
     this.at = new Date(this.timestamp);
     this.bidder = data.bidder;

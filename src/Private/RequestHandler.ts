@@ -62,7 +62,7 @@ class RequestHandler {
       throw new Error(
         this.client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(
           /{cause}/,
-          parsedRes.cause || ''
+          parsedRes.cause || 'Unknown'
         )
       );
     }
