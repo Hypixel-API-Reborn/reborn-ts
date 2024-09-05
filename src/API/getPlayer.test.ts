@@ -28,7 +28,7 @@ import UHC from '../structures/MiniGames/UHC';
 import VampireZ from '../structures/MiniGames/VampireZ';
 import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
-import WoolWars from '../structures/MiniGames/WoolWars';
+import WoolGames from '../structures/MiniGames/WoolGames';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('No Player Input', () => {
@@ -476,10 +476,10 @@ test('getPlayer', async () => {
     if (null !== data.stats.warlords) {
       expect(data.stats.warlords).toBeInstanceOf(Warlords);
     }
-    expect(data.stats.woolwars).toBeDefined();
-    expectTypeOf(data.stats.woolwars).toEqualTypeOf<WoolWars | null>();
-    if (null !== data.stats.woolwars) {
-      expect(data.stats.woolwars).toBeInstanceOf(WoolWars);
+    expect(data.stats.woolgames).toBeDefined();
+    expectTypeOf(data.stats.woolgames).toEqualTypeOf<WoolGames | null>();
+    if (null !== data.stats.woolgames) {
+      expect(data.stats.woolgames).toBeInstanceOf(WoolGames);
     }
   }
   expect(data.userLanguage).toBeDefined();

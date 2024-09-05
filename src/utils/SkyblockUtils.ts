@@ -121,8 +121,53 @@ export interface SkyblockMemberSkills {
   average: number;
 }
 
-export interface SkyblockMemberDungeonsTypes {
-  catacombs: SkyblockSkillLevel;
+export interface SkyblockMemberDungeonsCompletions {
+  catacombs: Record<string, number>;
+  masterMode: Record<string, number>;
+}
+
+export type SkyblockDungeonClass = 'healer' | 'mage' | 'berserk' | 'archer' | 'tank';
+
+export interface RawSkyblockDungeonRun {
+  timestamp: number;
+  score_exploration: number;
+  score_speed: number;
+  score_skill: number;
+  score_bonus: number;
+  dungeon_class: SkyblockDungeonClass;
+  teammates: string[];
+  elapsed_time: number;
+  damage_dealt: number;
+  deaths: number;
+  mobs_killed: number;
+  secrets_found: number;
+  damage_mitigated: number;
+  ally_healing: number;
+}
+
+export interface DungeonsFloorStats {
+  fastestRun: RawSkyblockDungeonRun;
+  fastestSRun: RawSkyblockDungeonRun;
+  fastestSPlusRun: RawSkyblockDungeonRun;
+  completions: number;
+}
+
+export interface SkyblockMemberDungeonsFloors {
+  entrance: DungeonsFloorStats;
+  floor1: DungeonsFloorStats;
+  floor2: DungeonsFloorStats;
+  floor3: DungeonsFloorStats;
+  floor4: DungeonsFloorStats;
+  floor5: DungeonsFloorStats;
+  floor6: DungeonsFloorStats;
+  floor7: DungeonsFloorStats;
+  masterMode1: DungeonsFloorStats;
+  masterMode2: DungeonsFloorStats;
+  masterMode3: DungeonsFloorStats;
+  masterMode4: DungeonsFloorStats;
+  masterMode5: DungeonsFloorStats;
+  masterMode6: DungeonsFloorStats;
+  masterMode7: DungeonsFloorStats;
 }
 
 export interface SkyblockMemberDungeonsClasses {
@@ -131,11 +176,27 @@ export interface SkyblockMemberDungeonsClasses {
   berserk: SkyblockSkillLevel;
   archer: SkyblockSkillLevel;
   tank: SkyblockSkillLevel;
+  selected: SkyblockDungeonClass;
+}
+
+export interface SkyblockMemberDungeonsEssence {
+  diamond: number;
+  dragon: number;
+  spider: number;
+  wither: number;
+  undead: number;
+  gold: number;
+  ice: number;
+  crimson: number;
 }
 
 export interface SkyblockMemberDungeons {
-  types: SkyblockMemberDungeonsTypes;
+  experience: SkyblockSkillLevel;
+  secrets: number;
+  completions: SkyblockMemberDungeonsCompletions;
+  floors: SkyblockMemberDungeonsFloors;
   classes: SkyblockMemberDungeonsClasses;
+  essence: SkyblockMemberDungeonsEssence;
 }
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
@@ -375,15 +436,83 @@ export function getSlayer(data: Record<string, any>): SkyblockMemberSlayer | nul
   };
 }
 
-export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons | null {
+function getCompletions(data: Record<string, any>): Record<string, number> {
+  const completions: Record<string, number> = { total: 0 };
+  for (const tier in data) {
+    if ('total' === tier) continue;
+    completions[`Floor_${tier}`] = data?.[tier];
+    completions.total += data?.[tier];
+  }
+  return completions;
+}
+
+function getDungeonsFloor(
+  data: Record<string, any>,
+  type: 'catacombs' | 'master_catacombs',
+  floor: '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
+) {
   return {
-    types: { catacombs: getLevelByXp(data.dungeons?.dungeon_types?.catacombs ?? 0, 'dungeons') },
+    fastestRun: (data?.dungeons?.dungeon_types?.[type]?.best_runs?.[floor] || [])?.sort(
+      (a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time
+    )[0],
+    fastestSRun: (data?.dungeons?.dungeon_types?.[type]?.best_runs?.[floor] || [])
+      ?.filter(
+        (run: RawSkyblockDungeonRun) =>
+          270 >= run?.score_exploration + run?.score_speed + run?.score_skill + run?.score_bonus
+      )
+      ?.sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
+    fastestSPlusRun: (data?.dungeons?.dungeon_type?.s[type]?.best_runs?.[floor] || [])
+      ?.filter(
+        (run: RawSkyblockDungeonRun) =>
+          300 >= run?.score_exploration + run?.score_speed + run?.score_skill + run?.score_bonus
+      )
+      ?.sort((a: RawSkyblockDungeonRun, b: RawSkyblockDungeonRun) => a?.elapsed_time - b?.elapsed_time)[0],
+    completions: data?.dungeonXp?.dungeon_types?.[type]?.tier_completions?.[floor] || 0
+  };
+}
+
+export function getDungeons(data: Record<string, any>): SkyblockMemberDungeons {
+  return {
+    experience: getLevelByXp(data?.dungeons?.dungeon_types?.catacombs?.experience || 0, 'dungeons'),
+    secrets: data?.dungeons?.secrets || 0,
+    completions: {
+      catacombs: getCompletions(data?.dungeons?.dungeon_types?.catacombs?.tier_completions),
+      masterMode: getCompletions(data?.dungeons?.dungeon_types?.master_catacombs?.tier_completions)
+    },
+    floors: {
+      entrance: getDungeonsFloor(data, 'catacombs', '0'),
+      floor1: getDungeonsFloor(data, 'catacombs', '1'),
+      floor2: getDungeonsFloor(data, 'catacombs', '2'),
+      floor3: getDungeonsFloor(data, 'catacombs', '3'),
+      floor4: getDungeonsFloor(data, 'catacombs', '4'),
+      floor5: getDungeonsFloor(data, 'catacombs', '5'),
+      floor6: getDungeonsFloor(data, 'catacombs', '6'),
+      floor7: getDungeonsFloor(data, 'catacombs', '7'),
+      masterMode1: getDungeonsFloor(data, 'master_catacombs', '1'),
+      masterMode2: getDungeonsFloor(data, 'master_catacombs', '2'),
+      masterMode3: getDungeonsFloor(data, 'master_catacombs', '3'),
+      masterMode4: getDungeonsFloor(data, 'master_catacombs', '4'),
+      masterMode5: getDungeonsFloor(data, 'master_catacombs', '5'),
+      masterMode6: getDungeonsFloor(data, 'master_catacombs', '6'),
+      masterMode7: getDungeonsFloor(data, 'master_catacombs', '7')
+    },
     classes: {
-      healer: getLevelByXp(data.dungeons?.player_classes?.healer ?? 0, 'dungeons'),
-      mage: getLevelByXp(data.dungeons?.player_classes?.mage ?? 0, 'dungeons'),
-      berserk: getLevelByXp(data.dungeons?.player_classes?.berserk ?? 0, 'dungeons'),
-      archer: getLevelByXp(data.dungeons?.player_classes?.archer ?? 0, 'dungeons'),
-      tank: getLevelByXp(data.dungeons?.player_classes?.tank ?? 0, 'dungeons')
+      healer: getLevelByXp(data?.dungeons?.player_classes?.healer?.experience || 0, 'dungeons'),
+      mage: getLevelByXp(data?.dungeons?.player_classes?.mage?.experience || 0, 'dungeons'),
+      berserk: getLevelByXp(data?.dungeons?.player_classes?.berserk?.experience || 0, 'dungeons'),
+      archer: getLevelByXp(data?.dungeons?.player_classes?.archer?.experience || 0, 'dungeons'),
+      tank: getLevelByXp(data?.dungeons?.player_classes?.tank?.experience || 0, 'dungeons'),
+      selected: data?.dungeons?.selected_dungeon_class || 'mage'
+    },
+    essence: {
+      diamond: data?.currencies?.essence?.DIAMOND?.current || 0,
+      dragon: data?.currencies?.essence?.DRAGON?.current || 0,
+      spider: data?.currencies?.essence?.SPIDER?.current || 0,
+      wither: data?.currencies?.essence?.WITHER?.current || 0,
+      undead: data?.currencies?.essence?.UNDEAD?.current || 0,
+      gold: data?.currencies?.essence?.GOLD?.current || 0,
+      ice: data?.currencies?.essence?.ICE?.current || 0,
+      crimson: data?.currencies?.essence?.CRIMSON?.current || 0
     }
   };
 }
@@ -513,4 +642,200 @@ export function parseGearScore(lore: any): number {
     if (line.match(/Gear Score: §[0-9a-f](\d+)/)) return Number(line.match(/Gear Score: §d(\d+)/)[1]);
   }
   return 0;
+}
+
+export interface SkyblockMemberCrimsonKuudra {
+  none: number;
+  hot: number;
+  burning: number;
+  fiery: number;
+  highestWaveHot: number;
+  highestWaveFiery: number;
+  infernal: number;
+  highestWaveInfernal: number;
+  highestWaveBurning: number;
+}
+export interface SkyblockMemberCrimsonReputation {
+  mages: number;
+  barbarians: number;
+}
+export interface SkyblockMemberCrimsonTrophyFishCaught {
+  total: number;
+  bronze: number;
+  silver: number;
+  gold: number;
+  diamond: number;
+}
+export interface SkyblockMemberCrimsonTrophyFish {
+  rank: SkyblockMemberTrophyFishRank;
+  caught: SkyblockMemberCrimsonTrophyFishCaught;
+}
+export type CrimsonIsleDojoRank = 'S' | 'A' | 'B' | 'C' | 'D' | 'F';
+export type CrimsonIsleBelt = 'White' | 'Yellow' | 'Green' | 'Blue' | 'Brown' | 'Black';
+
+export interface SkyblockMemberCrimsonDojoMinigame {
+  points: number;
+  rank: CrimsonIsleDojoRank;
+}
+export interface SkyblockMemberCrimsonDojo {
+  belt: CrimsonIsleBelt;
+  force: SkyblockMemberCrimsonDojoMinigame;
+  stamina: SkyblockMemberCrimsonDojoMinigame;
+  mastery: SkyblockMemberCrimsonDojoMinigame;
+  discipline: SkyblockMemberCrimsonDojoMinigame;
+  swiftness: SkyblockMemberCrimsonDojoMinigame;
+  control: SkyblockMemberCrimsonDojoMinigame;
+  tenacity: SkyblockMemberCrimsonDojoMinigame;
+}
+export interface SkyblockMemberCrimson {
+  faction: 'mages' | 'barbarians' | null;
+  reputation: SkyblockMemberCrimsonReputation;
+  trophyFish: SkyblockMemberCrimsonTrophyFish;
+  dojo: SkyblockMemberCrimsonDojo;
+  kuudra: SkyblockMemberCrimsonKuudra;
+}
+
+function getScore(points: number) {
+  if (1000 <= points) {
+    return 'S';
+  } else if (800 <= points) {
+    return 'A';
+  } else if (600 <= points) {
+    return 'B';
+  } else if (400 <= points) {
+    return 'C';
+  } else if (200 <= points) {
+    return 'D';
+  }
+  return 'F';
+}
+
+function getBelt(points: number) {
+  if (7000 <= points) {
+    return 'Black';
+  } else if (6000 <= points) {
+    return 'Brown';
+  } else if (4000 <= points) {
+    return 'Blue';
+  } else if (2000 <= points) {
+    return 'Green';
+  } else if (1000 <= points) {
+    return 'Yellow';
+  }
+  return 'White';
+}
+
+export function getCrimsonIsle(data: Record<string, any>): SkyblockMemberCrimson {
+  return {
+    faction: data?.nether_island_player_data?.selected_faction || null,
+    reputation: {
+      barbarians: data?.nether_island_player_data?.barbarians_reputation ?? 0,
+      mages: data?.nether_island_player_data?.mages_reputation ?? 0
+    },
+    trophyFish: {
+      rank: getTrophyFishRank((data?.nether_island_player_data?.trophy_fish?.rewards ?? [])?.length),
+      caught: {
+        total: data?.nether_island_player_data?.trophy_fish?.total_caught || 0,
+        bronze:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_bronze')).length ||
+          0,
+        silver:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_silver')).length ||
+          0,
+        gold:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_gold')).length || 0,
+        diamond:
+          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_diamond')).length ||
+          0
+      }
+    },
+    dojo: {
+      belt: getBelt(
+        Object.keys(data?.nether_island_player_data?.dojo ?? {})
+          .filter((key) => key.startsWith('dojo_points'))
+          .reduce((acc, key) => acc + (data?.nether_island_player_data?.dojo[key] || 0), 0)
+      ),
+      force: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_mob_kb || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_mob_kb || 0)
+      },
+      stamina: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_wall_jump || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_wall_jump || 0)
+      },
+      mastery: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_archer || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_archer || 0)
+      },
+      discipline: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_sword_swap || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_sword_swap || 0)
+      },
+      swiftness: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_snake || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_snake || 0)
+      },
+      control: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_lock_head || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_lock_head || 0)
+      },
+      tenacity: {
+        points: data?.nether_island_player_data?.dojo?.dojo_points_fireball || 0,
+        rank: getScore(data?.nether_island_player_data?.dojo?.dojo_points_fireball || 0)
+      }
+    },
+    kuudra: {
+      none: data?.nether_island_player_data?.kuudra_completed_tiers?.none || 0,
+      hot: data?.nether_island_player_data?.kuudra_completed_tiers?.hot || 0,
+      burning: data?.nether_island_player_data?.kuudra_completed_tiers?.burning || 0,
+      fiery: data?.nether_island_player_data?.kuudra_completed_tiers?.fiery || 0,
+      highestWaveHot: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_hot || 0,
+      highestWaveFiery: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_fiery || 0,
+      infernal: data?.nether_island_player_data?.kuudra_completed_tiers?.infernal || 0,
+      highestWaveInfernal: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_infernal || 0,
+      highestWaveBurning: data?.nether_island_player_data?.kuudra_completed_tiers?.highest_wave_burning || 0
+    }
+  };
+}
+
+export interface SkyblockMemberHOTMPowderData {
+  spent: number;
+  current: number;
+  total: number;
+}
+
+export interface SkyblockMemberHOTMPowder {
+  mithril: SkyblockMemberHOTMPowderData;
+  gemstone: SkyblockMemberHOTMPowderData;
+  glacite: SkyblockMemberHOTMPowderData;
+}
+
+export interface SkyblockMemberHOTM {
+  experience: SkyblockSkillLevel;
+  ability: string;
+  powder: SkyblockMemberHOTMPowder;
+}
+
+export function getHOTM(data: Record<string, any>): SkyblockMemberHOTM {
+  return {
+    experience: getLevelByXp(data.mining_core?.experience, 'hotm'),
+    ability: data.mining_core?.selected_pickaxe_ability || 'none',
+    powder: {
+      mithril: {
+        spent: data?.mining_core?.powder_spent_mithril || 0,
+        current: data?.mining_core?.powder_mithril || 0,
+        total: data?.mining_core?.powder_spent_mithril || 0 + data?.mining_core?.powder_mithril || 0
+      },
+      gemstone: {
+        spent: data?.mining_core?.powder_spent_gemstone || 0,
+        current: data?.mining_core?.powder_gemstone || 0,
+        total: data?.mining_core?.powder_spent_gemstone || 0 + data?.mining_core?.powder_gemstone || 0
+      },
+      glacite: {
+        spent: data?.mining_core?.powder_spent_glacite || 0,
+        current: data?.mining_core?.powder_glacite || 0,
+        total: data?.mining_core?.powder_spent_glacite || 0 + data?.mining_core?.powder_glacite || 0
+      }
+    }
+  };
 }

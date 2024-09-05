@@ -65,7 +65,7 @@ export * from './structures/MiniGames/UHC';
 export * from './structures/MiniGames/VampireZ';
 export * from './structures/MiniGames/Walls';
 export * from './structures/MiniGames/Warlords';
-export * from './structures/MiniGames/WoolWars';
+export * from './structures/MiniGames/WoolGames';
 export * from './structures/Pet';
 export * from './structures/Pets';
 export * from './structures/Player';

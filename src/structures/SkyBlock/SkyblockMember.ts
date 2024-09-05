@@ -6,19 +6,21 @@ import SkyblockPet from './SkyblockPet';
 import { NetworthResult, getNetworth } from 'skyhelper-networth';
 import {
   SkyblockMemberChocolateFactoryData,
+  SkyblockMemberCrimson,
   SkyblockMemberDungeons,
+  SkyblockMemberHOTM,
   SkyblockMemberJacobData,
   SkyblockMemberSkills,
   SkyblockMemberSlayer,
   SkyblockMemberStats,
   SkyblockMemberTrophyFishRank,
-  SkyblockSkillLevel,
   decode,
   getBestiaryLevel,
   getChocolateFactory,
+  getCrimsonIsle,
   getDungeons,
+  getHOTM,
   getJacobData,
-  getLevelByXp,
   getMemberStats,
   getPetLevel,
   getSkills,
@@ -112,7 +114,7 @@ class SkyblockMember {
   firstJoinAt: Date;
   experience: number;
   level: number;
-  hotm: SkyblockSkillLevel;
+  hotm: SkyblockMemberHOTM;
   trophyFish: SkyblockMemberTrophyFishRank;
   highestMagicalPower: number;
   fairySouls: number;
@@ -120,7 +122,8 @@ class SkyblockMember {
   skills: SkyblockMemberSkills;
   bestiary: number;
   slayer: SkyblockMemberSlayer | null;
-  dungeons: SkyblockMemberDungeons | null;
+  crimsonIsle: SkyblockMemberCrimson;
+  dungeons: SkyblockMemberDungeons;
   collections: Record<string, number>;
   purse: number;
   stats: SkyblockMemberStats | null;
@@ -149,7 +152,7 @@ class SkyblockMember {
     this.firstJoinAt = new Date(data.m.profile?.first_join);
     this.experience = data.m.leveling?.experience ?? 0;
     this.level = this.experience ? this.experience / 100 : 0;
-    this.hotm = getLevelByXp(data.m.mining_core?.experience, 'hotm');
+    this.hotm = getHOTM(data.m);
     this.trophyFish = getTrophyFishRank(data.m.trophy_fish?.rewards?.length ?? 0);
     this.highestMagicalPower = data.m.accessory_bag_storage?.highest_magical_power ?? 0;
     this.fairySouls = data.m?.fairy_soul?.total_collected ?? 0;
@@ -157,6 +160,7 @@ class SkyblockMember {
     this.skills = getSkills(data.m);
     this.bestiary = getBestiaryLevel(data.m);
     this.slayer = getSlayer(data.m);
+    this.crimsonIsle = getCrimsonIsle(data.m);
     this.dungeons = getDungeons(data.m);
     this.collections = data.m.collection ? data.m.collection : null;
     this.purse = data.m?.currencies?.coin_purse ?? 0;

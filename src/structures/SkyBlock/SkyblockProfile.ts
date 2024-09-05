@@ -1,3 +1,4 @@
+import SkyblockGarden from './SkyblockGarden';
 import SkyblockMember from './SkyblockMember';
 
 class SkyblockProfile {
@@ -5,6 +6,7 @@ class SkyblockProfile {
   profileName: string;
   gameMode: string | null;
   banking: object;
+  garden: SkyblockGarden | null;
   communityUpgrades: object;
   selected: boolean;
   members: SkyblockMember[];
@@ -14,6 +16,7 @@ class SkyblockProfile {
     this.profileName = data.profileName;
     this.gameMode = data.gameMode;
     this.banking = data.banking;
+    this.garden = data.garden;
     this.communityUpgrades = data.communityUpgrades;
     this.selected = data.selected;
     this.members = Object.keys(data.members).map(
