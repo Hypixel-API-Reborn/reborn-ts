@@ -737,16 +737,17 @@ export function getCrimsonIsle(data: Record<string, any>): SkyblockMemberCrimson
       caught: {
         total: data?.nether_island_player_data?.trophy_fish?.total_caught || 0,
         bronze:
-          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_bronze')).length ||
-          0,
+          Object.keys(data?.nether_island_player_data?.trophy_fish || {}).filter((key) => key.endsWith('_bronze'))
+            .length || 0,
         silver:
-          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_silver')).length ||
-          0,
+          Object.keys(data?.nether_island_player_data?.trophy_fish || {}).filter((key) => key.endsWith('_silver'))
+            .length || 0,
         gold:
-          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_gold')).length || 0,
+          Object.keys(data?.nether_island_player_data?.trophy_fish || {}).filter((key) => key.endsWith('_gold'))
+            .length || 0,
         diamond:
-          Object.keys(data?.nether_island_player_data?.trophy_fish).filter((key) => key.endsWith('_diamond')).length ||
-          0
+          Object.keys(data?.nether_island_player_data?.trophy_fish || {}).filter((key) => key.endsWith('_diamond'))
+            .length || 0
       }
     },
     dojo: {

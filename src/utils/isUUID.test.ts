@@ -2,9 +2,9 @@ import isUUID from './isUUID';
 import { expect, expectTypeOf, test } from 'vitest';
 
 const valid = [
-  '37501e7512b845ab8796e2baf9e9677a',
+  'add71246c46e455c8345c129ea6f146c',
   '17ec71b4e5fa467481344b319a2958c3',
-  '17ec71b4e5fa467481344b319a2958c3'
+  '37501e7512b845ab8796e2baf9e9677a'
 ];
 const dashs = [
   'add71246-c46e-455c-8345-c129ea6f146c',
