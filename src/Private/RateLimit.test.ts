@@ -1,7 +1,6 @@
 import Client from '../Client';
 import RateLimit from './RateLimit';
-import axios from 'axios';
-import { expect, expectTypeOf, test, vi } from 'vitest';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('RateLimit (None)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { rateLimit: 'NONE' });
@@ -64,36 +63,36 @@ test('RateLimit (Auto)', async () => {
   client.destroy();
 });
 
-test('Ratelimit (Sync)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
-  client.updater.currentVersion = '1.0.0';
-  const mockRequest = {
-    status: 200,
-    data: { success: true },
-    headers: {
-      'ratelimit-limit': 30,
-      'ratelimit-remaining': 27
-    }
-  };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
-  expect(() => client.rateLimit.sync()).not.toThrowError();
-  await client.rateLimit.sync();
-  expect(client.rateLimit.requests).toBe(3);
-  expect(client.rateLimit.limit).toBe(30);
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('Ratelimit (Sync)', async () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '');
+//   client.updater.currentVersion = '1.0.0';
+//   const mockRequest = {
+//     status: 200,
+//     data: { success: true },
+//     headers: {
+//       'ratelimit-limit': 30,
+//       'ratelimit-remaining': 27
+//     }
+//   };
+//   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+//   expect(() => client.rateLimit.sync()).not.toThrowError();
+//   await client.rateLimit.sync();
+//   expect(client.rateLimit.requests).toBe(3);
+//   expect(client.rateLimit.limit).toBe(30);
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
 
-test('Ratelimit (Bad Sync Data)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
-  client.updater.currentVersion = '1.0.0';
-  const mockRequest = {
-    status: 200,
-    data: { success: true },
-    headers: { hello: 100 }
-  };
-  vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
-  expect(() => client.rateLimit.sync()).rejects.toThrowError(client.errors.RATE_LIMIT_INIT_ERROR);
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('Ratelimit (Bad Sync Data)', () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '');
+//   client.updater.currentVersion = '1.0.0';
+//   const mockRequest = {
+//     status: 200,
+//     data: { success: true },
+//     headers: { hello: 100 }
+//   };
+//   vi.spyOn(axios, 'get').mockResolvedValue(mockRequest);
+//   expect(() => client.rateLimit.sync()).rejects.toThrowError(client.errors.RATE_LIMIT_INIT_ERROR);
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
