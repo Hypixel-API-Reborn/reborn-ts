@@ -5,6 +5,7 @@
     "esbenp.prettier-vscode",
     "eamodio.gitlens",
     "aaron-bond.better-comments",
-    "vitest.explorer"
+    "vitest.explorer",
+    "github.vscode-pull-request-github"
   ]
 }
