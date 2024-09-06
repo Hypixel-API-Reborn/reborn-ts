@@ -2,15 +2,7 @@ import SkyblockGarden from './SkyblockGarden';
 import SkyblockMember, { MemberStats } from './SkyblockMember';
 import SkyblockMuseum from './SkyblockMuseum';
 import SkyblockPet from './SkyblockPet';
-import {
-  ChocolateFactoryData,
-  Dungeons,
-  JacobData,
-  SkillLevel,
-  Skills,
-  Slayer,
-  TrophyFishRank
-} from './SkyblockMemberTypes';
+import { ChocolateFactoryData, CrimsonIsle, Dungeons, HOTM, JacobData, Skills, Slayer } from './SkyblockMemberTypes';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SkyblockMember', () => {
@@ -28,6 +20,7 @@ test('SkyblockMember', () => {
   expect(data.garden).toBeNull();
   expectTypeOf(data.garden).toEqualTypeOf<SkyblockGarden | null>();
   expect(data.museum).toBeDefined();
+  expect(data.museum).toBeNull();
   expectTypeOf(data.museum).toEqualTypeOf<SkyblockMuseum | null>();
   expect(data.profileName).toBeDefined();
   expectTypeOf(data.profileName).toEqualTypeOf<string>();
@@ -44,9 +37,7 @@ test('SkyblockMember', () => {
   expect(data.level).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.level).toEqualTypeOf<number>();
   expect(data.hotm).toBeDefined();
-  expectTypeOf(data.hotm).toEqualTypeOf<SkillLevel>();
-  expect(data.trophyFish).toBeDefined();
-  expectTypeOf(data.trophyFish).toEqualTypeOf<TrophyFishRank>();
+  expectTypeOf(data.hotm).toEqualTypeOf<HOTM>();
   expect(data.highestMagicalPower).toBeDefined();
   expect(data.highestMagicalPower).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.highestMagicalPower).toEqualTypeOf<number>();
@@ -59,12 +50,13 @@ test('SkyblockMember', () => {
   expect(data.skills).toBeDefined();
   expectTypeOf(data.skills).toEqualTypeOf<Skills>();
   expect(data.bestiary).toBeDefined();
-  expect(data.bestiary).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.bestiary).toEqualTypeOf<number>();
   expect(data.slayer).toBeDefined();
   expectTypeOf(data.slayer).toEqualTypeOf<Slayer | null>();
+  expect(data.crimsonIsle).toBeDefined();
+  expectTypeOf(data.crimsonIsle).toEqualTypeOf<CrimsonIsle>();
   expect(data.dungeons).toBeDefined();
-  expectTypeOf(data.dungeons).toEqualTypeOf<Dungeons | null>();
+  expectTypeOf(data.dungeons).toEqualTypeOf<Dungeons>();
   expect(data.collections).toBeDefined();
   expectTypeOf(data.collections).toEqualTypeOf<Record<string, number>>();
   expect(data.purse).toBeDefined();

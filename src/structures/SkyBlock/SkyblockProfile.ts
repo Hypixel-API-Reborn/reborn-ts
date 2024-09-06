@@ -1,3 +1,4 @@
+import SkyblockGarden from './SkyblockGarden';
 import SkyblockMember from './SkyblockMember';
 
 class SkyblockProfile {
@@ -5,17 +6,19 @@ class SkyblockProfile {
   profileName: string;
   gameMode: string | null;
   banking: object;
+  garden: SkyblockGarden | null;
   communityUpgrades: object;
   selected: boolean;
   members: SkyblockMember[];
   me: SkyblockMember | undefined;
   constructor(data: Record<string, any>) {
-    this.profileId = data.profileId;
-    this.profileName = data.profileName;
-    this.gameMode = data.gameMode;
-    this.banking = data.banking;
-    this.communityUpgrades = data.communityUpgrades;
-    this.selected = data.selected;
+    this.profileId = data.profileId || '';
+    this.profileName = data.profileName || '';
+    this.gameMode = data.gameMode || null;
+    this.banking = data.banking || {};
+    this.garden = data.garden || null;
+    this.communityUpgrades = data.communityUpgrades || {};
+    this.selected = data.selected || false;
     this.members = Object.keys(data.members).map(
       (uuid) =>
         new SkyblockMember({

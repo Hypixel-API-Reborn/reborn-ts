@@ -1,6 +1,6 @@
-const BASE_URL = 'https://api.hypixel.net/hypixel';
+const BASE_URL = 'https://api.hypixel.net/v2';
 import Client from '../Client';
-import axios from 'axios';
+import fetch from 'node-fetch';
 import isUUID from '../utils/isUUID';
 
 export interface RequestOptions {
@@ -51,13 +51,13 @@ class RequestHandler {
         timestamp: data.timestamp
       });
     }
-    const res = await axios.get(BASE_URL + endpoint, { headers: { 'API-Key': this.client.key } });
+    const res = await fetch(BASE_URL + endpoint, { headers: { 'API-Key': this.client.key } });
     if (500 <= res.status && 528 > res.status) {
       throw new Error(
         this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
       );
     }
-    const parsedRes = await res.data;
+    const parsedRes = (await res.json()) as Record<string, any>;
     if (400 === res.status) {
       throw new Error(
         this.client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(
@@ -68,6 +68,12 @@ class RequestHandler {
     }
     if (403 === res.status) throw new Error(this.client.errors.INVALID_API_KEY);
     if (422 === res.status) throw new Error(this.client.errors.UNEXPECTED_ERROR);
+    if (
+      429 === res.status &&
+      'You have already looked up this player too recently, please try again shortly' === parsedRes.cause
+    ) {
+      throw new Error(this.client.errors.RECENT_REQUEST);
+    }
     if (429 === res.status) throw new Error(this.client.errors.RATE_LIMIT_EXCEEDED);
     if (200 !== res.status) {
       throw new Error(this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, res.statusText));
@@ -76,7 +82,9 @@ class RequestHandler {
       throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, res.statusText));
     }
     this.client.rateLimit.requests++;
-    const requestData = new RequestData(parsedRes, res.headers, {
+    const headers: Record<string, any> = {};
+    res.headers.forEach((value, key) => (headers[key] = value));
+    const requestData = new RequestData(parsedRes, headers, {
       status: res.status,
       options,
       url: endpoint,
@@ -97,13 +105,13 @@ class RequestHandler {
     if (this.client.cacheHandler.has(url)) {
       return this.client.cacheHandler.get(url);
     }
-    const res = await axios.get(url);
+    const res = await fetch(url);
     if (500 <= res.status && 528 > res.status) {
       throw new Error(
         this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
       );
     }
-    const parsedRes = await res.data;
+    const parsedRes = (await res.json()) as Record<string, any>;
     if (400 === res.status) {
       throw new Error(
         this.client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(
@@ -122,6 +130,49 @@ class RequestHandler {
       this.client.cacheHandler.set(url, parsedRes.id);
     }
     return parsedRes.id;
+  }
+
+  async fetchExternalData(url: string): Promise<RequestData> {
+    if (this.client.cacheHandler.has(url)) {
+      const data = this.client.cacheHandler.get(url);
+      return new RequestData(data.data, data.headers, {
+        status: 200,
+        options: { raw: false, noCache: false },
+        url,
+        cached: true,
+        timestamp: data.timestamp
+      });
+    }
+    const res = await fetch(url);
+    if (500 <= res.status && 528 > res.status) {
+      throw new Error(
+        this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
+      );
+    }
+    const parsedRes = (await res.json()) as Record<string, any>;
+    if (400 === res.status) {
+      throw new Error(
+        this.client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(
+          /{cause}/,
+          parsedRes.cause || ''
+        )
+      );
+    }
+    if (200 !== res.status) {
+      throw new Error(this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, res.statusText));
+    }
+    const headers: Record<string, any> = {};
+    res.headers.forEach((value, key) => (headers[key] = value));
+    const requestData = new RequestData(parsedRes, headers, {
+      status: res.status,
+      options: { raw: false, noCache: false },
+      url,
+      cached: false
+    });
+    if (this.client.options.cache) {
+      this.client.cacheHandler.set(url, requestData);
+    }
+    return requestData;
   }
 }
 

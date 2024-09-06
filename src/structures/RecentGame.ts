@@ -15,7 +15,7 @@ class RecentGame {
     this.dateAt = this.dateTimestamp ? new Date(this.dateTimestamp) : null;
     this.mode = data?.mode || null;
     this.map = data?.map || null;
-    this.ongoing = Boolean(!data?.ended) || false;
+    this.ongoing = Boolean(!data?.ended || 0) || false;
     this.endedTimestamp = data?.ended ? data?.ended : null;
     this.endedAt = this.endedTimestamp ? new Date(this.endedTimestamp) : null;
   }

@@ -6,8 +6,10 @@ import SkyblockPet from './SkyblockPet';
 import {
   Armor,
   ChocolateFactoryData,
+  CrimsonIsle,
   Dungeons,
   Equipment,
+  HOTM,
   JacobData,
   MemberStatsAuctions,
   MemberStatsCandy,
@@ -15,10 +17,8 @@ import {
   MemberStatsGifts,
   MemberStatsMythos,
   MemberStatsPetMilestones,
-  SkillLevel,
   Skills,
-  Slayer,
-  TrophyFishRank
+  Slayer
 } from './SkyblockMemberTypes';
 import { NetworthResult, getNetworth } from 'skyhelper-networth';
 import { createFarmingWeightCalculator } from 'farming-weight';
@@ -26,13 +26,13 @@ import {
   decode,
   getBestiaryLevel,
   getChocolateFactory,
+  getCrimsonIsle,
   getDungeons,
+  getHOTM,
   getJacobData,
-  getLevelByXp,
   getPetLevel,
   getSkills,
-  getSlayer,
-  getTrophyFishRank
+  getSlayer
 } from '../../utils/SkyblockUtils';
 
 export class MemberStats {
@@ -236,15 +236,15 @@ class SkyblockMember {
   firstJoinAt: Date | null;
   experience: number;
   level: number;
-  hotm: SkillLevel;
-  trophyFish: TrophyFishRank;
+  hotm: HOTM;
   highestMagicalPower: number;
   fairySouls: number;
   fairyExchanges: number;
   skills: Skills;
   bestiary: number;
   slayer: Slayer | null;
-  dungeons: Dungeons | null;
+  crimsonIsle: CrimsonIsle;
+  dungeons: Dungeons;
   collections: Record<string, number>;
   purse: number;
   stats: MemberStats;
@@ -269,26 +269,26 @@ class SkyblockMember {
     this.museum = data?.museum || null;
     this.profileName = data?.profileName || '';
     this.profileId = data?.profileId || '';
-    this.firstJoinTimestamp = data?.m?.profile?.first_join || null;
-    this.firstJoinAt = this.firstJoinTimestamp ? new Date(this.firstJoinTimestamp) : null;
+    this.firstJoinTimestamp = data?.m?.profile?.first_join || 0;
+    this.firstJoinAt = new Date(data?.m?.profile?.first_join);
     this.experience = data?.m?.leveling?.experience || 0;
-    this.level = this.experience / 100;
-    this.hotm = getLevelByXp(data?.m?.mining_core?.experience, 'hotm');
-    this.trophyFish = getTrophyFishRank(data?.m?.trophy_fish?.rewards?.length || 0);
+    this.level = this.experience ? this.experience / 100 : 0;
+    this.hotm = getHOTM(data.m);
     this.highestMagicalPower = data?.m?.accessory_bag_storage?.highest_magical_power || 0;
     this.fairySouls = data?.m?.fairy_soul?.total_collected || 0;
     this.fairyExchanges = data?.m?.fairy_soul?.fairy_exchanges || 0;
-    this.skills = getSkills(data?.m);
-    this.bestiary = getBestiaryLevel(data?.m);
-    this.slayer = getSlayer(data?.m);
-    this.dungeons = getDungeons(data?.m);
+    this.skills = getSkills(data.m);
+    this.bestiary = getBestiaryLevel(data.m);
+    this.slayer = getSlayer(data.m);
+    this.crimsonIsle = getCrimsonIsle(data.m);
+    this.dungeons = getDungeons(data.m);
     this.collections = data?.m?.collection || {};
-    this.purse = data?.m?.currencies?.coin_purse ?? 0;
+    this.purse = data?.m?.currencies?.coin_purse || 0;
     this.stats = new MemberStats(data?.m?.player_stats);
-    this.pets = data?.m?.pets_data?.pets ? data?.m?.pets_data?.pets?.map((pet: any) => new SkyblockPet(pet)) : [];
-    this.jacob = getJacobData(data?.m);
-    this.chocolate = getChocolateFactory(data?.m);
-    this.minions = new SkyblockMemberMinions(data?.m?.player_data?.crafted_generators || []);
+    this.pets = data?.m?.pets_data?.pets ? data.m.pets_data.pets.map((pet: any) => new SkyblockPet(pet)) : [];
+    this.jacob = getJacobData(data.m);
+    this.chocolate = getChocolateFactory(data.m);
+    this.minions = new SkyblockMemberMinions(data.m?.player_data?.crafted_generators ?? []);
     this.getArmor = async () => {
       const base64 = data?.m?.inventory?.inv_armor;
       const decoded = await decode(base64?.data);

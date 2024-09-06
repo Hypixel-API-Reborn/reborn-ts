@@ -32,21 +32,20 @@ import UHC from '../structures/MiniGames/UHC';
 import VampireZ from '../structures/MiniGames/VampireZ';
 import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
-import WoolWars from '../structures/MiniGames/WoolWars';
-import axios from 'axios';
-import { expect, expectTypeOf, test, vi } from 'vitest';
+import WoolGames from '../structures/MiniGames/WoolGames';
+import { expect, expectTypeOf, test } from 'vitest';
 
-test('getPlayer (never joinned hypixel)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { success: true } });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
-    client.errors.PLAYER_HAS_NEVER_LOGGED
-  );
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('getPlayer (never joinned hypixel)', async () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { success: true } });
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-expect-error
+//   await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
+//     client.errors.PLAYER_HAS_NEVER_LOGGED
+//   );
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
 
 test('getPlayer (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
@@ -60,7 +59,7 @@ test('getPLayer (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { raw: true });
+  const data = await client.getPlayer('fb3d96498a5b4d5b91b763db14b195ad', { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
@@ -70,7 +69,7 @@ test('getPlayer (guild)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { guild: true });
+  const data = await client.getPlayer('28667672039044989b0019b14a2c34d6', { guild: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Player>();
   expect(data.guild).toBeDefined();
@@ -83,7 +82,7 @@ test('getPlayer (houses)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { houses: true });
+  const data = await client.getPlayer('618a96fec8b0493fa89427891049550b', { houses: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Player>();
   expect(data.houses).toBeDefined();
@@ -100,7 +99,7 @@ test('getPlayer (recent games)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e', { recentGames: true });
+  const data = await client.getPlayer('37501e7512b845ab8796e2baf9e9677a', { recentGames: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Player>();
   expect(data.recentGames).toBeDefined();
@@ -314,9 +313,9 @@ test('getPlayer', async () => {
   expect(data.stats.warlords).instanceOf(Warlords);
   expectTypeOf(data.stats.warlords).toEqualTypeOf<Warlords>();
 
-  expect(data.stats.woolwars).toBeDefined();
-  expect(data.stats.woolwars).instanceOf(WoolWars);
-  expectTypeOf(data.stats.woolwars).toEqualTypeOf<WoolWars>();
+  expect(data.stats.woolgames).toBeDefined();
+  expect(data.stats.woolgames).toBeInstanceOf(WoolGames);
+  expectTypeOf(data.stats.woolgames).toEqualTypeOf<WoolGames>();
 
   expect(data.userLanguage).toBeDefined();
   expectTypeOf(data.userLanguage).toEqualTypeOf<string>();

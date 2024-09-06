@@ -266,8 +266,8 @@ test('getSkyblockAuctions (One Page Include Item Bytes)', async () => {
   client.destroy();
 });
 
-test.skip('getSkyblockAuctions (All Pages)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+test('getSkyblockAuctions (All Pages)', async () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getSkyblockAuctions('*');

@@ -1,40 +1,46 @@
 import SkyblockInventoryItem from './SkyblockInventoryItem';
 
-export interface Equipment {
+type TrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
+type DungeonClass = 'healer' | 'mage' | 'berserk' | 'archer' | 'tank';
+type CrimsonIsleFactions = 'mages' | 'barbarians';
+type CrimsonIsleBelt = 'White' | 'Yellow' | 'Green' | 'Blue' | 'Brown' | 'Black';
+type CrimsonIsleDojoRank = 'S' | 'A' | 'B' | 'C' | 'D' | 'F';
+
+interface Equipment {
   gauntlet: SkyblockInventoryItem | null;
   belt: SkyblockInventoryItem | null;
   cloak: SkyblockInventoryItem | null;
   necklace: SkyblockInventoryItem | null;
 }
 
-export interface Armor {
+interface Armor {
   helmet: SkyblockInventoryItem | null;
   chestplate: SkyblockInventoryItem | null;
   leggings: SkyblockInventoryItem | null;
   boots: SkyblockInventoryItem | null;
 }
 
-export interface MemberStatsCandyCollected {
+interface MemberStatsCandyCollected {
   green: number;
   purple: number;
   total: number;
 }
 
-export interface MemberStatsFestival {
+interface MemberStatsFestival {
   year: number;
   collected: MemberStatsCandyCollected;
 }
 
-export interface MemberStatsCandy extends MemberStatsCandyCollected {
+interface MemberStatsCandy extends MemberStatsCandyCollected {
   festivals: MemberStatsFestival[];
 }
 
-export interface MemberStatsPetMilestones {
+interface MemberStatsPetMilestones {
   oresMinned: number;
   seaCreaturesKilled: number;
 }
 
-export interface MemberStatsAuctionsStats {
+interface MemberStatsAuctionsStats {
   uncommon: number;
   common: number;
   rare: number;
@@ -45,7 +51,7 @@ export interface MemberStatsAuctionsStats {
   total: number;
 }
 
-export interface MemberStatsAuctions {
+interface MemberStatsAuctions {
   bids: number;
   highestBid: number;
   goldSpent: number;
@@ -59,24 +65,24 @@ export interface MemberStatsAuctions {
   bought: MemberStatsAuctionsStats;
 }
 
-export interface MemberStatsGifts {
+interface MemberStatsGifts {
   given: number;
   received: number;
 }
 
-export interface MemberStatsFishing {
+interface MemberStatsFishing {
   total: number;
   normal: number;
   tresure: number;
   largeTresure: number;
 }
 
-export interface MemberStatsBurrow {
+interface MemberStatsBurrow {
   total: number;
   common: number;
 }
 
-export interface MemberStatsMythos {
+interface MemberStatsMythos {
   kills: number;
   burrowsDugNext: MemberStatsBurrow;
   burrowsDugCombat: MemberStatsBurrow;
@@ -84,36 +90,27 @@ export interface MemberStatsMythos {
   burrowsDugComplate: MemberStatsBurrow;
 }
 
-export type Rarity =
-  | 'COMMON'
-  | 'UNCOMMON'
-  | 'RARE'
-  | 'EPIC'
-  | 'LEGENDARY'
-  | 'MYTHIC'
-  | 'DIVINE'
-  | 'SPECIAL'
-  | 'VERY_SPECIAL';
+type Rarity = 'COMMON' | 'UNCOMMON' | 'RARE' | 'EPIC' | 'LEGENDARY' | 'MYTHIC' | 'DIVINE' | 'SPECIAL' | 'VERY_SPECIAL';
 
-export interface JacobDataMedals {
+interface JacobDataMedals {
   gold: number;
   silver: number;
   bronze: number;
 }
 
-export interface JacobDataPerks {
+interface JacobDataPerks {
   doubleDrops: number;
   farmingLevelCap: number;
   personalBests: boolean;
 }
 
-export interface JacobData {
+interface JacobData {
   medals: JacobDataMedals;
   perks: JacobDataPerks;
   contests: Record<string, any>;
 }
 
-export interface ChocolateFactoryDataEmployees {
+interface ChocolateFactoryDataEmployees {
   bro: number;
   cousin: number;
   sis: number;
@@ -123,29 +120,29 @@ export interface ChocolateFactoryDataEmployees {
   uncle: number;
 }
 
-export interface ChocolateFactoryDataChocolate {
+interface ChocolateFactoryDataChocolate {
   current: number;
   total: number;
   sincePrestige: number;
 }
 
-export interface ChocolateFactoryDataTimeTower {
+interface ChocolateFactoryDataTimeTower {
   charges: number;
   level: number;
 }
 
-export interface ChocolateFactoryDataUpgrades {
+interface ChocolateFactoryDataUpgrades {
   click: number;
   multiplier: number;
   rabbitRarity: number;
 }
 
-export interface ChocolateFactoryDataGoldenClick {
+interface ChocolateFactoryDataGoldenClick {
   amount: number;
   year: number;
 }
 
-export interface ChocolateFactoryData {
+interface ChocolateFactoryData {
   employees: ChocolateFactoryDataEmployees;
   chocolate: ChocolateFactoryDataChocolate;
   timeTower: ChocolateFactoryDataTimeTower;
@@ -155,7 +152,7 @@ export interface ChocolateFactoryData {
   prestige: number;
 }
 
-export interface SlayerLevel {
+interface SlayerData {
   xp: number;
   tier1: number;
   tier2: number;
@@ -165,16 +162,15 @@ export interface SlayerLevel {
   level: number;
 }
 
-export interface Slayer {
-  zombie: SlayerLevel;
-  spider: SlayerLevel;
-  wolf: SlayerLevel;
-  enderman: SlayerLevel;
-  blaze: SlayerLevel;
-  vampire: SlayerLevel;
+interface Slayer {
+  zombie: SlayerData;
+  spider: SlayerData;
+  wolf: SlayerData;
+  enderman: SlayerData;
+  blaze: SlayerData;
+  vampire: SlayerData;
 }
-export type TrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
-export interface SkillLevel {
+interface SkillLevel {
   xp: number;
   level: number;
   maxLevel: number;
@@ -184,7 +180,7 @@ export interface SkillLevel {
   cosmetic: boolean;
 }
 
-export interface Skills {
+interface Skills {
   combat: SkillLevel;
   farming: SkillLevel;
   fishing: SkillLevel;
@@ -199,19 +195,149 @@ export interface Skills {
   average: number;
 }
 
-export interface DungeonsTypes {
-  catacombs: SkillLevel;
+interface RawDungeonRun {
+  timestamp: number;
+  score_exploration: number;
+  score_speed: number;
+  score_skill: number;
+  score_bonus: number;
+  dungeon_class: DungeonClass;
+  teammates: string[];
+  elapsed_time: number;
+  damage_dealt: number;
+  deaths: number;
+  mobs_killed: number;
+  secrets_found: number;
+  damage_mitigated: number;
+  ally_healing: number;
 }
 
-export interface DungeonsClasses {
+interface DungeonsFloorStats {
+  fastestRun: RawDungeonRun;
+  fastestSRun: RawDungeonRun;
+  fastestSPlusRun: RawDungeonRun;
+  completions: number;
+}
+
+interface DungeonsFloors {
+  entrance: DungeonsFloorStats;
+  floor1: DungeonsFloorStats;
+  floor2: DungeonsFloorStats;
+  floor3: DungeonsFloorStats;
+  floor4: DungeonsFloorStats;
+  floor5: DungeonsFloorStats;
+  floor6: DungeonsFloorStats;
+  floor7: DungeonsFloorStats;
+  masterMode1: DungeonsFloorStats;
+  masterMode2: DungeonsFloorStats;
+  masterMode3: DungeonsFloorStats;
+  masterMode4: DungeonsFloorStats;
+  masterMode5: DungeonsFloorStats;
+  masterMode6: DungeonsFloorStats;
+  masterMode7: DungeonsFloorStats;
+}
+
+interface DungeonsClasses {
   healer: SkillLevel;
   mage: SkillLevel;
   berserk: SkillLevel;
   archer: SkillLevel;
   tank: SkillLevel;
+  selected: DungeonClass;
 }
 
-export interface Dungeons {
-  types: DungeonsTypes;
+interface DungeonsEssence {
+  diamond: number;
+  dragon: number;
+  spider: number;
+  wither: number;
+  undead: number;
+  gold: number;
+  ice: number;
+  crimson: number;
+}
+interface DungeonsCompletions {
+  catacombs: Record<string, number>;
+  masterMode: Record<string, number>;
+}
+
+interface Dungeons {
+  experience: SkillLevel;
+  secrets: number;
+  completions: DungeonsCompletions;
+  floors: DungeonsFloors;
   classes: DungeonsClasses;
+  essence: DungeonsEssence;
+}
+
+interface CrimsonIsleKuudra {
+  none: number;
+  hot: number;
+  burning: number;
+  fiery: number;
+  highestWaveHot: number;
+  highestWaveFiery: number;
+  infernal: number;
+  highestWaveInfernal: number;
+  highestWaveBurning: number;
+}
+
+interface CrimsonIsleReputation {
+  mages: number;
+  barbarians: number;
+}
+
+interface CrimsonIsleTrophyFishCaught {
+  total: number;
+  bronze: number;
+  silver: number;
+  gold: number;
+  diamond: number;
+}
+
+interface CrimsonIsleTrophyFish {
+  rank: TrophyFishRank;
+  caught: CrimsonIsleTrophyFishCaught;
+}
+
+interface CrimsonIsleDojoMinigame {
+  points: number;
+  rank: CrimsonIsleDojoRank;
+}
+
+interface CrimsonIsleDojo {
+  belt: CrimsonIsleBelt;
+  force: CrimsonIsleDojoMinigame;
+  stamina: CrimsonIsleDojoMinigame;
+  mastery: CrimsonIsleDojoMinigame;
+  discipline: CrimsonIsleDojoMinigame;
+  swiftness: CrimsonIsleDojoMinigame;
+  control: CrimsonIsleDojoMinigame;
+  tenacity: CrimsonIsleDojoMinigame;
+}
+
+interface CrimsonIsle {
+  faction: CrimsonIsleFactions | null;
+  reputation: CrimsonIsleReputation;
+  trophyFish: CrimsonIsleTrophyFish;
+  dojo: CrimsonIsleDojo;
+  kuudra: CrimsonIsleKuudra;
+}
+
+interface HOTMPowderData {
+  spent: number;
+  current: number;
+  total: number;
+}
+
+interface HOTMPowder {
+  mithril: HOTMPowderData;
+  gemstone: HOTMPowderData;
+  glacite: HOTMPowderData;
+}
+
+interface HOTM {
+  experience: SkillLevel;
+  ability: string;
+  powder: HOTMPowder;
 }

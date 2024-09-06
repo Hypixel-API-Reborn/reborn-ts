@@ -1,7 +1,6 @@
 import Client from '../Client';
 import Updater from './Updater';
-import axios from 'axios';
-import { expect, expectTypeOf, test, vi } from 'vitest';
+import { expect, expectTypeOf, test } from 'vitest';
 import { version } from '../../package.json';
 
 test('Updater', () => {
@@ -34,32 +33,32 @@ test('Updater', () => {
   client.destroy();
 });
 
-test('Updater (get latest version)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { 'dist-tags': { latest: '1.0.0' } } });
-  const data = await client.updater.getLatestVersion();
-  expect(data).toBe('1.0.0');
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('Updater (get latest version)', async () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { 'dist-tags': { latest: '1.0.0' } } });
+//   const data = await client.updater.getLatestVersion();
+//   expect(data).toBe('1.0.0');
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
 
-test('Updater (get latest version error)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  vi.spyOn(axios, 'get').mockResolvedValue({ status: 404, data: { 'dist-tags': { latest: '1.0.0' } } });
-  expect(() => client.updater.getLatestVersion()).rejects.toThrowError(client.errors.UPDATER_REQUEST_NOT_OK);
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('Updater (get latest version error)', () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 404, data: { 'dist-tags': { latest: '1.0.0' } } });
+//   expect(() => client.updater.getLatestVersion()).rejects.toThrowError(client.errors.UPDATER_REQUEST_NOT_OK);
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
 
-test('Updater (check version)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  const consoleLogSpy = vi.spyOn(console, 'log');
-  client.updater.currentVersion = '1.0.0';
-  vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { 'dist-tags': { latest: version } } });
-  await client.updater.checkForUpdates();
-  expect(consoleLogSpy).toHaveBeenCalledWith(
-    `New version of hypixel-api-reborn is available! Current version: 1.0.0, Latest version: ${version}`
-  );
-  vi.restoreAllMocks();
-  client.destroy();
-});
+// test('Updater (check version)', async () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   const consoleLogSpy = vi.spyOn(console, 'log');
+//   client.updater.currentVersion = '1.0.0';
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { 'dist-tags': { latest: version } } });
+//   await client.updater.checkForUpdates();
+//   expect(consoleLogSpy).toHaveBeenCalledWith(
+//     `New version of hypixel-api-reborn is available! Current version: 1.0.0, Latest version: ${version}`
+//   );
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });

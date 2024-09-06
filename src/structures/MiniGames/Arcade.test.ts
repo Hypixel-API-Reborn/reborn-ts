@@ -1,7 +1,6 @@
 import Arcade, {
   BlockingDead,
   BountyHunters,
-  CaptureTheWool,
   DragonWars,
   Dropper,
   DropperMap,
@@ -14,7 +13,7 @@ import Arcade, {
   HypixelSays,
   MiniWalls,
   PartyGames,
-  PartyPopper,
+  PartyPooper,
   PixelParty,
   PixelPartyGameMode,
   PropHunt,
@@ -86,44 +85,6 @@ test('Arcade', () => {
   expect(data.bountyHunters.swordKills).toBeDefined();
   expect(data.bountyHunters.swordKills).greaterThanOrEqual(0);
   expectTypeOf(data.bountyHunters.swordKills).toEqualTypeOf<number>();
-  expect(data.captureTheWool).toBeDefined();
-  expectTypeOf(data.captureTheWool).toEqualTypeOf<CaptureTheWool>();
-  expect(data.captureTheWool.wins).toBeDefined();
-  expect(data.captureTheWool.wins).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.wins).toEqualTypeOf<number>();
-  expect(data.captureTheWool.losses).toBeDefined();
-  expect(data.captureTheWool.losses).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.losses).toEqualTypeOf<number>();
-  expect(data.captureTheWool.WLR).toBeDefined();
-  expect(data.captureTheWool.WLR).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.WLR).toEqualTypeOf<number>();
-  expect(data.captureTheWool.draws).toBeDefined();
-  expect(data.captureTheWool.draws).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.draws).toEqualTypeOf<number>();
-  expect(data.captureTheWool.kills).toBeDefined();
-  expect(data.captureTheWool.kills).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.kills).toEqualTypeOf<number>();
-  expect(data.captureTheWool.deaths).toBeDefined();
-  expect(data.captureTheWool.deaths).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.deaths).toEqualTypeOf<number>();
-  expect(data.captureTheWool.KDR).toBeDefined();
-  expect(data.captureTheWool.KDR).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.KDR).toEqualTypeOf<number>();
-  expect(data.captureTheWool.assists).toBeDefined();
-  expect(data.captureTheWool.assists).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.assists).toEqualTypeOf<number>();
-  expect(data.captureTheWool.woolPickedUp).toBeDefined();
-  expect(data.captureTheWool.woolPickedUp).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.woolPickedUp).toEqualTypeOf<number>();
-  expect(data.captureTheWool.woolCaptured).toBeDefined();
-  expect(data.captureTheWool.woolCaptured).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.woolCaptured).toEqualTypeOf<number>();
-  expect(data.captureTheWool.fastestWin).toBeDefined();
-  expect(data.captureTheWool.fastestWin).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.fastestWin).toEqualTypeOf<number>();
-  expect(data.captureTheWool.longestGame).toBeDefined();
-  expect(data.captureTheWool.longestGame).greaterThanOrEqual(0);
-  expectTypeOf(data.captureTheWool.longestGame).toEqualTypeOf<number>();
   expect(data.dragonWars).toBeDefined();
   expectTypeOf(data.dragonWars).toEqualTypeOf<DragonWars>();
   expect(data.dragonWars.wins).toBeDefined();
@@ -270,17 +231,17 @@ test('Arcade', () => {
   expectTypeOf(data.galaxyWars.defenderKills).toEqualTypeOf<number>();
   expect(data.hideAndSeek).toBeDefined();
   expectTypeOf(data.hideAndSeek).toEqualTypeOf<HideAndSeek>();
-  expect(data.hideAndSeek.partyPopper).toBeDefined();
-  expectTypeOf(data.hideAndSeek.partyPopper).toEqualTypeOf<PartyPopper>();
-  expect(data.hideAndSeek.partyPopper.winsAsSeeker).toBeDefined();
-  expect(data.hideAndSeek.partyPopper.winsAsSeeker).greaterThanOrEqual(0);
-  expectTypeOf(data.hideAndSeek.partyPopper.winsAsSeeker).toEqualTypeOf<number>();
-  expect(data.hideAndSeek.partyPopper.winsAsHider).toBeDefined();
-  expect(data.hideAndSeek.partyPopper.winsAsHider).greaterThanOrEqual(0);
-  expectTypeOf(data.hideAndSeek.partyPopper.winsAsHider).toEqualTypeOf<number>();
-  expect(data.hideAndSeek.partyPopper.wins).toBeDefined();
-  expect(data.hideAndSeek.partyPopper.wins).greaterThanOrEqual(0);
-  expectTypeOf(data.hideAndSeek.partyPopper.wins).toEqualTypeOf<number>();
+  expect(data.hideAndSeek.partyPooper).toBeDefined();
+  expectTypeOf(data.hideAndSeek.partyPooper).toEqualTypeOf<PartyPooper>();
+  expect(data.hideAndSeek.partyPooper.winsAsSeeker).toBeDefined();
+  expect(data.hideAndSeek.partyPooper.winsAsSeeker).greaterThanOrEqual(0);
+  expectTypeOf(data.hideAndSeek.partyPooper.winsAsSeeker).toEqualTypeOf<number>();
+  expect(data.hideAndSeek.partyPooper.winsAsHider).toBeDefined();
+  expect(data.hideAndSeek.partyPooper.winsAsHider).greaterThanOrEqual(0);
+  expectTypeOf(data.hideAndSeek.partyPooper.winsAsHider).toEqualTypeOf<number>();
+  expect(data.hideAndSeek.partyPooper.wins).toBeDefined();
+  expect(data.hideAndSeek.partyPooper.wins).greaterThanOrEqual(0);
+  expectTypeOf(data.hideAndSeek.partyPooper.wins).toEqualTypeOf<number>();
   expect(data.hideAndSeek.propHunt).toBeDefined();
   expectTypeOf(data.hideAndSeek.propHunt).toEqualTypeOf<PropHunt>();
   expect(data.hideAndSeek.propHunt.winsAsSeeker).toBeDefined();

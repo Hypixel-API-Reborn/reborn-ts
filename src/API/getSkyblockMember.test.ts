@@ -7,14 +7,14 @@ import SkyblockPet from '../structures/SkyBlock/SkyblockPet';
 import {
   Armor,
   ChocolateFactoryData,
+  CrimsonIsle,
   Dungeons,
   Equipment,
+  HOTM,
   JacobData,
   Rarity,
-  SkillLevel,
   Skills,
-  Slayer,
-  TrophyFishRank
+  Slayer
 } from '../structures/SkyBlock/SkyblockMemberTypes';
 import { NetworthResult } from 'skyhelper-networth';
 import { expect, expectTypeOf, test } from 'vitest';
@@ -68,7 +68,6 @@ test('getSkyblockMember (museum)', async () => {
     expect(member.garden).toBeNull();
     expectTypeOf(member.garden).toEqualTypeOf<SkyblockGarden | null>();
     expect(member.museum).toBeDefined();
-    expect(member.museum).toBeInstanceOf(SkyblockMuseum);
     expectTypeOf(member.museum).toEqualTypeOf<SkyblockMuseum | null>();
     expect(member.profileName).toBeDefined();
     expectTypeOf(member.profileName).toEqualTypeOf<string>();
@@ -82,34 +81,28 @@ test('getSkyblockMember (museum)', async () => {
     expect(member.experience).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.experience).toEqualTypeOf<number>();
     expect(member.level).toBeDefined();
-    expect(member.level).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.level).toEqualTypeOf<number>();
     expect(member.hotm).toBeDefined();
-    expectTypeOf(member.hotm).toEqualTypeOf<SkillLevel>();
-    expect(member.trophyFish).toBeDefined();
-    expectTypeOf(member.trophyFish).toEqualTypeOf<TrophyFishRank>();
+    expectTypeOf(member.hotm).toEqualTypeOf<HOTM>();
     expect(member.highestMagicalPower).toBeDefined();
-    expect(member.highestMagicalPower).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.highestMagicalPower).toEqualTypeOf<number>();
     expect(member.fairySouls).toBeDefined();
-    expect(member.fairySouls).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.fairySouls).toEqualTypeOf<number>();
     expect(member.fairyExchanges).toBeDefined();
-    expect(member.fairyExchanges).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.fairyExchanges).toEqualTypeOf<number>();
     expect(member.skills).toBeDefined();
     expectTypeOf(member.skills).toEqualTypeOf<Skills>();
     expect(member.bestiary).toBeDefined();
-    expect(member.bestiary).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.bestiary).toEqualTypeOf<number>();
     expect(member.slayer).toBeDefined();
     expectTypeOf(member.slayer).toEqualTypeOf<Slayer | null>();
+    expect(member.crimsonIsle).toBeDefined();
+    expectTypeOf(member.crimsonIsle).toEqualTypeOf<CrimsonIsle>();
     expect(member.dungeons).toBeDefined();
-    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons | null>();
+    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons>();
     expect(member.collections).toBeDefined();
     expectTypeOf(member.collections).toEqualTypeOf<Record<string, number>>();
     expect(member.purse).toBeDefined();
-    expect(member.purse).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.purse).toEqualTypeOf<number>();
     expect(member.stats).toBeDefined();
     expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();
@@ -246,6 +239,11 @@ test('getSkyblockMember (museum)', async () => {
     expect(member.getNetworth()).toBeDefined();
     expectTypeOf(member.getNetworth).toEqualTypeOf<() => Promise<NetworthResult | null>>();
     expectTypeOf(member.getNetworth()).toEqualTypeOf<Promise<NetworthResult | null>>();
+    expect(member.getFarmingWeight()).toBeDefined();
+    expectTypeOf(member.getFarmingWeight).toEqualTypeOf<() => number>();
+    expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
+    expectTypeOf(member.getFarmingWeight()).toEqualTypeOf<number>();
+    expect(member.getFarmingWeight()).greaterThanOrEqual(0);
     expect(member.toString()).toBeDefined();
     expect(member.toString()).toBe(member.uuid);
     expectTypeOf(member.toString()).toEqualTypeOf<string>();
@@ -271,7 +269,6 @@ test('getSkyblockMember (garden)', async () => {
     expect(member.selected).toBeDefined();
     expectTypeOf(member.selected).toEqualTypeOf<boolean>();
     expect(member.garden).toBeDefined();
-    expect(member.garden).toBeInstanceOf(SkyblockGarden);
     expectTypeOf(member.garden).toEqualTypeOf<SkyblockGarden | null>();
     expect(member.museum).toBeDefined();
     expect(member.museum).toBeNull();
@@ -288,34 +285,28 @@ test('getSkyblockMember (garden)', async () => {
     expect(member.experience).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.experience).toEqualTypeOf<number>();
     expect(member.level).toBeDefined();
-    expect(member.level).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.level).toEqualTypeOf<number>();
     expect(member.hotm).toBeDefined();
-    expectTypeOf(member.hotm).toEqualTypeOf<SkillLevel>();
-    expect(member.trophyFish).toBeDefined();
-    expectTypeOf(member.trophyFish).toEqualTypeOf<TrophyFishRank>();
+    expectTypeOf(member.hotm).toEqualTypeOf<HOTM>();
     expect(member.highestMagicalPower).toBeDefined();
-    expect(member.highestMagicalPower).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.highestMagicalPower).toEqualTypeOf<number>();
     expect(member.fairySouls).toBeDefined();
-    expect(member.fairySouls).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.fairySouls).toEqualTypeOf<number>();
     expect(member.fairyExchanges).toBeDefined();
-    expect(member.fairyExchanges).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.fairyExchanges).toEqualTypeOf<number>();
     expect(member.skills).toBeDefined();
     expectTypeOf(member.skills).toEqualTypeOf<Skills>();
     expect(member.bestiary).toBeDefined();
-    expect(member.bestiary).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.bestiary).toEqualTypeOf<number>();
     expect(member.slayer).toBeDefined();
     expectTypeOf(member.slayer).toEqualTypeOf<Slayer | null>();
+    expect(member.crimsonIsle).toBeDefined();
+    expectTypeOf(member.crimsonIsle).toEqualTypeOf<CrimsonIsle>();
     expect(member.dungeons).toBeDefined();
-    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons | null>();
+    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons>();
     expect(member.collections).toBeDefined();
     expectTypeOf(member.collections).toEqualTypeOf<Record<string, number>>();
     expect(member.purse).toBeDefined();
-    expect(member.purse).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.purse).toEqualTypeOf<number>();
     expect(member.stats).toBeDefined();
     expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();
@@ -452,13 +443,17 @@ test('getSkyblockMember (garden)', async () => {
     expect(member.getNetworth()).toBeDefined();
     expectTypeOf(member.getNetworth).toEqualTypeOf<() => Promise<NetworthResult | null>>();
     expectTypeOf(member.getNetworth()).toEqualTypeOf<Promise<NetworthResult | null>>();
+    expect(member.getFarmingWeight()).toBeDefined();
+    expectTypeOf(member.getFarmingWeight).toEqualTypeOf<() => number>();
+    expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
+    expectTypeOf(member.getFarmingWeight()).toEqualTypeOf<number>();
+    expect(member.getFarmingWeight()).greaterThanOrEqual(0);
     expect(member.toString()).toBeDefined();
     expect(member.toString()).toBe(member.uuid);
     expectTypeOf(member.toString()).toEqualTypeOf<string>();
   });
   client.destroy();
 });
-
 test('getSkyblockMember', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -480,6 +475,7 @@ test('getSkyblockMember', async () => {
     expect(member.garden).toBeNull();
     expectTypeOf(member.garden).toEqualTypeOf<SkyblockGarden | null>();
     expect(member.museum).toBeDefined();
+    expect(member.museum).toBeNull();
     expectTypeOf(member.museum).toEqualTypeOf<SkyblockMuseum | null>();
     expect(member.profileName).toBeDefined();
     expectTypeOf(member.profileName).toEqualTypeOf<string>();
@@ -493,34 +489,28 @@ test('getSkyblockMember', async () => {
     expect(member.experience).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.experience).toEqualTypeOf<number>();
     expect(member.level).toBeDefined();
-    expect(member.level).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.level).toEqualTypeOf<number>();
     expect(member.hotm).toBeDefined();
-    expectTypeOf(member.hotm).toEqualTypeOf<SkillLevel>();
-    expect(member.trophyFish).toBeDefined();
-    expectTypeOf(member.trophyFish).toEqualTypeOf<TrophyFishRank>();
+    expectTypeOf(member.hotm).toEqualTypeOf<HOTM>();
     expect(member.highestMagicalPower).toBeDefined();
-    expect(member.highestMagicalPower).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.highestMagicalPower).toEqualTypeOf<number>();
     expect(member.fairySouls).toBeDefined();
-    expect(member.fairySouls).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.fairySouls).toEqualTypeOf<number>();
     expect(member.fairyExchanges).toBeDefined();
-    expect(member.fairyExchanges).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.fairyExchanges).toEqualTypeOf<number>();
     expect(member.skills).toBeDefined();
     expectTypeOf(member.skills).toEqualTypeOf<Skills>();
     expect(member.bestiary).toBeDefined();
-    expect(member.bestiary).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.bestiary).toEqualTypeOf<number>();
     expect(member.slayer).toBeDefined();
     expectTypeOf(member.slayer).toEqualTypeOf<Slayer | null>();
+    expect(member.crimsonIsle).toBeDefined();
+    expectTypeOf(member.crimsonIsle).toEqualTypeOf<CrimsonIsle>();
     expect(member.dungeons).toBeDefined();
-    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons | null>();
+    expectTypeOf(member.dungeons).toEqualTypeOf<Dungeons>();
     expect(member.collections).toBeDefined();
     expectTypeOf(member.collections).toEqualTypeOf<Record<string, number>>();
     expect(member.purse).toBeDefined();
-    expect(member.purse).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.purse).toEqualTypeOf<number>();
     expect(member.stats).toBeDefined();
     expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();

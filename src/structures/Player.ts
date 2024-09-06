@@ -24,7 +24,7 @@ import UHC from './MiniGames/UHC';
 import VampireZ from './MiniGames/VampireZ';
 import Walls from './MiniGames/Walls';
 import Warlords from './MiniGames/Warlords';
-import WoolWars from './MiniGames/WoolWars';
+import WoolGames from './MiniGames/WoolGames';
 import { getPlayerLevel, getRank, getSocialMedia, parseClaimedRewards, playerLevelProgress } from '../utils/Player';
 import { recursive } from '../utils/removeSnakeCase';
 
@@ -64,7 +64,7 @@ export interface PlayerStats {
   vampirez: VampireZ;
   walls: Walls;
   warlords: Warlords;
-  woolwars: WoolWars;
+  woolgames: WoolGames;
 }
 
 export type PlayerRank =
@@ -198,9 +198,18 @@ class Player {
       vampirez: new VampireZ(data?.stats?.VampireZ),
       walls: new Walls(data?.stats?.Walls),
       warlords: new Warlords(data?.stats?.Battleground),
-      woolwars: new WoolWars(data?.stats?.WoolGames)
+      woolgames: new WoolGames(data?.stats?.WoolGames)
     };
     this.userLanguage = data?.userLanguage || 'ENGLISH';
+    this.lastDailyReward = data.lastAdsenseGenerateTime ? new Date(data.lastAdsenseGenerateTime) : null;
+    this.lastDailyRewardTimestamp = data.lastAdsenseGenerateTime || null;
+    this.totalRewards = data.totalRewards || 0;
+    this.totalDailyRewards = data.totalDailyRewards || 0;
+    this.rewardStreak = data.rewardStreak || 0;
+    this.rewardScore = data.rewardScore || 0;
+    this.rewardHighScore = data.rewardHighScore || 0;
+    this.levelProgress = playerLevelProgress(data.networkExp);
+    this.userLanguage = data.userLanguage || 'ENGLISH';
     this.claimedLevelingRewards = parseClaimedRewards(data) || [];
     this.globalCosmetics = new PlayerCosmetics(data);
     this.ranksPurchaseTime = {
