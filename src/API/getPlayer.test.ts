@@ -59,7 +59,7 @@ test('getPLayer (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('fb3d96498a5b4d5b91b763db14b195ad', { raw: true });
+  const data = await client.getPlayer('4855c53ee4fb4100997600a92fc50984', { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
