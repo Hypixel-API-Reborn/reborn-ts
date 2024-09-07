@@ -5,8 +5,16 @@ import SkyblockMuseumItem from '../structures/SkyBlock/SkyblockMuseumItem';
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import { expect, expectTypeOf, test } from 'vitest';
 
+test('getSkyblockMuseum (no input)', () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  expect(() => client.getSkyblockMuseum()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
+  client.destroy();
+});
+
 test('getSkyblockMuseum (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const profiles = await client.getSkyblockProfiles('63fe6f4c4b0643b2abd02d15dc303e41');
@@ -20,7 +28,7 @@ test('getSkyblockMuseum (raw)', async () => {
 });
 
 test('getSkyblockMuseum', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const profiles = await client.getSkyblockProfiles('63fe6f4c4b0643b2abd02d15dc303e41');

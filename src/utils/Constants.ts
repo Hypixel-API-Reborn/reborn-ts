@@ -1,17 +1,71 @@
+import { GameCode, GameID, GameString } from '../structures/Game';
+
+export const games: { name: GameString; code: GameCode; id: GameID }[] = [
+  { name: 'Quake Craft', code: 'QUAKECRAFT', id: 2 },
+  { name: 'Walls', code: 'WALLS', id: 3 },
+  { name: 'Paintball', code: 'PAINTBALL', id: 4 },
+  { name: 'Blitz Survival Games', code: 'SURVIVAL_GAMES', id: 5 },
+  { name: 'The TNT Games', code: 'TNTGAMES', id: 6 },
+  { name: 'VampireZ', code: 'VAMPIREZ', id: 7 },
+  { name: 'Mega Walls', code: 'WALLS3', id: 13 },
+  { name: 'Arcade', code: 'ARCADE', id: 14 },
+  { name: 'Arena Brawl', code: 'ARENA', id: 17 },
+  { name: 'UHC Champions', code: 'UHC', id: 20 },
+  { name: 'Cops and Crims', code: 'MCGO', id: 21 },
+  { name: 'Warlords', code: 'BATTLEGROUND', id: 23 },
+  { name: 'Smash Heroes', code: 'SUPER_SMASH', id: 24 },
+  { name: 'Turbo Kart Racers', code: 'GINGERBREAD', id: 25 },
+  { name: 'Housing', code: 'HOUSING', id: 26 },
+  { name: 'SkyWars', code: 'SKYWARS', id: 51 },
+  { name: 'Crazy Walls', code: 'TRUE_COMBAT', id: 52 },
+  { name: 'Speed UHC', code: 'SPEED_UHC', id: 54 },
+  { name: 'SkyClash', code: 'SKYCLASH', id: 55 },
+  { name: 'Classic Games', code: 'LEGACY', id: 56 },
+  { name: 'Prototype', code: 'PROTOTYPE', id: 57 },
+  { name: 'Bed Wars', code: 'BEDWARS', id: 58 },
+  { name: 'Murder Mystery', code: 'MURDER_MYSTERY', id: 59 },
+  { name: 'Build Battle', code: 'BUILD_BATTLE', id: 60 },
+  { name: 'Duels', code: 'DUELS', id: 61 },
+  { name: 'SkyBlock', code: 'SKYBLOCK', id: 63 },
+  { name: 'The Pit', code: 'PIT', id: 64 },
+  { name: 'Replay', code: 'REPLAY', id: 65 },
+  { name: 'SMP', code: 'SMP', id: 67 },
+  { name: 'Wool Wars', code: 'WOOL_GAMES', id: 68 },
+  { name: 'Limbo', code: 'LIMBO', id: -2 },
+  { name: 'Queue', code: 'QUEUE', id: -3 },
+  { name: 'Main Lobby', code: 'MAIN_LOBBY', id: -4 },
+  { name: 'Tournament Lobby', code: 'TOURNAMENT_LOBBY', id: -5 },
+  { name: 'Idle', code: 'IDLE', id: -6 }
+];
+
+export type DuelsBaseDivision =
+  | 'Rookie'
+  | 'Iron'
+  | 'Gold'
+  | 'Diamond'
+  | 'Master'
+  | 'Legend'
+  | 'Grandmaster'
+  | 'Godlike'
+  | 'Celestial'
+  | 'Divine'
+  | 'Ascended';
+
+export const duelsDivisions: { name: DuelsBaseDivision; key: string }[] = [
+  { name: 'Rookie', key: 'rookie' },
+  { name: 'Iron', key: 'iron' },
+  { name: 'Gold', key: 'gold' },
+  { name: 'Diamond', key: 'diamond' },
+  { name: 'Master', key: 'master' },
+  { name: 'Legend', key: 'legend' },
+  { name: 'Grandmaster', key: 'grandmaster' },
+  { name: 'Godlike', key: 'godlike' },
+  { name: 'Celestial', key: 'celestial' },
+  { name: 'Divine', key: 'divine' },
+  { name: 'Ascended', key: 'ascended' }
+];
+
 export default {
-  duelsDivisions: [
-    { name: 'Rookie', key: 'rookie' },
-    { name: 'Iron', key: 'iron' },
-    { name: 'Gold', key: 'gold' },
-    { name: 'Diamond', key: 'diamond' },
-    { name: 'Master', key: 'master' },
-    { name: 'Legend', key: 'legend' },
-    { name: 'Grandmaster', key: 'grandmaster' },
-    { name: 'Godlike', key: 'godlike' },
-    { name: 'Celestial', key: 'celestial' },
-    { name: 'Divine', key: 'divine' },
-    { name: 'Ascended', key: 'ascended' }
-  ],
   levelingXp: {
     1: 50,
     2: 125,
@@ -714,31 +768,6 @@ export default {
     1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700,
     1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700, 1886700
   ],
-  leaderboardNames: {
-    ARENA: 'ARENA',
-    COPS_AND_CRIMS: 'MCGO',
-    WARLORDS: 'BATTLEGROUND',
-    BLITZ_SURVIVAL_GAMES: 'SURVIVAL_GAMES',
-    UHC: 'UHC',
-    WALLS: 'WALLS',
-    PROTOTYPE: 'PROTOTYPE',
-    PAINTBALL: 'PAINTBALL',
-    SKYWARS: 'SKYWARS',
-    MURDER_MYSTERY: 'MURDER_MYSTERY',
-    SMASH_HEROES: 'SUPER_SMASH',
-    DUELS: 'DUELS',
-    SPEED_UHC: 'SPEED_UHC',
-    TNTGAMES: 'TNTGAMES',
-    BEDWARS: 'BEDWARS',
-    TURBO_KART_RACERS: 'GINGERBREAD',
-    BUILD_BATTLE: 'BUILD_BATTLE',
-    ARCADE: 'ARCADE',
-    SKYCLASH: 'SKYCLASH',
-    QUAKECRAFT: 'QUAKECRAFT',
-    CRAZY_WALLS: 'TRUE_COMBAT',
-    MEGA_WALLS: 'WALLS3',
-    VAMPIREZ: 'VAMPIREZ'
-  },
   MiniGamesString: {
     QUAKECRAFT: 'Quakecraft',
     WALLS: 'Walls',
@@ -802,44 +831,8 @@ export default {
     mythic_prestige: 'ಠ_ಠ',
     favor_of_the_angel_prestige: '⚔'
   },
-  games: [
-    { name: 'Quake Craft', code: 'QUAKECRAFT', id: 2 },
-    { name: 'Walls', code: 'WALLS', id: 3 },
-    { name: 'Paintball', code: 'PAINTBALL', id: 4 },
-    { name: 'Blitz Survival Games', code: 'SURVIVAL_GAMES', id: 5 },
-    { name: 'The TNT Games', code: 'TNTGAMES', id: 6 },
-    { name: 'VampireZ', code: 'VAMPIREZ', id: 7 },
-    { name: 'Mega Walls', code: 'WALLS3', id: 13 },
-    { name: 'Arcade', code: 'ARCADE', id: 14 },
-    { name: 'Arena Brawl', code: 'ARENA', id: 17 },
-    { name: 'UHC Champions', code: 'UHC', id: 20 },
-    { name: 'Cops and Crims', code: 'MCGO', id: 21 },
-    { name: 'Warlords', code: 'BATTLEGROUND', id: 23 },
-    { name: 'Smash Heroes', code: 'SUPER_SMASH', id: 24 },
-    { name: 'Turbo Kart Racers', code: 'GINGERBREAD', id: 25 },
-    { name: 'Housing', code: 'HOUSING', id: 26 },
-    { name: 'SkyWars', code: 'SKYWARS', id: 51 },
-    { name: 'Crazy Walls', code: 'TRUE_COMBAT', id: 52 },
-    { name: 'Speed UHC', code: 'SPEED_UHC', id: 54 },
-    { name: 'SkyClash', code: 'SKYCLASH', id: 55 },
-    { name: 'Classic Games', code: 'LEGACY', id: 56 },
-    { name: 'Prototype', code: 'PROTOTYPE', id: 57 },
-    { name: 'Bed Wars', code: 'BEDWARS', id: 58 },
-    { name: 'Murder Mystery', code: 'MURDER_MYSTERY', id: 59 },
-    { name: 'Build Battle', code: 'BUILD_BATTLE', id: 60 },
-    { name: 'Duels', code: 'DUELS', id: 61 },
-    { name: 'SkyBlock', code: 'SKYBLOCK', id: 63 },
-    { name: 'The Pit', code: 'PIT', id: 64 },
-    { name: 'Replay', code: 'REPLAY', id: 65 },
-    { name: 'SMP', code: 'SMP', id: 67 },
-    { name: 'Wool Wars', code: 'WOOL_GAMES', id: 68 },
-    { name: 'Limbo', code: 'LIMBO', id: -2 },
-    { name: 'Queue', code: 'QUEUE', id: -3 },
-    { name: 'Main Lobby', code: 'MAIN_LOBBY', id: -4 },
-    { name: 'Tournament Lobby', code: 'TOURNAMENT_LOBBY', id: -5 },
-    { name: 'Idle', code: 'IDLE', id: -6 }
-  ],
-  /* eslint-disable camelcase */ bestiary: {
+  /* eslint-disable camelcase */
+  bestiary: {
     dynamic: {
       name: 'Private Island',
       mobs: [

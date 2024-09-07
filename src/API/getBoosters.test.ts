@@ -1,10 +1,10 @@
 import Booster from '../structures/Boosters/Booster';
 import Client from '../Client';
-import Game from '../structures/Game';
+import Game, { GameCode, GameID, GameString } from '../structures/Game';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getBoosters (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getBoosters({ raw: true });
@@ -14,7 +14,7 @@ test('getBoosters (raw)', async () => {
 });
 
 test('getBoosters', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getBoosters();
@@ -37,7 +37,28 @@ test('getBoosters', async () => {
     expect(booster.activated).toBeDefined();
     expectTypeOf(booster.activated).toEqualTypeOf<Date>();
     expect(booster.game).toBeDefined();
-    expectTypeOf(booster.game).toEqualTypeOf<Game | null>();
+    expectTypeOf(booster.game).toEqualTypeOf<Game>();
+    expect(booster.game).toBeDefined();
+    expectTypeOf(booster.game).toEqualTypeOf<Game>();
+    expect(booster.game.game).toBeDefined();
+    expectTypeOf(booster.game.game).toEqualTypeOf<GameID | GameCode>();
+    expect(booster.game.id).toBeDefined();
+    expectTypeOf(booster.game.id).toEqualTypeOf<GameID | null>();
+    expect(booster.game.code).toBeDefined();
+    expectTypeOf(booster.game.code).toEqualTypeOf<GameCode | null>();
+    expect(booster.game.name).toBeDefined();
+    expectTypeOf(booster.game.name).toEqualTypeOf<GameString | null>();
+    expect(booster.game.found).toBeDefined();
+    expectTypeOf(booster.game.found).toEqualTypeOf<boolean>();
+    expect(booster.game.toString()).toBeDefined();
+    expect(booster.game.toString()).toBe(booster.game.name);
+    expectTypeOf(booster.game.toString()).toEqualTypeOf<GameString | null>();
+    expect(Game.IDS).toBeDefined();
+    expectTypeOf(Game.IDS).toEqualTypeOf<GameID[]>();
+    expect(Game.CODES).toBeDefined();
+    expectTypeOf(Game.CODES).toEqualTypeOf<GameCode[]>();
+    expect(Game.NAMES).toBeDefined();
+    expectTypeOf(Game.NAMES).toEqualTypeOf<GameString[]>();
     expect(booster.isActive).toBeDefined();
     expectTypeOf(booster.isActive).toEqualTypeOf<boolean>();
     expect(booster.type).toBeDefined();

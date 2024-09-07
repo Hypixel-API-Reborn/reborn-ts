@@ -1,6 +1,6 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
-import Product from '../structures/SkyBlock/Bazzar/Product';
+import Product from '../structures/SkyBlock/Bazaar/Product';
 import { RequestOptions } from '../Private/RequestHandler';
 
 class getSkyblockBazaar extends Endpoint {

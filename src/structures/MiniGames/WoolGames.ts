@@ -10,7 +10,7 @@ export interface WoolGamesPrivateGameConfig {
   respawn_enable: boolean;
 }
 
-class WoolWarsClass {
+export class WoolWarsClass {
   wins: number;
   kills: number;
   assists: number;
@@ -35,7 +35,7 @@ class WoolWarsClass {
   }
 }
 
-class WoolWars {
+export class WoolWars {
   selectedClass: 'ASSAULT' | 'TANK' | 'GOLEM' | 'SWORDSMAN' | 'ENGINEER' | 'ARCHER' | 'NONE';
   wins: number;
   kills: number;
@@ -74,7 +74,7 @@ class WoolWars {
   }
 }
 
-class CaptureTheWool {
+export class CaptureTheWool {
   kills: number;
   assists: number;
   deaths: number;
@@ -99,7 +99,7 @@ class CaptureTheWool {
   }
 }
 
-class SheepWars {
+export class SheepWars {
   wins: number;
   kills: number;
   killsVoid: number;

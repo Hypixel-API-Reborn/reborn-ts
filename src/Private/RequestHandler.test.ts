@@ -3,7 +3,7 @@ import RequestHandler from './RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('RequestHandler', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 
@@ -25,7 +25,7 @@ test('RequestHandler', async () => {
 });
 
 // test('RequestHandler (Invalid API Key)', () => {
-//   const client = new Client(process.env.HYPIXEL_KEY ?? '');
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
 //   expect(client.requestHandler.request).toBeDefined();
 //   expectTypeOf(client.requestHandler.request).toBeFunction();
 //   vi.spyOn(axios, 'get').mockResolvedValue({ status: 403, data: {} });
@@ -34,8 +34,32 @@ test('RequestHandler', async () => {
 //   client.destroy();
 // });
 
+// test('RequestHandler (400 Bad Request)', () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   expect(client.requestHandler.request).toBeDefined();
+//   expectTypeOf(client.requestHandler.request).toBeFunction();
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 400, data: { cause: 'meow' } });
+//   expect(() => client.requestHandler.request('/boosters')).rejects.toThrowError(
+//     client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(/{cause}/, 'meow')
+//   );
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
+
+// test('RequestHandler (400 Bad Request No Cause)', () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   expect(client.requestHandler.request).toBeDefined();
+//   expectTypeOf(client.requestHandler.request).toBeFunction();
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 400, data: {} });
+//   expect(() => client.requestHandler.request('/boosters')).rejects.toThrowError(
+//     client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(/{cause}/, 'Unknown')
+//   );
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
+
 // test('RequestHandler (Unprocessable Entity)', () => {
-//   const client = new Client(process.env.HYPIXEL_KEY ?? '');
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
 //   expect(client.requestHandler.request).toBeDefined();
 //   expectTypeOf(client.requestHandler.request).toBeFunction();
 //   vi.spyOn(axios, 'get').mockResolvedValue({ status: 422, data: {} });
@@ -45,7 +69,7 @@ test('RequestHandler', async () => {
 // });
 
 // test('RequestHandler (Rate Limited)', () => {
-//   const client = new Client(process.env.HYPIXEL_KEY ?? '');
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
 //   expect(client.requestHandler.request).toBeDefined();
 //   expectTypeOf(client.requestHandler.request).toBeFunction();
 //   vi.spyOn(axios, 'get').mockResolvedValue({ status: 429, data: {} });

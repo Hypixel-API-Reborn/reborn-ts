@@ -1,5 +1,5 @@
 class FireSale {
-  itemId: string | null;
+  itemId: string;
   startTimestamp: number;
   startAt: Date;
   endTimestamp: number;
@@ -7,16 +7,16 @@ class FireSale {
   amount: number;
   price: number;
   constructor(data: Record<string, any>) {
-    this.itemId = data.item_id || null;
+    this.itemId = data.item_id;
     this.startTimestamp = parseInt(data.start, 10);
     this.startAt = new Date(this.startTimestamp);
     this.endTimestamp = parseInt(data.end, 10);
     this.endAt = new Date(this.endTimestamp);
-    this.amount = data.amount || 0;
-    this.price = data.price || 0;
+    this.amount = data.amount;
+    this.price = data.price;
   }
 
-  toString(): string | null {
+  toString(): string {
     return this.itemId;
   }
 }

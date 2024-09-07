@@ -1,6 +1,7 @@
 import Game from './Game';
 
-class RecentGame extends Game {
+class RecentGame {
+  game: Game | null;
   dateTimestamp: number | null;
   dateAt: Date | null;
   mode: string | null;
@@ -9,17 +10,17 @@ class RecentGame extends Game {
   endedTimestamp: number | null;
   endedAt: Date | null;
   constructor(data: Record<string, any>) {
-    super(data.gameType);
-    this.dateTimestamp = data.date || null;
+    this.game = data?.gameType ? new Game(data.gameType) : null;
+    this.dateTimestamp = data?.date || null;
     this.dateAt = this.dateTimestamp ? new Date(this.dateTimestamp) : null;
-    this.mode = data.mode || null;
-    this.map = data.map || null;
-    this.ongoing = Boolean(!data.ended || 0);
-    this.endedTimestamp = data.ended ? data.ended : null;
+    this.mode = data?.mode || null;
+    this.map = data?.map || null;
+    this.ongoing = Boolean(!data?.ended || 0) || false;
+    this.endedTimestamp = data?.ended ? data?.ended : null;
     this.endedAt = this.endedTimestamp ? new Date(this.endedTimestamp) : null;
   }
 
-  toString(): any {
+  toString(): string | null {
     return this.mode;
   }
 }

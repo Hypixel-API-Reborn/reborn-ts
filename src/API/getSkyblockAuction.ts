@@ -18,7 +18,7 @@ class getSkyblockAction extends Endpoint {
     let filter;
     if ('profile' === type) {
       filter = 'profile';
-    } else if ('player' === type) {
+    } else if ('player' === type && query) {
       query = await this.client.requestHandler.toUUID(query);
       filter = 'player';
     } else if ('auction' === type) {

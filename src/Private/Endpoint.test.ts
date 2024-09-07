@@ -3,7 +3,7 @@ import Endpoint from './Endpoint';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Endpoint', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 

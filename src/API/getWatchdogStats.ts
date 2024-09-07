@@ -1,6 +1,6 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
-import WatchdogStats from '../structures/Watchdog/Stats';
+import WatchdogStats from '../structures/WatchdogStats';
 import { RequestOptions } from '../Private/RequestHandler';
 
 class getWatchdogStats extends Endpoint {

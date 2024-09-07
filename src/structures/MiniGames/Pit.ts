@@ -41,88 +41,81 @@ class Pit {
   getEnterChest: () => Promise<PitInventoryItem[]>;
   getArmor: () => Promise<PitArmor>;
   constructor(data: Record<string, any>) {
-    this.prestige = data.profile?.prestiges?.[data.profile?.prestiges?.length - 1].index || 0;
-    this.xp = data.profile?.xp || 0;
+    this.prestige = data?.profile?.prestiges?.[data?.profile?.prestiges?.length - 1]?.index || 0;
+    this.xp = data?.profile?.xp || 0;
     this.level =
       this.calcLevel(
         this.prestige,
-        0 < this.prestige ? this.xp - Constants.pit.Prestiges[this.prestige - 1].SumXp : this.xp
+        0 < this.prestige ? this.xp - Constants?.pit?.Prestiges[this.prestige - 1]?.SumXp : this.xp
       ) ?? 0;
-    this.kills = data.pit_stats_ptl?.kills || 0;
-    this.deaths = data.pit_stats_ptl?.deaths || 0;
+    this.kills = data?.pit_stats_ptl?.kills || 0;
+    this.deaths = data?.pit_stats_ptl?.deaths || 0;
     this.KDR = divide(this.kills, this.deaths);
-    this.assists = data.pit_stats_ptl?.assists || 0;
-    this.maxKillStreak = data.pit_stats_ptl?.max_streak || 0;
-    this.playtime = (data.pit_stats_ptl?.playtime_minutes || 0) * 60;
-    this.joins = data.pit_stats_ptl?.joins || 0;
-    this.damageReceived = data.pit_stats_ptl?.damage_received || 0;
-    this.damageDealt = data.pit_stats_ptl?.damage_dealt || 0;
+    this.assists = data?.pit_stats_ptl?.assists || 0;
+    this.maxKillStreak = data?.pit_stats_ptl?.max_streak || 0;
+    this.playtime = (data?.pit_stats_ptl?.playtime_minutes || 0) * 60;
+    this.joins = data?.pit_stats_ptl?.joins || 0;
+    this.damageReceived = data?.pit_stats_ptl?.damage_received || 0;
+    this.damageDealt = data?.pit_stats_ptl?.damage_dealt || 0;
     this.damageRatio = divide(this.damageDealt, this.damageReceived);
-    this.meleeDamageReceived = data.pit_stats_ptl?.melee_damage_received || 0;
-    this.meleeDamageDealt = data.pit_stats_ptl?.melee_damage_dealt || 0;
-    this.swordHits = data.pit_stats_ptl?.sword_hits || 0;
-    this.leftClicks = data.pit_stats_ptl?.left_clicks || 0;
+    this.meleeDamageReceived = data?.pit_stats_ptl?.melee_damage_received || 0;
+    this.meleeDamageDealt = data?.pit_stats_ptl?.melee_damage_dealt || 0;
+    this.swordHits = data?.pit_stats_ptl?.sword_hits || 0;
+    this.leftClicks = data?.pit_stats_ptl?.left_clicks || 0;
     this.meleeAccuracy = divide(this.swordHits, this.leftClicks);
     this.meleeDamageRatio = divide(this.meleeDamageDealt, this.meleeDamageReceived);
-    this.bowDamageReceived = data.pit_stats_ptl?.bow_damage_received || 0;
-    this.bowDamageDealt = data.pit_stats_ptl?.bow_damage_dealt || 0;
-    this.arrowsHit = data.pit_stats_ptl?.arrow_hits || 0;
-    this.arrowsFired = data.pit_stats_ptl?.arrows_fired || 0;
+    this.bowDamageReceived = data?.pit_stats_ptl?.bow_damage_received || 0;
+    this.bowDamageDealt = data?.pit_stats_ptl?.bow_damage_dealt || 0;
+    this.arrowsHit = data?.pit_stats_ptl?.arrow_hits || 0;
+    this.arrowsFired = data?.pit_stats_ptl?.arrows_fired || 0;
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsFired);
     this.bowDamageRatio = divide(this.bowDamageDealt, this.bowDamageReceived);
-    this.goldenHeadsEaten = data.pit_stats_ptl?.ghead_eaten || 0;
+    this.goldenHeadsEaten = data?.pit_stats_ptl?.ghead_eaten || 0;
     this.getInventory = async (): Promise<PitInventoryItem[]> => {
-      let inventory = data.profile.inv_contents;
+      let inventory = data?.profile?.inv_contents || undefined;
       if (!inventory) return [];
-      try {
-        inventory = await decode(inventory.data);
-        const edited = [];
-        for (let i = 1; i < inventory.length; i++) {
-          if (!inventory[i].id) {
-            continue;
-          }
-          edited.push(new PitInventoryItem(inventory[i]));
+      inventory = await decode(inventory?.data);
+      const edited = [];
+      for (let i = 1; i < inventory?.length; i++) {
+        if (!inventory[i]?.id) {
+          continue;
         }
-        return edited;
-      } catch {
-        return [];
+        edited?.push(new PitInventoryItem(inventory[i]));
       }
+      return edited;
     };
     this.getEnterChest = async () => {
-      let chest = data.profile.inv_enderchest;
+      let chest = data?.profile?.inv_enderchest || undefined;
       if (!chest) return [];
-      try {
-        chest = await decode(chest.data);
-        const edited = [];
-        for (let i = 1; i < chest.length; i++) {
-          if (!chest[i].id) {
-            continue;
-          }
-          edited.push(new PitInventoryItem(chest[i]));
+      chest = await decode(chest?.data);
+      const edited = [];
+      for (let i = 1; i < chest?.length; i++) {
+        if (!chest[i]?.id) {
+          continue;
         }
-        return edited;
-      } catch {
-        return [];
+        edited?.push(new PitInventoryItem(chest[i]));
       }
+      return edited;
     };
     this.getArmor = async () => {
-      const base64 = data.profile.inv_armor;
-      const decoded = await decode(base64.data);
+      const base64 = data?.profile?.inv_armor || undefined;
+      if (!base64) return { helmet: null, chestplate: null, leggings: null, boots: null };
+      const decoded = await decode(base64?.data);
       const armor = {
-        helmet: decoded[3].id ? new PitInventoryItem(decoded[3]) : null,
-        chestplate: decoded[2].id ? new PitInventoryItem(decoded[2]) : null,
-        leggings: decoded[1].id ? new PitInventoryItem(decoded[1]) : null,
-        boots: decoded[0].id ? new PitInventoryItem(decoded[0]) : null
+        helmet: decoded[3]?.id ? new PitInventoryItem(decoded[3]) : null,
+        chestplate: decoded[2]?.id ? new PitInventoryItem(decoded[2]) : null,
+        leggings: decoded[1]?.id ? new PitInventoryItem(decoded[1]) : null,
+        boots: decoded[0]?.id ? new PitInventoryItem(decoded[0]) : null
       };
       return armor;
     };
   }
   // Credit https://github.com/PitPanda/PitPandaProduction/blob/b1971f56ea1aa8c829b722cbb33247c96591c0cb/structures/Pit.js
   private calcLevel(prestige: number, xp: number): number {
-    const multiplier = Constants.pit.Prestiges[prestige].Multiplier;
+    const multiplier = Constants?.pit?.Prestiges[prestige]?.Multiplier;
     let level = 0;
     while (0 < xp && 120 > level) {
-      const levelXp = Constants.pit.Levels[Math.floor(level / 10)].Xp * multiplier;
+      const levelXp = Constants?.pit?.Levels[Math.floor(level / 10)]?.Xp * multiplier;
       if (xp >= levelXp * 10) {
         xp -= levelXp * 10;
         level += 10;

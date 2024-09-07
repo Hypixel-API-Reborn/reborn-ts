@@ -4,18 +4,22 @@ import BedWars from '../structures/MiniGames/BedWars';
 import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
 import BuildBattle from '../structures/MiniGames/BuildBattle';
 import Client from '../Client';
-import Color from '../structures/Color';
+import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
 import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
 import Duels from '../structures/MiniGames/Duels';
-import Game from '../structures/Game';
 import Guild from '../structures/Guild/Guild';
 import House from '../structures/House';
 import MegaWalls from '../structures/MiniGames/MegaWalls';
 import MurderMystery from '../structures/MiniGames/MurderMystery';
 import Paintball from '../structures/MiniGames/Paintball';
-import Pit, { PitArmor } from '../structures/MiniGames/Pit';
-import PitInventoryItem from '../structures/MiniGames/PitInventoryItem';
-import Player, { LevelProgress, PlayerRank, PlayerSocialMedia, RanksPurchaseTime } from '../structures/Player';
+import Pit from '../structures/MiniGames/Pit';
+import Player, {
+  LevelProgress,
+  PlayerRank,
+  PlayerSocialMedia,
+  PlayerStats,
+  RanksPurchaseTime
+} from '../structures/Player';
 import PlayerCosmetics from '../structures/PlayerCosmetics';
 import Quakecraft from '../structures/MiniGames/Quakecraft';
 import RecentGame from '../structures/RecentGame';
@@ -31,8 +35,20 @@ import Warlords from '../structures/MiniGames/Warlords';
 import WoolGames from '../structures/MiniGames/WoolGames';
 import { expect, expectTypeOf, test } from 'vitest';
 
-test('No Player Input', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+// test('getPlayer (never joinned hypixel)', async () => {
+//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { success: true } });
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-expect-error
+//   await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
+//     client.errors.PLAYER_HAS_NEVER_LOGGED
+//   );
+//   vi.restoreAllMocks();
+//   client.destroy();
+// });
+
+test('getPlayer (no input)', () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getPlayer()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
@@ -40,17 +56,17 @@ test('No Player Input', () => {
 });
 
 test('getPLayer (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const data = await client.getPlayer('fb3d96498a5b4d5b91b763db14b195ad', { raw: true });
+  const data = await client.getPlayer('4855c53ee4fb4100997600a92fc50984', { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<object>();
   client.destroy();
 });
 
 test('getPlayer (guild)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('28667672039044989b0019b14a2c34d6', { guild: true });
@@ -63,7 +79,7 @@ test('getPlayer (guild)', async () => {
 });
 
 test('getPlayer (houses)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('618a96fec8b0493fa89427891049550b', { houses: true });
@@ -80,7 +96,7 @@ test('getPlayer (houses)', async () => {
 });
 
 test('getPlayer (recent games)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('37501e7512b845ab8796e2baf9e9677a', { recentGames: true });
@@ -97,7 +113,7 @@ test('getPlayer (recent games)', async () => {
 });
 
 test('getPlayer', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e');
@@ -126,12 +142,54 @@ test('getPlayer', async () => {
   expectTypeOf(data.lastLogoutTimestamp).toEqualTypeOf<number | null>();
   expect(data.lastLogout).toBeDefined();
   expectTypeOf(data.lastLogout).toEqualTypeOf<Date | null>();
-  expect(data.recentlyPlayedGame).toBeDefined();
-  expectTypeOf(data.recentlyPlayedGame).toEqualTypeOf<Game | null>();
   expect(data.plusColor).toBeDefined();
   expectTypeOf(data.plusColor).toEqualTypeOf<Color | null>();
+  if (data.plusColor) {
+    expect(data.plusColor).toBeDefined();
+    expectTypeOf(data.plusColor).toEqualTypeOf<Color>();
+    expect(data.plusColor.color).toBeDefined();
+    expectTypeOf(data.plusColor.color).toEqualTypeOf<ColorCode>();
+    expect(data.plusColor.toString).toBeDefined();
+    expectTypeOf(data.plusColor.toString).toEqualTypeOf<() => ColorString>();
+    expect(data.plusColor.toString()).toBeDefined();
+    expectTypeOf(data.plusColor.toString()).toEqualTypeOf<ColorString>();
+    expect(data.plusColor.toHex).toBeDefined();
+    expectTypeOf(data.plusColor.toHex).toEqualTypeOf<() => ColorHex>();
+    expect(data.plusColor.toHex()).toBeDefined();
+    expectTypeOf(data.plusColor.toHex()).toEqualTypeOf<ColorHex>();
+    expect(data.plusColor.toCode).toBeDefined();
+    expectTypeOf(data.plusColor.toCode).toEqualTypeOf<() => ColorCode>();
+    expect(data.plusColor.toCode()).toBeDefined();
+    expectTypeOf(data.plusColor.toCode()).toEqualTypeOf<ColorCode>();
+    expect(data.plusColor.toInGameCode).toBeDefined();
+    expectTypeOf(data.plusColor.toInGameCode).toEqualTypeOf<() => InGameCode>();
+    expect(data.plusColor.toInGameCode()).toBeDefined();
+    expectTypeOf(data.plusColor.toInGameCode()).toEqualTypeOf<InGameCode>();
+  }
   expect(data.prefixColor).toBeDefined();
   expectTypeOf(data.prefixColor).toEqualTypeOf<Color | null>();
+  if (data.prefixColor) {
+    expect(data.prefixColor).toBeDefined();
+    expectTypeOf(data.prefixColor).toEqualTypeOf<Color>();
+    expect(data.prefixColor.color).toBeDefined();
+    expectTypeOf(data.prefixColor.color).toEqualTypeOf<ColorCode>();
+    expect(data.prefixColor.toString).toBeDefined();
+    expectTypeOf(data.prefixColor.toString).toEqualTypeOf<() => ColorString>();
+    expect(data.prefixColor.toString()).toBeDefined();
+    expectTypeOf(data.prefixColor.toString()).toEqualTypeOf<ColorString>();
+    expect(data.prefixColor.toHex).toBeDefined();
+    expectTypeOf(data.prefixColor.toHex).toEqualTypeOf<() => ColorHex>();
+    expect(data.prefixColor.toHex()).toBeDefined();
+    expectTypeOf(data.prefixColor.toHex()).toEqualTypeOf<ColorHex>();
+    expect(data.prefixColor.toCode).toBeDefined();
+    expectTypeOf(data.prefixColor.toCode).toEqualTypeOf<() => ColorCode>();
+    expect(data.prefixColor.toCode()).toBeDefined();
+    expectTypeOf(data.prefixColor.toCode()).toEqualTypeOf<ColorCode>();
+    expect(data.prefixColor.toInGameCode).toBeDefined();
+    expectTypeOf(data.prefixColor.toInGameCode).toEqualTypeOf<() => InGameCode>();
+    expect(data.prefixColor.toInGameCode()).toBeDefined();
+    expectTypeOf(data.prefixColor.toInGameCode()).toEqualTypeOf<InGameCode>();
+  }
   expect(data.karma).toBeDefined();
   expectTypeOf(data.karma).toEqualTypeOf<number>();
   expect(data.achievements).toBeDefined();
@@ -157,331 +215,108 @@ test('getPlayer', async () => {
   expect(data.lastDailyRewardTimestamp).toBeDefined();
   expectTypeOf(data.lastDailyRewardTimestamp).toEqualTypeOf<number | null>();
   expect(data.totalRewards).toBeDefined();
-  expectTypeOf(data.totalRewards).toEqualTypeOf<number | null>();
+  expectTypeOf(data.totalRewards).toEqualTypeOf<number>();
   expect(data.totalDailyRewards).toBeDefined();
-  expectTypeOf(data.totalDailyRewards).toEqualTypeOf<number | null>();
+  expectTypeOf(data.totalDailyRewards).toEqualTypeOf<number>();
   expect(data.rewardStreak).toBeDefined();
-  expectTypeOf(data.rewardStreak).toEqualTypeOf<number | null>();
+  expectTypeOf(data.rewardStreak).toEqualTypeOf<number>();
   expect(data.rewardScore).toBeDefined();
-  expectTypeOf(data.rewardScore).toEqualTypeOf<number | null>();
+  expectTypeOf(data.rewardScore).toEqualTypeOf<number>();
   expect(data.rewardHighScore).toBeDefined();
-  expectTypeOf(data.rewardHighScore).toEqualTypeOf<number | null>();
+  expectTypeOf(data.rewardHighScore).toEqualTypeOf<number>();
   expect(data.levelProgress).toBeDefined();
   expectTypeOf(data.levelProgress).toEqualTypeOf<LevelProgress>();
   expect(data.stats).toBeDefined();
-  expectTypeOf(data.stats).toEqualTypeOf<object | null>();
-  if (null !== data.stats) {
-    expect(data.stats).toBeDefined();
-    expectTypeOf(data.stats).toEqualTypeOf<object>();
-    expect(data.stats.arcade).toBeDefined();
-    expectTypeOf(data.stats.arcade).toEqualTypeOf<Arcade | null>();
-    expect(data.stats.arena).toBeDefined();
-    expectTypeOf(data.stats.arena).toEqualTypeOf<ArenaBrawl | null>();
-    expect(data.stats.bedwars).toBeDefined();
-    expectTypeOf(data.stats.bedwars).toEqualTypeOf<BedWars | null>();
-    if (null !== data.stats.bedwars) {
-      expect(data.stats.bedwars).toBeInstanceOf(BedWars);
-    }
-    expect(data.stats.blitzsg).toBeDefined();
-    expectTypeOf(data.stats.blitzsg).toEqualTypeOf<BlitzSurvivalGames | null>();
-    if (null !== data.stats.blitzsg) {
-      expect(data.stats.blitzsg).toBeInstanceOf(BlitzSurvivalGames);
-    }
-    expect(data.stats.buildbattle).toBeDefined();
-    expectTypeOf(data.stats.buildbattle).toEqualTypeOf<BuildBattle | null>();
-    if (null !== data.stats.buildbattle) {
-      expect(data.stats.buildbattle).toBeInstanceOf(BuildBattle);
-    }
-    expect(data.stats.copsandcrims).toBeDefined();
-    expectTypeOf(data.stats.copsandcrims).toEqualTypeOf<CopsAndCrims | null>();
-    if (null !== data.stats.copsandcrims) {
-      expect(data.stats.copsandcrims).toBeInstanceOf(CopsAndCrims);
-    }
-    expect(data.stats.duels).toBeDefined();
-    expectTypeOf(data.stats.duels).toEqualTypeOf<Duels | null>();
-    if (null !== data.stats.duels) {
-      expect(data.stats.duels).toBeInstanceOf(Duels);
-    }
-    expect(data.stats.megawalls).toBeDefined();
-    expectTypeOf(data.stats.megawalls).toEqualTypeOf<MegaWalls | null>();
-    if (null !== data.stats.megawalls) {
-      expect(data.stats.megawalls).toBeInstanceOf(MegaWalls);
-    }
-    expect(data.stats.murdermystery).toBeDefined();
-    expectTypeOf(data.stats.murdermystery).toEqualTypeOf<MurderMystery | null>();
-    if (null !== data.stats.murdermystery) {
-      expect(data.stats.murdermystery).toBeInstanceOf(MurderMystery);
-    }
-    expect(data.stats.paintball).toBeDefined();
-    expectTypeOf(data.stats.paintball).toEqualTypeOf<Paintball | null>();
-    if (null !== data.stats.paintball) {
-      expect(data.stats.paintball).toBeInstanceOf(Paintball);
-    }
-    expect(data.stats.pit).toBeDefined();
-    expectTypeOf(data.stats.pit).toEqualTypeOf<Pit | null>();
-    if (null !== data.stats.pit) {
-      expect(data.stats.pit).toBeInstanceOf(Pit);
-      expect(data.stats.pit.prestige).toBeDefined();
-      expectTypeOf(data.stats.pit.prestige).toEqualTypeOf<number>();
-      expect(data.stats.pit.prestige).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.xp).toBeDefined();
-      expectTypeOf(data.stats.pit.xp).toEqualTypeOf<number>();
-      expect(data.stats.pit.xp).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.level).toBeDefined();
-      expectTypeOf(data.stats.pit.level).toEqualTypeOf<number>();
-      expect(data.stats.pit.level).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.kills).toBeDefined();
-      expectTypeOf(data.stats.pit.kills).toEqualTypeOf<number>();
-      expect(data.stats.pit.kills).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.deaths).toBeDefined();
-      expectTypeOf(data.stats.pit.deaths).toEqualTypeOf<number>();
-      expect(data.stats.pit.deaths).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.KDR).toBeDefined();
-      expectTypeOf(data.stats.pit.KDR).toEqualTypeOf<number>();
-      expect(data.stats.pit.KDR).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.assists).toBeDefined();
-      expectTypeOf(data.stats.pit.assists).toEqualTypeOf<number>();
-      expect(data.stats.pit.assists).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.maxKillStreak).toBeDefined();
-      expectTypeOf(data.stats.pit.maxKillStreak).toEqualTypeOf<number>();
-      expect(data.stats.pit.maxKillStreak).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.playtime).toBeDefined();
-      expectTypeOf(data.stats.pit.playtime).toEqualTypeOf<number>();
-      expect(data.stats.pit.playtime).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.joins).toBeDefined();
-      expectTypeOf(data.stats.pit.joins).toEqualTypeOf<number>();
-      expect(data.stats.pit.joins).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.damageReceived).toBeDefined();
-      expectTypeOf(data.stats.pit.damageReceived).toEqualTypeOf<number>();
-      expect(data.stats.pit.damageReceived).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.damageDealt).toBeDefined();
-      expectTypeOf(data.stats.pit.damageDealt).toEqualTypeOf<number>();
-      expect(data.stats.pit.damageDealt).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.damageRatio).toBeDefined();
-      expectTypeOf(data.stats.pit.damageRatio).toEqualTypeOf<number>();
-      expect(data.stats.pit.damageRatio).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.meleeDamageReceived).toBeDefined();
-      expectTypeOf(data.stats.pit.meleeDamageReceived).toEqualTypeOf<number>();
-      expect(data.stats.pit.meleeDamageReceived).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.meleeDamageDealt).toBeDefined();
-      expectTypeOf(data.stats.pit.meleeDamageDealt).toEqualTypeOf<number>();
-      expect(data.stats.pit.meleeDamageDealt).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.swordHits).toBeDefined();
-      expectTypeOf(data.stats.pit.swordHits).toEqualTypeOf<number>();
-      expect(data.stats.pit.swordHits).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.leftClicks).toBeDefined();
-      expectTypeOf(data.stats.pit.leftClicks).toEqualTypeOf<number>();
-      expect(data.stats.pit.leftClicks).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.meleeAccuracy).toBeDefined();
-      expectTypeOf(data.stats.pit.meleeAccuracy).toEqualTypeOf<number>();
-      expect(data.stats.pit.meleeAccuracy).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.meleeDamageRatio).toBeDefined();
-      expectTypeOf(data.stats.pit.meleeDamageRatio).toEqualTypeOf<number>();
-      expect(data.stats.pit.meleeDamageRatio).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.bowDamageReceived).toBeDefined();
-      expectTypeOf(data.stats.pit.bowDamageReceived).toEqualTypeOf<number>();
-      expect(data.stats.pit.bowDamageReceived).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.bowDamageDealt).toBeDefined();
-      expectTypeOf(data.stats.pit.bowDamageDealt).toEqualTypeOf<number>();
-      expect(data.stats.pit.bowDamageDealt).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.arrowsHit).toBeDefined();
-      expectTypeOf(data.stats.pit.arrowsHit).toEqualTypeOf<number>();
-      expect(data.stats.pit.arrowsHit).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.arrowsFired).toBeDefined();
-      expectTypeOf(data.stats.pit.arrowsFired).toEqualTypeOf<number>();
-      expect(data.stats.pit.arrowsFired).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.bowAccuracy).toBeDefined();
-      expectTypeOf(data.stats.pit.bowAccuracy).toEqualTypeOf<number>();
-      expect(data.stats.pit.bowAccuracy).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.bowDamageRatio).toBeDefined();
-      expectTypeOf(data.stats.pit.bowDamageRatio).toEqualTypeOf<number>();
-      expect(data.stats.pit.bowDamageRatio).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.goldenHeadsEaten).toBeDefined();
-      expectTypeOf(data.stats.pit.goldenHeadsEaten).toEqualTypeOf<number>();
-      expect(data.stats.pit.goldenHeadsEaten).toBeGreaterThanOrEqual(0);
-      expect(data.stats.pit.getInventory).toBeDefined();
-      expectTypeOf(data.stats.pit.getInventory).toEqualTypeOf<() => Promise<PitInventoryItem[]>>();
-      expect(data.stats.pit.getInventory).toBeInstanceOf(Function);
-      const pitInventory = await data.stats.pit.getInventory();
-      expect(pitInventory).toBeDefined();
-      pitInventory.forEach((item: PitInventoryItem) => {
-        expect(item).toBeDefined();
-        expect(item).toBeInstanceOf(PitInventoryItem);
-        expectTypeOf(item).toEqualTypeOf<PitInventoryItem>();
-        expect(item.itemId).toBeDefined();
-        expectTypeOf(item.itemId).toEqualTypeOf<number>();
-        expect(item.count).toBeDefined();
-        expectTypeOf(item.count).toEqualTypeOf<number>();
-        expect(item.name).toBeDefined();
-        expectTypeOf(item.name).toEqualTypeOf<string | null>();
-        expect(item.lore).toBeDefined();
-        expectTypeOf(item.lore).toEqualTypeOf<string | null>();
-        expect(item.loreArray).toBeDefined();
-        expectTypeOf(item.loreArray).toEqualTypeOf<string[]>();
-        expect(item.extraAttributes).toBeDefined();
-        expectTypeOf(item.extraAttributes).toEqualTypeOf<object | null>();
-      });
-      expect(data.stats.pit.getEnterChest).toBeDefined();
-      expectTypeOf(data.stats.pit.getEnterChest).toEqualTypeOf<() => Promise<PitInventoryItem[]>>();
-      expect(data.stats.pit.getEnterChest).toBeInstanceOf(Function);
-      const pitEnterChest = await data.stats.pit.getEnterChest();
-      expect(pitEnterChest).toBeDefined();
-      pitEnterChest.forEach((item: PitInventoryItem) => {
-        expect(item).toBeDefined();
-        expect(item).toBeInstanceOf(PitInventoryItem);
-        expectTypeOf(item).toEqualTypeOf<PitInventoryItem>();
-        expect(item.itemId).toBeDefined();
-        expectTypeOf(item.itemId).toEqualTypeOf<number>();
-        expect(item.count).toBeDefined();
-        expectTypeOf(item.count).toEqualTypeOf<number>();
-        expect(item.name).toBeDefined();
-        expectTypeOf(item.name).toEqualTypeOf<string | null>();
-        expect(item.lore).toBeDefined();
-        expectTypeOf(item.lore).toEqualTypeOf<string | null>();
-        expect(item.loreArray).toBeDefined();
-        expectTypeOf(item.loreArray).toEqualTypeOf<string[]>();
-        expect(item.extraAttributes).toBeDefined();
-        expectTypeOf(item.extraAttributes).toEqualTypeOf<object | null>();
-      });
-      expect(data.stats.pit.getArmor).toBeDefined();
-      expectTypeOf(data.stats.pit.getArmor).toEqualTypeOf<() => Promise<PitArmor>>();
-      expect(data.stats.pit.getArmor).toBeInstanceOf(Function);
-      const pitArmor = await data.stats.pit.getArmor();
-      expect(pitArmor).toBeDefined();
-      expectTypeOf(pitArmor).toEqualTypeOf<PitArmor>();
-      expect(pitArmor.helmet).toBeDefined();
-      expectTypeOf(pitArmor.helmet).toEqualTypeOf<PitInventoryItem | null>();
-      if (null !== pitArmor.helmet) {
-        expect(pitArmor.helmet).toBeDefined();
-        expect(pitArmor.helmet).toBeInstanceOf(PitInventoryItem);
-        expectTypeOf(pitArmor.helmet).toEqualTypeOf<PitInventoryItem>();
-        expect(pitArmor.helmet.itemId).toBeDefined();
-        expectTypeOf(pitArmor.helmet.itemId).toEqualTypeOf<number>();
-        expect(pitArmor.helmet.count).toBeDefined();
-        expectTypeOf(pitArmor.helmet.count).toEqualTypeOf<number>();
-        expect(pitArmor.helmet.name).toBeDefined();
-        expectTypeOf(pitArmor.helmet.name).toEqualTypeOf<string | null>();
-        expect(pitArmor.helmet.lore).toBeDefined();
-        expectTypeOf(pitArmor.helmet.lore).toEqualTypeOf<string | null>();
-        expect(pitArmor.helmet.loreArray).toBeDefined();
-        expectTypeOf(pitArmor.helmet.loreArray).toEqualTypeOf<string[]>();
-        expect(pitArmor.helmet.extraAttributes).toBeDefined();
-        expectTypeOf(pitArmor.helmet.extraAttributes).toEqualTypeOf<object | null>();
-      }
-      expect(pitArmor.chestplate).toBeDefined();
-      expectTypeOf(pitArmor.chestplate).toEqualTypeOf<PitInventoryItem | null>();
-      if (null !== pitArmor.chestplate) {
-        expect(pitArmor.chestplate).toBeDefined();
-        expect(pitArmor.chestplate).toBeInstanceOf(PitInventoryItem);
-        expectTypeOf(pitArmor.chestplate).toEqualTypeOf<PitInventoryItem>();
-        expect(pitArmor.chestplate.itemId).toBeDefined();
-        expectTypeOf(pitArmor.chestplate.itemId).toEqualTypeOf<number>();
-        expect(pitArmor.chestplate.count).toBeDefined();
-        expectTypeOf(pitArmor.chestplate.count).toEqualTypeOf<number>();
-        expect(pitArmor.chestplate.name).toBeDefined();
-        expectTypeOf(pitArmor.chestplate.name).toEqualTypeOf<string | null>();
-        expect(pitArmor.chestplate.lore).toBeDefined();
-        expectTypeOf(pitArmor.chestplate.lore).toEqualTypeOf<string | null>();
-        expect(pitArmor.chestplate.loreArray).toBeDefined();
-        expectTypeOf(pitArmor.chestplate.loreArray).toEqualTypeOf<string[]>();
-        expect(pitArmor.chestplate.extraAttributes).toBeDefined();
-        expectTypeOf(pitArmor.chestplate.extraAttributes).toEqualTypeOf<object | null>();
-      }
-      expect(pitArmor.leggings).toBeDefined();
-      expectTypeOf(pitArmor.leggings).toEqualTypeOf<PitInventoryItem | null>();
-      if (null !== pitArmor.leggings) {
-        expect(pitArmor.leggings).toBeDefined();
-        expect(pitArmor.leggings).toBeInstanceOf(PitInventoryItem);
-        expectTypeOf(pitArmor.leggings).toEqualTypeOf<PitInventoryItem>();
-        expect(pitArmor.leggings.itemId).toBeDefined();
-        expectTypeOf(pitArmor.leggings.itemId).toEqualTypeOf<number>();
-        expect(pitArmor.leggings.count).toBeDefined();
-        expectTypeOf(pitArmor.leggings.count).toEqualTypeOf<number>();
-        expect(pitArmor.leggings.name).toBeDefined();
-        expectTypeOf(pitArmor.leggings.name).toEqualTypeOf<string | null>();
-        expect(pitArmor.leggings.lore).toBeDefined();
-        expectTypeOf(pitArmor.leggings.lore).toEqualTypeOf<string | null>();
-        expect(pitArmor.leggings.loreArray).toBeDefined();
-        expectTypeOf(pitArmor.leggings.loreArray).toEqualTypeOf<string[]>();
-        expect(pitArmor.leggings.extraAttributes).toBeDefined();
-        expectTypeOf(pitArmor.leggings.extraAttributes).toEqualTypeOf<object | null>();
-      }
-      expect(pitArmor.boots).toBeDefined();
-      expectTypeOf(pitArmor.boots).toEqualTypeOf<PitInventoryItem | null>();
-      if (null !== pitArmor.boots) {
-        expect(pitArmor.boots).toBeDefined();
-        expect(pitArmor.boots).toBeInstanceOf(PitInventoryItem);
-        expectTypeOf(pitArmor.boots).toEqualTypeOf<PitInventoryItem>();
-        expect(pitArmor.boots.itemId).toBeDefined();
-        expectTypeOf(pitArmor.boots.itemId).toEqualTypeOf<number>();
-        expect(pitArmor.boots.count).toBeDefined();
-        expectTypeOf(pitArmor.boots.count).toEqualTypeOf<number>();
-        expect(pitArmor.boots.name).toBeDefined();
-        expectTypeOf(pitArmor.boots.name).toEqualTypeOf<string | null>();
-        expect(pitArmor.boots.lore).toBeDefined();
-        expectTypeOf(pitArmor.boots.lore).toEqualTypeOf<string | null>();
-        expect(pitArmor.boots.loreArray).toBeDefined();
-        expectTypeOf(pitArmor.boots.loreArray).toEqualTypeOf<string[]>();
-        expect(pitArmor.boots.extraAttributes).toBeDefined();
-        expectTypeOf(pitArmor.boots.extraAttributes).toEqualTypeOf<object | null>();
-      }
-    }
-    expect(data.stats.quakecraft).toBeDefined();
-    expectTypeOf(data.stats.quakecraft).toEqualTypeOf<Quakecraft | null>();
-    if (null !== data.stats.quakecraft) {
-      expect(data.stats.quakecraft).toBeInstanceOf(Quakecraft);
-    }
-    expect(data.stats.skywars).toBeDefined();
-    expectTypeOf(data.stats.skywars).toEqualTypeOf<SkyWars | null>();
-    if (null !== data.stats.skywars) {
-      expect(data.stats.skywars).toBeInstanceOf(SkyWars);
-    }
-    expect(data.stats.smashheroes).toBeDefined();
-    expectTypeOf(data.stats.smashheroes).toEqualTypeOf<SmashHeroes | null>();
-    if (null !== data.stats.smashheroes) {
-      expect(data.stats.smashheroes).toBeInstanceOf(SmashHeroes);
-    }
-    expect(data.stats.speeduhc).toBeDefined();
-    expectTypeOf(data.stats.speeduhc).toEqualTypeOf<SpeedUHC | null>();
-    if (null !== data.stats.speeduhc) {
-      expect(data.stats.speeduhc).toBeInstanceOf(SpeedUHC);
-    }
-    expect(data.stats.tntgames).toBeDefined();
-    expectTypeOf(data.stats.tntgames).toEqualTypeOf<TNTGames | null>();
-    if (null !== data.stats.tntgames) {
-      expect(data.stats.tntgames).toBeInstanceOf(TNTGames);
-    }
-    expect(data.stats.turbokartracers).toBeDefined();
-    expectTypeOf(data.stats.turbokartracers).toEqualTypeOf<TurboKartRacers | null>();
-    if (null !== data.stats.turbokartracers) {
-      expect(data.stats.turbokartracers).toBeInstanceOf(TurboKartRacers);
-    }
-    expect(data.stats.uhc).toBeDefined();
-    expectTypeOf(data.stats.uhc).toEqualTypeOf<UHC | null>();
-    if (null !== data.stats.uhc) {
-      expect(data.stats.uhc).toBeInstanceOf(UHC);
-    }
-    expect(data.stats.vampirez).toBeDefined();
-    expectTypeOf(data.stats.vampirez).toEqualTypeOf<VampireZ | null>();
-    if (null !== data.stats.vampirez) {
-      expect(data.stats.vampirez).toBeInstanceOf(VampireZ);
-    }
-    expect(data.stats.walls).toBeDefined();
-    expectTypeOf(data.stats.walls).toEqualTypeOf<Walls | null>();
-    if (null !== data.stats.walls) {
-      expect(data.stats.walls).toBeInstanceOf(Walls);
-    }
-    expect(data.stats.warlords).toBeDefined();
-    expectTypeOf(data.stats.warlords).toEqualTypeOf<Warlords | null>();
-    if (null !== data.stats.warlords) {
-      expect(data.stats.warlords).toBeInstanceOf(Warlords);
-    }
-    expect(data.stats.woolgames).toBeDefined();
-    expectTypeOf(data.stats.woolgames).toEqualTypeOf<WoolGames | null>();
-    if (null !== data.stats.woolgames) {
-      expect(data.stats.woolgames).toBeInstanceOf(WoolGames);
-    }
-  }
+  expectTypeOf(data.stats).toEqualTypeOf<PlayerStats>();
+
+  expect(data.stats.arcade).toBeDefined();
+  expect(data.stats.arcade).instanceOf(Arcade);
+  expectTypeOf(data.stats.arcade).toEqualTypeOf<Arcade>();
+
+  expect(data.stats.arena).toBeDefined();
+  expect(data.stats.arena).instanceOf(ArenaBrawl);
+  expectTypeOf(data.stats.arena).toEqualTypeOf<ArenaBrawl>();
+
+  expect(data.stats.bedwars).toBeDefined();
+  expect(data.stats.bedwars).instanceOf(BedWars);
+  expectTypeOf(data.stats.bedwars).toEqualTypeOf<BedWars>();
+
+  expect(data.stats.blitzsg).toBeDefined();
+  expect(data.stats.blitzsg).instanceOf(BlitzSurvivalGames);
+  expectTypeOf(data.stats.blitzsg).toEqualTypeOf<BlitzSurvivalGames>();
+
+  expect(data.stats.buildbattle).toBeDefined();
+  expect(data.stats.buildbattle).instanceOf(BuildBattle);
+  expectTypeOf(data.stats.buildbattle).toEqualTypeOf<BuildBattle>();
+
+  expect(data.stats.copsandcrims).toBeDefined();
+  expect(data.stats.copsandcrims).instanceOf(CopsAndCrims);
+  expectTypeOf(data.stats.copsandcrims).toEqualTypeOf<CopsAndCrims>();
+
+  expect(data.stats.duels).toBeDefined();
+  expect(data.stats.duels).instanceOf(Duels);
+  expectTypeOf(data.stats.duels).toEqualTypeOf<Duels>();
+
+  expect(data.stats.megawalls).toBeDefined();
+  expect(data.stats.megawalls).instanceOf(MegaWalls);
+  expectTypeOf(data.stats.megawalls).toEqualTypeOf<MegaWalls>();
+
+  expect(data.stats.murdermystery).toBeDefined();
+  expect(data.stats.murdermystery).instanceOf(MurderMystery);
+  expectTypeOf(data.stats.murdermystery).toEqualTypeOf<MurderMystery>();
+
+  expect(data.stats.paintball).toBeDefined();
+  expect(data.stats.paintball).instanceOf(Paintball);
+  expectTypeOf(data.stats.paintball).toEqualTypeOf<Paintball>();
+
+  expect(data.stats.pit).toBeDefined();
+  expect(data.stats.pit).instanceOf(Pit);
+  expectTypeOf(data.stats.pit).toEqualTypeOf<Pit>();
+
+  expect(data.stats.quakecraft).toBeDefined();
+  expect(data.stats.quakecraft).instanceOf(Quakecraft);
+  expectTypeOf(data.stats.quakecraft).toEqualTypeOf<Quakecraft>();
+
+  expect(data.stats.skywars).toBeDefined();
+  expect(data.stats.skywars).instanceOf(SkyWars);
+  expectTypeOf(data.stats.skywars).toEqualTypeOf<SkyWars>();
+
+  expect(data.stats.smashheroes).toBeDefined();
+  expect(data.stats.smashheroes).instanceOf(SmashHeroes);
+  expectTypeOf(data.stats.smashheroes).toEqualTypeOf<SmashHeroes>();
+
+  expect(data.stats.speeduhc).toBeDefined();
+  expect(data.stats.speeduhc).instanceOf(SpeedUHC);
+  expectTypeOf(data.stats.speeduhc).toEqualTypeOf<SpeedUHC>();
+
+  expect(data.stats.tntgames).toBeDefined();
+  expect(data.stats.tntgames).instanceOf(TNTGames);
+  expectTypeOf(data.stats.tntgames).toEqualTypeOf<TNTGames>();
+
+  expect(data.stats.turbokartracers).toBeDefined();
+  expect(data.stats.turbokartracers).instanceOf(TurboKartRacers);
+  expectTypeOf(data.stats.turbokartracers).toEqualTypeOf<TurboKartRacers>();
+
+  expect(data.stats.uhc).toBeDefined();
+  expect(data.stats.uhc).instanceOf(UHC);
+  expectTypeOf(data.stats.uhc).toEqualTypeOf<UHC>();
+
+  expect(data.stats.vampirez).toBeDefined();
+  expect(data.stats.vampirez).instanceOf(VampireZ);
+  expectTypeOf(data.stats.vampirez).toEqualTypeOf<VampireZ>();
+
+  expect(data.stats.walls).toBeDefined();
+  expect(data.stats.walls).instanceOf(Walls);
+  expectTypeOf(data.stats.walls).toEqualTypeOf<Walls>();
+
+  expect(data.stats.warlords).toBeDefined();
+  expect(data.stats.warlords).instanceOf(Warlords);
+  expectTypeOf(data.stats.warlords).toEqualTypeOf<Warlords>();
+
+  expect(data.stats.woolgames).toBeDefined();
+  expect(data.stats.woolgames).toBeInstanceOf(WoolGames);
+  expectTypeOf(data.stats.woolgames).toEqualTypeOf<WoolGames>();
+
   expect(data.userLanguage).toBeDefined();
   expectTypeOf(data.userLanguage).toEqualTypeOf<string>();
   expect(data.claimedLevelingRewards).toBeDefined();

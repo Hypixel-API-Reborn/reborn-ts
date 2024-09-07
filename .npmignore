@@ -5,3 +5,4 @@ oldreborn/
 .git
 .gitignore
 coverage/
+.github/coverageData.xml

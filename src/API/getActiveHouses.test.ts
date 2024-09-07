@@ -3,7 +3,7 @@ import House from '../structures/House';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getActiveHouses (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getActiveHouses({ raw: true });
@@ -13,7 +13,7 @@ test('getActiveHouses (raw)', async () => {
 });
 
 test('getActiveHouses', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getActiveHouses();
@@ -30,9 +30,9 @@ test('getActiveHouses', async () => {
     expect(house.owner).toBeDefined();
     expectTypeOf(house.owner).toEqualTypeOf<string>();
     expect(house.createdAtTimestamp).toBeDefined();
-    expectTypeOf(house.createdAtTimestamp).toEqualTypeOf<number>();
+    expectTypeOf(house.createdAtTimestamp).toEqualTypeOf<number | null>();
     expect(house.createdAt).toBeDefined();
-    expectTypeOf(house.createdAt).toEqualTypeOf<Date>();
+    expectTypeOf(house.createdAt).toEqualTypeOf<Date | null>();
     expect(house.players).toBeDefined();
     expectTypeOf(house.players).toEqualTypeOf<number>();
     expect(house.cookies).toBeDefined();

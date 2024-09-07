@@ -14,3 +14,5 @@ export interface SkyblockRequestOptions extends RequestOptions {
   garden?: boolean;
   museum?: boolean;
 }
+
+export type GuildFetchOptions = 'id' | 'name' | 'player';

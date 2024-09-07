@@ -22,7 +22,8 @@
     "prettier": "npx prettier --write src/",
     "build": "npx tsc",
     "test": "npx vitest run",
-    "test:coverage": "npx vitest --ui --coverage"
+    "test:coverage": "npx vitest run --coverage",
+    "test:ui": "npx vitest --ui --coverage"
   },
   "engines": {
     "node": ">=20.16.0"
@@ -52,6 +53,7 @@
     "@j4cobi/eslint-plugin-sort-imports": "^1.0.2",
     "@types/eslint": "^9.6.1",
     "@types/node": "^20.16.5",
+    "@types/xml2js": "^0.4.14",
     "@vitest/coverage-v8": "^2.0.5",
     "@vitest/ui": "^2.0.5",
     "dotenv": "^16.4.5",
@@ -61,6 +63,7 @@
     "prettier": "^3.3.3",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.4.0",
-    "vitest": "^2.0.5"
+    "vitest": "^2.0.5",
+    "xml2js": "^0.6.2"
   }
 }

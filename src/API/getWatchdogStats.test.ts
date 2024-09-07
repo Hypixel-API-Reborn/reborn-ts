@@ -1,9 +1,9 @@
 import Client from '../Client';
-import WatchdogStats from '../structures/Watchdog/Stats';
+import WatchdogStats from '../structures/WatchdogStats';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getWatchdogStats (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getWatchdogStats({ raw: true });
@@ -13,7 +13,7 @@ test('getWatchdogStats (raw)', async () => {
 });
 
 test('getWatchdogStats', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const data = await client.getWatchdogStats();

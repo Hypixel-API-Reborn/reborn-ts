@@ -1,6 +1,6 @@
 import divide from '../../utils/divide';
 
-class BlitzSGKit {
+export class BlitzSGKit {
   level: number;
   exp: number;
   kills: number;
@@ -21,25 +21,25 @@ class BlitzSGKit {
   mobsSpawned: number;
   chestsOpened: number;
   constructor(data: Record<string, any>, kitName: string) {
-    this.level = data[kitName] || 0;
-    this.exp = data[`exp_${kitName}`] || 0;
-    this.kills = data[`kills_${kitName}`] || 0;
-    this.deaths = data[`deaths_${kitName}`] || 0;
+    this.level = data?.[kitName] || 0;
+    this.exp = data?.[`exp_${kitName}`] || 0;
+    this.kills = data?.[`kills_${kitName}`] || 0;
+    this.deaths = data?.[`deaths_${kitName}`] || 0;
     this.KDR = divide(this.kills, this.deaths);
-    this.wins = data[`wins_${kitName}`] || 0;
-    this.gamesPlayed = data[`games_played_${kitName}`] || 0;
+    this.wins = data?.[`wins_${kitName}`] || 0;
+    this.gamesPlayed = data?.[`games_played_${kitName}`] || 0;
     this.losses = this.gamesPlayed - this.wins;
     this.WLR = divide(this.wins, this.losses);
-    this.arrowsShot = data[`arrows_fired_${kitName}`] || 0;
-    this.arrowsHit = data[`arrows_hit_${kitName}`] || 0;
+    this.arrowsShot = data?.[`arrows_fired_${kitName}`] || 0;
+    this.arrowsHit = data?.[`arrows_hit_${kitName}`] || 0;
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
-    this.damage = data[`damage_${kitName}`] || 0;
-    this.damageTaken = data[`damage_taken_${kitName}`] || 0;
-    this.potionsDrunk = data[`potions_drunk_${kitName}`] || 0;
-    this.potionsThrown = data[`potions_thrown_${kitName}`] || 0;
-    this.playTime = data[`time_played_${kitName}`] || 0;
-    this.mobsSpawned = data[`mobs_spawned_${kitName}`] || 0;
-    this.chestsOpened = data[`chests_opened_${kitName}`] || 0;
+    this.damage = data?.[`damage_${kitName}`] || 0;
+    this.damageTaken = data?.[`damage_taken_${kitName}`] || 0;
+    this.potionsDrunk = data?.[`potions_drunk_${kitName}`] || 0;
+    this.potionsThrown = data?.[`potions_thrown_${kitName}`] || 0;
+    this.playTime = data?.[`time_played_${kitName}`] || 0;
+    this.mobsSpawned = data?.[`mobs_spawned_${kitName}`] || 0;
+    this.chestsOpened = data?.[`chests_opened_${kitName}`] || 0;
   }
 }
 
@@ -106,30 +106,30 @@ class BlitzSurvivalGames {
   creepertamer: BlitzSGKit;
   snowman: BlitzSGKit;
   constructor(data: Record<string, any>) {
-    this.coins = data.coins || 0;
-    this.kills = data.kills || 0;
-    this.kit = data.defaultkit || '';
-    this.killsSolo = data.kills_solo_normal || 0;
-    this.killsTeams = data.kills_teams_normal || 0;
-    this.deaths = data.deaths || 0;
+    this.coins = data?.coins || 0;
+    this.kills = data?.kills || 0;
+    this.kit = data?.defaultkit || '';
+    this.killsSolo = data?.kills_solo_normal || 0;
+    this.killsTeams = data?.kills_teams_normal || 0;
+    this.deaths = data?.deaths || 0;
     this.KDR = divide(this.kills, this.deaths);
-    this.wins = data.wins || 0;
-    this.winsSolo = data.wins_solo_normal || 0;
-    this.winsTeam = data.wins_teams || 0;
-    this.gamesPlayed = data.games_played || 0;
+    this.wins = data?.wins || 0;
+    this.winsSolo = data?.wins_solo_normal || 0;
+    this.winsTeam = data?.wins_teams || 0;
+    this.gamesPlayed = data?.games_played || 0;
     this.losses = this.gamesPlayed - this.wins;
     this.WLR = divide(this.wins, this.losses);
-    this.arrowsShot = data.arrows_fired || 0;
-    this.arrowsHit = data.arrows_hit || 0;
+    this.arrowsShot = data?.arrows_fired || 0;
+    this.arrowsHit = data?.arrows_hit || 0;
     this.bowAccuracy = divide(this.arrowsHit, this.arrowsShot);
-    this.damage = data.damage || 0;
-    this.damageTaken = data.damage_taken || 0;
-    this.potionsDrunk = data.potions_drunk || 0;
-    this.potionsThrown = data.potions_thrown || 0;
-    this.mobsSpawned = data.mobs_spawned || 0;
-    this.playTime = data.time_played || 0;
-    this.blitzUses = data.blitz_uses || 0;
-    this.chestsOpened = data.chests_opened || 0;
+    this.damage = data?.damage || 0;
+    this.damageTaken = data?.damage_taken || 0;
+    this.potionsDrunk = data?.potions_drunk || 0;
+    this.potionsThrown = data?.potions_thrown || 0;
+    this.mobsSpawned = data?.mobs_spawned || 0;
+    this.playTime = data?.time_played || 0;
+    this.blitzUses = data?.blitz_uses || 0;
+    this.chestsOpened = data?.chests_opened || 0;
     this.archer = new BlitzSGKit(data, 'archer');
     this.meatmaster = new BlitzSGKit(data, 'meatmaster');
     this.speleologist = new BlitzSGKit(data, 'speleologist');
