@@ -52,7 +52,6 @@ class Client {
       if (found) {
         this.destroy();
         Object.assign(this, found);
-        return;
       }
       return;
     }

@@ -33,19 +33,23 @@ import VampireZ from '../structures/MiniGames/VampireZ';
 import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
 import WoolGames from '../structures/MiniGames/WoolGames';
-import { expect, expectTypeOf, test } from 'vitest';
+import { defaultRequestData } from '../../vitest.setup';
+import { expect, expectTypeOf, test, vi } from 'vitest';
 
-// test('getPlayer (never joinned hypixel)', async () => {
-//   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-//   vi.spyOn(axios, 'get').mockResolvedValue({ status: 200, data: { success: true } });
-//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//   // @ts-expect-error
-//   await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
-//     client.errors.PLAYER_HAS_NEVER_LOGGED
-//   );
-//   vi.restoreAllMocks();
-//   client.destroy();
-// });
+test('getPlayer (never joinned hypixel)', async () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  vi.spyOn(global, 'fetch').mockResolvedValue({
+    ...defaultRequestData,
+    json: () => Promise.resolve({ success: true })
+  } as any);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
+    client.errors.PLAYER_HAS_NEVER_LOGGED
+  );
+  vi.restoreAllMocks();
+  client.destroy();
+});
 
 test('getPlayer (no input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

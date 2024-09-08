@@ -1,6 +1,5 @@
 const BASE_URL = 'https://api.hypixel.net/v2';
 import Client from '../Client';
-import fetch from 'node-fetch';
 import isUUID from '../utils/isUUID';
 
 export interface RequestOptions {
@@ -144,23 +143,7 @@ class RequestHandler {
       });
     }
     const res = await fetch(url);
-    if (500 <= res.status && 528 > res.status) {
-      throw new Error(
-        this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, `Server Error : ${res.status} ${res.statusText}`)
-      );
-    }
     const parsedRes = (await res.json()) as Record<string, any>;
-    if (400 === res.status) {
-      throw new Error(
-        this.client.errors.ERROR_CODE_CAUSE.replace(/{code}/, '400 Bad Request').replace(
-          /{cause}/,
-          parsedRes.cause || ''
-        )
-      );
-    }
-    if (200 !== res.status) {
-      throw new Error(this.client.errors.ERROR_STATUSTEXT.replace(/{statustext}/, res.statusText));
-    }
     const headers: Record<string, any> = {};
     res.headers.forEach((value, key) => (headers[key] = value));
     const requestData = new RequestData(parsedRes, headers, {
