@@ -1,9 +1,6 @@
-import { StaticGameNames } from '../../typings';
 import GameQuests from './GameQuests';
+import { StaticGameNames } from '../../typings';
 
-/**
- * Quest class
- */
 class Quests {
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date | null;

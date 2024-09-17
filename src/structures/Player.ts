@@ -1,31 +1,87 @@
-import { getRank, getSocialMedia, LevelProgress, playerLevelProgress, SocialMedia } from '../utils/Player';
-import BlitzSurvivalGames from './MiniGames/BlitzSurvivalGames';
-import TurboKartRacers from './MiniGames/TurboKartRacers';
-import MurderMystery from './MiniGames/MurderMystery';
-import CopsAndCrims from './MiniGames/CopsAndCrims';
-import BuildBattle from './MiniGames/BuildBattle';
-import SmashHeroes from './MiniGames/SmashHeroes';
-import Quakecraft from './MiniGames/Quakecraft';
-import ArenaBrawl from './MiniGames/ArenaBrawl';
-import PlayerCosmetics from './PlayerCosmetics';
-import MegaWalls from './MiniGames/MegaWalls';
-import Paintball from './MiniGames/Paintball';
-import SpeedUHC from './MiniGames/SpeedUHC';
-import TNTGames from './MiniGames/TNTGames';
-import VampireZ from './MiniGames/VampireZ';
-import Warlords from './MiniGames/Warlords';
-import WoolWars from './MiniGames/WoolWars';
-import SkyWars from './MiniGames/SkyWars';
-import BedWars from './MiniGames/BedWars';
 import Arcade from './MiniGames/Arcade';
-import Walls from './MiniGames/Walls';
+import ArenaBrawl from './MiniGames/ArenaBrawl';
+import BedWars from './MiniGames/BedWars';
+import BlitzSurvivalGames from './MiniGames/BlitzSurvivalGames';
+import BuildBattle from './MiniGames/BuildBattle';
+import Color from './Color';
+import CopsAndCrims from './MiniGames/CopsAndCrims';
 import Duels from './MiniGames/Duels';
 import Guild from './Guild/Guild';
-import UHC from './MiniGames/UHC';
+import House from './House';
+import MegaWalls from './MiniGames/MegaWalls';
+import MurderMystery from './MiniGames/MurderMystery';
+import Paintball from './MiniGames/Paintball';
 import Pit from './MiniGames/Pit';
-import Housing from './Housing';
+import PlayerCosmetics from './PlayerCosmetics';
+import Quakecraft from './MiniGames/Quakecraft';
+import RecentGame from './RecentGame';
+import SkyWars from './MiniGames/SkyWars';
+import SmashHeroes from './MiniGames/SmashHeroes';
+import SpeedUHC from './MiniGames/SpeedUHC';
+import TNTGames from './MiniGames/TNTGames';
+import TurboKartRacers from './MiniGames/TurboKartRacers';
+import UHC from './MiniGames/UHC';
+import VampireZ from './MiniGames/VampireZ';
+import Walls from './MiniGames/Walls';
+import Warlords from './MiniGames/Warlords';
+import WoolGames from './MiniGames/WoolGames';
+import { getPlayerLevel, getRank, getSocialMedia, parseClaimedRewards, playerLevelProgress } from '../utils/Player';
+import { recursive } from '../utils/removeSnakeCase';
 
-export type PlayerRank = 'VIP' | 'VIP+' | 'MVP' | 'MVP+' | 'MVP++' | 'Game Master' | 'Admin' | 'YouTube';
+export interface LevelProgress {
+  xpToNext: number;
+  remainingXP: number;
+  currentXP: number;
+  percent: number;
+  percentRemaining: number;
+}
+
+export interface PlayerSocialMedia {
+  name: string;
+  link: string;
+  id: string;
+}
+
+export interface PlayerStats {
+  arcade: Arcade;
+  arena: ArenaBrawl;
+  bedwars: BedWars;
+  blitzsg: BlitzSurvivalGames;
+  buildbattle: BuildBattle;
+  copsandcrims: CopsAndCrims;
+  duels: Duels;
+  megawalls: MegaWalls;
+  murdermystery: MurderMystery;
+  paintball: Paintball;
+  pit: Pit;
+  quakecraft: Quakecraft;
+  skywars: SkyWars;
+  smashheroes: SmashHeroes;
+  speeduhc: SpeedUHC;
+  tntgames: TNTGames;
+  turbokartracers: TurboKartRacers;
+  uhc: UHC;
+  vampirez: VampireZ;
+  walls: Walls;
+  warlords: Warlords;
+  woolgames: WoolGames;
+}
+
+export type PlayerRank =
+  | 'Default'
+  | 'VIP'
+  | 'VIP+'
+  | 'MVP'
+  | 'MVP+'
+  | 'MVP++'
+  | 'Game Master'
+  | 'Admin'
+  | 'YouTube'
+  | 'Events'
+  | 'Mojang'
+  | 'Owner'
+  | 'PIG+++'
+  | 'Innit';
 
 export interface RanksPurchaseTime {
   VIP: Date | null;
@@ -34,131 +90,134 @@ export interface RanksPurchaseTime {
   MVP_PLUS: Date | null;
 }
 
-interface PlayerStats {
-  arcade: Arcade | null;
-  arena: ArenaBrawl | null;
-  bedwars: BedWars | null;
-  blitzsg: BlitzSurvivalGames | null;
-  buildbattle: BuildBattle | null;
-  copsandcrims: CopsAndCrims | null;
-  duels: Duels | null;
-  megawalls: MegaWalls | null;
-  murdermystery: MurderMystery | null;
-  paintball: Paintball | null;
-  pit: Pit | null;
-  quakecraft: Quakecraft | null;
-  skywars: SkyWars | null;
-  smashheroes: SmashHeroes | null;
-  speeduhc: SpeedUHC | null;
-  tntgames: TNTGames | null;
-  turbokartracers: TurboKartRacers | null;
-  uhc: UHC | null;
-  vampirez: VampireZ | null;
-  walls: Walls | null;
-  warlords: Warlords | null;
-  woolwars: WoolWars | null;
-}
-
-class PlayerGifting {
-  bundlesReceived: number;
-  bundlesGiven: number;
-  milestones: string[];
-  giftsGiven: number;
-  ranksGiven: number;
-  ranksGivenMilestones: string[];
-  constructor(data: Record<string, any>) {
-    this.bundlesReceived = data.realBundlesReceived || 0;
-    this.bundlesGiven = data.realBundlesGiven || 0;
-    this.milestones = (data.milestones || []).reverse();
-    this.giftsGiven = data.giftsGiven || 0;
-    this.ranksGiven = data.ranksGiven || 0;
-    this.ranksGivenMilestones = (data.rankgiftingmilestones || []).reverse();
-  }
-}
-
-class PlayerParkour {
-  location: string;
-  timeStart: number;
-  timeTook: number;
-  checkPoints: number[];
-  constructor(data: Record<string, any>, checkPoints: Record<string, any>, location: string) {
-    this.location = location;
-    this.timeStart = data?.[location]?.[0].timeStart || 0;
-    this.timeTook = data?.[location]?.[0].timeTook || 0;
-    this.checkPoints = [];
-    Object.keys(checkPoints?.[location]).map((checkPoint: string) => {
-      checkPoints.push(checkPoints?.[location]?.[checkPoint]);
-    });
-  }
-}
-
 class Player {
   nickname: string;
   uuid: string;
   rank: PlayerRank;
   guild: Guild | null;
-
-  firstLoginTimestamp: number;
-  firstLoginAt: Date;
-  exp: number;
-  level: LevelProgress;
+  houses: House[] | null;
+  recentGames: RecentGame[] | null;
+  channel: string;
+  firstLoginTimestamp: number | null;
+  firstLogin: Date | null;
+  lastLoginTimestamp: number | null;
+  lastLogin: Date | null;
+  lastLogoutTimestamp: number | null;
+  lastLogout: Date | null;
+  plusColor: Color | null;
+  prefixColor: Color | null;
   karma: number;
-  cosmetics: PlayerCosmetics;
-  parkour: PlayerParkour[];
-  housing: Housing;
-  gifting: PlayerGifting;
-  socialMedia: SocialMedia[];
+  achievements: object;
+  achievementPoints: number;
+  totalExperience: number;
+  level: number;
+  socialMedia: PlayerSocialMedia[];
+  giftBundlesSent: number;
+  giftBundlesReceived: number;
+  giftsSent: number;
+  isOnline: boolean;
+  lastDailyRewardTimestamp: number | null;
+  lastDailyReward: Date | null;
+  totalRewards: number;
+  totalDailyRewards: number;
+  rewardStreak: number;
+  rewardScore: number;
+  rewardHighScore: number;
+  levelProgress: LevelProgress;
+  stats: PlayerStats;
+  userLanguage: string;
+  claimedLevelingRewards: number[];
+  globalCosmetics: PlayerCosmetics | null;
+  ranksPurchaseTime: RanksPurchaseTime;
 
-  channel: string | null;
-  stats: PlayerStats | null;
-
-  constructor(data: Record<string, any>, guild?: Guild) {
-    this.nickname = data.displayname;
-    this.uuid = data.uuid;
+  constructor(
+    data: Record<string, any>,
+    extra: { guild: Guild | null; houses: House[] | null; recentGames: RecentGame[] | null }
+  ) {
+    this.nickname = data?.displayname || '';
+    this.uuid = data?.uuid || '';
     this.rank = getRank(data);
-    this.guild = guild || null;
-
-    this.firstLoginTimestamp = data.firstLogin;
-    this.firstLoginAt = new Date(this.firstLoginTimestamp);
-    this.exp = data.networkExp || 0;
-    this.level = playerLevelProgress(this.exp);
-    this.karma = data.karma || 0;
-    this.cosmetics = new PlayerCosmetics(data);
-    this.parkour = [];
-    Object.keys(data.parkourCompletions).map((location) => {
-      this.parkour.push(new PlayerParkour(data.parkourCompletions, data.parkourCheckpointBests, location));
-    });
-    this.housing = new Housing(data.housingMeta);
-    this.gifting = new PlayerGifting(data.giftingMeta);
-    this.socialMedia = getSocialMedia(data.socialMedia);
-
-    this.channel = data.channel || null;
-    this.stats = data.stats
-      ? {
-          arcade: data.stats.Arcade ? new Arcade({ ...data.stats.Arcade, ...data.achievements }) : null,
-          arena: data.stats.Arena ? new ArenaBrawl(data.stats.Arena) : null,
-          bedwars: data.stats.Bedwars ? new BedWars(data.stats.Bedwars) : null,
-          blitzsg: data.stats.HungerGames ? new BlitzSurvivalGames(data.stats.HungerGames) : null,
-          buildbattle: data.stats.BuildBattle ? new BuildBattle(data.stats.BuildBattle) : null,
-          copsandcrims: data.stats.MCGO ? new CopsAndCrims(data.stats.MCGO) : null,
-          duels: data.stats.Duels ? new Duels(data.stats.Duels) : null,
-          megawalls: data.stats.Walls3 ? new MegaWalls(data.stats.Walls3) : null,
-          murdermystery: data.stats.MurderMystery ? new MurderMystery(data.stats.MurderMystery) : null,
-          paintball: data.stats.Paintball ? new Paintball(data.stats.Paintball) : null,
-          pit: data.stats.Pit ? new Pit(data.stats.Pit) : null,
-          quakecraft: data.stats.Quake ? new Quakecraft(data.stats.Quake) : null,
-          skywars: data.stats.SkyWars ? new SkyWars(data.stats.SkyWars) : null,
-          smashheroes: data.stats.SuperSmash ? new SmashHeroes(data.stats.SuperSmash) : null,
-          speeduhc: data.stats.SpeedUHC ? new SpeedUHC(data.stats.SpeedUHC) : null,
-          tntgames: data.stats.TNTGames ? new TNTGames(data.stats.TNTGames) : null,
-          turbokartracers: data.stats.GingerBread ? new TurboKartRacers(data.stats.GingerBread) : null,
-          uhc: data.stats.UHC ? new UHC(data.stats.UHC) : null,
-          vampirez: data.stats.VampireZ ? new VampireZ(data.stats.VampireZ) : null,
-          walls: data.stats.Walls ? new Walls(data.stats.Walls) : null,
-          warlords: data.stats.Battleground ? new Warlords(data.stats.Battleground) : null,
-          woolwars: data.stats.WoolGames ? new WoolWars(data.stats.WoolGames) : null
-        }
-      : null;
+    this.guild = extra?.guild;
+    this.houses = extra?.houses;
+    this.recentGames = extra?.recentGames;
+    this.channel = data?.channel || 'ALL';
+    this.firstLoginTimestamp = data?.firstLogin || null;
+    this.firstLogin = data?.firstLogin ? new Date(data?.firstLogin) : null;
+    this.lastLoginTimestamp = data?.lastLogin || null;
+    this.lastLogin = data?.lastLogin ? new Date(data?.lastLogin) : null;
+    this.lastLogoutTimestamp = data?.lastLogout || null;
+    this.lastLogout = data?.lastLogout ? new Date(data?.lastLogout) : null;
+    this.plusColor =
+      'MVP+' === this.rank || 'MVP++' === this.rank
+        ? data?.rankPlusColor
+          ? new Color(data?.rankPlusColor)
+          : new Color('RED')
+        : null;
+    this.prefixColor =
+      'MVP++' === this.rank ? (data?.monthlyRankColor ? new Color(data?.monthlyRankColor) : new Color('GOLD')) : null;
+    this.karma = data?.karma || 0;
+    this.achievements = recursive(data?.achievements) || {};
+    this.achievementPoints = data?.achievementPoints || 0;
+    this.totalExperience = data?.networkExp || 0;
+    this.level = getPlayerLevel(this.totalExperience) || 0;
+    this.socialMedia = getSocialMedia(data?.socialMedia) || [];
+    this.giftBundlesSent = data?.giftingMeta?.realBundlesGiven || 0;
+    this.giftBundlesReceived = data?.giftingMeta?.realBundlesReceived || 0;
+    this.giftsSent = data?.giftingMeta?.giftsGiven || 0;
+    this.isOnline =
+      null !== this.lastLoginTimestamp &&
+      null !== this.lastLogoutTimestamp &&
+      this.lastLoginTimestamp > this.lastLogoutTimestamp;
+    this.lastDailyRewardTimestamp = data?.lastAdsenseGenerateTime || null;
+    this.lastDailyReward = this.lastDailyRewardTimestamp ? new Date(this.lastDailyRewardTimestamp) : null;
+    this.totalRewards = data?.totalRewards || 0;
+    this.totalDailyRewards = data?.totalDailyRewards || 0;
+    this.rewardStreak = data?.rewardStreak || 0;
+    this.rewardScore = data?.rewardScore || 0;
+    this.rewardHighScore = data?.rewardHighScore || 0;
+    this.levelProgress = playerLevelProgress(data?.networkExp);
+    this.stats = {
+      arcade: new Arcade({ ...data?.stats?.Arcade, ...data?.achievements }),
+      arena: new ArenaBrawl(data?.stats?.Arena),
+      bedwars: new BedWars(data?.stats?.Bedwars),
+      blitzsg: new BlitzSurvivalGames(data?.stats?.HungerGames),
+      buildbattle: new BuildBattle(data?.stats?.BuildBattle),
+      copsandcrims: new CopsAndCrims(data?.stats?.MCGO),
+      duels: new Duels(data?.stats?.Duels),
+      megawalls: new MegaWalls(data?.stats?.Walls3),
+      murdermystery: new MurderMystery(data?.stats?.MurderMystery),
+      paintball: new Paintball(data?.stats?.Paintball),
+      pit: new Pit(data?.stats?.Pit),
+      quakecraft: new Quakecraft(data?.stats?.Quake),
+      skywars: new SkyWars(data?.stats?.SkyWars),
+      smashheroes: new SmashHeroes(data?.stats?.SuperSmash),
+      speeduhc: new SpeedUHC(data?.stats?.SpeedUHC),
+      tntgames: new TNTGames(data?.stats?.TNTGames),
+      turbokartracers: new TurboKartRacers(data?.stats?.GingerBread),
+      uhc: new UHC(data?.stats?.UHC),
+      vampirez: new VampireZ(data?.stats?.VampireZ),
+      walls: new Walls(data?.stats?.Walls),
+      warlords: new Warlords(data?.stats?.Battleground),
+      woolgames: new WoolGames(data?.stats?.WoolGames)
+    };
+    this.userLanguage = data?.userLanguage || 'ENGLISH';
+    this.lastDailyReward = data.lastAdsenseGenerateTime ? new Date(data.lastAdsenseGenerateTime) : null;
+    this.lastDailyRewardTimestamp = data.lastAdsenseGenerateTime || null;
+    this.totalRewards = data.totalRewards || 0;
+    this.totalDailyRewards = data.totalDailyRewards || 0;
+    this.rewardStreak = data.rewardStreak || 0;
+    this.rewardScore = data.rewardScore || 0;
+    this.rewardHighScore = data.rewardHighScore || 0;
+    this.levelProgress = playerLevelProgress(data.networkExp);
+    this.userLanguage = data.userLanguage || 'ENGLISH';
+    this.claimedLevelingRewards = parseClaimedRewards(data) || [];
+    this.globalCosmetics = new PlayerCosmetics(data);
+    this.ranksPurchaseTime = {
+      VIP: data?.levelUp_VIP ? new Date(data?.levelUp_VIP) : null,
+      VIP_PLUS: data?.levelUp_VIP_PLUS ? new Date(data?.levelUp_VIP_PLUS) : null,
+      MVP: data?.levelUp_MVP ? new Date(data?.levelUp_MVP) : null,
+      MVP_PLUS: data?.levelUp_MVP_PLUS ? new Date(data?.levelUp_MVP_PLUS) : null
+    };
   }
 
   toString(): string {

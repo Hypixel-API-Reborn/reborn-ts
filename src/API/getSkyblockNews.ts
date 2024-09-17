@@ -1,9 +1,9 @@
-import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
+import { RequestOptions } from '../Private/RequestHandler';
 
-export default class getSkyblockNews extends Endpoint {
+class getSkyblockNews extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -11,8 +11,10 @@ export default class getSkyblockNews extends Endpoint {
   }
 
   async execute(options?: RequestOptions): Promise<SkyblockNews[]> {
-    const res = await this.client.requests.request('/skyblock/news', options);
-    if (res.raw) return res;
-    return res.items.map((i: any) => new SkyblockNews(i));
+    const res = await this.client.requestHandler.request('/skyblock/news', options);
+    if (res.options.raw) return res.data;
+    return res.data.items.map((i: any) => new SkyblockNews(i));
   }
 }
+
+export default getSkyblockNews;

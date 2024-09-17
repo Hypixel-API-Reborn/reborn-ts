@@ -1,8 +1,3 @@
-import { decode } from '../utils/SkyblockUtils';
-
-/**
- * Item Bytes class
- */
 class ItemBytes {
   bytesBuffer: Buffer;
   constructor(data: Record<string, any>) {
@@ -12,9 +7,6 @@ class ItemBytes {
   base64(): string {
     return this.bytesBuffer.toString('base64');
   }
-
-  async readNBT(): Promise<any[]> {
-    return await decode(this.bytesBuffer, true);
-  }
 }
+
 export default ItemBytes;

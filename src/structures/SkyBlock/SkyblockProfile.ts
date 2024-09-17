@@ -1,29 +1,31 @@
+import SkyblockGarden from './SkyblockGarden';
 import SkyblockMember from './SkyblockMember';
 
-/**
- * Skyblock Profile class
- */
 class SkyblockProfile {
   profileId: string;
   profileName: string;
   gameMode: string | null;
   banking: object;
+  garden: SkyblockGarden | null;
   communityUpgrades: object;
   selected: boolean;
   members: SkyblockMember[];
   me: SkyblockMember | undefined;
   constructor(data: Record<string, any>) {
-    this.profileId = data.profileId;
-    this.profileName = data.profileName;
-    this.gameMode = data.gameMode;
-    this.banking = data.banking;
-    this.communityUpgrades = data.communityUpgrades;
-    this.selected = data.selected;
+    this.profileId = data.profileId || '';
+    this.profileName = data.profileName || '';
+    this.gameMode = data.gameMode || null;
+    this.banking = data.banking || {};
+    this.garden = data.garden || null;
+    this.communityUpgrades = data.communityUpgrades || {};
+    this.selected = data.selected || false;
     this.members = Object.keys(data.members).map(
       (uuid) =>
         new SkyblockMember({
           uuid: uuid,
           profileId: this.profileId,
+          garden: data.garden,
+          museum: data.museum,
           profileName: this.profileName,
           gameMode: this.gameMode,
           m: data.members[uuid],
@@ -34,11 +36,8 @@ class SkyblockProfile {
     );
     this.me = this.members.find((x) => x.uuid === data.uuid);
   }
-  /**
-   * Profile Name
-   * @return {string}
-   */
-  toString() {
+
+  toString(): string {
     return this.profileName;
   }
 }

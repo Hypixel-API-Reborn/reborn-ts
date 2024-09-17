@@ -1,37 +1,42 @@
-import CacheHandler from './Private/CacheHandler';
-import { ClientOptions } from './typings/Client';
-import RateLimit from './Private/RateLimit';
-import Requests from './Private/Requests';
-import Updater from './Private/Updater';
-import Errors from './Errors';
 import API from './API';
+import CacheHandler from './Private/CacheHandler';
+import Errors from './Errors';
+import RateLimit from './Private/RateLimit';
+import RequestHandler from './Private/RequestHandler';
+import Updater from './Private/Updater';
+
+export interface ClientOptions {
+  cache?: boolean;
+  cacheTime?: number;
+  cacheMaxKeys?: number;
+  cacheCheckPeriod?: number;
+  rateLimit?: 'AUTO' | 'NONE';
+  silent?: boolean;
+  checkForUpdates?: boolean;
+  checkForUpdatesInterval?: number;
+}
 
 const clients: Client[] = [];
 
 class Client {
   declare options: ClientOptions;
-  declare requests: Requests;
+  declare requestHandler: RequestHandler;
   declare cacheHandler: CacheHandler;
   declare updater: Updater;
   declare errors: Errors;
   declare rateLimit: RateLimit;
-
   readonly key: string;
-
   declare interval: NodeJS.Timeout;
-
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
+    this.errors = new Errors();
     if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
-
     this.options = this.parasOptions(options);
-    this.requests = new Requests(this);
+    this.requestHandler = new RequestHandler(this);
     this.cacheHandler = new CacheHandler(this);
     this.updater = new Updater(this);
-    this.errors = new Errors();
     this.rateLimit = new RateLimit(this);
     if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
-
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -40,7 +45,6 @@ class Client {
       // @ts-expect-error
       this[func] = endpoint.execute.bind(endpoint);
     }
-
     if (clients.find((x) => x.key === key)) {
       // eslint-disable-next-line no-console
       console.warn(this.errors.MULTIPLE_INSTANCES);
@@ -48,11 +52,9 @@ class Client {
       if (found) {
         this.destroy();
         Object.assign(this, found);
-        return;
       }
       return;
     }
-
     if (this.options.checkForUpdates) {
       this.interval = setInterval(
         () => {
@@ -61,7 +63,6 @@ class Client {
         1000 * 60 * (this.options.checkForUpdatesInterval ?? 60)
       );
     }
-
     clients.push(this);
   }
 

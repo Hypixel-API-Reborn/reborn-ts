@@ -1,14 +1,25 @@
 {
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowJs": false,
+
+    "target": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "outDir": "./build",
-    "module": "ES2022",
-    "target": "ES2022",
-    "strict": true
+
+    "strict": true,
+    "noImplicitAny": true,
+    "lib": ["ES2022"]
   },
-  "include": ["src", "API"]
+  "include": ["src"],
+  "exclude": ["node_modules", "src/**/*.test.ts"]
 }

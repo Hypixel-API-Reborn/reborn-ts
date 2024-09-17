@@ -1,6 +1,3 @@
-/**
- * AchievementTier class
- */
 class AchievementTier {
   maxTier: number;
   tierInfo: any;
@@ -14,10 +11,7 @@ class AchievementTier {
   getTier(tier: number): Record<'pointsRewarded' | 'amountRequired', number> {
     const index = tier - 1;
     const info = this.tierInfo[index];
-    return {
-      pointsRewarded: parseInt(info.points, 10) || 0,
-      amountRequired: parseInt(info.amount, 10) || 0
-    };
+    return { pointsRewarded: parseInt(info.points, 10) || 0, amountRequired: parseInt(info.amount, 10) || 0 };
   }
 }
 

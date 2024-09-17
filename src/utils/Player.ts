@@ -1,43 +1,42 @@
-import { PlayerRank } from '../structures/Player';
+import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../structures/Player';
 
 export function getRank(player: Record<string, any>): PlayerRank {
-  let rank;
   if (player.prefix) {
-    rank = player.prefix.replace(/§[0-9|a-z]|\[|\]/g, '');
-  } else if (player.rank && 'NORMAL' !== player.rank) {
-    switch (player.rank) {
-      case 'YOUTUBER':
-        rank = 'YouTube';
-        break;
-      case 'GAME_MASTER':
-        rank = 'Game Master';
-        break;
-      case 'ADMIN':
-        rank = 'Admin';
-        break;
+    switch (player.prefix.replace(/§[0-9|a-z]|\[|\]/g, '')) {
+      case 'EVENTS':
+        return 'Events';
+      case 'MOJANG':
+        return 'Mojang';
+      case 'PIG+++':
+        return 'PIG+++';
+      case 'INNIT':
+        return 'Innit';
       default:
-        rank = '';
-        break;
+        return 'Default';
+    }
+  } else if (player.rank) {
+    switch (player.rank) {
+      case 'ADMIN':
+        return 'Admin';
+      case 'GAME_MASTER':
+        return 'Game Master';
+      default:
+        return 'Default';
     }
   } else {
     switch (player.newPackageRank) {
       case 'MVP_PLUS':
-        rank = player.monthlyPackageRank && 'SUPERSTAR' === player.monthlyPackageRank ? 'MVP++' : 'MVP+';
-        break;
+        return 'SUPERSTAR' !== player.monthlyPackageRank ? 'MVP+' : 'MVP++';
       case 'MVP':
-        rank = 'MVP';
-        break;
+        return 'MVP';
       case 'VIP_PLUS':
-        rank = 'VIP+';
-        break;
+        return 'VIP+';
       case 'VIP':
-        rank = 'VIP';
-        break;
+        return 'VIP';
       default:
-        rank = player.monthlyPackageRank && 'SUPERSTAR' === player.monthlyPackageRank ? 'MVP++' : '';
+        return 'Default';
     }
   }
-  return rank;
 }
 
 export function getPlayerLevel(exp: number): number {
@@ -64,15 +63,6 @@ export function levelToXP(xp: number): number {
   return 1250 * level ** 2 + 8750 * level;
 }
 
-export interface LevelProgress {
-  level: number;
-  xpToNext: number;
-  remainingXP: number;
-  currentXP: number;
-  percent: number;
-  percentRemaining: number;
-}
-
 export function playerLevelProgress(xp: number): LevelProgress {
   const xpFromLevel = levelToXP(xp);
   let currentXP = xp - xpFromLevel;
@@ -81,34 +71,17 @@ export function playerLevelProgress(xp: number): LevelProgress {
   currentXP = currentXP - 2500;
   const percent = Math.round((currentXP / xpToNext) * 100 * 100) / 100;
   const percentRemaining = Math.round((100 - percent) * 100) / 100;
-  return {
-    level: getPlayerLevel(xp),
-    xpToNext,
-    remainingXP,
-    currentXP,
-    percent,
-    percentRemaining
-  };
+  return { xpToNext, remainingXP, currentXP, percent, percentRemaining };
 }
 
-export class SocialMedia {
-  name: string;
-  link: string;
-  id: string;
-  constructor(data: { name: string; link: string; id: string }) {
-    this.name = data.name;
-    this.link = data.link;
-    this.id = data.id;
-  }
-}
-
-export function getSocialMedia(links: Record<string, any>): SocialMedia[] {
+export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia[] {
+  const links = data?.links || {};
   const formattedNames = ['Twitter', 'YouTube', 'Instagram', 'Twitch', 'Hypixel', 'Discord'];
   const upperNames = ['TWITTER', 'YOUTUBE', 'INSTAGRAM', 'TWITCH', 'HYPIXEL', 'DISCORD'];
   return Object.keys(links)
     .map((x) => upperNames.indexOf(x))
     .filter((x) => -1 !== x)
-    .map((x) => new SocialMedia({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
+    .map((x) => ({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
 }
 
 export function parseClaimedRewards(data: Record<string, any>): number[] {

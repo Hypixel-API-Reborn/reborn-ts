@@ -79,7 +79,7 @@ jobs:
 
   build:
     name: build
-    needs: [pnpm]
+    needs: [pnpm, eslint]
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -97,5 +97,36 @@ jobs:
       - name: Install node dependencies
         run: pnpm i
 
-      - name: Check eslint
+      - name: Check build
         run: pnpm build
+
+  tests:
+    name: tests
+    needs: [pnpm, eslint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install node dependencies
+        run: pnpm i
+
+      - name: Check tests
+        env:
+          HYPIXEL_KEY: ${{ secrets.HYPIXEL_KEY }}
+        run: pnpm test:coverage
+
+      - name: Move Coverage Data
+        run: mv coverage/clover.xml .github/coverageData.xml
+
+      - name: Check Coverage
+        run: npx tsx .github/checkCoverage.ts

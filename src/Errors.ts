@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-
 class Errors {
   INVALID_API_KEY: string =
     '[Hypixel-API-Reborn] Invalid API Key! For help join our Discord Server https://discord.gg/NSEBNMM';
@@ -31,9 +30,13 @@ class Errors {
     "[Hypixel-API-Reborn] The data provided to hypixel API is malformed and thus not recognized by hypixel, but this shouldn't be your fault. Please report this error in our Discord Server https://discord.gg/NSEBNMM or GitHub. ";
   RATE_LIMIT_EXCEEDED: string =
     "[Hypixel-API-Reborn] The rate limitations on your API Key has been exceeded. There might be an outage (Check Hypixel's status page), or you simply did too many requests in a short time. Hint: Enable rate limit options! They can help you avoid this error! For help join our Discord Server https://discord.gg/NSEBNMM";
+  RECENT_REQUEST: string =
+    '[Hypixel-API-Reborn] You have requested that player recently. Try turning on cache. For help join our Discord Server https://discord.gg/NSEBNMM';
   NO_SKYBLOCK_PROFILES: string = '[Hypixel-API-Reborn] The player has no skyblock profiles.';
   BAD_AUCTION_FILTER: string =
     '[Hypixel-API-Reborn] Unexpected filter for Client#getSkyblockAuction. Expected one of "PLAYER", "AUCTION", "PROFILE", but got something else.';
+  NOT_IMPLEMENTED: string =
+    '[Hypixel-API-Reborn] Endpoint execute method is not implemented yet! Please report this https://discord.gg/NSEBNMM';
   RATE_LIMIT_INIT_ERROR: string =
     '[hypixel-api-reborn] An error happened whilst initializing rate limit. We strongly recommend restarting the code as this can lead to desynchronization.';
 }

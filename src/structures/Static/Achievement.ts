@@ -14,9 +14,6 @@ function collectAll(data: AchievementTier | null) {
   return { totalPoints, totalAmount };
 }
 
-/**
- * Achievement Class
- */
 class Achievement {
   name: string;
   codeName: string;
@@ -38,12 +35,12 @@ class Achievement {
       globalPercentage: parseFloat(data.globalPercentUnlocked) * 100 || 0
     };
     this.tierInformation = 'TIERED' === this.type ? new AchievementTier(data.tiers) : null;
-
     const { totalPoints = 0, totalAmount = 0 }: { totalPoints: number; totalAmount: number } =
       'TIERED' === this.type ? collectAll(this.tierInformation) : { totalPoints: 0, totalAmount: 0 };
     this.points = 'ONE_TIME' === this.type ? parseInt(data.points, 10) : totalPoints;
     this.totalAmountRequired = 'TIERED' === this.type ? totalAmount : null;
   }
+
   toString(): string {
     return this.codeName;
   }

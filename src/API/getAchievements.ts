@@ -1,9 +1,9 @@
 import Achievements from '../structures/Static/Achievements';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import { RequestOptions } from '../Private/RequestHandler';
 
-export default class getAchievements extends Endpoint {
+class getAchievements extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -11,8 +11,10 @@ export default class getAchievements extends Endpoint {
   }
 
   async execute(options?: RequestOptions): Promise<Achievements> {
-    const res = await this.client.requests.request('/resources/achievements', options);
-    if (res.raw) return res;
-    return new Achievements(res);
+    const res = await this.client.requestHandler.request('/resources/achievements', options);
+    if (res.options.raw) return res.data;
+    return new Achievements(res.data);
   }
 }
+
+export default getAchievements;

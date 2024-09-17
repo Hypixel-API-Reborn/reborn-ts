@@ -1,26 +1,27 @@
-import { RequestOptions } from '../Private/Requests';
-import Leaderboard from '../structures/Leaderboard';
-import Constants from '../utils/Constants';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import Leaderboard from '../structures/Leaderboard';
+import { RequestOptions } from '../Private/RequestHandler';
 
-export default class getLeaderboards extends Endpoint {
+class getLeaderboards extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<any> {
-    const res = await this.client.requests.request('/leaderboards', options);
-    if (res.raw) return res;
-    if (!res.leaderboards) throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));
-    const lbnames = Object.create(Constants.leaderboardNames);
-    for (const name in lbnames) {
-      lbnames[name] = res.leaderboards[lbnames[name]].length
-        ? res.leaderboards[lbnames[name]].map((lb: any) => new Leaderboard(lb))
-        : [];
+  async execute(options?: RequestOptions): Promise<Record<string, Leaderboard[]>> {
+    const res = await this.client.requestHandler.request('/leaderboards', options);
+    if (res.options.raw) return res.data;
+    if (!res.data.leaderboards) {
+      throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));
     }
-    return lbnames;
+    const leaderboards: Record<string, Leaderboard[]> = {};
+    Object.keys(res.data.leaderboards).forEach((key) => {
+      leaderboards[key] = res.data.leaderboards[key].map((l: Record<string, any>) => new Leaderboard(l));
+    });
+    return leaderboards;
   }
 }
+
+export default getLeaderboards;

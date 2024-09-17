@@ -1,9 +1,6 @@
 import GameAchievements from './GameAchievements';
 import { StaticGameNames } from '../../typings';
 
-/**
- * Achievement class
- */
 class Achievements {
   lastUpdatedTimestamp: number;
   lastUpdatedAt: Date | null;

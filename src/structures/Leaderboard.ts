@@ -1,16 +1,17 @@
-/**
- * Leaderboard class
- */
 class Leaderboard {
-  name: string | null;
+  path: string;
+  prefix: string;
   title: string;
-  playerCount: string;
+  location: string;
+  count: number;
   leaders: string[];
   constructor(data: Record<string, any>) {
-    this.name = data.prefix || null;
-    this.title = data.title || null;
-    this.playerCount = data.count || 0;
-    this.leaders = data.leaders || [];
+    this.path = data?.path || '';
+    this.prefix = data?.prefix || '';
+    this.title = data?.title || '';
+    this.location = data?.location || '0,0,0';
+    this.count = data?.count || 0;
+    this.leaders = data?.leaders || [];
   }
 }
 

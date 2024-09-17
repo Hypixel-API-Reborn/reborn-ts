@@ -9,8 +9,7 @@ class GuildMember {
   mutedUntilTimestamp: number | null;
   mutedUntil: Date | null;
   expHistory: ExpHistory[];
-  weeklyExperience: any | null;
-
+  weeklyExperience: number;
   constructor(data: Record<string, any>) {
     this.uuid = data.uuid;
     this.joinedAtTimestamp = data.joined;
@@ -21,13 +20,12 @@ class GuildMember {
     this.mutedUntil = data.mutedTill ? new Date(data.mutedTill) : null;
     const xpCheck = data.expHistory && 'number' === typeof Object.values(data.expHistory)[0];
     this.expHistory = parseHistory(data.expHistory);
-    this.weeklyExperience = xpCheck ? Object.values(data.expHistory).reduce((pV: any, cV: any) => pV + cV, 0) : null;
+    this.weeklyExperience = xpCheck
+      ? Number(Object.values(data.expHistory).reduce((pV: any, cV: any) => pV + cV, 0))
+      : 0;
   }
-  /**
-   * UUID
-   * @return {string}
-   */
-  toString() {
+
+  toString(): string {
     return this.uuid;
   }
 }

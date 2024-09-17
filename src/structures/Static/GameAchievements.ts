@@ -1,9 +1,6 @@
-import { StaticGameNames } from '../../typings';
 import Achievement from './Achievement';
+import { StaticGameNames } from '../../typings';
 
-/**
- * Game achievements class
- */
 class GameAchievements {
   category: StaticGameNames;
   totalPoints: number;

@@ -1,11 +1,8 @@
 import Candidate from './Candidate';
 
-/**
- * SB Government Class
- */
 class GovernmentData {
   lastUpdatedTimestamp: number;
-  lastUpdatedAt: Date | null;
+  lastUpdatedAt: Date;
   lastElectionResults: Map<string, Candidate>;
   mayor: Candidate | undefined;
   runningYear: number;

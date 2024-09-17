@@ -9,7 +9,6 @@ export interface ExpHistory {
 }
 
 const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/;
-
 export function parseDate(date: Record<string, any>) {
   date[1] -= 1;
   return new Date(
@@ -41,9 +40,7 @@ export function getGuildLevel(exp: number) {
     100000, 150000, 250000, 500000, 750000, 1000000, 1250000, 1500000, 2000000, 2500000, 2500000, 2500000, 2500000,
     2500000, 3000000
   ];
-
   let level = 0;
-
   for (let i = 0; 1000 >= i; i += 1) {
     let need;
     if (i >= EXP_NEEDED.length) {
@@ -51,14 +48,12 @@ export function getGuildLevel(exp: number) {
     } else {
       need = EXP_NEEDED[i];
     }
-
     if (0 > exp - need) {
       return Math.round((level + exp / need) * 100) / 100;
     }
     level += 1;
     exp -= need;
   }
-
   return 1000;
 }
 

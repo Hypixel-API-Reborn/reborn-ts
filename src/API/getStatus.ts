@@ -1,9 +1,9 @@
-import { RequestOptions } from '../Private/Requests';
+import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Status from '../structures/Status';
-import Client from '../Client';
+import { RequestOptions } from '../Private/RequestHandler';
 
-export default class getStatus extends Endpoint {
+class getStatus extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -11,9 +11,11 @@ export default class getStatus extends Endpoint {
   }
 
   async execute(query: string, options?: RequestOptions): Promise<Status> {
-    query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/status?uuid=${query}`, options);
-    if (res.raw) return res;
-    return new Status(res.session);
+    query = await this.client.requestHandler.toUUID(query);
+    const res = await this.client.requestHandler.request(`/status?uuid=${query}`, options);
+    if (res.options.raw) return res.data;
+    return new Status(res.data.session);
   }
 }
+
+export default getStatus;

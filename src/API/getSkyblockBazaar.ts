@@ -1,9 +1,9 @@
-import Product from '../structures/SkyBlock/Bazzar/Product';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
 import Client from '../Client';
+import Endpoint from '../Private/Endpoint';
+import Product from '../structures/SkyBlock/Bazaar/Product';
+import { RequestOptions } from '../Private/RequestHandler';
 
-export default class getSkyblockBazaar extends Endpoint {
+class getSkyblockBazaar extends Endpoint {
   readonly client: Client;
   constructor(client: Client) {
     super(client);
@@ -11,9 +11,10 @@ export default class getSkyblockBazaar extends Endpoint {
   }
 
   async execute(options?: RequestOptions): Promise<Product[]> {
-    const res = await this.client.requests.request('/skyblock/bazaar', options);
-    if (res.raw) return res;
-    const productsKeys = Object.keys(res.products);
-    return productsKeys.map((x) => new Product(res.products[x]));
+    const res = await this.client.requestHandler.request('/skyblock/bazaar', options);
+    if (res.options.raw) return res.data;
+    return Object.keys(res.data.products).map((x) => new Product(res.data.products[x]));
   }
 }
+
+export default getSkyblockBazaar;

@@ -1,5 +1,5 @@
-import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 import Pets from './Pets';
+import { removeSnakeCaseString } from '../utils/removeSnakeCase';
 
 /**
  * Player Cosmetics class
@@ -17,7 +17,7 @@ class PlayerCosmetics {
   particlePacks: string[];
   clickfx: string[];
   constructor(data: Record<string, any>) {
-    this.cosmetics = data?.vanityMeta?.packages;
+    this.cosmetics = data?.vanityMeta?.packages || [];
     this.pets = new Pets(
       data,
       this.cosmetics.filter((x) => x.startsWith('pet_'))

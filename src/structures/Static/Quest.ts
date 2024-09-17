@@ -9,9 +9,6 @@ export interface QuestReward {
   amount: number;
 }
 
-/**
- * Quest Class
- */
 class Quest {
   questName: string;
   questID: string;
@@ -31,6 +28,7 @@ class Quest {
     }));
     this.rewards = data.rewards || [];
   }
+
   toString(): string {
     return this.questName;
   }

@@ -1,5 +1,7 @@
 node_modules/
 oldreborn/
 .env
-build/
+dist/
 .eslintcache
+coverage/
+.github/coverageData.xml

@@ -1,20 +1,17 @@
-/**
- * Bid class
- */
 class Bid {
-  auctionId: string | null;
-  profileId: string | null;
+  auctionId: string;
+  profileId: string;
   amount: number;
   timestamp: number;
-  at: Date | null;
+  at: Date;
   bidder: string;
   constructor(data: Record<string, any>) {
-    this.auctionId = data.auction_id || null;
-    this.profileId = data.profile_id || null;
-    this.amount = data.amount || 0;
-    this.timestamp = data.timestamp || null;
-    this.at = data.timestamp ? new Date(data.timestamp) : null;
-    this.bidder = data.bidder || null;
+    this.auctionId = data.auction_id;
+    this.profileId = data.profile_id;
+    this.amount = data.amount;
+    this.timestamp = data.timestamp;
+    this.at = new Date(this.timestamp);
+    this.bidder = data.bidder;
   }
 
   toString(): string {
