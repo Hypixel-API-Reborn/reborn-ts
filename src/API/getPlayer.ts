@@ -1,6 +1,6 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
-import Player from '../structures/Player';
+import Player from '../structures/Player/Player';
 import { PlayerRequestOptions } from './API';
 
 class getPlayer extends Endpoint {

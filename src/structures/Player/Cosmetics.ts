@@ -1,10 +1,7 @@
 import Pets from './Pets';
-import { removeSnakeCaseString } from '../utils/removeSnakeCase';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 
-/**
- * Player Cosmetics class
- */
-class PlayerCosmetics {
+class Cosmetics {
   cosmetics: string[];
   pets: Pets;
   suits: string[];
@@ -54,4 +51,4 @@ class PlayerCosmetics {
         .map((x) => removeSnakeCaseString(x.replace('clickeffects_', ''))) || [];
   }
 }
-export default PlayerCosmetics;
+export default Cosmetics;
