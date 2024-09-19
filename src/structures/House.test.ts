@@ -17,9 +17,9 @@ test('House', () => {
   expect(data.createdAt).toBeDefined();
   expectTypeOf(data.createdAt).toEqualTypeOf<Date | null>();
   expect(data.players).toBeDefined();
-  expect(data.players).greaterThanOrEqual(0);
+  expect(data.players).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.players).toEqualTypeOf<number>();
   expect(data.cookies).toBeDefined();
-  expect(data.cookies).greaterThanOrEqual(0);
+  expect(data.cookies).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.cookies).toEqualTypeOf<number>();
 });

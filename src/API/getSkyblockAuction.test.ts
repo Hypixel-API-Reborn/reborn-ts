@@ -47,7 +47,7 @@ test('getSkyblockAuction (Auction)', async () => {
 
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -67,7 +67,7 @@ test('getSkyblockAuction (Auction)', async () => {
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -98,7 +98,7 @@ test('getSkyblockAuction (Auction)', async () => {
       expect(bid.profileId).toBeDefined();
       expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
       expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
@@ -134,7 +134,7 @@ test('getSkyblockAuction (Player)', async () => {
 
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -154,7 +154,7 @@ test('getSkyblockAuction (Player)', async () => {
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -185,7 +185,7 @@ test('getSkyblockAuction (Player)', async () => {
       expect(bid.profileId).toBeDefined();
       expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
       expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
@@ -221,7 +221,7 @@ test('getSkyblockAuction (Profile)', async () => {
 
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -241,7 +241,7 @@ test('getSkyblockAuction (Profile)', async () => {
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -272,7 +272,7 @@ test('getSkyblockAuction (Profile)', async () => {
       expect(bid.profileId).toBeDefined();
       expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
       expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
@@ -310,7 +310,7 @@ test('getSkyblockAuction (Include Item Bytes)', async () => {
 
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -339,7 +339,7 @@ test('getSkyblockAuction (Include Item Bytes)', async () => {
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -370,7 +370,7 @@ test('getSkyblockAuction (Include Item Bytes)', async () => {
       expect(bid.profileId).toBeDefined();
       expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
       expectTypeOf(bid.timestamp).toEqualTypeOf<number>();

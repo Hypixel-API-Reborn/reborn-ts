@@ -243,7 +243,7 @@ test('getSkyblockMember (museum)', async () => {
     expectTypeOf(member.getFarmingWeight).toEqualTypeOf<() => number>();
     expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.getFarmingWeight()).toEqualTypeOf<number>();
-    expect(member.getFarmingWeight()).greaterThanOrEqual(0);
+    expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
     expect(member.toString()).toBeDefined();
     expect(member.toString()).toBe(member.uuid);
     expectTypeOf(member.toString()).toEqualTypeOf<string>();
@@ -447,7 +447,7 @@ test('getSkyblockMember (garden)', async () => {
     expectTypeOf(member.getFarmingWeight).toEqualTypeOf<() => number>();
     expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.getFarmingWeight()).toEqualTypeOf<number>();
-    expect(member.getFarmingWeight()).greaterThanOrEqual(0);
+    expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
     expect(member.toString()).toBeDefined();
     expect(member.toString()).toBe(member.uuid);
     expectTypeOf(member.toString()).toEqualTypeOf<string>();
@@ -651,7 +651,7 @@ test('getSkyblockMember', async () => {
     expectTypeOf(member.getFarmingWeight).toEqualTypeOf<() => number>();
     expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
     expectTypeOf(member.getFarmingWeight()).toEqualTypeOf<number>();
-    expect(member.getFarmingWeight()).greaterThanOrEqual(0);
+    expect(member.getFarmingWeight()).toBeGreaterThanOrEqual(0);
     expect(member.toString()).toBeDefined();
     expect(member.toString()).toBe(member.uuid);
     expectTypeOf(member.toString()).toEqualTypeOf<string>();
