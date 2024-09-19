@@ -77,3 +77,11 @@ interface RanksPurchaseTime {
   MVP: Date | null;
   MVP_PLUS: Date | null;
 }
+
+type Language = 'ENGLISH';
+type ChatChannel = 'ALL' | 'OFFICER';
+
+interface ScorpiusBribe {
+  year: number;
+  timestamp: number;
+}

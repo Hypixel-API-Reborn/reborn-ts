@@ -3,6 +3,7 @@ import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 
 class Cosmetics {
   cosmetics: string[];
+  currentGadget: string | null;
   pets: Pets;
   suits: string[];
   hats: string[];
@@ -15,6 +16,7 @@ class Cosmetics {
   clickfx: string[];
   constructor(data: Record<string, any>) {
     this.cosmetics = data?.vanityMeta?.packages || [];
+    this.currentGadget = data?.currentGadget || null;
     this.pets = new Pets(
       data,
       this.cosmetics.filter((x) => x.startsWith('pet_'))
