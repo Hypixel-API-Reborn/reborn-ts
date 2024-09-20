@@ -1,4 +1,4 @@
-import { SkillLevel } from './SkyblockMemberTypes';
+import { SkillLevel } from './Member/Types';
 import { getLevelByXp } from '../../utils/SkyblockUtils';
 
 export interface SkyblockGardenVisitorServed {

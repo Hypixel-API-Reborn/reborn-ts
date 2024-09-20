@@ -1,6 +1,6 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
+import SkyblockMember from '../structures/SkyBlock/Member/Member';
 import { SkyblockRequestOptions } from './API';
 
 class getSkyblockMember extends Endpoint {

@@ -1,6 +1,6 @@
 import BaseAuction from './BaseAuction';
 import Bid from './Bid';
-import { Rarity } from '../SkyblockMemberTypes';
+import { Rarity } from '../Member/Types';
 
 class Auction extends BaseAuction {
   coop: string[];

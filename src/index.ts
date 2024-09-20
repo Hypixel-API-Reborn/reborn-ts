@@ -80,7 +80,7 @@ export * from './structures/SkyBlock/Bazaar/Product';
 export * from './structures/SkyBlock/News/SkyblockNews';
 export * from './structures/SkyBlock/SkyblockGarden';
 export * from './structures/SkyBlock/SkyblockInventoryItem';
-export * from './structures/SkyBlock/SkyblockMember';
+export * from './structures/SkyBlock/Member/Member';
 export * from './structures/SkyBlock/SkyblockMuseum';
 export * from './structures/SkyBlock/SkyblockMuseumItem';
 export * from './structures/SkyBlock/SkyblockPet';

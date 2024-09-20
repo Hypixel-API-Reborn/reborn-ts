@@ -1,5 +1,4 @@
-export type SkyblockGemstoneQuality = 'Rough' | 'Flawed' | 'Fine' | 'Flawless' | 'Perfect';
-import { parseGearScore, parseRarity } from '../../utils/SkyblockUtils';
+import { Rarity, SkyblockGemstoneQuality } from './Member/Types';
 
 export class SkyblockGemstone {
   type: string;
@@ -22,7 +21,7 @@ class SkyblockInventoryItem {
   reforge: string;
   gemstones: SkyblockGemstone[] | [];
   damage: number;
-  rarity: string;
+  rarity: Rarity;
   dungeonStars: number;
   gearScore: number;
   uuid: string;
@@ -57,9 +56,9 @@ class SkyblockInventoryItem {
         })
       : [];
     this.damage = data?.Damage || 0;
-    this.rarity = parseRarity(this?.loreArray[this?.loreArray?.length - 1]);
+    this.rarity = this.parseRarity(this?.loreArray[this?.loreArray?.length - 1]);
     this.dungeonStars = data?.tag?.ExtraAttributes?.upgrade_level ?? 0;
-    this.gearScore = parseGearScore(this?.loreArray);
+    this.gearScore = this.parseGearScore(this?.loreArray);
     this.uuid = data?.tag?.ExtraAttributes?.uuid ?? '';
     this.soulbound = 1 === data?.tag?.ExtraAttributes?.donated_museum;
     this.artOfWar = data?.tag?.ExtraAttributes?.art_of_war_count ?? 0;
@@ -73,6 +72,31 @@ class SkyblockInventoryItem {
     this.expertise = data?.tag?.ExtraAttributes?.expertise_kills ?? 0;
     this.compact = data?.tag?.ExtraAttributes?.compact_blocks ?? 0;
     this.blocksWalked = data?.tag?.ExtraAttributes?.blocks_walked ?? 0;
+  }
+
+  parseRarity(str: string): Rarity {
+    const rarityArray = [
+      'COMMON',
+      'UNCOMMON',
+      'RARE',
+      'EPIC',
+      'LEGENDARY',
+      'MYTHIC',
+      'DIVINE',
+      'SPECIAL',
+      'VERY SPECIAL'
+    ];
+    for (const rarity of rarityArray) {
+      if (str.includes(rarity)) return rarity as Rarity;
+    }
+    return 'COMMON';
+  }
+
+  parseGearScore(lore: any): number {
+    for (const line of lore) {
+      if (line.match(/Gear Score: §[0-9a-f](\d+)/)) return Number(line.match(/Gear Score: §d(\d+)/)[1]);
+    }
+    return 0;
   }
 
   toString(): string {

@@ -1,5 +1,5 @@
 import Constants from '../../utils/Constants';
-import { Rarity } from './SkyblockMemberTypes';
+import { Rarity } from './Member/Types';
 
 class SkyblockPet {
   uuid: string;
