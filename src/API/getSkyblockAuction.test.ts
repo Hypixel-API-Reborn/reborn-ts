@@ -2,7 +2,7 @@ import Auction from '../structures/SkyBlock/Auctions/Auction';
 import Bid from '../structures/SkyBlock/Auctions/Bid';
 import Client from '../Client';
 import ItemBytes from '../structures/ItemBytes';
-import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
+import { Rarity } from '../structures/SkyBlock/Member/Types';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockAuction (raw)', async () => {

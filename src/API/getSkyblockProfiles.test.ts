@@ -1,5 +1,5 @@
 import Client from '../Client';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
+import SkyblockMember from '../structures/SkyBlock/Member/Member';
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
 import { expect, expectTypeOf, test } from 'vitest';
 

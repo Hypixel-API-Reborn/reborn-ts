@@ -5,7 +5,7 @@ import SkyblockGarden, {
   SkyblockGardenVisitor,
   SkyblockGarenCrops
 } from '../structures/SkyBlock/SkyblockGarden';
-import { SkillLevel } from '../structures/SkyBlock/SkyblockMemberTypes';
+import { SkillLevel } from '../structures/SkyBlock/Member/Types';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockGarden (no input)', () => {
