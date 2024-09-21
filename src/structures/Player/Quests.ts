@@ -30,4 +30,16 @@ class Quest {
   }
 }
 
-export default Quest;
+class Quests {
+  quests: Quest[];
+  autoActivate: boolean;
+  constructor(data: Record<string, any>, autoActivate: boolean) {
+    this.quests = [];
+    Object.keys(data).forEach((quest) => {
+      this.quests.push(new Quest(data[quest], quest));
+    });
+    this.autoActivate = autoActivate;
+  }
+}
+
+export default Quests;

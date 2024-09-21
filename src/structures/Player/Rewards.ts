@@ -21,6 +21,7 @@ class Rewards {
   rewardHighScore: number;
   rewardScore: number;
   rewardStreak: number;
+  rewardTokens: number;
   totalDailyRewards: number;
   totalRewards: number;
   monthlyCrates: MonthlyCrate[];
@@ -30,6 +31,7 @@ class Rewards {
     this.rewardHighScore = data.rewardHighScore || 0;
     this.rewardScore = data.rewardScore || 0;
     this.rewardStreak = data.rewardStreak || 0;
+    this.rewardTokens = data.adsence_tokens || 0;
     this.totalDailyRewards = data.totalDailyRewards || 0;
     this.totalRewards = data.totalRewards || 0;
     this.monthlyCrates = [];

@@ -1,11 +1,12 @@
 import Achievements from './Achievements';
+import Color from '../Color';
 import Cosmetics from './Cosmetics';
 import Gifting from './Gifting';
 import Guild from '../Guild/Guild';
 import House from '../House';
 import Housing from '../Housing';
 import Parkour from './Parkour';
-import Quest from './Quests';
+import Quests from './Quests';
 import RecentGame from '../RecentGame';
 import Rewards from './Rewards';
 import Seasonal from './Seasonal';
@@ -17,6 +18,11 @@ import { getRank, playerLevelProgress } from './Utils';
 class Player {
   uuid: string;
   nickname: string;
+  rank: PlayerRank;
+  mvpPlusColor: Color | null;
+  mvpPlusPlusColor: Color | null;
+  gifting: Gifting;
+  socialMedia: SocialMedia[];
   firstLoginTimestamp: number;
   firstLoginAt: Date;
   lastLoginTimestamp: number;
@@ -36,20 +42,21 @@ class Player {
   housing: Housing;
   cosmetics: Cosmetics;
   scorpiusBribes: ScorpiusBribe[];
-  quests: Quest[];
-
-  rank: PlayerRank;
+  quests: Quests;
   guild: Guild | null;
   houses: House[] | null;
   recentGames: RecentGame[] | null;
-  gifting: Gifting;
-  socialMedia: SocialMedia[];
   constructor(
     data: Record<string, any>,
     extra: { guild: Guild | null; houses: House[] | null; recentGames: RecentGame[] | null }
   ) {
     this.uuid = data.uuid;
     this.nickname = data.displayname;
+    this.rank = getRank(data);
+    this.mvpPlusColor = data.rankPlusColor ? new Color(data.rankPlusColor) : null;
+    this.mvpPlusPlusColor = data.monthlyRankColor ? new Color(data.monthlyRankColor) : null;
+    this.gifting = new Gifting(data?.giftingMeta || {});
+    this.socialMedia = parseSocialMedia(data?.socialMedia || {});
     this.firstLoginTimestamp = data?.firstLogin || 0;
     this.firstLoginAt = new Date(this.firstLoginTimestamp);
     this.lastLoginTimestamp = data?.lastLogin || 0;
@@ -61,7 +68,7 @@ class Player {
     this.level = playerLevelProgress(this.exp);
     this.seasonal = new Seasonal(data?.seasonal || {});
     this.karma = data?.karma || 0;
-    this.freeSkyblockCookie = data.skyblock_free_cookie || null;
+    this.freeSkyblockCookie = data?.skyblock_free_cookie || null;
     this.tourney = new Tourney(data?.tourney || {});
     this.rewards = new Rewards(data);
     this.challenges = data?.challenges || {};
@@ -77,17 +84,10 @@ class Player {
       .forEach((key) => {
         this.scorpiusBribes.push({ year: Number(key), timestamp: data[key] });
       });
-    this.quests = [];
-    Object.keys(data.quests || []).forEach((quest) => {
-      this.quests.push(new Quest(data.quests[quest], quest));
-    });
-
-    this.rank = getRank(data);
+    this.quests = new Quests(data?.quests || {}, data?.questSettings?.autoActivate || false);
     this.guild = extra.guild || null;
     this.houses = extra.houses || null;
     this.recentGames = extra.recentGames || null;
-    this.gifting = new Gifting(data?.giftingMeta || {});
-    this.socialMedia = parseSocialMedia(data?.socialMedia || {});
   }
 
   toString(): string {
