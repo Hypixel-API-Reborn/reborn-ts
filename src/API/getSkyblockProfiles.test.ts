@@ -1,6 +1,10 @@
+import Banking from '../structures/SkyBlock/Profile/Banking';
 import Client from '../Client';
+import CommunityUpgrades from '../structures/SkyBlock/Profile/CommunityUpgrades';
+import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
 import SkyblockMember from '../structures/SkyBlock/Member/Member';
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
+import SkyblockProfile from '../structures/SkyBlock/Profile/Profile';
+import { SkyblockProfileName } from '../structures/SkyBlock/Profile/Types';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockProfiles (raw)', async () => {
@@ -47,16 +51,20 @@ test('getSkyblockProfiles', async () => {
     expectTypeOf(profile.profileId).toEqualTypeOf<string>();
 
     expect(profile.profileName).toBeDefined();
-    expectTypeOf(profile.profileName).toEqualTypeOf<string>();
+    expectTypeOf(profile.profileName).toEqualTypeOf<SkyblockProfileName>();
 
     expect(profile.gameMode).toBeDefined();
     expectTypeOf(profile.gameMode).toEqualTypeOf<string | null>();
 
     expect(profile.banking).toBeDefined();
-    expectTypeOf(profile.banking).toEqualTypeOf<object>();
+    expectTypeOf(profile.banking).toEqualTypeOf<Banking>();
+
+    expect(profile.garden).toBeDefined();
+    expect(profile.garden).toBeNull();
+    expectTypeOf(profile.garden).toEqualTypeOf<SkyblockGarden | null>();
 
     expect(profile.communityUpgrades).toBeDefined();
-    expectTypeOf(profile.communityUpgrades).toEqualTypeOf<object>();
+    expectTypeOf(profile.communityUpgrades).toEqualTypeOf<CommunityUpgrades>();
 
     expect(profile.selected).toBeDefined();
     expectTypeOf(profile.selected).toEqualTypeOf<boolean>();
@@ -69,7 +77,7 @@ test('getSkyblockProfiles', async () => {
 
     expect(profile.toString()).toBeDefined();
     expectTypeOf(profile.toString()).toEqualTypeOf<string>();
-    expect(profile.toString()).toBe(profile.profileName);
+    expect(profile.toString()).toBe(profile.profileId);
   });
 
   client.destroy();
@@ -91,16 +99,19 @@ test('getSkyblockProfiles (garden)', async () => {
     expectTypeOf(profile.profileId).toEqualTypeOf<string>();
 
     expect(profile.profileName).toBeDefined();
-    expectTypeOf(profile.profileName).toEqualTypeOf<string>();
+    expectTypeOf(profile.profileName).toEqualTypeOf<SkyblockProfileName>();
 
     expect(profile.gameMode).toBeDefined();
     expectTypeOf(profile.gameMode).toEqualTypeOf<string | null>();
 
     expect(profile.banking).toBeDefined();
-    expectTypeOf(profile.banking).toEqualTypeOf<object>();
+    expectTypeOf(profile.banking).toEqualTypeOf<Banking>();
+
+    expect(profile.garden).toBeDefined();
+    expectTypeOf(profile.garden).toEqualTypeOf<SkyblockGarden | null>();
 
     expect(profile.communityUpgrades).toBeDefined();
-    expectTypeOf(profile.communityUpgrades).toEqualTypeOf<object>();
+    expectTypeOf(profile.communityUpgrades).toEqualTypeOf<CommunityUpgrades>();
 
     expect(profile.selected).toBeDefined();
     expectTypeOf(profile.selected).toEqualTypeOf<boolean>();
@@ -113,7 +124,7 @@ test('getSkyblockProfiles (garden)', async () => {
 
     expect(profile.toString()).toBeDefined();
     expectTypeOf(profile.toString()).toEqualTypeOf<string>();
-    expect(profile.toString()).toBe(profile.profileName);
+    expect(profile.toString()).toBe(profile.profileId);
   });
 
   client.destroy();
@@ -135,16 +146,20 @@ test('getSkyblockProfiles (museum)', async () => {
     expectTypeOf(profile.profileId).toEqualTypeOf<string>();
 
     expect(profile.profileName).toBeDefined();
-    expectTypeOf(profile.profileName).toEqualTypeOf<string>();
+    expectTypeOf(profile.profileName).toEqualTypeOf<SkyblockProfileName>();
 
     expect(profile.gameMode).toBeDefined();
     expectTypeOf(profile.gameMode).toEqualTypeOf<string | null>();
 
     expect(profile.banking).toBeDefined();
-    expectTypeOf(profile.banking).toEqualTypeOf<object>();
+    expectTypeOf(profile.banking).toEqualTypeOf<Banking>();
+
+    expect(profile.garden).toBeDefined();
+    expect(profile.garden).toBeNull();
+    expectTypeOf(profile.garden).toEqualTypeOf<SkyblockGarden | null>();
 
     expect(profile.communityUpgrades).toBeDefined();
-    expectTypeOf(profile.communityUpgrades).toEqualTypeOf<object>();
+    expectTypeOf(profile.communityUpgrades).toEqualTypeOf<CommunityUpgrades>();
 
     expect(profile.selected).toBeDefined();
     expectTypeOf(profile.selected).toEqualTypeOf<boolean>();
@@ -157,7 +172,7 @@ test('getSkyblockProfiles (museum)', async () => {
 
     expect(profile.toString()).toBeDefined();
     expectTypeOf(profile.toString()).toEqualTypeOf<string>();
-    expect(profile.toString()).toBe(profile.profileName);
+    expect(profile.toString()).toBe(profile.profileId);
   });
 
   client.destroy();

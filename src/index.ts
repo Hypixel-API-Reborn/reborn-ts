@@ -84,7 +84,7 @@ export * from './structures/SkyBlock/Member/Member';
 export * from './structures/SkyBlock/SkyblockMuseum';
 export * from './structures/SkyBlock/SkyblockMuseumItem';
 export * from './structures/SkyBlock/SkyblockPet';
-export * from './structures/SkyBlock/SkyblockProfile';
+export * from './structures/SkyBlock/Profile/Profile';
 export * from './structures/SkyBlock/Static/Bingo';
 export * from './structures/SkyBlock/Static/BingoData';
 export * from './structures/SkyBlock/Static/Candidate';

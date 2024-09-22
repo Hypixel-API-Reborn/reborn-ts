@@ -2,7 +2,7 @@ import Client from '../Client';
 import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
 import SkyblockMuseumItem from '../structures/SkyBlock/SkyblockMuseumItem';
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
+import SkyblockProfile from '../structures/SkyBlock/Profile/Profile';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockMuseum (no input)', () => {

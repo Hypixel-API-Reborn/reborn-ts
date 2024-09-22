@@ -1,13 +1,16 @@
-import SkyblockGarden from './SkyblockGarden';
-import SkyblockMember from './Member/Member';
+import Banking from './Banking';
+import CommunityUpgrades from './CommunityUpgrades';
+import SkyblockGarden from '../SkyblockGarden';
+import SkyblockMember from '../Member/Member';
+import { SkyblockProfileName } from './Types';
 
 class SkyblockProfile {
   profileId: string;
-  profileName: string;
+  profileName: SkyblockProfileName;
   gameMode: string | null;
-  banking: object;
+  banking: Banking;
   garden: SkyblockGarden | null;
-  communityUpgrades: object;
+  communityUpgrades: CommunityUpgrades;
   selected: boolean;
   members: SkyblockMember[];
   me: SkyblockMember | undefined;
@@ -15,17 +18,17 @@ class SkyblockProfile {
     this.profileId = data.profileId || '';
     this.profileName = data.profileName || '';
     this.gameMode = data.gameMode || null;
-    this.banking = data.banking || {};
+    this.banking = new Banking(data.banking || {});
     this.garden = data.garden || null;
-    this.communityUpgrades = data.communityUpgrades || {};
+    this.communityUpgrades = new CommunityUpgrades(data.communityUpgrades || {});
     this.selected = data.selected || false;
     this.members = Object.keys(data.members).map(
       (uuid) =>
         new SkyblockMember({
           uuid: uuid,
           profileId: this.profileId,
-          garden: data.garden,
-          museum: data.museum,
+          garden: null,
+          museum: null,
           profileName: this.profileName,
           gameMode: this.gameMode,
           m: data.members[uuid],
@@ -38,7 +41,7 @@ class SkyblockProfile {
   }
 
   toString(): string {
-    return this.profileName;
+    return this.profileId;
   }
 }
 
