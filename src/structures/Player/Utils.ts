@@ -12,7 +12,7 @@ export function getRank(player: Record<string, any>): PlayerRank {
       case 'INNIT':
         return 'Innit';
       default:
-        return 'Default';
+        return null;
     }
   } else if (player.rank) {
     switch (player.rank) {
@@ -21,7 +21,7 @@ export function getRank(player: Record<string, any>): PlayerRank {
       case 'GAME_MASTER':
         return 'Game Master';
       default:
-        return 'Default';
+        return null;
     }
   } else {
     switch (player.newPackageRank) {
@@ -34,7 +34,7 @@ export function getRank(player: Record<string, any>): PlayerRank {
       case 'VIP':
         return 'VIP';
       default:
-        return 'Default';
+        return null;
     }
   }
 }

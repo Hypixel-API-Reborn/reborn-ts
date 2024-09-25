@@ -1,4 +1,6 @@
-class SeasonBingoTier {
+import { SeasonName } from './Types';
+
+export class SeasonBingoTier {
   objectives: Record<string, number>;
   rewards: string[];
   constructor(data: Record<string, any>) {
@@ -7,7 +9,7 @@ class SeasonBingoTier {
   }
 }
 
-class SeasonBingo {
+export class SeasonBingo {
   easy: SeasonBingoTier | null;
   medium: SeasonBingoTier | null;
   hard: SeasonBingoTier | null;
@@ -18,7 +20,7 @@ class SeasonBingo {
   }
 }
 
-class SeasonYear {
+export class SeasonYear {
   year: number;
   experience: number;
   season: Record<string, any>;
@@ -35,10 +37,10 @@ class SeasonYear {
   }
 }
 
-class Season {
-  season: string;
+export class Season {
+  season: SeasonName;
   years: SeasonYear[];
-  constructor(data: Record<string, any>, season: string) {
+  constructor(data: Record<string, any>, season: SeasonName) {
     this.season = season;
     this.years = [];
     Object.keys(data).forEach((key) => this.years.push(new SeasonYear(data?.[key], key)));
@@ -47,18 +49,18 @@ class Season {
 
 class Seasonal {
   silver: number;
+  anniversary: Season;
   christmas: Season;
   easter: Season;
-  summer: Season;
   halloween: Season;
-  anniversary: Season;
+  summer: Season;
   constructor(data: Record<string, any>) {
     this.silver = data.silver || 0;
+    this.anniversary = new Season(data?.anniversary || {}, 'anniversary');
     this.christmas = new Season(data?.christmas || {}, 'christmas');
     this.easter = new Season(data?.easter || {}, 'easter');
-    this.summer = new Season(data?.summer || {}, 'summer');
     this.halloween = new Season(data?.halloween || {}, 'halloween');
-    this.anniversary = new Season(data?.anniversary || {}, 'anniversary');
+    this.summer = new Season(data?.summer || {}, 'summer');
   }
 }
 

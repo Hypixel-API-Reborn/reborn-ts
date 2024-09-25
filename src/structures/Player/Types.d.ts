@@ -1,3 +1,5 @@
+// Credits: Pixelic: https://github.com/pixelicc - Most types in player
+
 import Arcade from '../MiniGames/Arcade';
 import ArenaBrawl from '../MiniGames/ArenaBrawl';
 import BedWars from '../MiniGames/BedWars';
@@ -20,6 +22,37 @@ import VampireZ from '../MiniGames/VampireZ';
 import Walls from '../MiniGames/Walls';
 import Warlords from '../MiniGames/Warlords';
 import WoolGames from '../MiniGames/WoolGames';
+
+type Language =
+  | 'CHINESE_SIMPLIFIED'
+  | 'CHINESE_TRADITIONAL'
+  | 'CZECH'
+  | 'DANISH'
+  | 'DUTCH'
+  | 'ENGLISH'
+  | 'FINNISH'
+  | 'FRENCH'
+  | 'GERMAN'
+  | 'GREEK'
+  | 'HUNGARIAN'
+  | 'ITALIAN'
+  | 'JAPANESE'
+  | 'KOREAN'
+  | 'NORWEGIAN'
+  | 'POLISH'
+  | 'PORTUGUESE_BR'
+  | 'PORTUGUESE_PT'
+  | 'PIRATE'
+  | 'ROMANIAN'
+  | 'RUSSIAN'
+  | 'SERBIAN_CYRILLIC'
+  | 'SPANISH'
+  | 'SWEDISH'
+  | 'TURKISH'
+  | 'UKRAINIAN';
+type ChatChannel = 'ALL' | 'PARTY' | 'GUILD' | 'OFFICER' | 'PM' | 'SKYBLOCK_COOP';
+type SeasonName = 'christmas' | 'easter' | 'summer' | 'halloween' | 'anniversary';
+type SocialMediaId = 'DISCORD' | 'TWITTER' | 'YOUTUBE' | 'INSTAGRAM' | 'TIKTOK' | 'TWITCH' | 'HYPIXEL';
 
 interface LevelProgress {
   level: number;
@@ -56,7 +89,7 @@ interface PlayerStats {
 }
 
 type PlayerRank =
-  | 'Default'
+  | null
   | 'VIP'
   | 'VIP+'
   | 'MVP'
@@ -77,9 +110,6 @@ interface RanksPurchaseTime {
   MVP: Date | null;
   MVP_PLUS: Date | null;
 }
-
-type Language = 'ENGLISH';
-type ChatChannel = 'ALL' | 'OFFICER';
 
 interface ScorpiusBribe {
   year: number;

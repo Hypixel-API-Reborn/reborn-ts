@@ -8,8 +8,8 @@ class Parkour {
     this.timeStart = data?.[location]?.[0].timeStart || 0;
     this.timeTook = data?.[location]?.[0].timeTook || 0;
     this.checkPoints = [];
-    Object.keys(checkPoints?.[location]).map((checkPoint: string) => {
-      checkPoints.push(checkPoints?.[location]?.[checkPoint]);
+    Object.keys(checkPoints?.[location] || {}).map((checkPoint: string) => {
+      this.checkPoints.push(checkPoints?.[location]?.[checkPoint]);
     });
   }
 }

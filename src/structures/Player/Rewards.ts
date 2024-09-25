@@ -1,4 +1,4 @@
-class MonthlyCrate {
+export class MonthlyCrate {
   date: string;
   REGULAR: boolean;
   VIP: boolean;
@@ -35,8 +35,8 @@ class Rewards {
     this.totalDailyRewards = data.totalDailyRewards || 0;
     this.totalRewards = data.totalRewards || 0;
     this.monthlyCrates = [];
-    Object.keys(data.monthlyCrates).forEach((key) =>
-      this.monthlyCrates.push(new MonthlyCrate(data.monthlyCrates[key], key))
+    Object.keys(data?.monthlycrates || {}).forEach((key) =>
+      this.monthlyCrates.push(new MonthlyCrate(data?.monthlycrates?.[key], key))
     );
   }
 }

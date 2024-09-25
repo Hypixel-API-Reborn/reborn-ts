@@ -1,21 +1,18 @@
+import { SocialMediaId } from './Types';
+
 class SocialMedia {
-  name: string;
+  id: SocialMediaId;
   link: string;
-  id: string;
-  constructor(data: { name: string; link: string; id: string }) {
-    this.name = data.name;
-    this.link = data.link;
+  constructor(data: { id: SocialMediaId; link: string }) {
     this.id = data.id;
+    this.link = data.link;
   }
 }
 
-export function parseSocialMedia(links: Record<string, any>): SocialMedia[] {
-  const formattedNames = ['Twitter', 'YouTube', 'Instagram', 'Twitch', 'Hypixel', 'Discord'];
-  const upperNames = ['TWITTER', 'YOUTUBE', 'INSTAGRAM', 'TWITCH', 'HYPIXEL', 'DISCORD'];
-  return Object.keys(links)
-    .map((x) => upperNames.indexOf(x))
-    .filter((x) => -1 !== x)
-    .map((x) => new SocialMedia({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
+export function parseSocialMedia(data: Record<SocialMediaId, string>): SocialMedia[] {
+  return Object.keys(data).map(
+    (media) => new SocialMedia({ id: media as SocialMediaId, link: data[media as SocialMediaId] })
+  );
 }
 
 export default SocialMedia;

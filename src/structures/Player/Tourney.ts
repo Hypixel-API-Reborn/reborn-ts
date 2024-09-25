@@ -1,4 +1,4 @@
-class TourneyData {
+export class TourneyData {
   playtime: number;
   tributes: number;
   firstWin: number;

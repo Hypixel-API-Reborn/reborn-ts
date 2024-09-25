@@ -1,9 +1,9 @@
-class AchievementsRewards {
+export class AchievementsRewards {
   [key: string]: number;
   constructor(data: Record<string, any>) {
-    Object.keys(data.achievementRewardsNew)
+    Object.keys(data)
       .filter((key) => key.startsWith('for_points_'))
-      .map((key) => ({ [key.replace('for_points_', '')]: data.achievementRewardsNew[key] }))
+      .map((key) => ({ [key.replace('for_points_', '')]: data[key] }))
       .sort((a, b) => {
         const keyA = Object.keys(a)[0];
         const keyB = Object.keys(b)[0];

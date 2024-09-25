@@ -18,6 +18,7 @@ test('getSkyblockFireSales', async () => {
   vi.spyOn(global, 'fetch').mockResolvedValue({
     ...defaultRequestData,
     json: () =>
+      /* eslint-disable camelcase */
       Promise.resolve({
         success: true,
         sales: [
@@ -25,6 +26,7 @@ test('getSkyblockFireSales', async () => {
           { item_id: 'PET_SKIN_LION_BLACK', start: 1725120000000, end: 1725552000000, amount: 6500, price: 650 }
         ]
       })
+    /* eslint-enable camelcase */
   } as any);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error

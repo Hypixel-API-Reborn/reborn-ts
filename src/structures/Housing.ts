@@ -20,9 +20,11 @@ class Housing {
   givenCookies: HousingGivenCookies[];
   constructor(data: Record<string, any>) {
     this.allowedBlocks = data.allowedBlocks;
-    this.playerVisibility = Number(data.playerSettings.VISIBILITY.split('-')[1]);
-    this.showBorder = Boolean(data.playerSettings.BORDER.split('-')[1]);
-    this.showTips = Boolean(data.playerSettings.TIPS.split('-')[1]);
+    this.playerVisibility = data?.playerSettings?.VISIBILITY
+      ? Number(data?.playerSettings?.VISIBILITY.split('-')[1])
+      : 4;
+    this.showBorder = data?.playerSettings?.BORDER ? Boolean(data?.playerSettings?.BORDER.split('-')[1]) : true;
+    this.showTips = data?.playerSettings?.TIPS ? Boolean(data?.playerSettings?.TIPS.split('-')[1]) : false;
     this.tutorialStage = data.tutorialStep;
     this.packages = data.packages;
     this.firstHouseJoinTimestamp = data.firstHouseJoinMs;

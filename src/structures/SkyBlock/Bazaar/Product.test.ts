@@ -3,6 +3,7 @@ import { expect, expectTypeOf, test } from 'vitest';
 
 test('Product', () => {
   const data = new Product({
+    /* eslint-disable camelcase */
     product_id: 'INK_SACK:3',
     sell_summary: [
       { amount: 133865, pricePerUnit: 1.4, orders: 2 },
@@ -40,6 +41,7 @@ test('Product', () => {
       buyMovingWeek: 39972807,
       buyOrders: 152
     }
+    /* eslint-enable camelcase */
   });
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Product);

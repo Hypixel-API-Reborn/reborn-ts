@@ -1,33 +1,62 @@
 import Pet from './Pet';
 
-export interface PetConsumables {
-  BAKED_POTATO: number;
-  COOKIE: number;
-  FEATHER: number;
-  HAY_BLOCK: number;
-  SLIME_BALL: number;
-  COOKED_BEEF: number;
-  RED_ROSE: number;
-  WATER_BUCKET: number;
-  MELON: number;
-  STICK: number;
-  WOOD_SWORD: number;
-  MILK_BUCKET: number;
-  GOLD_RECORD: number;
-  LEASH: number;
-  LAVA_BUCKET: number;
-  BONE: number;
-  MAGMA_CREAM: number;
-  WHEAT: number;
-  MUSHROOM_SOUP: number;
-  BREAD: number;
-  PUMPKIN_PIE: number;
-  APPLE: number;
-  CARROT_ITEM: number;
-  RAW_FISH: number;
-  PORK: number;
-  CAKE: number;
-  ROTTEN_FLESH: number;
+export class PetConsumables {
+  bakedPotato: number;
+  cookie: number;
+  feather: number;
+  hayBlock: number;
+  slimeBall: number;
+  cookedBeef: number;
+  redRose: number;
+  waterBucket: number;
+  melon: number;
+  stick: number;
+  woodSword: number;
+  milkBucket: number;
+  goldRecord: number;
+  leash: number;
+  lavaBucket: number;
+  bone: number;
+  magmaCream: number;
+  wheat: number;
+  mushroomSoup: number;
+  bread: number;
+  pumpkinPie: number;
+  apple: number;
+  carrot: number;
+  rawFish: number;
+  pork: number;
+  cake: number;
+  rottenFlesh: number;
+  constructor(data: Record<string, number>) {
+    this.bakedPotato = data?.BAKED_POTATO || 0;
+    this.cookie = data?.COOKIE || 0;
+    this.feather = data?.FEATHER || 0;
+    this.hayBlock = data?.HAY_BLOCK || 0;
+    this.slimeBall = data?.SLIME_BALL || 0;
+    this.cookedBeef = data?.COOKED_BEEF || 0;
+    this.redRose = data?.RED_ROSE || 0;
+    this.waterBucket = data?.WATER_BUCKET || 0;
+    this.melon = data?.MELON || 0;
+    this.stick = data?.STICK || 0;
+    this.woodSword = data?.WOOD_SWORD || 0;
+    this.milkBucket = data?.MILK_BUCKET || 0;
+    this.goldRecord = data?.GOLD_RECORD || 0;
+    this.leash = data?.LEASH || 0;
+    this.lavaBucket = data?.LAVA_BUCKET || 0;
+    this.bone = data?.BONE || 0;
+    this.magmaCream = data?.MAGMA_CREAM || 0;
+    this.wheat = data?.WHEAT || 0;
+    this.mushroomSoup = data?.MUSHROOM_SOUP || 0;
+    this.bread = data?.BREAD || 0;
+    this.pumpkinPie = data?.PUMPKIN_PIE || 0;
+    this.apple = data?.APPLE || 0;
+    this.carrot = data?.CARROT_ITEM || 0;
+    this.rawFish = data?.RAW_FISH || 0;
+    this.pork = data?.PORK || 0;
+    this.cake = data?.CAKE || 0;
+    this.rottenFlesh = data?.ROTTEN_FLESH || 0;
+  }
 }
 
 class Pets {
@@ -39,7 +68,7 @@ class Pets {
     this.pets = pets.map((x) => new Pet(x, data));
     this.lastJourneyTimestamp = data.petJourneyTimestamp || null;
     this.lastJourneyAt = this.lastJourneyTimestamp ? new Date(this.lastJourneyTimestamp) : null;
-    this.petConsumables = data.petConsumables;
+    this.petConsumables = new PetConsumables(data?.petConsumables || {});
   }
 }
 
