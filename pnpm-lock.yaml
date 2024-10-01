@@ -21,8 +21,8 @@ importers:
         specifier: ^3.13.0
         version: 3.13.0
       skyhelper-networth:
-        specifier: ^1.24.0
-        version: 1.24.0
+        specifier: ^1.25.0
+        version: 1.25.0
     devDependencies:
       '@eslint/js':
         specifier: ^9.11.1
@@ -1138,8 +1138,8 @@ packages:
     resolution: {integrity: sha512-94Bdh3cC2PKrbgSOUqTiGPWVZeSiXfKOVZNJniWoqrWrRkB1CJzBU3NEbiTsPcYy1lDsANA/THzS+9WBiy5nfQ==}
     engines: {node: '>= 10'}
 
-  skyhelper-networth@1.24.0:
-    resolution: {integrity: sha512-+632T88RmPN2D57ReuHv6aGAEcuFjy+AT6v4tC8Pgkd6BYqvBEhJSo0WjPMQAvqrO7v6Pcf/M58OnVU6uJnAJw==}
+  skyhelper-networth@1.25.0:
+    resolution: {integrity: sha512-HCqZ2UDhwVokN2maBlcL4DQ1TT07mw3QnVP7+d2z/vMRoj3mDeKkdgbRdQhGKLEmp9uaIWq2GTOV9JXkH4QBqw==}
 
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
@@ -2373,7 +2373,7 @@ snapshots:
       mrmime: 2.0.0
       totalist: 3.0.1
 
-  skyhelper-networth@1.24.0:
+  skyhelper-networth@1.25.0:
     dependencies:
       axios: 1.7.7
       prismarine-nbt: 2.5.0
