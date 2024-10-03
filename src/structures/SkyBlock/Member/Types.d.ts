@@ -1,5 +1,16 @@
 import SkyblockInventoryItem from '../SkyblockInventoryItem';
 
+type HOTMForgeItemType =
+  | 'REFINING'
+  | 'FORGING'
+  | 'PERFECT_GEMSTONES'
+  | 'REFINE'
+  | 'ITEM_CASTING'
+  | 'DRILL_PARTS'
+  | 'OTHER'
+  | 'PETS'
+  | 'GEAR';
+type HOTMPickaxeAbility = 'mining_speed_boost' | 'pickaxe_toss' | 'anomalous_desire' | 'maniac_miner' | 'sheer_force';
 type SkyblockGemstoneQuality = 'Rough' | 'Flawed' | 'Fine' | 'Flawless' | 'Perfect';
 type TrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
 type DungeonClass = 'healer' | 'mage' | 'berserk' | 'archer' | 'tank';
@@ -7,6 +18,7 @@ type CrimsonIsleFactions = 'mages' | 'barbarians';
 type CrimsonIsleBelt = 'White' | 'Yellow' | 'Green' | 'Blue' | 'Brown' | 'Black';
 type CrimsonIsleDojoRank = 'S' | 'A' | 'B' | 'C' | 'D' | 'F';
 type PowderType = 'mithril' | 'gemstone' | 'glacite';
+type Rarity = 'COMMON' | 'UNCOMMON' | 'RARE' | 'EPIC' | 'LEGENDARY' | 'MYTHIC' | 'DIVINE' | 'SPECIAL' | 'VERY_SPECIAL';
 
 interface Equipment {
   gauntlet: SkyblockInventoryItem | null;
@@ -21,8 +33,6 @@ interface Armor {
   leggings: SkyblockInventoryItem | null;
   boots: SkyblockInventoryItem | null;
 }
-
-type Rarity = 'COMMON' | 'UNCOMMON' | 'RARE' | 'EPIC' | 'LEGENDARY' | 'MYTHIC' | 'DIVINE' | 'SPECIAL' | 'VERY_SPECIAL';
 
 interface SkillLevel {
   xp: number;
