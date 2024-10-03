@@ -1,7 +1,7 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Status from '../structures/Status';
-import { RequestOptions } from '../Private/RequestHandler';
+import { RequestData, RequestOptions } from '../Private/RequestHandler';
 
 class getStatus extends Endpoint {
   readonly client: Client;
@@ -10,10 +10,10 @@ class getStatus extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: RequestOptions): Promise<Status> {
+  async execute(query: string, options?: RequestOptions): Promise<Status | RequestData> {
     query = await this.client.requestHandler.toUUID(query);
     const res = await this.client.requestHandler.request(`/status?uuid=${query}`, options);
-    if (res.options.raw) return res.data;
+    if (res.options.raw) return res;
     return new Status(res.data.session);
   }
 }

@@ -1,80 +1,101 @@
-import Achievement from '../structures/Static/Achievement';
-import AchievementTier from '../structures/Static/AchievementTier';
-import Achievements from '../structures/Static/Achievements';
+import Achievements from '../structures/Static/Achievements/Achievements';
 import Client from '../Client';
-import GameAchievements from '../structures/Static/GameAchievements';
-import { StaticGameNames } from '../typings';
+import GameAchievements from '../structures/Static/Achievements/Game';
+import OneTimeAchivement from '../structures/Static/Achievements/OneTime';
+import TieredAchivement, { AchivementTier } from '../structures/Static/Achievements/Tired';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getAchievements (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getAchievements({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Achievements | RequestData>();
   client.destroy();
 });
 
 test('getAchievements', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getAchievements();
+  let data = await client.getAchievements();
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Achievements);
-  expectTypeOf(data).toEqualTypeOf<Achievements>();
+  expectTypeOf(data).toEqualTypeOf<Achievements | RequestData>();
+  data = data as Achievements;
   expect(data.lastUpdatedTimestamp).toBeDefined();
+  expect(data.lastUpdatedTimestamp).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.lastUpdatedTimestamp).toEqualTypeOf<number>();
-  expect(data.lastUpdatedTimestamp).toBeGreaterThan(0);
   expect(data.lastUpdatedAt).toBeDefined();
   expectTypeOf(data.lastUpdatedAt).toEqualTypeOf<Date>();
   expect(data.achievementsPerGame).toBeDefined();
-  expectTypeOf(data.achievementsPerGame).toEqualTypeOf<Record<StaticGameNames, GameAchievements>>();
+  expectTypeOf(data.achievementsPerGame).toEqualTypeOf<Record<string, GameAchievements>>();
   Object.keys(data.achievementsPerGame).forEach((game) => {
-    expect(data.achievementsPerGame[game]).toBeDefined();
-    expect(data.achievementsPerGame[game]).toBeInstanceOf(GameAchievements);
-    expectTypeOf(data.achievementsPerGame[game]).toEqualTypeOf<GameAchievements>();
-    expect(data.achievementsPerGame[game].category).toBeDefined();
-    expect(data.achievementsPerGame[game].category).toBe(game);
-    expectTypeOf(data.achievementsPerGame[game].totalPoints).toEqualTypeOf<string>();
-    expect(data.achievementsPerGame[game].totalPoints).toBeDefined();
-    expect(data.achievementsPerGame[game].totalPoints).toBeGreaterThanOrEqual(0);
-    expectTypeOf(data.achievementsPerGame[game].totalPoints).toEqualTypeOf<number>();
-    expect(data.achievementsPerGame[game].totalLegacyPoints).toBeDefined();
-    expect(data.achievementsPerGame[game].totalLegacyPoints).toBeGreaterThanOrEqual(0);
-    expect(data.achievementsPerGame[game].totalLegacyPoints).toBeDefined();
-    expectTypeOf(data.achievementsPerGame[game].totalLegacyPoints).toEqualTypeOf<number>();
-    expect(data.achievementsPerGame[game].achievements).toBeDefined();
-    expectTypeOf(data.achievementsPerGame[game].achievements).toEqualTypeOf<Achievement[]>();
-    data.achievementsPerGame[game].achievements.forEach((gameAchievement: Achievement) => {
-      expect(gameAchievement).toBeDefined();
-      expect(gameAchievement).toBeInstanceOf(Achievement);
-      expectTypeOf(gameAchievement).toEqualTypeOf<Achievement>();
-      expect(gameAchievement.name).toBeDefined();
-      expectTypeOf(gameAchievement.name).toEqualTypeOf<string>();
-      expect(gameAchievement.codeName).toBeDefined();
-      expectTypeOf(gameAchievement.codeName).toEqualTypeOf<string>();
-      expect(gameAchievement.description).toBeDefined();
-      expectTypeOf(gameAchievement.description).toEqualTypeOf<string>();
-      expect(gameAchievement.type).toBeDefined();
-      expectTypeOf(gameAchievement.type).toEqualTypeOf<'ONE_TIME' | 'TIERED'>();
-      expect(['ONE_TIME', 'TIERED']).toContain(gameAchievement.type);
-      expect(gameAchievement.rarity).toBeDefined();
-      expectTypeOf(gameAchievement.rarity).toEqualTypeOf<Record<
-        'local' | 'localPercentage' | 'global' | 'globalPercentage',
-        number
-      > | null>();
-      expect(gameAchievement.tierInformation).toBeDefined();
-      expectTypeOf(gameAchievement.tierInformation).toEqualTypeOf<AchievementTier | null>();
-      expect(gameAchievement.points).toBeDefined();
-      expectTypeOf(gameAchievement.points).toEqualTypeOf<number>();
-      if ('TIERED' === gameAchievement.type) {
-        expect(gameAchievement.totalAmountRequired).toBeDefined();
-        expectTypeOf(gameAchievement.totalAmountRequired).toEqualTypeOf<number | null>();
-      }
-      expect(gameAchievement.toString()).toBeDefined();
-      expectTypeOf(gameAchievement.toString()).toEqualTypeOf<string>();
+    const gameData = data.achievementsPerGame[game];
+    expect(gameData).toBeDefined();
+    expect(gameData).toBeInstanceOf(GameAchievements);
+    expectTypeOf(gameData).toEqualTypeOf<GameAchievements>();
+    expect(gameData.game).toBeDefined();
+    expectTypeOf(gameData.game).toEqualTypeOf<string>();
+    expect(gameData.points).toBeDefined();
+    expect(gameData.points).toBeGreaterThanOrEqual(0);
+    expectTypeOf(gameData.points).toEqualTypeOf<number>();
+    expect(gameData.legacyPoints).toBeDefined();
+    expect(gameData.legacyPoints).toBeGreaterThanOrEqual(0);
+    expectTypeOf(gameData.legacyPoints).toEqualTypeOf<number>();
+    expect(gameData.oneTimeAchievements).toBeDefined();
+    expectTypeOf(gameData.oneTimeAchievements).toEqualTypeOf<OneTimeAchivement[]>();
+    gameData.oneTimeAchievements.forEach((achievement) => {
+      expect(achievement.codeName).toBeDefined();
+      expectTypeOf(achievement.codeName).toEqualTypeOf<string>();
+      expect(achievement.name).toBeDefined();
+      expectTypeOf(achievement.name).toEqualTypeOf<string>();
+      expect(achievement.description).toBeDefined();
+      expectTypeOf(achievement.description).toEqualTypeOf<string>();
+      expect(achievement.secret).toBeDefined();
+      expectTypeOf(achievement.secret).toEqualTypeOf<boolean>();
+      expect(achievement.legacy).toBeDefined();
+      expectTypeOf(achievement.legacy).toEqualTypeOf<boolean>();
+      expect(achievement.points).toBeDefined();
+      expectTypeOf(achievement.points).toEqualTypeOf<number>();
+      expect(achievement.gamePercentUnlocked).toBeDefined();
+      expectTypeOf(achievement.gamePercentUnlocked).toEqualTypeOf<number>();
+      expect(achievement.globalPercentUnlocked).toBeDefined();
+      expectTypeOf(achievement.globalPercentUnlocked).toEqualTypeOf<number>();
+      expect(achievement.toString()).toBeDefined();
+      expect(achievement.toString()).toBe(achievement.codeName);
+      expectTypeOf(achievement.toString()).toEqualTypeOf<string>();
+    });
+    expect(gameData.tieredAchievements).toBeDefined();
+    expectTypeOf(gameData.tieredAchievements).toEqualTypeOf<TieredAchivement[]>();
+    gameData.tieredAchievements.forEach((achievement) => {
+      expect(achievement.codeName).toBeDefined();
+      expectTypeOf(achievement.codeName).toEqualTypeOf<string>();
+      expect(achievement.name).toBeDefined();
+      expectTypeOf(achievement.name).toEqualTypeOf<string>();
+      expect(achievement.description).toBeDefined();
+      expectTypeOf(achievement.description).toEqualTypeOf<string>();
+      expect(achievement.secret).toBeDefined();
+      expectTypeOf(achievement.secret).toEqualTypeOf<boolean>();
+      expect(achievement.legacy).toBeDefined();
+      expectTypeOf(achievement.legacy).toEqualTypeOf<boolean>();
+      expect(achievement.tiers).toBeDefined();
+      expectTypeOf(achievement.tiers).toEqualTypeOf<AchivementTier[]>();
+      achievement.tiers.forEach((tier) => {
+        expect(tier).toBeDefined();
+        expectTypeOf(tier).toEqualTypeOf<AchivementTier>();
+        expect(tier.tier).toBeDefined();
+        expect(tier.tier).toBeGreaterThanOrEqual(0);
+        expectTypeOf(tier.tier).toEqualTypeOf<number>();
+        expect(tier.points).toBeDefined();
+        expect(tier.points).toBeGreaterThanOrEqual(0);
+        expectTypeOf(tier.points).toEqualTypeOf<number>();
+        expect(tier.amount).toBeDefined();
+        expect(tier.amount).toBeGreaterThanOrEqual(0);
+        expectTypeOf(tier.amount).toEqualTypeOf<number>();
+      });
+      expect(achievement.toString()).toBeDefined();
+      expect(achievement.toString()).toBe(achievement.codeName);
+      expectTypeOf(achievement.toString()).toEqualTypeOf<string>();
     });
   });
   client.destroy();

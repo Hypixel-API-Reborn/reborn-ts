@@ -1,36 +1,40 @@
-export interface QuestObjective {
-  id: string;
-  type: 'Integer' | 'Boolean';
-  amountNeeded: number;
-}
+export type QuestType = 'Daily' | 'Weekly';
+export type QuestObjectiveType = 'Integer' | 'Boolean';
 
 export interface QuestReward {
   type: string;
   amount: number;
 }
 
+export class QuestObjective {
+  id: string;
+  type: QuestObjectiveType;
+  amountNeeded: number;
+  constructor(objective: Record<string, any>) {
+    this.id = objective.id;
+    this.type = 'IntegerObjective' === objective.type ? 'Integer' : 'Boolean';
+    this.amountNeeded = parseInt(objective.integer || '1', 10);
+  }
+}
+
 class Quest {
-  questName: string;
-  questID: string;
+  id: string;
+  name: string;
   description: string;
-  type: 'DAILY' | 'WEEKLY';
-  objectives: QuestObjective[];
   rewards: QuestReward[];
+  type: QuestType;
+  objectives: QuestObjective[];
   constructor(data: Record<string, any>) {
-    this.questName = data.name.trim();
-    this.questID = data.id;
+    this.id = data.id.trim();
+    this.name = data.name.trim();
     this.description = data.description.trim();
-    this.type = 'DailyResetQuestRequirement' === data.requirements?.[0].type ? 'DAILY' : 'WEEKLY';
-    this.objectives = data.objectives.map((objective: any) => ({
-      id: objective.id,
-      type: 'IntegerObjective' === objective.type ? 'Integer' : 'Boolean',
-      amountNeeded: parseInt(objective.integer || '1', 10)
-    }));
     this.rewards = data.rewards || [];
+    this.type = 'DailyResetQuestRequirement' === data.requirements?.[0].type ? 'Daily' : 'Weekly';
+    this.objectives = data.objectives.map((objective: any) => new QuestObjective(objective));
   }
 
   toString(): string {
-    return this.questName;
+    return this.name;
   }
 }
 

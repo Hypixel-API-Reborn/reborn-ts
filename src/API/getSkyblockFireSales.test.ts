@@ -1,15 +1,15 @@
 import Client from '../Client';
 import FireSale from '../structures/SkyBlock/Static/FireSale';
+import { RequestData } from '../Private/RequestHandler';
 import { defaultRequestData } from '../../vitest.setup';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getSkyblockFireSales (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getSkyblockFireSales({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<FireSale[] | RequestData>();
   client.destroy();
 });
 
@@ -18,6 +18,7 @@ test('getSkyblockFireSales', async () => {
   vi.spyOn(global, 'fetch').mockResolvedValue({
     ...defaultRequestData,
     json: () =>
+      /* eslint-disable camelcase */
       Promise.resolve({
         success: true,
         sales: [
@@ -25,12 +26,13 @@ test('getSkyblockFireSales', async () => {
           { item_id: 'PET_SKIN_LION_BLACK', start: 1725120000000, end: 1725552000000, amount: 6500, price: 650 }
         ]
       })
+    /* eslint-enable camelcase */
   } as any);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockFireSales();
+
+  let data = await client.getSkyblockFireSales();
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<FireSale[]>();
+  expectTypeOf(data).toEqualTypeOf<FireSale[] | RequestData>();
+  data = data as FireSale[];
   data.forEach((firesale: FireSale) => {
     expect(firesale).toBeDefined();
     expect(firesale).toBeInstanceOf(FireSale);

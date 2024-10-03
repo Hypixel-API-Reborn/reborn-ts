@@ -1,7 +1,7 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import GovernmentData from '../structures/SkyBlock/Static/Government.js';
-import { RequestOptions } from '../Private/RequestHandler.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getSkyblockGovernment extends Endpoint {
   readonly client: Client;
@@ -10,9 +10,9 @@ class getSkyblockGovernment extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<GovernmentData> {
+  async execute(options?: RequestOptions): Promise<GovernmentData | RequestData> {
     const res = await this.client.requestHandler.request('/resources/skyblock/election', options);
-    if (res.options.raw) return res.data;
+    if (res.options.raw) return res;
     return new GovernmentData(res.data);
   }
 }

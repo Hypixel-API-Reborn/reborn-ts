@@ -1,6 +1,7 @@
 import Client from '../Client';
 import Game from '../structures/Game';
 import RecentGame from '../structures/RecentGame';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getRecentGames (no input)', () => {
@@ -13,21 +14,19 @@ test('getRecentGames (no input)', () => {
 
 test('getRecentGames (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getRecentGames('3b76b69ae5134296a730ed49171ad6f8', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<RecentGame[] | RequestData>();
   client.destroy();
 });
 
 test('getRecentGames', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getRecentGames('ea805d40e8284d8d8e64e9fc8ac301ca');
+  let data = await client.getRecentGames('ea805d40e8284d8d8e64e9fc8ac301ca');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<RecentGame[]>();
+  expectTypeOf(data).toEqualTypeOf<RecentGame[] | RequestData>();
+  data = data as RecentGame[];
   data.forEach((game: RecentGame) => {
     expect(game).toBeDefined();
     expectTypeOf(game).toEqualTypeOf<RecentGame>();

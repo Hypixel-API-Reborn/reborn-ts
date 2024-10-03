@@ -2,7 +2,7 @@ import Auction from '../structures/SkyBlock/Auctions/Auction';
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
-import { AuctionRequestOptions } from './API';
+import { AuctionRequestOptions, SkyblockAuctionsResult } from './API';
 
 class getSkyblockAuctions extends Endpoint {
   readonly client: Client;
@@ -12,10 +12,7 @@ class getSkyblockAuctions extends Endpoint {
     this.client = client;
   }
 
-  async execute(
-    query: number | '*',
-    options?: AuctionRequestOptions
-  ): Promise<{ info: AuctionInfo; auctions: Auction[] }> {
+  async execute(query: number | '*', options?: AuctionRequestOptions): Promise<SkyblockAuctionsResult> {
     if (!query) throw new Error(this.client.errors.INVALID_OPTION_VALUE);
     if ('number' === typeof query && 0 >= query) throw new Error(this.client.errors.INVALID_OPTION_VALUE);
     if ('number' !== typeof query && '*' !== query) throw new Error(this.client.errors.INVALID_OPTION_VALUE);
@@ -24,7 +21,7 @@ class getSkyblockAuctions extends Endpoint {
     return await this.getPage(query);
   }
 
-  async getAllPages(): Promise<{ info: AuctionInfo; auctions: Auction[] }> {
+  async getAllPages(): Promise<SkyblockAuctionsResult> {
     const page = 0;
     const { info, auctions } = await this.getPage(page);
     const pages = info.totalPages;
@@ -39,7 +36,7 @@ class getSkyblockAuctions extends Endpoint {
     return { info, auctions };
   }
 
-  async getPage(page: number): Promise<{ info: AuctionInfo; auctions: Auction[] }> {
+  async getPage(page: number): Promise<SkyblockAuctionsResult> {
     const res = await this.client.requestHandler.request(`/skyblock/auctions?page=${page}`, this.options);
     return {
       info: new AuctionInfo(res.data),
@@ -50,8 +47,7 @@ class getSkyblockAuctions extends Endpoint {
   private parseOptions(options: any): AuctionRequestOptions {
     return {
       includeItemBytes: options?.includeItemBytes ?? false,
-      noCache: options?.noCache ?? false,
-      raw: options?.raw ?? false
+      noCache: options?.noCache ?? false
     };
   }
 }

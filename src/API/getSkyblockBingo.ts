@@ -1,7 +1,7 @@
 import BingoData from '../structures/SkyBlock/Static/BingoData';
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
-import { RequestOptions } from '../Private/RequestHandler';
+import { RequestData, RequestOptions } from '../Private/RequestHandler';
 
 class getSkyblockBingo extends Endpoint {
   readonly client: Client;
@@ -10,9 +10,9 @@ class getSkyblockBingo extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<BingoData> {
+  async execute(options?: RequestOptions): Promise<BingoData | RequestData> {
     const res = await this.client.requestHandler.request('/resources/skyblock/bingo', options);
-    if (res.options.raw) return res.data;
+    if (res.options.raw) return res;
     return new BingoData(res.data);
   }
 }

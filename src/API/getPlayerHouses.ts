@@ -1,7 +1,7 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import House from '../structures/House';
-import { RequestOptions } from '../Private/RequestHandler';
+import { RequestData, RequestOptions } from '../Private/RequestHandler';
 
 class getPlayerHouses extends Endpoint {
   readonly client: Client;
@@ -10,11 +10,11 @@ class getPlayerHouses extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: RequestOptions): Promise<House[]> {
+  async execute(query: string, options?: RequestOptions): Promise<House[] | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     query = await this.client.requestHandler.toUUID(query);
     const res = await this.client.requestHandler.request(`/housing/houses?player=${query}`, options);
-    if (res.options.raw) return res.data;
+    if (res.options.raw) return res;
     return res.data.map((h: any) => new House(h));
   }
 }

@@ -5,6 +5,7 @@ import Guild from '../structures/Guild/Guild';
 import GuildMember from '../structures/Guild/GuildMember';
 import GuildRank from '../structures/Guild/GuildRank';
 import { ExpHistory } from '../utils/Guild';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Invalid Guild Type', () => {
@@ -19,8 +20,6 @@ test('Invalid Guild Type', () => {
 
 test('Invalid Guild', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   expect(() => client.getGuild('name', 'this guild dose not exist')).rejects.toThrowError(
     client.errors.GUILD_DOES_NOT_EXIST
   );
@@ -29,8 +28,6 @@ test('Invalid Guild', () => {
 
 test('Invalid Guild ID', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   expect(() => client.getGuild('id', 'invalid guild id')).rejects.toThrowError(client.errors.INVALID_GUILD_ID);
   client.destroy();
 });
@@ -45,32 +42,28 @@ test('No Guild Query', () => {
 
 test('User not in a guild', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getGuild('player', '37501e7512b845ab8796e2baf9e9677a');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<null>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
   client.destroy();
 });
 
 test('getGuild (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getGuild('name', 'Pixelic', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
   client.destroy();
 });
 
 test('getGuild (Name)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getGuild('name', 'Pixelic');
+  let data = await client.getGuild('name', 'Pixelic');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Guild);
-  expectTypeOf(data).toEqualTypeOf<Guild>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
+  data = data as Guild;
   expect(data.id).toBeDefined();
   expectTypeOf(data.id).toEqualTypeOf<string>();
   expect(data.name).toBeDefined();
@@ -248,12 +241,11 @@ test('getGuild (Name)', async () => {
 
 test('getGuild (Id)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getGuild('id', '64b54f9d8ea8c96aaedafe84');
+  let data = await client.getGuild('id', '64b54f9d8ea8c96aaedafe84');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Guild);
-  expectTypeOf(data).toEqualTypeOf<Guild>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
+  data = data as Guild;
   expect(data.id).toBeDefined();
   expectTypeOf(data.id).toEqualTypeOf<string>();
   expect(data.name).toBeDefined();
@@ -386,12 +378,11 @@ test('getGuild (Id)', async () => {
 
 test('getGuild (Player)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getGuild('player', '14727faefbdc4aff848cd2713eb9939e');
+  let data = await client.getGuild('player', '14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Guild);
-  expectTypeOf(data).toEqualTypeOf<Guild>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
+  data = data as Guild;
   expect(data.id).toBeDefined();
   expectTypeOf(data.id).toEqualTypeOf<string>();
   expect(data.name).toBeDefined();

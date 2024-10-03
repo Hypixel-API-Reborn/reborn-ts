@@ -1,24 +1,23 @@
 import Client from '../Client';
 import Order from '../structures/SkyBlock/Bazaar/Order';
 import Product from '../structures/SkyBlock/Bazaar/Product';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockBazarr (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getSkyblockBazaar({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Product[] | RequestData>();
   client.destroy();
 });
 test('getSkyblockBazarr', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockBazaar();
+  let data = await client.getSkyblockBazaar();
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Product[]>();
+  expectTypeOf(data).toEqualTypeOf<Product[] | RequestData>();
+  data = data as Product[];
   data.forEach((product: Product) => {
     expect(product).toBeDefined();
     expect(product).toBeInstanceOf(Product);

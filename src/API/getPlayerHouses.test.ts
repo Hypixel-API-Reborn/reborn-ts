@@ -1,5 +1,6 @@
 import Client from '../Client';
 import House from '../structures/House';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getPlayerHouses (No input)', () => {
@@ -12,21 +13,19 @@ test('getPlayerHouses (No input)', () => {
 
 test('getPlayerHouses (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getPlayerHouses('69e04609da2a4e7dabb83546a971969e', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<House[] | RequestData>();
   client.destroy();
 });
 
 test('getPlayerHouses', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayerHouses('69e04609da2a4e7dabb83546a971969e');
+  let data = await client.getPlayerHouses('69e04609da2a4e7dabb83546a971969e');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<House[]>();
+  expectTypeOf(data).toEqualTypeOf<House[] | RequestData>();
+  data = data as House[];
   data.forEach((house: House) => {
     expect(house).toBeDefined();
     expect(house).toBeInstanceOf(House);

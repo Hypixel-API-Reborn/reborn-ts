@@ -1,7 +1,7 @@
 import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Product from '../structures/SkyBlock/Bazaar/Product';
-import { RequestOptions } from '../Private/RequestHandler';
+import { RequestData, RequestOptions } from '../Private/RequestHandler';
 
 class getSkyblockBazaar extends Endpoint {
   readonly client: Client;
@@ -10,9 +10,9 @@ class getSkyblockBazaar extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<Product[]> {
+  async execute(options?: RequestOptions): Promise<Product[] | RequestData> {
     const res = await this.client.requestHandler.request('/skyblock/bazaar', options);
-    if (res.options.raw) return res.data;
+    if (res.options.raw) return res;
     return Object.keys(res.data.products).map((x) => new Product(res.data.products[x]));
   }
 }
