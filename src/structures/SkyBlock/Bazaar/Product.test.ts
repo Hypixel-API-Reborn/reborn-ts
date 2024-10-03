@@ -2,6 +2,7 @@ import Product from './Product';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Product', () => {
+  /* eslint-disable camelcase */
   const data = new Product({
     product_id: 'INK_SACK:3',
     sell_summary: [
@@ -41,6 +42,7 @@ test('Product', () => {
       buyOrders: 152
     }
   });
+  /* eslint-enable camelcase */
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Product);
   expectTypeOf(data).toEqualTypeOf<Product>();

@@ -33,6 +33,7 @@ import VampireZ from '../structures/MiniGames/VampireZ';
 import Walls from '../structures/MiniGames/Walls';
 import Warlords from '../structures/MiniGames/Warlords';
 import WoolGames from '../structures/MiniGames/WoolGames';
+import { RequestData } from '../Private/RequestHandler';
 import { defaultRequestData } from '../../vitest.setup';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
@@ -42,8 +43,7 @@ test('getPlayer (never joinned hypixel)', async () => {
     ...defaultRequestData,
     json: () => Promise.resolve({ success: true })
   } as any);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+
   await expect(() => client.getPlayer('14727faefbdc4aff848cd2713eb9939e')).rejects.toThrowError(
     client.errors.PLAYER_HAS_NEVER_LOGGED
   );
@@ -61,21 +61,19 @@ test('getPlayer (no input)', () => {
 
 test('getPLayer (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getPlayer('4855c53ee4fb4100997600a92fc50984', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Player | RequestData>();
   client.destroy();
 });
 
 test('getPlayer (guild)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayer('28667672039044989b0019b14a2c34d6', { guild: true });
+  let data = await client.getPlayer('28667672039044989b0019b14a2c34d6', { guild: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Player>();
+  expectTypeOf(data).toEqualTypeOf<Player | RequestData>();
+  data = data as Player;
   expect(data.guild).toBeDefined();
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
   expect(data.guild).toBeInstanceOf(Guild);
@@ -84,46 +82,47 @@ test('getPlayer (guild)', async () => {
 
 test('getPlayer (houses)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayer('618a96fec8b0493fa89427891049550b', { houses: true });
+  let data = await client.getPlayer('618a96fec8b0493fa89427891049550b', { houses: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Player>();
+  expectTypeOf(data).toEqualTypeOf<Player | RequestData>();
+  data = data as Player;
   expect(data.houses).toBeDefined();
   expectTypeOf(data.houses).toEqualTypeOf<House[] | null>();
-  data.houses.forEach((house: House) => {
-    expect(house).toBeDefined();
-    expect(house).toBeInstanceOf(House);
-    expectTypeOf(house).toEqualTypeOf<House>();
-  });
+  if (data.houses) {
+    data.houses.forEach((house: House) => {
+      expect(house).toBeDefined();
+      expect(house).toBeInstanceOf(House);
+      expectTypeOf(house).toEqualTypeOf<House>();
+    });
+  }
   client.destroy();
 });
 
 test('getPlayer (recent games)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayer('37501e7512b845ab8796e2baf9e9677a', { recentGames: true });
+  let data = await client.getPlayer('37501e7512b845ab8796e2baf9e9677a', { recentGames: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Player>();
+  expectTypeOf(data).toEqualTypeOf<Player | RequestData>();
+  data = data as Player;
   expect(data.recentGames).toBeDefined();
   expectTypeOf(data.recentGames).toEqualTypeOf<RecentGame[] | null>();
-  data.recentGames.forEach((game: RecentGame) => {
-    expect(game).toBeDefined();
-    expect(game).toBeInstanceOf(RecentGame);
-    expectTypeOf(game).toEqualTypeOf<RecentGame>();
-  });
+  if (data.recentGames) {
+    data.recentGames.forEach((game: RecentGame) => {
+      expect(game).toBeDefined();
+      expect(game).toBeInstanceOf(RecentGame);
+      expectTypeOf(game).toEqualTypeOf<RecentGame>();
+    });
+  }
   client.destroy();
 });
 
 test('getPlayer', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e');
+  let data = await client.getPlayer('14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Player);
-  expectTypeOf(data).toEqualTypeOf<Player>();
+  expectTypeOf(data).toEqualTypeOf<Player | RequestData>();
+  data = data as Player;
   expect(data.nickname).toBeDefined();
   expectTypeOf(data.nickname).toEqualTypeOf<string>();
   expect(data.uuid).toBeDefined();
@@ -133,7 +132,7 @@ test('getPlayer', async () => {
   expect(data.guild).toBeDefined();
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
   expect(data.channel).toBeDefined();
-  expectTypeOf(data.channel).toEqualTypeOf<string | null>();
+  expectTypeOf(data.channel).toEqualTypeOf<string>();
   expect(data.firstLoginTimestamp).toBeDefined();
   expectTypeOf(data.firstLoginTimestamp).toEqualTypeOf<number | null>();
   expect(data.firstLogin).toBeDefined();

@@ -1,23 +1,24 @@
 import Client from '../Client';
 import Leaderboard from '../structures/Leaderboard';
+import { RequestData } from '../Private/RequestHandler';
 import { defaultRequestData } from '../../vitest.setup';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getLeaderboards (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getLeaderboards({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Record<string, Leaderboard[]> | RequestData>();
   client.destroy();
 });
 
 test('getLeaderboards', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getLeaderboards();
+  let data = await client.getLeaderboards();
+  expect(data).toBeDefined();
+  expectTypeOf(data).toEqualTypeOf<Record<string, Leaderboard[]> | RequestData>();
+  data = data as Record<string, Leaderboard[]>;
   Object.keys(data).forEach((key) => {
     expect(data[key]).toBeDefined();
     expectTypeOf(data[key]).toEqualTypeOf<Leaderboard[]>();
@@ -54,8 +55,7 @@ test('getLeaderboards (Missing Data)', () => {
     ...defaultRequestData,
     json: () => Promise.resolve({ success: true })
   } as any);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+
   expect(() => client.getLeaderboards()).rejects.toThrowError(
     client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.')
   );

@@ -17,15 +17,15 @@ import {
   Slayer
 } from '../structures/SkyBlock/SkyblockMemberTypes';
 import { NetworthResult } from 'skyhelper-networth';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockMember (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getSkyblockMember('14727faefbdc4aff848cd2713eb9939e', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Map<string, SkyblockMember> | RequestData>();
   client.destroy();
 });
 
@@ -39,8 +39,6 @@ test('getSkyblockMember (no input)', () => {
 
 test('getSkyblockMember (no profiles)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   expect(() => client.getSkyblockMember('b45add7b081443909fb00aa9a3e15eb0')).rejects.toThrowError(
     client.errors.NO_SKYBLOCK_PROFILES
   );
@@ -49,11 +47,10 @@ test('getSkyblockMember (no profiles)', () => {
 
 test('getSkyblockMember (museum)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockMember('add71246c46e455c8345c129ea6f146c', { museum: true });
+  let data = await client.getSkyblockMember('add71246c46e455c8345c129ea6f146c', { museum: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<SkyblockMember[]>();
+  expectTypeOf(data).toEqualTypeOf<Map<string, SkyblockMember> | RequestData>();
+  data = data as Map<string, SkyblockMember>;
   data.forEach(async (member: SkyblockMember) => {
     expect(member).toBeDefined();
     expect(member).toBeInstanceOf(SkyblockMember);
@@ -253,11 +250,10 @@ test('getSkyblockMember (museum)', async () => {
 
 test('getSkyblockMember (garden)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockMember('add71246c46e455c8345c129ea6f146c', { garden: true });
+  let data = await client.getSkyblockMember('add71246c46e455c8345c129ea6f146c', { garden: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<SkyblockMember[]>();
+  expectTypeOf(data).toEqualTypeOf<Map<string, SkyblockMember> | RequestData>();
+  data = data as Map<string, SkyblockMember>;
   data.forEach(async (member: SkyblockMember) => {
     expect(member).toBeDefined();
     expect(member).toBeInstanceOf(SkyblockMember);
@@ -456,11 +452,10 @@ test('getSkyblockMember (garden)', async () => {
 });
 test('getSkyblockMember', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockMember('14727faefbdc4aff848cd2713eb9939e');
+  let data = await client.getSkyblockMember('14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<SkyblockMember[]>();
+  expectTypeOf(data).toEqualTypeOf<Map<string, SkyblockMember> | RequestData>();
+  data = data as Map<string, SkyblockMember>;
   data.forEach(async (member: SkyblockMember) => {
     expect(member).toBeDefined();
     expect(member).toBeInstanceOf(SkyblockMember);

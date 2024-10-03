@@ -1,25 +1,24 @@
 import Booster from '../structures/Boosters/Booster';
 import Client from '../Client';
 import Game, { GameCode, GameID, GameString } from '../structures/Game';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getBoosters (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getBoosters({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Booster[] | RequestData>();
   client.destroy();
 });
 
 test('getBoosters', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getBoosters();
+  let data = await client.getBoosters();
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Booster[]>();
+  expectTypeOf(data).toEqualTypeOf<Booster[] | RequestData>();
+  data = data as Booster[];
   data.forEach((booster: Booster) => {
     expect(booster).toBeDefined();
     expect(booster).toBeInstanceOf(Booster);

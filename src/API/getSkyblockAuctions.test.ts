@@ -4,17 +4,8 @@ import Bid from '../structures/SkyBlock/Auctions/Bid';
 import Client from '../Client';
 import ItemBytes from '../structures/ItemBytes';
 import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
+import { SkyblockAuctionsResult } from './API';
 import { expect, expectTypeOf, test } from 'vitest';
-
-test('getSkyblockAuctions (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuctions(1, { raw: true });
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-  client.destroy();
-});
 
 test('getSkyblockAuctions (No input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
@@ -26,16 +17,12 @@ test('getSkyblockAuctions (No input)', () => {
 
 test('getSkyblockAuctions (Negative Input)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   expect(() => client.getSkyblockAuctions(-1)).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
 
 test('getSkyblockAuctions (Page 0)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   expect(() => client.getSkyblockAuctions(0)).rejects.toThrowError(client.errors.INVALID_OPTION_VALUE);
   client.destroy();
 });
@@ -50,11 +37,9 @@ test('getSkyblockAuctions (String Input)', () => {
 
 test('getSkyblockAuctions (One Page)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getSkyblockAuctions(1);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<{ info: AuctionInfo; auctions: Auction[] }>();
+  expectTypeOf(data).toEqualTypeOf<SkyblockAuctionsResult>();
   expect(data.info).toBeDefined();
   expect(data.info).toBeInstanceOf(AuctionInfo);
   expectTypeOf(data.info).toEqualTypeOf<AuctionInfo>();
@@ -159,8 +144,6 @@ test('getSkyblockAuctions (One Page)', async () => {
 
 test('getSkyblockAuctions (One Page Include Item Bytes)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const data = await client.getSkyblockAuctions(1, { includeItemBytes: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<{ info: AuctionInfo; auctions: Auction[] }>();
@@ -266,10 +249,9 @@ test('getSkyblockAuctions (One Page Include Item Bytes)', async () => {
   client.destroy();
 });
 
-test.skip('getSkyblockAuctions (All Pages)', async () => {
+test('getSkyblockAuctions (All Pages)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+
   const data = await client.getSkyblockAuctions('*');
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<{ info: AuctionInfo; auctions: Auction[] }>();

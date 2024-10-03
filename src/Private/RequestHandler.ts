@@ -7,7 +7,7 @@ export interface RequestOptions {
   noCache?: boolean;
 }
 
-class RequestData {
+export class RequestData {
   readonly data: any;
   readonly headers: Record<string, any>;
   readonly statusCode: number;

@@ -3,7 +3,7 @@ import Endpoint from '../Private/Endpoint';
 import Guild from '../structures/Guild/Guild';
 import isGuildID from '../utils/isGuildID';
 import { GuildFetchOptions } from './API';
-import { RequestOptions } from '../Private/RequestHandler';
+import { RequestData, RequestOptions } from '../Private/RequestHandler';
 
 class getGuild extends Endpoint {
   readonly client: Client;
@@ -12,7 +12,11 @@ class getGuild extends Endpoint {
     this.client = client;
   }
 
-  async execute(searchParameter: GuildFetchOptions, query: string, options?: RequestOptions): Promise<Guild | null> {
+  async execute(
+    searchParameter: GuildFetchOptions,
+    query: string,
+    options?: RequestOptions
+  ): Promise<Guild | null | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_GUILD_QUERY);
     if ('id' === searchParameter && !isGuildID(query)) throw new Error(this.client.errors.INVALID_GUILD_ID);
     const isPlayerQuery = 'player' === searchParameter;
@@ -21,7 +25,7 @@ class getGuild extends Endpoint {
       throw new Error(this.client.errors.INVALID_GUILD_SEARCH_PARAMETER);
     }
     const res = await this.client.requestHandler.request(`/guild?${searchParameter}=${encodeURI(query)}`, options);
-    if (res.options.raw) return res.data;
+    if (res.options.raw) return res;
     if (!res.data.guild && 'player' !== searchParameter) {
       throw new Error(this.client.errors.GUILD_DOES_NOT_EXIST);
     }

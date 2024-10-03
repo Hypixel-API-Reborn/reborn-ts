@@ -3,25 +3,22 @@ import Bid from '../structures/SkyBlock/Auctions/Bid';
 import Client from '../Client';
 import ItemBytes from '../structures/ItemBytes';
 import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
+import { RequestData } from '../Private/RequestHandler';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockAuction (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
   const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid, { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
   client.destroy();
 });
 
 test('getSkyblockAuction (No Query)', () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   expect(() => client.getSkyblockAuction('auction', '')).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
@@ -36,17 +33,12 @@ test('getSkyblockAuction (Bad Filter)', () => {
 
 test('getSkyblockAuction (Auction)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('auction', auctions.auctions[0].auctioneerUuid);
+  if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('auction', auctions.auctions[0].auctioneerUuid);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
   expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
@@ -123,17 +115,12 @@ test('getSkyblockAuction (Auction)', async () => {
 
 test('getSkyblockAuction (Player)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid);
+  if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
   expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
@@ -210,17 +197,12 @@ test('getSkyblockAuction (Player)', async () => {
 
 test('getSkyblockAuction (Profile)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile);
+  if (!auctions.auctions[0].auctioneerProfile) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
   expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
@@ -297,19 +279,14 @@ test('getSkyblockAuction (Profile)', async () => {
 
 test('getSkyblockAuction (Include Item Bytes)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile, {
+  if (!auctions.auctions[0].auctioneerProfile) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile, {
     includeItemBytes: true
   });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
   expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
