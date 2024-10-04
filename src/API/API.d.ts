@@ -1,3 +1,5 @@
+import Auction from '../structures/SkyBlock/Auctions/Auction';
+import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
 import { RequestOptions } from '../Private/RequestHandler';
 
 export interface PlayerRequestOptions extends RequestOptions {
@@ -15,4 +17,10 @@ export interface SkyblockRequestOptions extends RequestOptions {
   museum?: boolean;
 }
 
+export interface SkyblockAuctionsResult {
+  info: AuctionInfo;
+  auctions: Auction[];
+}
+
 export type GuildFetchOptions = 'id' | 'name' | 'player';
+export type AuctionFetchOptions = 'profile' | 'player' | 'auction';

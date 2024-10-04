@@ -43,6 +43,7 @@ test('Product', () => {
     }
     /* eslint-enable camelcase */
   });
+
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Product);
   expectTypeOf(data).toEqualTypeOf<Product>();

@@ -1,6 +1,7 @@
 import Client from '../../Client';
 import Pit, { PitArmor } from './Pit';
 import PitInventoryItem from './PitInventoryItem';
+import Player from '../Player/Player';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Pit', () => {
@@ -88,9 +89,8 @@ test('Pit', () => {
 
 test('Pit Inventory', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayer('3457688aa57c4d71ab9d22b04f9160db');
+  let data = await client.getPlayer('3457688aa57c4d71ab9d22b04f9160db');
+  data = data as Player;
   expect(data.stats.pit.getInventory).toBeDefined();
   expectTypeOf(data.stats.pit.getInventory).toEqualTypeOf<() => Promise<PitInventoryItem[]>>();
   expect(data.stats.pit.getInventory).toBeInstanceOf(Function);
