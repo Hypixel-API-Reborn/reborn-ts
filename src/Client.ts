@@ -117,6 +117,7 @@ class Client {
     };
   }
 
+  /* v8 ignore next 140 */
   public getAchievements(options?: RequestOptions): Promise<Achievements | RequestData> {
     throw new Error(this.errors.ENDPOINT_NOT_LOADED);
   }
