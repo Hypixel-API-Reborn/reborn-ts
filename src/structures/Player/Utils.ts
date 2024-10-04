@@ -1,4 +1,4 @@
-import { LevelProgress, PlayerRank, PlayerSocialMedia } from '../structures/Player';
+import { LevelProgress, PlayerRank } from './Types';
 
 export function getRank(player: Record<string, any>): PlayerRank {
   if (player.prefix) {
@@ -12,7 +12,7 @@ export function getRank(player: Record<string, any>): PlayerRank {
       case 'INNIT':
         return 'Innit';
       default:
-        return 'Default';
+        return null;
     }
   } else if (player.rank) {
     switch (player.rank) {
@@ -21,7 +21,7 @@ export function getRank(player: Record<string, any>): PlayerRank {
       case 'GAME_MASTER':
         return 'Game Master';
       default:
-        return 'Default';
+        return null;
     }
   } else {
     switch (player.newPackageRank) {
@@ -34,7 +34,7 @@ export function getRank(player: Record<string, any>): PlayerRank {
       case 'VIP':
         return 'VIP';
       default:
-        return 'Default';
+        return null;
     }
   }
 }
@@ -71,17 +71,14 @@ export function playerLevelProgress(xp: number): LevelProgress {
   currentXP = currentXP - 2500;
   const percent = Math.round((currentXP / xpToNext) * 100 * 100) / 100;
   const percentRemaining = Math.round((100 - percent) * 100) / 100;
-  return { xpToNext, remainingXP, currentXP, percent, percentRemaining };
-}
-
-export function getSocialMedia(data: Record<string, any>): PlayerSocialMedia[] {
-  const links = data?.links || {};
-  const formattedNames = ['Twitter', 'YouTube', 'Instagram', 'Twitch', 'Hypixel', 'Discord'];
-  const upperNames = ['TWITTER', 'YOUTUBE', 'INSTAGRAM', 'TWITCH', 'HYPIXEL', 'DISCORD'];
-  return Object.keys(links)
-    .map((x) => upperNames.indexOf(x))
-    .filter((x) => -1 !== x)
-    .map((x) => ({ name: formattedNames[x], link: links[upperNames[x]], id: upperNames[x] }));
+  return {
+    level: getPlayerLevel(xp),
+    xpToNext,
+    remainingXP,
+    currentXP,
+    percent,
+    percentRemaining
+  };
 }
 
 export function parseClaimedRewards(data: Record<string, any>): number[] {

@@ -2,7 +2,7 @@ import Client from '../Client';
 import Endpoint from '../Private/Endpoint';
 import Guild from '../structures/Guild/Guild';
 import House from '../structures/House';
-import Player from '../structures/Player';
+import Player from '../structures/Player/Player';
 import RecentGame from '../structures/RecentGame';
 import { PlayerRequestOptions } from './API';
 import { RequestData } from '../Private/RequestHandler';

@@ -1,4 +1,4 @@
-import { recursive } from '../utils/removeSnakeCase';
+import { recursive } from '../../utils/removeSnakeCase';
 
 class Pet {
   isFavorite: boolean;

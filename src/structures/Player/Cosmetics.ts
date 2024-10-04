@@ -1,11 +1,9 @@
 import Pets from './Pets';
-import { removeSnakeCaseString } from '../utils/removeSnakeCase';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
 
-/**
- * Player Cosmetics class
- */
-class PlayerCosmetics {
+class Cosmetics {
   cosmetics: string[];
+  currentGadget: string | null;
   pets: Pets;
   suits: string[];
   hats: string[];
@@ -18,6 +16,7 @@ class PlayerCosmetics {
   clickfx: string[];
   constructor(data: Record<string, any>) {
     this.cosmetics = data?.vanityMeta?.packages || [];
+    this.currentGadget = data?.currentGadget || null;
     this.pets = new Pets(
       data,
       this.cosmetics.filter((x) => x.startsWith('pet_'))
@@ -54,4 +53,4 @@ class PlayerCosmetics {
         .map((x) => removeSnakeCaseString(x.replace('clickeffects_', ''))) || [];
   }
 }
-export default PlayerCosmetics;
+export default Cosmetics;

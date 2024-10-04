@@ -13,7 +13,7 @@ import Guild from './structures/Guild/Guild';
 import GuildAchievements from './structures/Static/Achievements/Guild';
 import House from './structures/House';
 import Leaderboard from './structures/Leaderboard';
-import Player from './structures/Player';
+import Player from './structures/Player/Player';
 import Product from './structures/SkyBlock/Bazaar/Product';
 import Quests from './structures/Static/Quests';
 import RateLimit from './Private/RateLimit';

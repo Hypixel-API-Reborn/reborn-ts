@@ -88,7 +88,7 @@ test('getAchievements', async () => {
         expectTypeOf(tier.tier).toEqualTypeOf<number>();
         expect(tier.points).toBeDefined();
         expect(tier.points).toBeGreaterThanOrEqual(0);
-        expectTypeOf(tier.points).toEqualTypeOf<number>();
+        expectTypeOf(tier.points).toEqualTypeOf<number | undefined>();
         expect(tier.amount).toBeDefined();
         expect(tier.amount).toBeGreaterThanOrEqual(0);
         expectTypeOf(tier.amount).toEqualTypeOf<number>();
