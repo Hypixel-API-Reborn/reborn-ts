@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Client from '../Client.js';
-import { version } from '../../package.json';
+import packageJson from '../../package.json' with { type: 'json' };
 
 class Updater {
   readonly client: Client;
@@ -8,7 +8,7 @@ class Updater {
   latestVersion: string;
   constructor(client: Client) {
     this.client = client;
-    this.currentVersion = version;
+    this.currentVersion = packageJson.version;
     this.latestVersion = '0.0.0';
   }
 

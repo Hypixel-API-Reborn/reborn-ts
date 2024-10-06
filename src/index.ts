@@ -116,5 +116,7 @@ export * from './utils/oscillation.js';
 export * from './utils/removeSnakeCase.js';
 export * from './utils/romanize.js';
 
-export * from './Client.js';
-export * from './Errors.js';
+import Client from './Client.js';
+import Errors from './Errors.js';
+
+export default { Client, Errors };
