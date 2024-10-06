@@ -1,12 +1,12 @@
-import Client from '../Client';
+import Client from '../Client.js';
 import SkyblockGarden, {
   SkyblockGardenComposter,
   SkyblockGardenCropMilestones,
   SkyblockGardenVisitor,
   SkyblockGarenCrops
-} from '../structures/SkyBlock/SkyblockGarden';
-import { RequestData } from '../Private/RequestHandler';
-import { SkillLevel } from '../structures/SkyBlock/SkyblockMemberTypes';
+} from '../structures/SkyBlock/SkyblockGarden.js';
+import { RequestData } from '../Private/RequestHandler.js';
+import { SkillLevel } from '../structures/SkyBlock/SkyblockMemberTypes.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockGarden (no input)', () => {

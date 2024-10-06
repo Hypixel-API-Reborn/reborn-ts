@@ -1,6 +1,6 @@
-import Client from '../Client';
-import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockNews (raw)', async () => {

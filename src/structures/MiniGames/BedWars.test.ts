@@ -8,7 +8,7 @@ import BedWars, {
   BedwarsMode,
   getBedWarsPrestige,
   getExpForLevel
-} from './BedWars';
+} from './BedWars.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('BedWars (getBedWarsPrestige)', () => {

@@ -1,41 +1,41 @@
-import Achievements from '../structures/Player/Achievements';
-import Arcade from '../structures/MiniGames/Arcade';
-import ArenaBrawl from '../structures/MiniGames/ArenaBrawl';
-import BedWars from '../structures/MiniGames/BedWars';
-import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames';
-import BuildBattle from '../structures/MiniGames/BuildBattle';
-import Client from '../Client';
-import Color from '../structures/Color';
-import CopsAndCrims from '../structures/MiniGames/CopsAndCrims';
-import Cosmetics from '../structures/Player/Cosmetics';
-import Duels from '../structures/MiniGames/Duels';
-import Gifting from '../structures/Player/Gifting';
-import Guild from '../structures/Guild/Guild';
-import House from '../structures/House';
-import Housing from '../structures/Housing';
-import MegaWalls from '../structures/MiniGames/MegaWalls';
-import MurderMystery from '../structures/MiniGames/MurderMystery';
-import Paintball from '../structures/MiniGames/Paintball';
-import Parkour from '../structures/Player/Parkour';
-import Pit from '../structures/MiniGames/Pit';
-import Player from '../structures/Player/Player';
-import Quakecraft from '../structures/MiniGames/Quakecraft';
-import Quests from '../structures/Player/Quests';
-import RecentGame from '../structures/RecentGame';
-import Rewards from '../structures/Player/Rewards';
-import Seasonal from '../structures/Player/Seasonal';
-import SkyWars from '../structures/MiniGames/SkyWars';
-import SmashHeroes from '../structures/MiniGames/SmashHeroes';
-import SocialMedia from '../structures/Player/SocialMedia';
-import SpeedUHC from '../structures/MiniGames/SpeedUHC';
-import TNTGames from '../structures/MiniGames/TNTGames';
-import Tourney from '../structures/Player/Tourney';
-import TurboKartRacers from '../structures/MiniGames/TurboKartRacers';
-import UHC from '../structures/MiniGames/UHC';
-import VampireZ from '../structures/MiniGames/VampireZ';
-import Walls from '../structures/MiniGames/Walls';
-import Warlords from '../structures/MiniGames/Warlords';
-import WoolGames from '../structures/MiniGames/WoolGames';
+import Achievements from '../structures/Player/Achievements.js';
+import Arcade from '../structures/MiniGames/Arcade.js';
+import ArenaBrawl from '../structures/MiniGames/ArenaBrawl.js';
+import BedWars from '../structures/MiniGames/BedWars.js';
+import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames.js';
+import BuildBattle from '../structures/MiniGames/BuildBattle.js';
+import Client from '../Client.js';
+import Color from '../structures/Color.js';
+import CopsAndCrims from '../structures/MiniGames/CopsAndCrims.js';
+import Cosmetics from '../structures/Player/Cosmetics.js';
+import Duels from '../structures/MiniGames/Duels.js';
+import Gifting from '../structures/Player/Gifting.js';
+import Guild from '../structures/Guild/Guild.js';
+import House from '../structures/House.js';
+import Housing from '../structures/Housing.js';
+import MegaWalls from '../structures/MiniGames/MegaWalls.js';
+import MurderMystery from '../structures/MiniGames/MurderMystery.js';
+import Paintball from '../structures/MiniGames/Paintball.js';
+import Parkour from '../structures/Player/Parkour.js';
+import Pit from '../structures/MiniGames/Pit.js';
+import Player from '../structures/Player/Player.js';
+import Quakecraft from '../structures/MiniGames/Quakecraft.js';
+import Quests from '../structures/Player/Quests.js';
+import RecentGame from '../structures/RecentGame.js';
+import Rewards from '../structures/Player/Rewards.js';
+import Seasonal from '../structures/Player/Seasonal.js';
+import SkyWars from '../structures/MiniGames/SkyWars.js';
+import SmashHeroes from '../structures/MiniGames/SmashHeroes.js';
+import SocialMedia from '../structures/Player/SocialMedia.js';
+import SpeedUHC from '../structures/MiniGames/SpeedUHC.js';
+import TNTGames from '../structures/MiniGames/TNTGames.js';
+import Tourney from '../structures/Player/Tourney.js';
+import TurboKartRacers from '../structures/MiniGames/TurboKartRacers.js';
+import UHC from '../structures/MiniGames/UHC.js';
+import VampireZ from '../structures/MiniGames/VampireZ.js';
+import Walls from '../structures/MiniGames/Walls.js';
+import Warlords from '../structures/MiniGames/Warlords.js';
+import WoolGames from '../structures/MiniGames/WoolGames.js';
 import {
   ChatChannel,
   Language,
@@ -43,9 +43,9 @@ import {
   PlayerRank,
   PlayerStats,
   ScorpiusBribe
-} from '../structures/Player/Types';
-import { RequestData } from '../Private/RequestHandler';
-import { defaultRequestData } from '../../vitest.setup';
+} from '../structures/Player/Types.js';
+import { RequestData } from '../Private/RequestHandler.js';
+import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getPlayer (never joinned hypixel)', async () => {

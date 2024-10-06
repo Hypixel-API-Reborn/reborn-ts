@@ -1,10 +1,10 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
-import Bid from '../structures/SkyBlock/Auctions/Bid';
-import Client from '../Client';
-import ItemBytes from '../structures/ItemBytes';
-import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
-import { SkyblockAuctionsResult } from './API';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo.js';
+import Bid from '../structures/SkyBlock/Auctions/Bid.js';
+import Client from '../Client.js';
+import ItemBytes from '../structures/ItemBytes.js';
+import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes.js';
+import { SkyblockAuctionsResult } from './API.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockAuctions (No input)', () => {

@@ -1,4 +1,4 @@
-import SmashHeroes, { SmashHeoresHero, SmashHeroesMode } from './SmashHeroes';
+import SmashHeroes, { SmashHeoresHero, SmashHeroesMode } from './SmashHeroes.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SmashHeroes', () => {

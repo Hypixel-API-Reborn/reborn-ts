@@ -1,4 +1,4 @@
-import MurderMystery, { MurderMysteryModeStats } from './MurderMystery';
+import MurderMystery, { MurderMysteryModeStats } from './MurderMystery.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('MurderMystery', () => {

@@ -1,6 +1,6 @@
-import Client from '../Client';
-import Updater from './Updater';
-import { defaultRequestData } from '../../vitest.setup';
+import Client from '../Client.js';
+import Updater from './Updater.js';
+import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test } from 'vitest';
 import { version } from '../../package.json';
 import { vi } from 'vitest';

@@ -1,11 +1,11 @@
-import Client from '../Client';
-import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color';
-import Game, { GameCode, GameID, GameString } from '../structures/Game';
-import Guild from '../structures/Guild/Guild';
-import GuildMember from '../structures/Guild/GuildMember';
-import GuildRank from '../structures/Guild/GuildRank';
-import { ExpHistory } from '../utils/Guild';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color.js';
+import Game, { GameCode, GameID, GameString } from '../structures/Game.js';
+import Guild from '../structures/Guild/Guild.js';
+import GuildMember from '../structures/Guild/GuildMember.js';
+import GuildRank from '../structures/Guild/GuildRank.js';
+import { ExpHistory } from '../utils/Guild.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Invalid Guild Type', () => {

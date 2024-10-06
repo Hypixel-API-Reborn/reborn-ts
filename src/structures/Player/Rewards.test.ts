@@ -1,4 +1,4 @@
-import Rewards, { MonthlyCrate } from './Rewards';
+import Rewards, { MonthlyCrate } from './Rewards.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Monthly Crate', () => {

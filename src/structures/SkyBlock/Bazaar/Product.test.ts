@@ -1,4 +1,4 @@
-import Product from './Product';
+import Product from './Product.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Product', () => {

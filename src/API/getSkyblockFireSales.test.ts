@@ -1,7 +1,7 @@
-import Client from '../Client';
-import FireSale from '../structures/SkyBlock/Static/FireSale';
-import { RequestData } from '../Private/RequestHandler';
-import { defaultRequestData } from '../../vitest.setup';
+import Client from '../Client.js';
+import FireSale from '../structures/SkyBlock/Static/FireSale.js';
+import { RequestData } from '../Private/RequestHandler.js';
+import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getSkyblockFireSales (raw)', async () => {

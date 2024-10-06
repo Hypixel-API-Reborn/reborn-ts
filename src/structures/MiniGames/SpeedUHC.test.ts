@@ -1,4 +1,4 @@
-import SpeedUHC, { SpeedUHCMode } from './SpeedUHC';
+import SpeedUHC, { SpeedUHCMode } from './SpeedUHC.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SpeedUHC', () => {

@@ -1,4 +1,4 @@
-import Candidate from './Candidate';
+import Candidate from './Candidate.js';
 
 class GovernmentData {
   lastUpdatedTimestamp: number;

@@ -1,5 +1,5 @@
-import GuildMember from '../structures/Guild/GuildMember';
-import GuildRank from '../structures/Guild/GuildRank';
+import GuildMember from '../structures/Guild/GuildMember.js';
+import GuildRank from '../structures/Guild/GuildRank.js';
 
 export interface ExpHistory {
   day: string;
@@ -36,17 +36,17 @@ export function parseHistory(historyData: Record<string, any>): ExpHistory[] {
 }
 
 export function getGuildLevel(exp: number) {
-  const EXP_NEEDED = [
+  const EXP_NEEDED: number[] = [
     100000, 150000, 250000, 500000, 750000, 1000000, 1250000, 1500000, 2000000, 2500000, 2500000, 2500000, 2500000,
     2500000, 3000000
   ];
   let level = 0;
   for (let i = 0; 1000 >= i; i += 1) {
-    let need;
+    let need: number;
     if (i >= EXP_NEEDED.length) {
-      need = EXP_NEEDED[EXP_NEEDED.length - 1];
+      need = EXP_NEEDED[EXP_NEEDED.length - 1] || 0;
     } else {
-      need = EXP_NEEDED[i];
+      need = EXP_NEEDED[i] || 0;
     }
     if (0 > exp - need) {
       return Math.round((level + exp / need) * 100) / 100;

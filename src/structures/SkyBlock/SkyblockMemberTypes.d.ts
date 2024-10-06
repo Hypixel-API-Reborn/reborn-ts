@@ -1,4 +1,4 @@
-import SkyblockInventoryItem from './SkyblockInventoryItem';
+import SkyblockInventoryItem from './SkyblockInventoryItem.js';
 
 type TrophyFishRank = 'Bronze' | 'Silver' | 'Gold' | 'Diamond';
 type DungeonClass = 'healer' | 'mage' | 'berserk' | 'archer' | 'tank';

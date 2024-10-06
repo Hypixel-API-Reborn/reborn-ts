@@ -37,10 +37,10 @@ class Bingo {
     if ('TIERED' !== this.type) return null;
     // No step possible
     if (2 > this.tiers.length) return null;
-    const hypotheticStep = this.tiers[1] - this.tiers[0];
+    const hypotheticStep = (this.tiers?.[1] || 0) - (this.tiers?.[0] || 0);
     // Check if every 2 elements have the same step
     const isConstant = this.tiers.slice(1).every((el, index) => {
-      return hypotheticStep === this.tiers[index - 1] - el;
+      return hypotheticStep === (this.tiers?.[index - 1] || 0) - el;
     });
     if (!isConstant) return null;
     return hypotheticStep;

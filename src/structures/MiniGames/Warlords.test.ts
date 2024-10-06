@@ -1,4 +1,4 @@
-import Warlords, { WarlordsClass } from './Warlords';
+import Warlords, { WarlordsClass } from './Warlords.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Warlords', () => {

@@ -1,4 +1,4 @@
-import Pet from './Pet';
+import Pet from './Pet.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Pet', () => {

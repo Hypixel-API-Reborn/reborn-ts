@@ -1,4 +1,4 @@
-import Client from '../Client';
+import Client from '../Client.js';
 
 class Endpoint {
   readonly client: Client;

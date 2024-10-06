@@ -1,4 +1,4 @@
-import Game from '../Game';
+import Game from '../Game.js';
 
 export function parseType(data: Record<string, any>): 'STACKED' | 'QUEUED' | 'ACTIVE' {
   if (true === data.stacked) return 'STACKED';

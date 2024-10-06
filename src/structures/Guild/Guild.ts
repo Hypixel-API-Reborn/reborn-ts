@@ -1,8 +1,8 @@
-import Color from '../Color';
-import Game from '../Game';
-import GuildMember from './GuildMember';
-import GuildRank from './GuildRank';
-import { ExpHistory, calculateExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild';
+import Color from '../Color.js';
+import Game from '../Game.js';
+import GuildMember from './GuildMember.js';
+import GuildRank from './GuildRank.js';
+import { ExpHistory, calculateExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild.js';
 
 class Guild {
   id: string;

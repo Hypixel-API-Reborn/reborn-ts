@@ -1,32 +1,32 @@
-import API from './API';
-import Achievements from './structures/Static/Achievements/Achievements';
-import Auction from './structures/SkyBlock/Auctions/Auction';
-import BingoData from './structures/SkyBlock/Static/BingoData';
-import Booster from './structures/Boosters/Booster';
-import CacheHandler from './Private/CacheHandler';
-import Challenges from './structures/Static/Challenges';
-import Errors from './Errors';
-import FireSale from './structures/SkyBlock/Static/FireSale';
-import GameCounts from './structures/GameCounts';
-import GovernmentData from './structures/SkyBlock/Static/Government';
-import Guild from './structures/Guild/Guild';
-import GuildAchievements from './structures/Static/Achievements/Guild';
-import House from './structures/House';
-import Leaderboard from './structures/Leaderboard';
-import Player from './structures/Player/Player';
-import Product from './structures/SkyBlock/Bazaar/Product';
-import Quests from './structures/Static/Quests';
-import RateLimit from './Private/RateLimit';
-import RecentGame from './structures/RecentGame';
-import RequestHandler, { RequestData, RequestOptions } from './Private/RequestHandler';
-import SkyblockGarden from './structures/SkyBlock/SkyblockGarden';
-import SkyblockMember from './structures/SkyBlock/SkyblockMember';
-import SkyblockMuseum from './structures/SkyBlock/SkyblockMuseum';
-import SkyblockNews from './structures/SkyBlock/News/SkyblockNews';
-import SkyblockProfile from './structures/SkyBlock/SkyblockProfile';
-import Status from './structures/Status';
-import Updater from './Private/Updater';
-import WatchdogStats from './structures/WatchdogStats';
+import API from './API/index.js';
+import Achievements from './structures/Static/Achievements/Achievements.js';
+import Auction from './structures/SkyBlock/Auctions/Auction.js';
+import BingoData from './structures/SkyBlock/Static/BingoData.js';
+import Booster from './structures/Boosters/Booster.js';
+import CacheHandler from './Private/CacheHandler.js';
+import Challenges from './structures/Static/Challenges.js';
+import Errors from './Errors.js';
+import FireSale from './structures/SkyBlock/Static/FireSale.js';
+import GameCounts from './structures/GameCounts.js';
+import GovernmentData from './structures/SkyBlock/Static/Government.js';
+import Guild from './structures/Guild/Guild.js';
+import GuildAchievements from './structures/Static/Achievements/Guild.js';
+import House from './structures/House.js';
+import Leaderboard from './structures/Leaderboard.js';
+import Player from './structures/Player/Player.js';
+import Product from './structures/SkyBlock/Bazaar/Product.js';
+import Quests from './structures/Static/Quests.js';
+import RateLimit from './Private/RateLimit.js';
+import RecentGame from './structures/RecentGame.js';
+import RequestHandler, { RequestData, RequestOptions } from './Private/RequestHandler.js';
+import SkyblockGarden from './structures/SkyBlock/SkyblockGarden.js';
+import SkyblockMember from './structures/SkyBlock/SkyblockMember.js';
+import SkyblockMuseum from './structures/SkyBlock/SkyblockMuseum.js';
+import SkyblockNews from './structures/SkyBlock/News/SkyblockNews.js';
+import SkyblockProfile from './structures/SkyBlock/SkyblockProfile.js';
+import Status from './structures/Status.js';
+import Updater from './Private/Updater.js';
+import WatchdogStats from './structures/WatchdogStats.js';
 import {
   AuctionFetchOptions,
   AuctionRequestOptions,
@@ -34,7 +34,7 @@ import {
   PlayerRequestOptions,
   SkyblockAuctionsResult,
   SkyblockRequestOptions
-} from './API/API';
+} from './API/API.js';
 
 export interface ClientOptions {
   cache?: boolean;

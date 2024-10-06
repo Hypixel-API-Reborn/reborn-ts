@@ -1,12 +1,12 @@
-import Client from '../Client';
-import House from '../structures/House';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import House from '../structures/House.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getHouse (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const houses = (await client.getActiveHouses()) as House[];
-
+  if (undefined === houses[0]) return;
   const data = await client.getHouse(houses[0].uuid, { raw: true });
   expect(data).toBeDefined();
   expectTypeOf(data).toEqualTypeOf<House | RequestData>();
@@ -24,6 +24,7 @@ test('getHouse (no input)', () => {
 test('getHouse', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const houses = (await client.getActiveHouses()) as House[];
+  if (undefined === houses[0]) return;
   expect(houses).toBeDefined();
   expectTypeOf(houses).toEqualTypeOf<House[]>();
   let data = await client.getHouse(houses[0].uuid);

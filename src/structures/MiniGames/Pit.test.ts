@@ -1,7 +1,7 @@
-import Client from '../../Client';
-import Pit, { PitArmor } from './Pit';
-import PitInventoryItem from './PitInventoryItem';
-import Player from '../Player/Player';
+import Client from '../../Client.js';
+import Pit, { PitArmor } from './Pit.js';
+import PitInventoryItem from './PitInventoryItem.js';
+import Player from '../Player/Player.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Pit', () => {

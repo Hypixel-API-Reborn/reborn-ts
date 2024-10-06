@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import RecentGame from '../structures/RecentGame';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import RecentGame from '../structures/RecentGame.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getRecentGames extends Endpoint {
   readonly client: Client;

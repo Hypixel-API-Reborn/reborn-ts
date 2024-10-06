@@ -1,4 +1,4 @@
-import Walls from './Walls';
+import Walls from './Walls.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Walls', () => {

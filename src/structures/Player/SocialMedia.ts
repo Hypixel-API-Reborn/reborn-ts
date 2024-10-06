@@ -1,4 +1,4 @@
-import { SocialMediaId } from './Types';
+import { SocialMediaId } from './Types.js';
 
 class SocialMedia {
   id: SocialMediaId;

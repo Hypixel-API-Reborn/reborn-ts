@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import Leaderboard from '../structures/Leaderboard';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Leaderboard from '../structures/Leaderboard.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getLeaderboards extends Endpoint {
   readonly client: Client;

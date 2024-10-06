@@ -1,4 +1,4 @@
-import BuildBattle, { BuildBattleWins } from './BuildBattle';
+import BuildBattle, { BuildBattleWins } from './BuildBattle.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('BuildBattle', () => {

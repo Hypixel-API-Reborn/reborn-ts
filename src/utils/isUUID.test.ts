@@ -1,4 +1,4 @@
-import isUUID from './isUUID';
+import isUUID from './isUUID.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 const valid = [

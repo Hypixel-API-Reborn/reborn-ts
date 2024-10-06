@@ -1,4 +1,4 @@
-import WatchdogStats from './WatchdogStats';
+import WatchdogStats from './WatchdogStats.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('WatchdogStats', () => {

@@ -1,4 +1,4 @@
-import BaseAchievement from './Base';
+import BaseAchievement from './Base.js';
 
 export interface AchivementTier {
   tier: number;

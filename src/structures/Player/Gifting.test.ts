@@ -1,4 +1,4 @@
-import Gifting from './Gifting';
+import Gifting from './Gifting.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Gifting', () => {

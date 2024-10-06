@@ -1,5 +1,5 @@
-import Client from '../Client';
-import Endpoint from './Endpoint';
+import Client from '../Client.js';
+import Endpoint from './Endpoint.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Endpoint', () => {

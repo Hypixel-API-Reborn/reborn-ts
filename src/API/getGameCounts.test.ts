@@ -1,6 +1,6 @@
-import Client from '../Client';
-import GameCounts from '../structures/GameCounts';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import GameCounts from '../structures/GameCounts.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getGameCounts (raw)', async () => {

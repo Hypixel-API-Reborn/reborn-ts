@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import Product from '../structures/SkyBlock/Bazaar/Product';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Product from '../structures/SkyBlock/Bazaar/Product.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getSkyblockBazaar extends Endpoint {
   readonly client: Client;

@@ -1,4 +1,4 @@
-import Tourney, { TourneyData } from './Tourney';
+import Tourney, { TourneyData } from './Tourney.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Tourney Data', () => {

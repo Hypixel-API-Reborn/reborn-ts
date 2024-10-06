@@ -1,5 +1,5 @@
-import SkyblockGarden from './SkyblockGarden';
-import SkyblockMember from './SkyblockMember';
+import SkyblockGarden from './SkyblockGarden.js';
+import SkyblockMember from './SkyblockMember.js';
 
 class SkyblockProfile {
   profileId: string;

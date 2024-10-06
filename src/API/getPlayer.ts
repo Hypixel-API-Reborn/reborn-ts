@@ -1,11 +1,11 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import Guild from '../structures/Guild/Guild';
-import House from '../structures/House';
-import Player from '../structures/Player/Player';
-import RecentGame from '../structures/RecentGame';
-import { PlayerRequestOptions } from './API';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Guild from '../structures/Guild/Guild.js';
+import House from '../structures/House.js';
+import Player from '../structures/Player/Player.js';
+import RecentGame from '../structures/RecentGame.js';
+import { PlayerRequestOptions } from './API.js';
+import { RequestData } from '../Private/RequestHandler.js';
 
 class getPlayer extends Endpoint {
   readonly client: Client;

@@ -1,9 +1,9 @@
-import Client from '../Client';
-import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem';
-import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
-import SkyblockMuseumItem from '../structures/SkyBlock/SkyblockMuseumItem';
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem.js';
+import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum.js';
+import SkyblockMuseumItem from '../structures/SkyBlock/SkyblockMuseumItem.js';
+import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockMuseum (no input)', () => {

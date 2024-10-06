@@ -1,9 +1,9 @@
-import Achievements from '../structures/Static/Achievements/Achievements';
-import Client from '../Client';
-import GameAchievements from '../structures/Static/Achievements/Game';
-import OneTimeAchivement from '../structures/Static/Achievements/OneTime';
-import TieredAchivement, { AchivementTier } from '../structures/Static/Achievements/Tired';
-import { RequestData } from '../Private/RequestHandler';
+import Achievements from '../structures/Static/Achievements/Achievements.js';
+import Client from '../Client.js';
+import GameAchievements from '../structures/Static/Achievements/Game.js';
+import OneTimeAchivement from '../structures/Static/Achievements/OneTime.js';
+import TieredAchivement, { AchivementTier } from '../structures/Static/Achievements/Tired.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getAchievements (raw)', async () => {
@@ -30,7 +30,7 @@ test('getAchievements', async () => {
   expect(data.achievementsPerGame).toBeDefined();
   expectTypeOf(data.achievementsPerGame).toEqualTypeOf<Record<string, GameAchievements>>();
   Object.keys(data.achievementsPerGame).forEach((game) => {
-    const gameData = data.achievementsPerGame[game];
+    const gameData = data.achievementsPerGame[game] as GameAchievements;
     expect(gameData).toBeDefined();
     expect(gameData).toBeInstanceOf(GameAchievements);
     expectTypeOf(gameData).toEqualTypeOf<GameAchievements>();

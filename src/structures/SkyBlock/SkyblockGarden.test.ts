@@ -3,8 +3,8 @@ import SkyblockGarden, {
   SkyblockGardenCropMilestones,
   SkyblockGardenVisitor,
   SkyblockGarenCrops
-} from './SkyblockGarden';
-import { SkillLevel } from './SkyblockMemberTypes';
+} from './SkyblockGarden.js';
+import { SkillLevel } from './SkyblockMemberTypes.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SkyblockGarden', () => {

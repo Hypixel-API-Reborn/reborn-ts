@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Game from '../structures/Game';
-import RecentGame from '../structures/RecentGame';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Game from '../structures/Game.js';
+import RecentGame from '../structures/RecentGame.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getRecentGames (no input)', () => {

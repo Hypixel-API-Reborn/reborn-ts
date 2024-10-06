@@ -1,8 +1,7 @@
-import Constants from '../../utils/Constants';
-import SkyblockGarden from './SkyblockGarden';
-import SkyblockInventoryItem from './SkyblockInventoryItem';
-import SkyblockMuseum from './SkyblockMuseum';
-import SkyblockPet from './SkyblockPet';
+import SkyblockGarden from './SkyblockGarden.js';
+import SkyblockInventoryItem from './SkyblockInventoryItem.js';
+import SkyblockMuseum from './SkyblockMuseum.js';
+import SkyblockPet from './SkyblockPet.js';
 import {
   Armor,
   ChocolateFactoryData,
@@ -19,7 +18,7 @@ import {
   MemberStatsPetMilestones,
   Skills,
   Slayer
-} from './SkyblockMemberTypes';
+} from './SkyblockMemberTypes.js';
 import { NetworthResult, getNetworth } from 'skyhelper-networth';
 import { createFarmingWeightCalculator } from 'farming-weight';
 import {
@@ -33,7 +32,8 @@ import {
   getPetLevel,
   getSkills,
   getSlayer
-} from '../../utils/SkyblockUtils';
+} from '../../utils/SkyblockUtils.js';
+import { petScore } from '../../utils/Constants.js';
 
 export class MemberStats {
   candy: MemberStatsCandy;
@@ -193,34 +193,37 @@ class SkyblockMemberMinion {
     this.t11 = false;
     this.t12 = false;
     data.forEach((tier) => {
-      if (1 <= tier && 12 >= tier) {
-        this[`t${tier}`] = true;
-      }
+      if (1 <= tier && 12 >= tier) this[`t${tier}`] = true;
     });
   }
+}
+
+function parse(data: string[]): { [key: string]: number[] } {
+  const minionData: Record<string, number[]> = {};
+  data
+    .sort((a, b) => {
+      if ((a.split('_')[0] || 'Unknown') < (b.split('_')[0] || 'Unknown')) return -1;
+      if ((a.split('_')[0] || 'Unknown') > (b.split('_')[0] || 'Unknown')) return 1;
+      return 0;
+    })
+    .forEach((minion) => {
+      const minionName = minion.split('_')[0] || 'Unknown';
+      if (undefined === minionData[minionName]) minionData[minionName] = [];
+      minionData[minionName].push(Number(minion.split('_')[1] || '0'));
+      minionData[minionName] = minionData[minionName].sort((a, b) => a - b);
+    });
+  return minionData;
 }
 
 export class SkyblockMemberMinions {
   [key: string]: SkyblockMemberMinion;
   constructor(data: string[]) {
-    const parsed = this.#parse(data);
+    const parsed = parse(data);
+    if (!parsed) return;
     Object.keys(parsed).forEach((minion) => {
-      this[minion] = new SkyblockMemberMinion(parsed[minion]);
+      if (undefined === parsed[minion]) return;
+      this[minion.toLowerCase()] = new SkyblockMemberMinion(parsed[minion]);
     });
-  }
-
-  #parse(data: string[]): { [key: string]: number[] } {
-    return data.reduce((acc: { [key: string]: number[] }, item: string) => {
-      const lastUnderscoreIndex = item.lastIndexOf('_');
-      if (-1 === lastUnderscoreIndex) return acc;
-      const name = item.substring(0, lastUnderscoreIndex);
-      const number = item.substring(lastUnderscoreIndex + 1);
-      const num = parseInt(number, 10);
-      if (isNaN(num)) return acc;
-      if (!acc[name]) acc[name] = [];
-      acc[name].push(num);
-      return acc;
-    }, {});
   }
 }
 
@@ -342,11 +345,8 @@ class SkyblockMember {
     this.getPetScore = () => {
       const highestRarity: { [key: string]: any } = {};
       for (const pet of data?.m?.pets_data?.pets) {
-        if (
-          !(pet?.type in highestRarity) ||
-          (Constants.petScore as { [key: number]: number })[pet?.tier] > highestRarity[pet?.type]
-        ) {
-          highestRarity[pet?.type] = (Constants.petScore as { [key: number]: number })[pet?.tier];
+        if (!(pet?.type in highestRarity) || (petScore[pet?.tier] || 1) > highestRarity[pet?.type]) {
+          highestRarity[pet?.type] = petScore[pet?.tier];
         }
       }
       const highestLevel: { [key: string]: any } = {};

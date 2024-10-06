@@ -1,4 +1,4 @@
-import Quest from './Quest';
+import Quest from './Quest.js';
 
 class GameQuests {
   game: string;

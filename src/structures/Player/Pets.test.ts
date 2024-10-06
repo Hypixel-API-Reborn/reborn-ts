@@ -1,5 +1,5 @@
-import Pet from './Pet';
-import Pets, { PetConsumables } from './Pets';
+import Pet from './Pet.js';
+import Pets, { PetConsumables } from './Pets.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Pet Consumables', () => {

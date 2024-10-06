@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { parseType } from './Booster';
+import { parseType } from './Booster.js';
 
 test('Booster (parseType)', () => {
   expect(parseType({ stacked: true })).toBe('STACKED');

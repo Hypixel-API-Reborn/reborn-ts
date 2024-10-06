@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { getTrophyFishRank } from './SkyblockUtils';
+import { getTrophyFishRank } from './SkyblockUtils.js';
 
 test('getTrophyFishRank', () => {
   expect(getTrophyFishRank(1)).toBe('Bronze');

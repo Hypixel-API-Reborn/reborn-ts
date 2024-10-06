@@ -1,4 +1,4 @@
-import VampireZ, { VampireZRole } from './VampireZ';
+import VampireZ, { VampireZRole } from './VampireZ.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('VampireZ', () => {

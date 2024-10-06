@@ -1,6 +1,6 @@
-import Client from '../Client';
-import RateLimit from './RateLimit';
-import { defaultRequestData } from '../../vitest.setup';
+import Client from '../Client.js';
+import RateLimit from './RateLimit.js';
+import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('RateLimit (None)', () => {

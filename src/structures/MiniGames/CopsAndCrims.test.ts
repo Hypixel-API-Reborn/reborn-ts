@@ -1,4 +1,4 @@
-import CopsAndCrims, { CopsAndCrimsDeathmatch, CopsAndCrimsDefusal, CopsAndCrimsGunGame } from './CopsAndCrims';
+import CopsAndCrims, { CopsAndCrimsDeathmatch, CopsAndCrimsDefusal, CopsAndCrimsGunGame } from './CopsAndCrims.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('CopsAndCrims', () => {

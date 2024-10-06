@@ -1,8 +1,8 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import { AuctionRequestOptions, SkyblockAuctionsResult } from './API';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo.js';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import { AuctionRequestOptions, SkyblockAuctionsResult } from './API.js';
 
 class getSkyblockAuctions extends Endpoint {
   readonly client: Client;

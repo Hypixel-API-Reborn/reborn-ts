@@ -1,8 +1,8 @@
-import Candidate from '../structures/SkyBlock/Static/Candidate';
-import Client from '../Client';
-import GovernmentData from '../structures/SkyBlock/Static/Government';
-import Perk from '../structures/SkyBlock/Static/Perk';
-import { RequestData } from '../Private/RequestHandler';
+import Candidate from '../structures/SkyBlock/Static/Candidate.js';
+import Client from '../Client.js';
+import GovernmentData from '../structures/SkyBlock/Static/Government.js';
+import Perk from '../structures/SkyBlock/Static/Perk.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockGovernment (raw)', async () => {

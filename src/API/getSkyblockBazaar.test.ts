@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Order from '../structures/SkyBlock/Bazaar/Order';
-import Product from '../structures/SkyBlock/Bazaar/Product';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Order from '../structures/SkyBlock/Bazaar/Order.js';
+import Product from '../structures/SkyBlock/Bazaar/Product.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockBazarr (raw)', async () => {

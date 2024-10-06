@@ -1,4 +1,4 @@
-import Parkour from './Parkour';
+import Parkour from './Parkour.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Parkour', () => {

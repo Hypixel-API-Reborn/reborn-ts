@@ -1,4 +1,4 @@
-import { games } from '../utils/Constants';
+import { games } from '../utils/Constants.js';
 export type GameString =
   | 'Quake Craft'
   | 'Walls'

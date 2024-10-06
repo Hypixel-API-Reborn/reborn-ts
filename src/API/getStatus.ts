@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import Status from '../structures/Status';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Status from '../structures/Status.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getStatus extends Endpoint {
   readonly client: Client;

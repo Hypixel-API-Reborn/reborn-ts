@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import GuildAchievements from '../structures/Static/Achievements/Guild';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import GuildAchievements from '../structures/Static/Achievements/Guild.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getGuildAchievements extends Endpoint {
   readonly client: Client;

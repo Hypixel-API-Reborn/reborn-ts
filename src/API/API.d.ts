@@ -1,6 +1,6 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo';
-import { RequestOptions } from '../Private/RequestHandler';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo.js';
+import { RequestOptions } from '../Private/RequestHandler.js';
 
 export interface PlayerRequestOptions extends RequestOptions {
   guild?: boolean;

@@ -1,4 +1,4 @@
-import TNTGames, { BowSpleef, PVPRun, TNTRun, TNTTag, TNTWizards } from './TNTGames';
+import TNTGames, { BowSpleef, PVPRun, TNTRun, TNTTag, TNTWizards } from './TNTGames.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('TNTGames', () => {

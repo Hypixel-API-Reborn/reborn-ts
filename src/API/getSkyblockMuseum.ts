@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getSkyblockMuseum extends Endpoint {
   readonly client: Client;

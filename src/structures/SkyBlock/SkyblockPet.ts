@@ -1,5 +1,5 @@
-import Constants from '../../utils/Constants';
-import { Rarity } from './SkyblockMemberTypes';
+import { Rarity } from './SkyblockMemberTypes.js';
+import { petScore } from '../../utils/Constants.js';
 
 class SkyblockPet {
   uuid: string;
@@ -17,7 +17,7 @@ class SkyblockPet {
     this.xp = data.exp || 0;
     this.active = Boolean(data.active);
     this.rarity = data.tier;
-    this.petScore = (Constants.petScore as { [key: string]: number })[this.rarity] || 0;
+    this.petScore = petScore?.[this.rarity] || 0;
     this.heldItem = data.heldItem ? data.heldItem.replace(/^PET_ITEM_/, '') : null;
     this.candyUsed = data.candyUsed || 0;
     this.skin = data.skin;

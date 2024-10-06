@@ -1,4 +1,4 @@
-import SkyWars, { SkyWarsPrestige, SkywarsMode, SkywarsModeStats, SkywarsPackages } from './SkyWars';
+import SkyWars, { SkyWarsPrestige, SkywarsMode, SkywarsModeStats, SkywarsPackages } from './SkyWars.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SkyWars (Mode)', () => {

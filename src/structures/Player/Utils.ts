@@ -1,4 +1,4 @@
-import { LevelProgress, PlayerRank } from './Types';
+import { LevelProgress, PlayerRank } from './Types.js';
 
 export function getRank(player: Record<string, any>): PlayerRank {
   if (player.prefix) {
@@ -85,6 +85,6 @@ export function parseClaimedRewards(data: Record<string, any>): number[] {
   return Object.keys(data)
     .map((x) => x.match(/levelingReward_(\d+)/))
     .filter((x) => x)
-    .map((x) => (x ? parseInt(x[1], 10) : null))
+    .map((x) => (x ? parseInt(x?.[1] || '0', 10) : null))
     .filter((x) => null !== x);
 }

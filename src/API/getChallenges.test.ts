@@ -1,7 +1,7 @@
-import Challenges from '../structures/Static/Challenges';
-import Client from '../Client';
-import GameChallenges, { Challenge, ChallengeReward } from '../structures/Static/GameChallenges';
-import { RequestData } from '../Private/RequestHandler';
+import Challenges from '../structures/Static/Challenges.js';
+import Client from '../Client.js';
+import GameChallenges, { Challenge, ChallengeReward } from '../structures/Static/GameChallenges.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getChallenges (raw)', async () => {
@@ -28,6 +28,7 @@ test('getChallenges', async () => {
   expect(data.challengesPerGame).toBeDefined();
   expectTypeOf(data.challengesPerGame).toEqualTypeOf<Record<string, GameChallenges>>();
   Object.keys(data.challengesPerGame).forEach((gameName) => {
+    if (undefined === data.challengesPerGame[gameName]) return;
     expect(data.challengesPerGame[gameName]).toBeDefined();
     expect(data.challengesPerGame[gameName]).toBeInstanceOf(GameChallenges);
     expectTypeOf(data.challengesPerGame[gameName]).toEqualTypeOf<GameChallenges>();

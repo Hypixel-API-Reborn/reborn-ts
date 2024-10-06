@@ -1,4 +1,4 @@
-import Perk from './Perk';
+import Perk from './Perk.js';
 
 class Candidate {
   name: string;

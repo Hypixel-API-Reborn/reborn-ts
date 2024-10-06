@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import divide from '../../utils/divide.js';
 
 export class TNTRun {
   wins: number;

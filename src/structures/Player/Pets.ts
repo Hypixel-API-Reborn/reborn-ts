@@ -1,4 +1,4 @@
-import Pet from './Pet';
+import Pet from './Pet.js';
 
 export class PetConsumables {
   bakedPotato: number;

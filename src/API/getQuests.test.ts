@@ -1,8 +1,8 @@
-import Client from '../Client';
-import GameQuests from '../structures/Static/GameQuests';
-import Quest, { QuestObjective, QuestReward, QuestType } from '../structures/Static/Quest';
-import Quests from '../structures/Static/Quests';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import GameQuests from '../structures/Static/GameQuests.js';
+import Quest, { QuestObjective, QuestReward, QuestType } from '../structures/Static/Quest.js';
+import Quests from '../structures/Static/Quests.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getQuests (raw)', async () => {
@@ -29,6 +29,7 @@ test('getQuests', async () => {
   expect(data.questsPerGame).toBeDefined();
   expectTypeOf(data.questsPerGame).toEqualTypeOf<Record<string, GameQuests>>();
   Object.keys(data.questsPerGame).forEach((game) => {
+    if (undefined === data.questsPerGame[game]) return;
     expect(data.questsPerGame[game]).toBeDefined();
     expect(data.questsPerGame[game]).toBeInstanceOf(GameQuests);
     expectTypeOf(data.questsPerGame[game]).toEqualTypeOf<GameQuests>();

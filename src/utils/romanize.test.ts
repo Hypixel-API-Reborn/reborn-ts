@@ -1,4 +1,4 @@
-import romanize from './romanize';
+import romanize from './romanize.js';
 import { expect, test } from 'vitest';
 
 test('romanize', () => {

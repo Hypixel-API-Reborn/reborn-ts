@@ -1,4 +1,4 @@
-import GameQuests from './GameQuests';
+import GameQuests from './GameQuests.js';
 
 class Quests {
   lastUpdatedTimestamp: number;

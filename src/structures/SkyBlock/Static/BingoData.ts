@@ -1,4 +1,4 @@
-import Bingo from './Bingo';
+import Bingo from './Bingo.js';
 
 class BingoData {
   lastUpdatedTimestamp: number;

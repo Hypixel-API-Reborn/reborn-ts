@@ -20,7 +20,7 @@ import Arcade, {
   ThrowOut,
   Zombies,
   ZombiesStats
-} from './Arcade';
+} from './Arcade.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Arcade (DropperMap)', () => {
@@ -119,6 +119,7 @@ test('Arcade', () => {
   expect(data.dropper.maps).toBeDefined();
   expectTypeOf(data.dropper.maps).toEqualTypeOf<Record<string, DropperMap>>();
   Object.keys(data.dropper.maps).forEach((map: string) => {
+    if (undefined === data.dropper.maps[map]) return;
     expect(data.dropper.maps[map]).toBeDefined();
     expect(data.dropper.maps[map]).instanceOf(DropperMap);
     expectTypeOf(data.dropper.maps[map]).toEqualTypeOf<DropperMap>();

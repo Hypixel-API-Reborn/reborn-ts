@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import WatchdogStats from '../structures/WatchdogStats';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import WatchdogStats from '../structures/WatchdogStats.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getWatchdogStats extends Endpoint {
   readonly client: Client;

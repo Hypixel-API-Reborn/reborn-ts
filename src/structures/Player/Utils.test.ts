@@ -1,5 +1,12 @@
 import { describe, expect, test } from 'vitest';
-import { getPlayerLevel, getRank, levelToXP, parseClaimedRewards, playerLevelProgress, xpToNextLevel } from './Utils';
+import {
+  getPlayerLevel,
+  getRank,
+  levelToXP,
+  parseClaimedRewards,
+  playerLevelProgress,
+  xpToNextLevel
+} from './Utils.js';
 
 test('getRank', () => {
   expect(getRank({ prefix: '[EVENTS]' })).toBe('Events');

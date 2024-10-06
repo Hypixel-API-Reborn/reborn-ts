@@ -1,4 +1,4 @@
-import Constants from './Constants';
+import Constants, { bestiaryBrackets, petLevels, petRarityOffset } from './Constants.js';
 import {
   ChocolateFactoryData,
   CrimsonIsle,
@@ -14,7 +14,7 @@ import {
   Slayer,
   SlayerData,
   TrophyFishRank
-} from '../structures/SkyBlock/SkyblockMemberTypes';
+} from '../structures/SkyBlock/SkyblockMemberTypes.js';
 import { parse, simplify } from 'prismarine-nbt';
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
@@ -87,7 +87,7 @@ export function getLevelByXp(xp: number, type: string): SkillLevel {
       level: 0,
       maxLevel,
       xpCurrent: 0,
-      xpForNext: xpTable[1],
+      xpForNext: xpTable[1] || 0,
       progress: 0,
       cosmetic: Boolean('runecrafting' === type || 'social' === type)
     };
@@ -97,16 +97,16 @@ export function getLevelByXp(xp: number, type: string): SkillLevel {
   let xpForNext = 0;
   for (let x = 1; x <= maxLevel; x++) {
     if (!xpTable[x]) continue;
-    xpTotal += xpTable[x];
+    xpTotal += xpTable?.[x] || 0;
     if (xpTotal > xp) {
-      xpTotal -= xpTable[x];
+      xpTotal -= xpTable?.[x] || 0;
       break;
     } else {
       level = x;
     }
   }
   const xpCurrent = Math.floor(xp - xpTotal);
-  if (level < maxLevel) xpForNext = Math.ceil(xpTable[level + 1]);
+  if (level < maxLevel) xpForNext = Math.ceil(xpTable?.[level + 1] || 0);
   const progress = Math.floor(Math.max(0, Math.min(xpCurrent / xpForNext, 1)) * 100 * 10) / 10;
   return {
     xp: xp,
@@ -183,7 +183,7 @@ export function getSkills(data: Record<string, any>): Skills {
 function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
   const output = [];
   for (const mob of mobs) {
-    const mobBracket = (Constants.bestiaryBrackets as { [key: number]: number[] })[mob.bracket];
+    const mobBracket = bestiaryBrackets?.[mob.bracket] || [];
     const totalKills = mob.mobs.reduce((acc: any, cur: any) => {
       return acc + (userProfile.bestiary.kills[cur] ?? 0);
     }, 0);
@@ -369,17 +369,17 @@ export function getChocolateFactory(data: Record<string, any>): ChocolateFactory
   };
 }
 
-export function getPetLevel(petExp: number, offsetRarity: number, maxLevel: number) {
-  const rarityOffset = Constants.petRarityOffset[offsetRarity as unknown as keyof typeof Constants.petRarityOffset];
-  const levels = Constants.petLevels.slice(rarityOffset, rarityOffset + maxLevel - 1);
+export function getPetLevel(petExp: number, offsetRarity: keyof typeof petRarityOffset, maxLevel: number) {
+  const rarityOffset = petRarityOffset[offsetRarity] || 0;
+  const levels = petLevels.slice(rarityOffset, rarityOffset + maxLevel - 1) as number[];
   const xpMaxLevel = levels.reduce((a, b) => a + b, 0);
   let xpTotal = 0;
   let level = 1;
   let xpForNext;
   for (let i = 0; i < maxLevel; i++) {
-    xpTotal += levels[i];
+    xpTotal += levels?.[i] || 0;
     if (xpTotal > petExp) {
-      xpTotal -= levels[i];
+      xpTotal -= levels?.[i] || 0;
       break;
     } else {
       level++;
@@ -388,11 +388,11 @@ export function getPetLevel(petExp: number, offsetRarity: number, maxLevel: numb
   let xpCurrent = Math.floor(petExp - xpTotal);
   let progress;
   if (level < maxLevel) {
-    xpForNext = Math.ceil(levels[level - 1]);
+    xpForNext = Math.ceil(levels?.[level - 1] || 0);
     progress = Math.max(0, Math.min(xpCurrent / xpForNext, 1));
   } else {
     level = maxLevel;
-    xpCurrent = petExp - levels[maxLevel - 1];
+    xpCurrent = petExp - (levels?.[maxLevel - 1] || 0);
     xpForNext = 0;
     progress = 1;
   }

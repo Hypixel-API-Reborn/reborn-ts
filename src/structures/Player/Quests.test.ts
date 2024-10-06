@@ -1,4 +1,4 @@
-import Quests, { Quest, QuestCompletion, QuestCompletions } from './Quests';
+import Quests, { Quest, QuestCompletion, QuestCompletions } from './Quests.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Quest Completion', () => {

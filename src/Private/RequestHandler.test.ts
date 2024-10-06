@@ -1,6 +1,6 @@
-import Client from '../Client';
-import RequestHandler from './RequestHandler';
-import { defaultRequestData } from '../../vitest.setup';
+import Client from '../Client.js';
+import RequestHandler from './RequestHandler.js';
+import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('RequestHandler', async () => {

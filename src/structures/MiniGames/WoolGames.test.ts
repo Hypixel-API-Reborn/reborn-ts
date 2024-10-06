@@ -1,4 +1,10 @@
-import WoolGames, { CaptureTheWool, SheepWars, WoolGamesPrivateGameConfig, WoolWars, WoolWarsClass } from './WoolGames';
+import WoolGames, {
+  CaptureTheWool,
+  SheepWars,
+  WoolGamesPrivateGameConfig,
+  WoolWars,
+  WoolWarsClass
+} from './WoolGames.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('WoolGames', () => {

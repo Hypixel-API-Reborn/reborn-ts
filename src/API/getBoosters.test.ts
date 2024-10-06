@@ -1,7 +1,7 @@
-import Booster from '../structures/Boosters/Booster';
-import Client from '../Client';
-import Game, { GameCode, GameID, GameString } from '../structures/Game';
-import { RequestData } from '../Private/RequestHandler';
+import Booster from '../structures/Boosters/Booster.js';
+import Client from '../Client.js';
+import Game, { GameCode, GameID, GameString } from '../structures/Game.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getBoosters (raw)', async () => {

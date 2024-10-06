@@ -1,5 +1,5 @@
-import divide from '../../utils/divide';
-import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
+import divide from '../../utils/divide.js';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase.js';
 
 export type SkyWarsPrestige =
   | 'Iron'
@@ -30,8 +30,8 @@ function getSkyWarsLevel(xp: number): number {
 }
 
 function getSkyWarsLevelProgress(xp: number) {
-  const totalXp = [0, 2, 7, 15, 25, 50, 100, 200, 350, 600, 1000, 1500];
-  const xpToNextLvl = [0, 2, 5, 8, 10, 25, 50, 100, 150, 250, 400, 500];
+  const totalXp: number[] = [0, 2, 7, 15, 25, 50, 100, 200, 350, 600, 1000, 1500];
+  const xpToNextLvl: number[] = [0, 2, 5, 8, 10, 25, 50, 100, 150, 250, 400, 500];
   let percent;
   let xpToNextLevel;
   let currentLevelXp = xp;
@@ -48,10 +48,10 @@ function getSkyWarsLevelProgress(xp: number) {
     const percentRemaining = Math.round((100 - percent) * 100) / 100;
     return { currentLevelXp, xpToNextLevel, percent, xpNextLevel: 10000, percentRemaining };
   }
-  const totalXptoNextLevel = xpToNextLvl[totalXp.findIndex((x) => 0 < x * 10 - xp)] * 10;
+  const totalXptoNextLevel = (xpToNextLvl?.[totalXp.findIndex((x) => 0 < x * 10 - xp)] || 0) * 10;
   for (let i = 0; i < xpToNextLvl.length; i++) {
-    if (0 > currentLevelXp - xpToNextLvl[i] * 10) break;
-    currentLevelXp -= xpToNextLvl[i] * 10;
+    if (0 > currentLevelXp - (xpToNextLvl?.[i] || 0) * 10) break;
+    currentLevelXp -= (xpToNextLvl?.[i] || 0) * 10;
   }
   xpToNextLevel = totalXptoNextLevel - currentLevelXp;
   percent = Math.round((currentLevelXp / totalXptoNextLevel) * 10000) / 100;
@@ -133,7 +133,7 @@ export class SkywarsModeStats {
 }
 
 class SkywarsKit {
-  kitData: string[] | null;
+  kitData: string[];
   isKit: boolean;
   gameMode: string;
   kitType: string;
@@ -141,9 +141,9 @@ class SkywarsKit {
   constructor(kit: Record<string, any>) {
     this.kitData = kit?.match(/^kit_([a-z]+)_([a-z]+)_([a-z]+)$/);
     this.isKit = Boolean(this.kitData);
-    this.gameMode = this.kitData ? this.kitData?.[2] : '';
-    this.kitType = this.kitData ? this.kitData?.[1] : '';
-    this.kitName = removeSnakeCaseString(this.kitData ? this.kitData?.[3] : '');
+    this.gameMode = this.kitData ? this.kitData?.[2] || '' : '';
+    this.kitType = this.kitData ? this.kitData?.[1] || '' : '';
+    this.kitName = removeSnakeCaseString(this.kitData ? this.kitData?.[3] || '' : '');
   }
 }
 
@@ -174,9 +174,9 @@ export class SkywarsPackages {
 
   parseCages(): string[] {
     return this.rawPackages
-      ?.map((pkg: string) => pkg?.match(/^cage_([A-Za-z]+)-cage$/))
-      ?.filter((x: any) => x)
-      ?.map((x: string[]) => x[1]?.replace(/-[a-z]/g, (x) => x[1].toUpperCase()));
+      .map((pkg: string) => pkg?.match(/^cage_([A-Za-z]+)-cage$/))
+      .filter((x: any) => x)
+      .map((x: string[]) => x[1]?.replace(/-[a-z]/g, (x) => (x?.[1] || '').toUpperCase()));
   }
 }
 

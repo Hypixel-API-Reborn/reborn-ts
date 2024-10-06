@@ -1,5 +1,5 @@
-import SkyblockMuseumItem from './SkyblockMuseumItem';
-import { decode } from '../../utils/SkyblockUtils';
+import SkyblockMuseumItem from './SkyblockMuseumItem.js';
+import { decode } from '../../utils/SkyblockUtils.js';
 
 class SkyblockMuseum {
   raw: Record<string, any>;

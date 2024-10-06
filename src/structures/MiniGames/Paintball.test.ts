@@ -1,4 +1,4 @@
-import Paintball from './Paintball';
+import Paintball from './Paintball.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Paintball', () => {

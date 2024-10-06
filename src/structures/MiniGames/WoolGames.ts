@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import divide from '../../utils/divide.js';
 
 export interface WoolGamesPrivateGameConfig {
   one_hit_one_kill: boolean;
@@ -165,7 +165,7 @@ class WoolGames {
   convertXPToLevel(exp: number): number {
     const minimalExp = [0, 1e3, 3e3, 6e3, 1e4, 15e3];
     const baseLevel = minimalExp?.length;
-    const baseExp = minimalExp[minimalExp?.length - 1];
+    const baseExp: number = minimalExp[minimalExp?.length - 1] || 0;
     const expToLevel100 = 49e4;
     if (exp < baseExp) return minimalExp?.findIndex((x) => exp < x);
     const theoreticalLevel = (exp - baseExp) / 5e3 + baseLevel;

@@ -1,8 +1,8 @@
-import SkyblockGarden from './SkyblockGarden';
-import SkyblockMember, { MemberStats } from './SkyblockMember';
-import SkyblockMuseum from './SkyblockMuseum';
-import SkyblockPet from './SkyblockPet';
-import { ChocolateFactoryData, CrimsonIsle, Dungeons, HOTM, JacobData, Skills, Slayer } from './SkyblockMemberTypes';
+import SkyblockGarden from './SkyblockGarden.js';
+import SkyblockMember, { MemberStats } from './SkyblockMember.js';
+import SkyblockMuseum from './SkyblockMuseum.js';
+import SkyblockPet from './SkyblockPet.js';
+import { ChocolateFactoryData, CrimsonIsle, Dungeons, HOTM, JacobData, Skills, Slayer } from './SkyblockMemberTypes.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SkyblockMember', () => {

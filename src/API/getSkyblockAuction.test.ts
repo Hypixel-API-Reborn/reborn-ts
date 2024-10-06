@@ -1,14 +1,15 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import Bid from '../structures/SkyBlock/Auctions/Bid';
-import Client from '../Client';
-import ItemBytes from '../structures/ItemBytes';
-import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes';
-import { RequestData } from '../Private/RequestHandler';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import Bid from '../structures/SkyBlock/Auctions/Bid.js';
+import Client from '../Client.js';
+import ItemBytes from '../structures/ItemBytes.js';
+import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockAuction (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
+  if (undefined === auctions.auctions[0]) return;
   if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
   const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid, { raw: true });
   expect(data).toBeDefined();
@@ -34,6 +35,7 @@ test('getSkyblockAuction (Bad Filter)', () => {
 test('getSkyblockAuction (Auction)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
+  if (undefined === auctions.auctions[0]) return;
   if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
   let data = await client.getSkyblockAuction('auction', auctions.auctions[0].auctioneerUuid);
   expect(data).toBeDefined();
@@ -116,6 +118,7 @@ test('getSkyblockAuction (Auction)', async () => {
 test('getSkyblockAuction (Player)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
+  if (undefined === auctions.auctions[0]) return;
   if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
   let data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid);
   expect(data).toBeDefined();
@@ -198,6 +201,7 @@ test('getSkyblockAuction (Player)', async () => {
 test('getSkyblockAuction (Profile)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
+  if (undefined === auctions.auctions[0]) return;
   if (!auctions.auctions[0].auctioneerProfile) throw new Error("Something wen't wrong while fetching auctions");
   let data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile);
   expect(data).toBeDefined();
@@ -280,6 +284,7 @@ test('getSkyblockAuction (Profile)', async () => {
 test('getSkyblockAuction (Include Item Bytes)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
+  if (undefined === auctions.auctions[0]) return;
   if (!auctions.auctions[0].auctioneerProfile) throw new Error("Something wen't wrong while fetching auctions");
   let data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile, {
     includeItemBytes: true

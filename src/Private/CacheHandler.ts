@@ -1,4 +1,4 @@
-import Client from '../Client';
+import Client from '../Client.js';
 import NodeCache from 'node-cache';
 
 class CacheHandler {

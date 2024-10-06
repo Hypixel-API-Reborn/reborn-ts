@@ -1,5 +1,5 @@
-import Seasonal, { Season, SeasonBingo, SeasonBingoTier, SeasonYear } from './Seasonal';
-import { SeasonName } from './Types';
+import Seasonal, { Season, SeasonBingo, SeasonBingoTier, SeasonYear } from './Seasonal.js';
+import { SeasonName } from './Types.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Season Bingo Tier', () => {

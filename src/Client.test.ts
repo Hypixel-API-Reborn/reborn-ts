@@ -1,8 +1,8 @@
-import CacheHandler from './Private/CacheHandler';
-import Client, { ClientOptions } from './Client';
-import Errors from './Errors';
-import RequestHandler from './Private/RequestHandler';
-import Updater from './Private/Updater';
+import CacheHandler from './Private/CacheHandler.js';
+import Client, { ClientOptions } from './Client.js';
+import Errors from './Errors.js';
+import RequestHandler from './Private/RequestHandler.js';
+import Updater from './Private/Updater.js';
 import { expect, expectTypeOf, test } from 'vitest';
 const errors = new Errors();
 

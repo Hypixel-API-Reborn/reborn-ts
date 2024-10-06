@@ -1,8 +1,8 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember';
-import { RequestData } from '../Private/RequestHandler';
-import { SkyblockRequestOptions } from './API';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import SkyblockMember from '../structures/SkyBlock/SkyblockMember.js';
+import { RequestData } from '../Private/RequestHandler.js';
+import { SkyblockRequestOptions } from './API.js';
 
 class getSkyblockMember extends Endpoint {
   readonly client: Client;

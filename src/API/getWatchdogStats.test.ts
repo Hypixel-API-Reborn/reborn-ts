@@ -1,6 +1,6 @@
-import Client from '../Client';
-import WatchdogStats from '../structures/WatchdogStats';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import WatchdogStats from '../structures/WatchdogStats.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getWatchdogStats (raw)', async () => {

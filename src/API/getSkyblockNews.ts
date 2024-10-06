@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import SkyblockNews from '../structures/SkyBlock/News/SkyblockNews.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getSkyblockNews extends Endpoint {
   readonly client: Client;

@@ -1,4 +1,4 @@
-import GameAchievements from './Game';
+import GameAchievements from './Game.js';
 
 class Achievements {
   lastUpdatedTimestamp: number;

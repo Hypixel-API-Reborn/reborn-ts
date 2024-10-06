@@ -1,5 +1,5 @@
-import Game from './Game';
-import RecentGame from './RecentGame';
+import Game from './Game.js';
+import RecentGame from './RecentGame.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('RecentGame', () => {

@@ -128,11 +128,11 @@ class Color {
   }
 
   toString(): ColorString {
-    return ColorStrings[this.color];
+    return ColorStrings[this.color] as ColorString;
   }
 
   toHex(): ColorHex {
-    return ColorHexs[this.color];
+    return ColorHexs[this.color] as ColorHex;
   }
 
   toCode(): ColorCode {
@@ -140,7 +140,7 @@ class Color {
   }
 
   toInGameCode(): InGameCode {
-    return InGameCodes[this.color];
+    return InGameCodes[this.color] as InGameCode;
   }
 }
 

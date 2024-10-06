@@ -1,4 +1,4 @@
-import { SeasonName } from './Types';
+import { SeasonName } from './Types.js';
 
 export class SeasonBingoTier {
   objectives: Record<string, number>;

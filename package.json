@@ -4,6 +4,7 @@
   "description": "Feature-rich Hypixel API wrapper for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "dist/index.js",
   "keywords": [
     "minecraft",
     "client",
@@ -34,7 +35,7 @@
   "dependencies": {
     "farming-weight": "^0.5.0",
     "node-cache": "^5.1.2",
-    "prismarine-nbt": "^2.5.0",
+    "prismarine-nbt": "github:prismarinejs/prismarine-nbt#70323d8c7f771698a02f3f40aa676bcecc60c5e7",
     "rss-parser": "^3.13.0",
     "skyhelper-networth": "^1.25.0"
   },

@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import divide from '../../utils/divide.js';
 
 export class QuakecraftMode {
   wins: number;

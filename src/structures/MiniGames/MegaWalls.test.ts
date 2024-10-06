@@ -1,4 +1,4 @@
-import MegaWalls, { MegaWallsKitStats, MegaWallsModeStats } from './MegaWalls';
+import MegaWalls, { MegaWallsKitStats, MegaWallsModeStats } from './MegaWalls.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('MegaWalls', () => {

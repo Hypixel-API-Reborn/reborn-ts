@@ -1,27 +1,27 @@
 // Credits: Pixelic: https://github.com/pixelicc - Most types in player
 
-import Arcade from '../MiniGames/Arcade';
-import ArenaBrawl from '../MiniGames/ArenaBrawl';
-import BedWars from '../MiniGames/BedWars';
-import BlitzSurvivalGames from '../MiniGames/BlitzSurvivalGames';
-import BuildBattle from '../MiniGames/BuildBattle';
-import CopsAndCrims from '../MiniGames/CopsAndCrims';
-import Duels from '../MiniGames/Duels';
-import MegaWalls from '../MiniGames/MegaWalls';
-import MurderMystery from '../MiniGames/MurderMystery';
-import Paintball from '../MiniGames/Paintball';
-import Pit from '../MiniGames/Pit';
-import Quakecraft from '../MiniGames/Quakecraft';
-import SkyWars from '../MiniGames/SkyWars';
-import SmashHeroes from '../MiniGames/SmashHeroes';
-import SpeedUHC from '../MiniGames/SpeedUHC';
-import TNTGames from '../MiniGames/TNTGames';
-import TurboKartRacers from '../MiniGames/TurboKartRacers';
-import UHC from '../MiniGames/UHC';
-import VampireZ from '../MiniGames/VampireZ';
-import Walls from '../MiniGames/Walls';
-import Warlords from '../MiniGames/Warlords';
-import WoolGames from '../MiniGames/WoolGames';
+import Arcade from '../MiniGames/Arcade.js';
+import ArenaBrawl from '../MiniGames/ArenaBrawl.js';
+import BedWars from '../MiniGames/BedWars.js';
+import BlitzSurvivalGames from '../MiniGames/BlitzSurvivalGames.js';
+import BuildBattle from '../MiniGames/BuildBattle.js';
+import CopsAndCrims from '../MiniGames/CopsAndCrims.js';
+import Duels from '../MiniGames/Duels.js';
+import MegaWalls from '../MiniGames/MegaWalls.js';
+import MurderMystery from '../MiniGames/MurderMystery.js';
+import Paintball from '../MiniGames/Paintball.js';
+import Pit from '../MiniGames/Pit.js';
+import Quakecraft from '../MiniGames/Quakecraft.js';
+import SkyWars from '../MiniGames/SkyWars.js';
+import SmashHeroes from '../MiniGames/SmashHeroes.js';
+import SpeedUHC from '../MiniGames/SpeedUHC.js';
+import TNTGames from '../MiniGames/TNTGames.js';
+import TurboKartRacers from '../MiniGames/TurboKartRacers.js';
+import UHC from '../MiniGames/UHC.js';
+import VampireZ from '../MiniGames/VampireZ.js';
+import Walls from '../MiniGames/Walls.js';
+import Warlords from '../MiniGames/Warlords.js';
+import WoolGames from '../MiniGames/WoolGames.js';
 
 type Language =
   | 'CHINESE_SIMPLIFIED'

@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Leaderboard from '../structures/Leaderboard';
-import { RequestData } from '../Private/RequestHandler';
-import { defaultRequestData } from '../../vitest.setup';
+import Client from '../Client.js';
+import Leaderboard from '../structures/Leaderboard.js';
+import { RequestData } from '../Private/RequestHandler.js';
+import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
 test('getLeaderboards (raw)', async () => {
@@ -20,6 +20,7 @@ test('getLeaderboards', async () => {
   expectTypeOf(data).toEqualTypeOf<Record<string, Leaderboard[]> | RequestData>();
   data = data as Record<string, Leaderboard[]>;
   Object.keys(data).forEach((key) => {
+    if (undefined === data[key]) return;
     expect(data[key]).toBeDefined();
     expectTypeOf(data[key]).toEqualTypeOf<Leaderboard[]>();
     data[key].forEach((leaderboard: Leaderboard) => {

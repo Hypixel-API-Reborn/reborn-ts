@@ -1,4 +1,4 @@
-import Achievements, { AchievementsRewards } from './Achievements';
+import Achievements, { AchievementsRewards } from './Achievements.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Achievements Rewards', () => {

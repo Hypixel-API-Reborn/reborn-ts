@@ -1,9 +1,9 @@
-import Client from '../Client';
-import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden';
-import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem';
-import SkyblockMember, { MemberStats } from '../structures/SkyBlock/SkyblockMember';
-import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum';
-import SkyblockPet from '../structures/SkyBlock/SkyblockPet';
+import Client from '../Client.js';
+import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden.js';
+import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem.js';
+import SkyblockMember, { MemberStats } from '../structures/SkyBlock/SkyblockMember.js';
+import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum.js';
+import SkyblockPet from '../structures/SkyBlock/SkyblockPet.js';
 import {
   Armor,
   ChocolateFactoryData,
@@ -15,9 +15,9 @@ import {
   Rarity,
   Skills,
   Slayer
-} from '../structures/SkyBlock/SkyblockMemberTypes';
+} from '../structures/SkyBlock/SkyblockMemberTypes.js';
 import { NetworthResult } from 'skyhelper-networth';
-import { RequestData } from '../Private/RequestHandler';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockMember (raw)', async () => {

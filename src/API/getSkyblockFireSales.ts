@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import FireSale from '../structures/SkyBlock/Static/FireSale';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import FireSale from '../structures/SkyBlock/Static/FireSale.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getSkyblockFireSales extends Endpoint {
   readonly client: Client;

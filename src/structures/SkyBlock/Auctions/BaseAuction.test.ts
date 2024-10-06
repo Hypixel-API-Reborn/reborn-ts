@@ -1,5 +1,5 @@
-import BaseAuction from './BaseAuction';
-import ItemBytes from '../../ItemBytes';
+import BaseAuction from './BaseAuction.js';
+import ItemBytes from '../../ItemBytes.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('BaseAuction', () => {

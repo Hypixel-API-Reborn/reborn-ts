@@ -1,5 +1,5 @@
-import Pets from './Pets';
-import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
+import Pets from './Pets.js';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase.js';
 
 class Cosmetics {
   cosmetics: string[];

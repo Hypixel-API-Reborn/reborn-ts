@@ -1,4 +1,4 @@
-import Duels, { DuelsBridge, DuelsGamemode, DuelsMegaWalls, DuelsOP, DuelsSkyWars, DuelsUHC } from './Duels';
+import Duels, { DuelsBridge, DuelsGamemode, DuelsMegaWalls, DuelsOP, DuelsSkyWars, DuelsUHC } from './Duels.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Duels', () => {

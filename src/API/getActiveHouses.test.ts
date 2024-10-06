@@ -1,6 +1,6 @@
-import Client from '../Client';
-import House from '../structures/House';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import House from '../structures/House.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getActiveHouses (raw)', async () => {

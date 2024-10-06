@@ -1,7 +1,7 @@
-import Client from '../Client';
-import Game, { GameCode, GameID, GameString } from '../structures/Game';
-import Status from '../structures/Status';
-import { RequestData } from '../Private/RequestHandler';
+import Client from '../Client.js';
+import Game, { GameCode, GameID, GameString } from '../structures/Game.js';
+import Status from '../structures/Status.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getStatus (raw)', async () => {

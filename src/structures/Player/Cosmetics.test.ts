@@ -1,5 +1,5 @@
-import Cosmetics from './Cosmetics';
-import Pets from './Pets';
+import Cosmetics from './Cosmetics.js';
+import Pets from './Pets.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('Cosmetics', () => {

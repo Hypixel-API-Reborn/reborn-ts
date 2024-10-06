@@ -1,6 +1,6 @@
-import divide from '../../utils/divide';
-import romanize from '../../utils/romanize';
-import { duelsDivisions } from '../../utils/Constants';
+import divide from '../../utils/divide.js';
+import romanize from '../../utils/romanize.js';
+import { duelsDivisions } from '../../utils/Constants.js';
 
 function getTitle(data: Record<string, any>, mode: string): string {
   for (const div of duelsDivisions.slice().reverse()) {

@@ -1,7 +1,7 @@
-import Booster from '../structures/Boosters/Booster';
-import Client from '../Client';
-import Endpoint from '../Private/Endpoint';
-import { RequestData, RequestOptions } from '../Private/RequestHandler';
+import Booster from '../structures/Boosters/Booster.js';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getBoosters extends Endpoint {
   readonly client: Client;

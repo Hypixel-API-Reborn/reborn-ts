@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import divide from '../../utils/divide.js';
 
 function getStarLevel(kills: number, wins: number): number {
   const sum = kills + wins * 10;

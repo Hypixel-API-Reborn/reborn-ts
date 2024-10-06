@@ -1,7 +1,7 @@
 // IMPORTANT : a lot of the properties from the API seem to be nonsense
-import divide from '../../utils/divide';
-import { monthAB, weekAB } from '../../utils/oscillation';
-import { removeSnakeCaseString } from '../../utils/removeSnakeCase';
+import divide from '../../utils/divide.js';
+import { monthAB, weekAB } from '../../utils/oscillation.js';
+import { removeSnakeCaseString } from '../../utils/removeSnakeCase.js';
 
 export class ZombiesStats {
   bestRound: number;

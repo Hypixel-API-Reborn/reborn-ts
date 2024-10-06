@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import Client from '../Client';
+import Client from '../Client.js';
 import { version } from '../../package.json';
 
 class Updater {

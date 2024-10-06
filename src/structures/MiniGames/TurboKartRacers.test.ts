@@ -1,4 +1,4 @@
-import TurboKartRacers, { TurboKartRacersMap } from './TurboKartRacers';
+import TurboKartRacers, { TurboKartRacersMap } from './TurboKartRacers.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('TurboKartRacers', () => {
