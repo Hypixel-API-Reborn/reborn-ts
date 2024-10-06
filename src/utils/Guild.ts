@@ -67,24 +67,23 @@ export function expLimit(exp: number) {
   return 2e5 < exp ? (7e5 < exp ? 2.5e5 + Math.round(exp * 0.03) : 2e5 + Math.round((exp - 2e5) / 10)) : exp;
 }
 
-export function calculateExpHistory(data: Record<string, any>): ExpHistory[] {
-  const finalObj: any = {};
-  for (const day of Object.keys(data.members[0].expHistory)) {
+export function calculateExpHistory(data: GuildMember[]): ExpHistory[] {
+  const finalObj: Record<string, number> = {};
+  if (undefined === data[0]?.expHistory) return [];
+  Object.keys(data[0].expHistory).forEach((day, index) => {
     let gexp = 0;
-    for (const member of data.members) {
-      gexp += member.expHistory[day] || 0;
-    }
-    finalObj[day] = expLimit(gexp);
-  }
+    data.forEach((member) => (gexp += member.expHistory?.[index]?.exp || 0));
+    finalObj[data[0]?.expHistory[index]?.day || 'Unknown'] = expLimit(gexp);
+  });
   return parseHistory(finalObj);
 }
 
 export function members(data: Record<string, any>): GuildMember[] {
-  return data.members.length ? data.members.map((m: Record<string, any>) => new GuildMember(m)) : [];
+  return data.length ? data.map((m: Record<string, any>) => new GuildMember(m)) : [];
 }
 
-export function totalWeeklyGexp(data: Record<string, any>) {
-  return members(data)
-    .map((m) => m.weeklyExperience)
-    .reduce((acc: number, cur: number) => acc + cur);
+export function totalWeeklyGexp(data: GuildMember[]): number {
+  let gexp: number = 0;
+  data.forEach((member) => (gexp += member.weeklyExperience));
+  return gexp;
 }
