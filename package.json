@@ -33,7 +33,7 @@
   "packageManager": "pnpm@9.7.1",
   "author": "Kathund",
   "dependencies": {
-    "farming-weight": "^0.5.0",
+    "farming-weight": "^0.6.3",
     "node-cache": "^5.1.2",
     "prismarine-nbt": "github:prismarinejs/prismarine-nbt#70323d8c7f771698a02f3f40aa676bcecc60c5e7",
     "rss-parser": "^3.13.0",
