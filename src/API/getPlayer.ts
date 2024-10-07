@@ -15,7 +15,7 @@ class getPlayer extends Endpoint {
     this.client = client;
   }
 
-    async execute(query: string, options?: PlayerRequestOptions): Promise<Player | RequestData> {
+  async execute(query: string, options?: PlayerRequestOptions): Promise<Player | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID, 'Fetching Player');
     query = await this.client.requestHandler.toUUID(query);
     const res = await this.client.requestHandler.request(`/player?uuid=${query}`, options);

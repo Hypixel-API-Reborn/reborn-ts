@@ -214,7 +214,7 @@ class Client {
     query: string,
     options?: SkyblockRequestOptions
   ): Promise<Map<string, SkyblockMember> | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED, "Fetching getSkyblockMember");
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockMember');
   }
 
   public getSkyblockMuseum(
@@ -222,7 +222,7 @@ class Client {
     profileId: string,
     options?: RequestOptions
   ): Promise<SkyblockMuseum | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED, "Fetching getSkyblockMuseum");
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockMuseum');
   }
 
   public getSkyblockNews(options?: RequestOptions): Promise<SkyblockNews[] | RequestData> {
@@ -233,7 +233,7 @@ class Client {
     query: string,
     options?: SkyblockRequestOptions
   ): Promise<SkyblockProfile[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED, "Fetching getSkyblockProfiles");
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockProfiles');
   }
 
   public getStatus(query: string, options?: RequestOptions): Promise<Status | RequestData> {
