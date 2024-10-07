@@ -1,33 +1,31 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { SkyblockRarity } from '../utils/SkyblockUtils';
-import Bid from '../structures/SkyBlock/Auctions/Bid';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import Bid from '../structures/SkyBlock/Auctions/Bid.js';
+import Client from '../Client.js';
+import ItemBytes from '../structures/ItemBytes.js';
+import { Rarity } from '../structures/SkyBlock/SkyblockMemberTypes.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import ItemBytes from '../structures/ItemBytes';
-import Client from '../Client';
 
 test('getSkyblockAuction (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  if (undefined === auctions.auctions[0]) return;
+  if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
   const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid, { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
   client.destroy();
 });
 
 test('getSkyblockAuction (No Query)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  expect(() => client.getSkyblockAuction('player')).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  expect(() => client.getSkyblockAuction('auction', '')).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
   client.destroy();
 });
 
 test('getSkyblockAuction (Bad Filter)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getSkyblockAuction('meow')).rejects.toThrowError(client.errors.BAD_AUCTION_FILTER);
@@ -35,19 +33,15 @@ test('getSkyblockAuction (Bad Filter)', () => {
 });
 
 test('getSkyblockAuction (Auction)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('auction', auctions.auctions[0].auctioneerUuid);
+  if (undefined === auctions.auctions[0]) return;
+  if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('auction', auctions.auctions[0].auctioneerUuid);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -62,11 +56,12 @@ test('getSkyblockAuction (Auction)', async () => {
     expect(auction.bin).toBeDefined();
     expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
     expect(auction.itemBytes).toBeDefined();
+    expect(auction.itemBytes).toBeNull();
     expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -81,7 +76,7 @@ test('getSkyblockAuction (Auction)', async () => {
     expect(auction.itemLoreRaw).toBeDefined();
     expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
     expect(auction.rarity).toBeDefined();
-    expectTypeOf(auction.rarity).toEqualTypeOf<SkyblockRarity>();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
     expect(auction.startingBid).toBeDefined();
     expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
     expect(auction.highestBid).toBeDefined();
@@ -93,18 +88,18 @@ test('getSkyblockAuction (Auction)', async () => {
       expect(bid).toBeInstanceOf(Bid);
       expectTypeOf(bid).toEqualTypeOf<Bid>();
       expect(bid.auctionId).toBeDefined();
-      expectTypeOf(bid.auctionId).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.auctionId).toEqualTypeOf<string>();
       expect(bid.profileId).toBeDefined();
-      expectTypeOf(bid.profileId).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
-      expectTypeOf(bid.timestamp).toEqualTypeOf<number | null>();
+      expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
       expect(bid.at).toBeDefined();
-      expectTypeOf(bid.at).toEqualTypeOf<Date | null>();
+      expectTypeOf(bid.at).toEqualTypeOf<Date>();
       expect(bid.bidder).toBeDefined();
-      expectTypeOf(bid.bidder).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.bidder).toEqualTypeOf<string>();
       expect(bid.toString()).toBeDefined();
       expect(bid.toString()).toBe(`${bid.bidder} bid ${bid.amount} coins`);
       expectTypeOf(bid.toString()).toEqualTypeOf<string>();
@@ -121,19 +116,15 @@ test('getSkyblockAuction (Auction)', async () => {
 });
 
 test('getSkyblockAuction (Player)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid);
+  if (undefined === auctions.auctions[0]) return;
+  if (!auctions.auctions[0].auctioneerUuid) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('player', auctions.auctions[0].auctioneerUuid);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
-
-  expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -147,12 +138,13 @@ test('getSkyblockAuction (Player)', async () => {
     expectTypeOf(auction.auctioneerProfile).toEqualTypeOf<string | null>();
     expect(auction.bin).toBeDefined();
     expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
+    expect(auction.itemBytes).toBeNull();
     expect(auction.itemBytes).toBeDefined();
     expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -167,7 +159,7 @@ test('getSkyblockAuction (Player)', async () => {
     expect(auction.itemLoreRaw).toBeDefined();
     expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
     expect(auction.rarity).toBeDefined();
-    expectTypeOf(auction.rarity).toEqualTypeOf<SkyblockRarity>();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
     expect(auction.startingBid).toBeDefined();
     expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
     expect(auction.highestBid).toBeDefined();
@@ -179,18 +171,18 @@ test('getSkyblockAuction (Player)', async () => {
       expect(bid).toBeInstanceOf(Bid);
       expectTypeOf(bid).toEqualTypeOf<Bid>();
       expect(bid.auctionId).toBeDefined();
-      expectTypeOf(bid.auctionId).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.auctionId).toEqualTypeOf<string>();
       expect(bid.profileId).toBeDefined();
-      expectTypeOf(bid.profileId).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
-      expectTypeOf(bid.timestamp).toEqualTypeOf<number | null>();
+      expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
       expect(bid.at).toBeDefined();
-      expectTypeOf(bid.at).toEqualTypeOf<Date | null>();
+      expectTypeOf(bid.at).toEqualTypeOf<Date>();
       expect(bid.bidder).toBeDefined();
-      expectTypeOf(bid.bidder).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.bidder).toEqualTypeOf<string>();
       expect(bid.toString()).toBeDefined();
       expect(bid.toString()).toBe(`${bid.bidder} bid ${bid.amount} coins`);
       expectTypeOf(bid.toString()).toEqualTypeOf<string>();
@@ -207,19 +199,100 @@ test('getSkyblockAuction (Player)', async () => {
 });
 
 test('getSkyblockAuction (Profile)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const auctions = await client.getSkyblockAuctions(1);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile);
+  if (undefined === auctions.auctions[0]) return;
+  if (!auctions.auctions[0].auctioneerProfile) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile);
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
+  expect(data.length).toBeGreaterThanOrEqual(0);
+  expectTypeOf(data.length).toEqualTypeOf<number>();
+  data.forEach((auction: Auction) => {
+    expect(auction).toBeDefined();
+    expect(auction).toBeInstanceOf(Auction);
+    expectTypeOf(auction).toEqualTypeOf<Auction>();
+    expect(auction.auctionId).toBeDefined();
+    expectTypeOf(auction.auctionId).toEqualTypeOf<string | null>();
+    expect(auction.auctioneerUuid).toBeDefined();
+    expectTypeOf(auction.auctioneerUuid).toEqualTypeOf<string | null>();
+    expect(auction.auctioneerProfile).toBeDefined();
+    expectTypeOf(auction.auctioneerProfile).toEqualTypeOf<string | null>();
+    expect(auction.bin).toBeDefined();
+    expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
+    expect(auction.itemBytes).toBeDefined();
+    expect(auction.itemBytes).toBeNull();
+    expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
+    expect(auction.coop).toBeDefined();
+    expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
+    expect(auction.auctionStartTimestamp).toBeDefined();
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
+    expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
+    expect(auction.auctionStart).toBeDefined();
+    expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
+    expect(auction.auctionEndTimestamp).toBeDefined();
+    expectTypeOf(auction.auctionEndTimestamp).toEqualTypeOf<number | null>();
+    expect(auction.auctionEnd).toBeDefined();
+    expectTypeOf(auction.auctionEnd).toEqualTypeOf<Date | null>();
+    expect(auction.item).toBeDefined();
+    expectTypeOf(auction.item).toEqualTypeOf<string>();
+    expect(auction.itemLore).toBeDefined();
+    expectTypeOf(auction.itemLore).toEqualTypeOf<string>();
+    expect(auction.itemLoreRaw).toBeDefined();
+    expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
+    expect(auction.rarity).toBeDefined();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
+    expect(auction.startingBid).toBeDefined();
+    expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
+    expect(auction.highestBid).toBeDefined();
+    expectTypeOf(auction.highestBid).toEqualTypeOf<number>();
+    expect(auction.bids).toBeDefined();
+    expectTypeOf(auction.bids).toEqualTypeOf<Bid[]>();
+    auction.bids.forEach((bid: Bid) => {
+      expect(bid).toBeDefined();
+      expect(bid).toBeInstanceOf(Bid);
+      expectTypeOf(bid).toEqualTypeOf<Bid>();
+      expect(bid.auctionId).toBeDefined();
+      expectTypeOf(bid.auctionId).toEqualTypeOf<string>();
+      expect(bid.profileId).toBeDefined();
+      expectTypeOf(bid.profileId).toEqualTypeOf<string>();
+      expect(bid.amount).toBeDefined();
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
+      expectTypeOf(bid.amount).toEqualTypeOf<number>();
+      expect(bid.timestamp).toBeDefined();
+      expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
+      expect(bid.at).toBeDefined();
+      expectTypeOf(bid.at).toEqualTypeOf<Date>();
+      expect(bid.bidder).toBeDefined();
+      expectTypeOf(bid.bidder).toEqualTypeOf<string>();
+      expect(bid.toString()).toBeDefined();
+      expect(bid.toString()).toBe(`${bid.bidder} bid ${bid.amount} coins`);
+      expectTypeOf(bid.toString()).toEqualTypeOf<string>();
+    });
+    expect(auction.claimed).toBeDefined();
+    expectTypeOf(auction.claimed).toEqualTypeOf<boolean>();
+    expect(auction.claimedBidders).toBeDefined();
+    expectTypeOf(auction.claimedBidders).toEqualTypeOf<string[]>();
+    expect(auction.toString()).toBeDefined();
+    expect(auction.toString()).toEqual(auction.item);
+    expectTypeOf(auction.toString()).toEqualTypeOf<string>();
+  });
+  client.destroy();
+});
 
+test('getSkyblockAuction (Include Item Bytes)', async () => {
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  const auctions = await client.getSkyblockAuctions(1);
+  if (undefined === auctions.auctions[0]) return;
+  if (!auctions.auctions[0].auctioneerProfile) throw new Error("Something wen't wrong while fetching auctions");
+  let data = await client.getSkyblockAuction('profile', auctions.auctions[0].auctioneerProfile, {
+    includeItemBytes: true
+  });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Auction[]>();
-  expect(data.length).greaterThanOrEqual(0);
+  expectTypeOf(data).toEqualTypeOf<Auction[] | RequestData>();
+  data = data as Auction[];
+  expect(data.length).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.length).toEqualTypeOf<number>();
   data.forEach((auction: Auction) => {
     expect(auction).toBeDefined();
@@ -235,10 +308,20 @@ test('getSkyblockAuction (Profile)', async () => {
     expectTypeOf(auction.bin).toEqualTypeOf<boolean>();
     expect(auction.itemBytes).toBeDefined();
     expectTypeOf(auction.itemBytes).toEqualTypeOf<ItemBytes | null>();
+    expect(auction.itemBytes).toBeDefined();
+    if (auction.itemBytes) {
+      expect(auction.itemBytes).instanceOf(ItemBytes);
+      expect(auction.itemBytes.bytesBuffer).toBeDefined();
+      expectTypeOf(auction.itemBytes.bytesBuffer).toEqualTypeOf<Buffer>();
+      expect(auction.itemBytes.base64).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64).toEqualTypeOf<() => string>();
+      expect(auction.itemBytes.base64()).toBeDefined();
+      expectTypeOf(auction.itemBytes.base64()).toEqualTypeOf<string>();
+    }
     expect(auction.coop).toBeDefined();
     expectTypeOf(auction.coop).toEqualTypeOf<string[]>();
     expect(auction.auctionStartTimestamp).toBeDefined();
-    expect(auction.auctionStartTimestamp).greaterThanOrEqual(0);
+    expect(auction.auctionStartTimestamp).toBeGreaterThanOrEqual(0);
     expectTypeOf(auction.auctionStartTimestamp).toEqualTypeOf<number>();
     expect(auction.auctionStart).toBeDefined();
     expectTypeOf(auction.auctionStart).toEqualTypeOf<Date>();
@@ -253,7 +336,7 @@ test('getSkyblockAuction (Profile)', async () => {
     expect(auction.itemLoreRaw).toBeDefined();
     expectTypeOf(auction.itemLoreRaw).toEqualTypeOf<string>();
     expect(auction.rarity).toBeDefined();
-    expectTypeOf(auction.rarity).toEqualTypeOf<SkyblockRarity>();
+    expectTypeOf(auction.rarity).toEqualTypeOf<Rarity>();
     expect(auction.startingBid).toBeDefined();
     expectTypeOf(auction.startingBid).toEqualTypeOf<number>();
     expect(auction.highestBid).toBeDefined();
@@ -265,18 +348,18 @@ test('getSkyblockAuction (Profile)', async () => {
       expect(bid).toBeInstanceOf(Bid);
       expectTypeOf(bid).toEqualTypeOf<Bid>();
       expect(bid.auctionId).toBeDefined();
-      expectTypeOf(bid.auctionId).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.auctionId).toEqualTypeOf<string>();
       expect(bid.profileId).toBeDefined();
-      expectTypeOf(bid.profileId).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.profileId).toEqualTypeOf<string>();
       expect(bid.amount).toBeDefined();
-      expect(bid.amount).greaterThanOrEqual(0);
+      expect(bid.amount).toBeGreaterThanOrEqual(0);
       expectTypeOf(bid.amount).toEqualTypeOf<number>();
       expect(bid.timestamp).toBeDefined();
-      expectTypeOf(bid.timestamp).toEqualTypeOf<number | null>();
+      expectTypeOf(bid.timestamp).toEqualTypeOf<number>();
       expect(bid.at).toBeDefined();
-      expectTypeOf(bid.at).toEqualTypeOf<Date | null>();
+      expectTypeOf(bid.at).toEqualTypeOf<Date>();
       expect(bid.bidder).toBeDefined();
-      expectTypeOf(bid.bidder).toEqualTypeOf<string | null>();
+      expectTypeOf(bid.bidder).toEqualTypeOf<string>();
       expect(bid.toString()).toBeDefined();
       expect(bid.toString()).toBe(`${bid.bidder} bid ${bid.amount} coins`);
       expectTypeOf(bid.toString()).toEqualTypeOf<string>();

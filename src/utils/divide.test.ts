@@ -1,5 +1,5 @@
+import divide from './divide.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import divide from './divide';
 
 test('Divide', () => {
   expect(divide(10, 2)).toBe(5);

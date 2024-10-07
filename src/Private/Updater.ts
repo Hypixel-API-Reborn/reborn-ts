@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-import { version } from '../../package.json';
-import Error from '../Private/ErrorHandler';
-import Client from '../Client';
-import axios from 'axios';
+import Client from '../Client.js';
+import Error from '../Private/ErrorHandler.js';
+import packageJson from '../../package.json' with { type: 'json' };
 
 class Updater {
   readonly client: Client;
@@ -10,7 +9,7 @@ class Updater {
   latestVersion: string;
   constructor(client: Client) {
     this.client = client;
-    this.currentVersion = version;
+    this.currentVersion = packageJson.version;
     this.latestVersion = '0.0.0';
   }
 
@@ -27,7 +26,7 @@ class Updater {
   }
 
   async getLatestVersion(): Promise<string> {
-    const request = await axios.get('https://registry.npmjs.org/hypixel-api-reborn');
+    const request = await this.client.requestHandler.fetchExternalData('https://registry.npmjs.org/hypixel-api-reborn');
     if (200 !== request.status) {
       throw new Error(this.client.errors.UPDATER_REQUEST_NOT_OK, 'Fetching Latest {packageName} version');
     }

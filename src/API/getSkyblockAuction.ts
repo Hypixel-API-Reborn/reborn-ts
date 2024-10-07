@@ -1,8 +1,9 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { AuctionRequestOptions } from './API';
-import Error from '../Private/ErrorHandler';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Error from '../Private/ErrorHandler.js';
+import { AuctionFetchOptions, AuctionRequestOptions } from './API.js';
+import { RequestData } from '../Private/RequestHandler.js';
 
 class getSkyblockAction extends Endpoint {
   readonly client: Client;
@@ -12,15 +13,15 @@ class getSkyblockAction extends Endpoint {
   }
 
   async execute(
-    type: 'profile' | 'player' | 'auction',
+    type: AuctionFetchOptions,
     query: string,
     options?: AuctionRequestOptions
-  ): Promise<Auction[]> {
+  ): Promise<Auction[] | RequestData> {
     let filter;
     if ('profile' === type) {
       filter = 'profile';
-    } else if ('player' === type) {
-      query = await this.client.requests.toUUID(query);
+    } else if ('player' === type && query) {
+      query = await this.client.requestHandler.toUUID(query);
       filter = 'player';
     } else if ('auction' === type) {
       filter = 'uuid';
@@ -28,11 +29,9 @@ class getSkyblockAction extends Endpoint {
       throw new Error(this.client.errors.BAD_AUCTION_FILTER, 'Fetching Skyblock Auction');
     }
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID, 'Fetching Skyblock Auction');
-    const res = await this.client.requests.request(`/skyblock/auction?${filter}=${query}`, options);
-    if (res.options.raw) return res.data;
-    return res.data.auctions.map(
-      (a: Record<string, string | number | object>) => new Auction(a, options?.includeItemBytes ?? false)
-    );
+    const res = await this.client.requestHandler.request(`/skyblock/auction?${filter}=${query}`, options);
+    if (res.options.raw) return res;
+    return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));
   }
 }
 

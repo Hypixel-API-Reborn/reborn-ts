@@ -1,5 +1,5 @@
 export type SkyblockGemstoneQuality = 'Rough' | 'Flawed' | 'Fine' | 'Flawless' | 'Perfect';
-import { parseGearScore, parseRarity } from '../../utils/SkyblockUtils';
+import { parseGearScore, parseRarity } from '../../utils/SkyblockUtils.js';
 
 export class SkyblockGemstone {
   type: string;
@@ -57,7 +57,7 @@ class SkyblockInventoryItem {
         })
       : [];
     this.damage = data?.Damage || 0;
-    this.rarity = parseRarity(this?.loreArray[this?.loreArray?.length - 1]);
+    this.rarity = parseRarity(this?.loreArray[this?.loreArray?.length - 1] || '');
     this.dungeonStars = data?.tag?.ExtraAttributes?.upgrade_level ?? 0;
     this.gearScore = parseGearScore(this?.loreArray);
     this.uuid = data?.tag?.ExtraAttributes?.uuid ?? '';

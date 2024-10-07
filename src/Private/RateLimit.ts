@@ -1,5 +1,5 @@
-import Error from '../Private/ErrorHandler';
-import Client from '../Client';
+import Client from '../Client.js';
+import Error from '../Private/ErrorHandler.js';
 
 class RateLimit {
   readonly client: Client;
@@ -16,7 +16,7 @@ class RateLimit {
   }
 
   async sync() {
-    const { headers } = await this.client.requests.request('/boosters', { raw: true });
+    const { headers } = await this.client.requestHandler.request('/boosters', { raw: true });
     if (headers?.['ratelimit-limit'] === undefined || headers?.['ratelimit-remaining'] === undefined) {
       throw new Error(this.client.errors.RATE_LIMIT_INIT_ERROR, 'initializing rate limit.');
     }

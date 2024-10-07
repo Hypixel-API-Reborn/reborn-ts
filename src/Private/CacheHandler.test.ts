@@ -1,10 +1,10 @@
-import { expect, expectTypeOf, test } from 'vitest';
-import CacheHandler from './CacheHandler';
+import CacheHandler from './CacheHandler.js';
+import Client from '../Client.js';
 import NodeCache from 'node-cache';
-import Client from '../Client';
+import { expect, expectTypeOf, test } from 'vitest';
 
 test('CacheHandler', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   expect(client).toBeDefined();
   expectTypeOf(client).toEqualTypeOf<Client>();
 

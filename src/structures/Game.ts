@@ -1,4 +1,4 @@
-import Constants from '../utils/Constants';
+import { games } from '../utils/Constants.js';
 export type GameString =
   | 'Quake Craft'
   | 'Walls'
@@ -118,13 +118,17 @@ class Game {
   found: boolean;
   constructor(game: GameID | GameCode) {
     this.game = game;
-    const result = Constants.games.find(
-      (g) => g.code.toLowerCase() === this.game || g.id.toString() === this.game || g.name.toLowerCase() === this.game
-    ) as any;
-    this.id = result ? result.id : null;
-    this.code = result ? result.code : null;
-    this.name = result ? result.name : null;
-    this.found = Boolean(result);
+    const result =
+      games.find(
+        (Game) =>
+          Game.code.toLowerCase() === this.game ||
+          Game.id.toString() === this.game ||
+          Game.name.toLowerCase() === this.game
+      ) || null;
+    this.id = result?.id || null;
+    this.code = result?.code || null;
+    this.name = result?.name || null;
+    this.found = null !== result;
   }
 
   toString(): GameString | null {
@@ -132,15 +136,15 @@ class Game {
   }
 
   static get IDS(): GameID[] {
-    return Constants.games.map((x) => x.id as GameID);
+    return games.map((x) => x.id as GameID);
   }
 
   static get CODES(): GameCode[] {
-    return Constants.games.map((x) => x.code) as GameCode[];
+    return games.map((x) => x.code) as GameCode[];
   }
 
   static get NAMES(): GameString[] {
-    return Constants.games.map((x) => x.name) as GameString[];
+    return games.map((x) => x.name) as GameString[];
   }
 }
 

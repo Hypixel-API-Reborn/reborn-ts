@@ -1,4 +1,4 @@
-import ItemBytes from '../../ItemBytes';
+import ItemBytes from '../../ItemBytes.js';
 
 class BaseAuction {
   auctionId: string | null;

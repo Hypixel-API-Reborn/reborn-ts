@@ -1,5 +1,5 @@
+import isGuildID from './isGuildID.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import isGuildID from './isGuildID';
 
 const ids = ['5b8dd8cb0cf24573ab84c9ad', '656618008ea8c9dca6f3668d', '5ba94ed50cf2cc24cf043706'];
 const idsInvalid = ['invalid', 'hello why are you here?', ''];

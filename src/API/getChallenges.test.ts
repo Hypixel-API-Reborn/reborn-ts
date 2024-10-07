@@ -1,53 +1,48 @@
-import GameChallenges, { ChallengeData } from '../structures/Static/GameChallenges';
-import Challenges from '../structures/Static/Challenges';
+import Challenges from '../structures/Static/Challenges.js';
+import Client from '../Client.js';
+import GameChallenges, { Challenge, ChallengeReward } from '../structures/Static/GameChallenges.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import { StaticGameNames } from '../typings';
-import Client from '../Client';
 
 test('getChallenges (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const data = await client.getChallenges({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Challenges | RequestData>();
   client.destroy();
 });
 
 test('getChallenges', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getChallenges();
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  let data = await client.getChallenges();
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Challenges);
-  expectTypeOf(data).toEqualTypeOf<Challenges>();
+  expectTypeOf(data).toEqualTypeOf<Challenges | RequestData>();
+  data = data as Challenges;
   expect(data.lastUpdatedTimestamp).toBeDefined();
   expect(data.lastUpdatedTimestamp).toBeGreaterThan(0);
   expectTypeOf(data.lastUpdatedTimestamp).toEqualTypeOf<number>();
   expect(data.lastUpdatedAt).toBeDefined();
   expectTypeOf(data.lastUpdatedAt).toEqualTypeOf<Date>();
   expect(data.challengesPerGame).toBeDefined();
-  expectTypeOf(data.challengesPerGame).toEqualTypeOf<Record<StaticGameNames, GameChallenges>>();
-  Object.keys(data.challengesPerGame).forEach((game) => {
-    expect(data.challengesPerGame[game]).toBeDefined();
-    expect(data.challengesPerGame[game]).toBeInstanceOf(GameChallenges);
-    expectTypeOf(data.challengesPerGame[game]).toEqualTypeOf<GameChallenges>();
-    expect(data.challengesPerGame[game].category).toBeDefined();
-    expect(data.challengesPerGame[game].category).toEqual(game);
-    expect(data.challengesPerGame[game].challenges).toBeDefined();
-    expectTypeOf(data.challengesPerGame[game].challenges).toEqualTypeOf<Map<string, ChallengeData>>();
-    data.challengesPerGame[game].challenges.forEach((challenge: ChallengeData) => {
-      expect(challenge).toBeDefined();
-      expectTypeOf(challenge).toEqualTypeOf<ChallengeData>();
+  expectTypeOf(data.challengesPerGame).toEqualTypeOf<Record<string, GameChallenges>>();
+  Object.keys(data.challengesPerGame).forEach((gameName) => {
+    if (undefined === data.challengesPerGame[gameName]) return;
+    expect(data.challengesPerGame[gameName]).toBeDefined();
+    expect(data.challengesPerGame[gameName]).toBeInstanceOf(GameChallenges);
+    expectTypeOf(data.challengesPerGame[gameName]).toEqualTypeOf<GameChallenges>();
+    expect(data.challengesPerGame[gameName].category).toBeDefined();
+    expect(data.challengesPerGame[gameName].category).toEqual(gameName);
+    expect(data.challengesPerGame[gameName].challenges).toBeDefined();
+    expectTypeOf(data.challengesPerGame[gameName].challenges).toEqualTypeOf<Challenge[]>();
+    data.challengesPerGame[gameName].challenges.forEach((challenge: Challenge) => {
       expect(challenge.id).toBeDefined();
       expectTypeOf(challenge.id).toEqualTypeOf<string>();
       expect(challenge.name).toBeDefined();
       expectTypeOf(challenge.name).toEqualTypeOf<string>();
-      expect(challenge.reward).toBeDefined();
-      expectTypeOf(challenge.reward).toEqualTypeOf<number>();
-      expect(challenge.rewardType).toBeDefined();
-      expectTypeOf(challenge.rewardType).toEqualTypeOf<string>();
+      expect(challenge.rewards).toBeDefined();
+      expectTypeOf(challenge.rewards).toEqualTypeOf<ChallengeReward[]>();
     });
   });
   client.destroy();

@@ -35,6 +35,9 @@ export class Errors {
   NOT_IMPLEMENTED: string = 'Endpoint execute method is not implemented yet! Please report this {discordInvite}';
   RATE_LIMIT_INIT_ERROR: string =
     'An error happened whilst initializing rate limit. We strongly recommend restarting the code as this can lead to desynchronization.';
+  ENDPOINT_NOT_LOADED: string = '[hypixel-api-reborn] This endpoint has not been loaded yet. Please restart your code';
+  RECENT_REQUEST: string =
+    '[Hypixel-API-Reborn] You have requested that player recently. Try turning on cache. For help join our Discord Server {discordInvite}';
 }
 
 // Credit: https://github.com/DuckySoLucky/hypixel-discord-chat-bridge/blob/4926194c7fb99dd7773a78b9cb827ec029d11bd8/src/contracts/helperFunctions.js#L264-L266

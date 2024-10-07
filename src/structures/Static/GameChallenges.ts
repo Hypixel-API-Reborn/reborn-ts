@@ -1,27 +1,25 @@
-import { StaticGameNames } from '../../typings';
+export interface ChallengeReward {
+  type: 'MultipliedExperienceReward';
+  amount: number;
+}
 
-export interface ChallengeData {
+export class Challenge {
   id: string;
   name: string;
-  reward: number;
-  rewardType: string;
+  rewards: ChallengeReward[];
+  constructor(data: Record<string, any>) {
+    this.id = data.id;
+    this.name = data.name;
+    this.rewards = data.rewards;
+  }
 }
 
 class GameChallenges {
-  category: StaticGameNames;
-  challenges: Map<string, ChallengeData>;
-  constructor(name: StaticGameNames, data: Record<string, any>) {
+  category: string;
+  challenges: Challenge[];
+  constructor(name: string, data: { id: string; name: string; rewards: { type: string; amount: number }[] }[]) {
     this.category = name;
-    this.challenges = new Map();
-    data.forEach((challenge: any) => {
-      const content = {
-        id: challenge.id,
-        name: challenge.name,
-        reward: parseInt(challenge.rewards[0].amount, 10) || 0,
-        rewardType: challenge.rewards[0].type
-      };
-      this.challenges.set(challenge.id, content);
-    });
+    this.challenges = data.map((challenge) => new Challenge(challenge));
   }
 }
 

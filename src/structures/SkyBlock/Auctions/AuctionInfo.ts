@@ -11,10 +11,6 @@ class AuctionInfo {
     this.lastUpdatedTimestamp = data.lastUpdated;
     this.lastUpdatedAt = new Date(this.lastUpdatedTimestamp);
   }
-
-  toString(): string {
-    return `${this.page}/${this.totalPages}`;
-  }
 }
 
 export default AuctionInfo;

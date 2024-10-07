@@ -1,24 +1,23 @@
+import Client from '../Client.js';
+import Order from '../structures/SkyBlock/Bazaar/Order.js';
+import Product from '../structures/SkyBlock/Bazaar/Product.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import Product from '../structures/SkyBlock/Bazzar/Product';
-import Order from '../structures/SkyBlock/Bazzar/Order';
-import Client from '../Client';
 
 test('getSkyblockBazarr (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const data = await client.getSkyblockBazaar({ raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Product[] | RequestData>();
   client.destroy();
 });
 test('getSkyblockBazarr', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getSkyblockBazaar();
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  let data = await client.getSkyblockBazaar();
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<Product[]>();
+  expectTypeOf(data).toEqualTypeOf<Product[] | RequestData>();
+  data = data as Product[];
   data.forEach((product: Product) => {
     expect(product).toBeDefined();
     expect(product).toBeInstanceOf(Product);

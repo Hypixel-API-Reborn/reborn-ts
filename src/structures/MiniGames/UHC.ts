@@ -1,4 +1,4 @@
-import divide from '../../utils/divide';
+import divide from '../../utils/divide.js';
 
 function getStarLevel(kills: number, wins: number): number {
   const sum = kills + wins * 10;
@@ -8,7 +8,7 @@ function getStarLevel(kills: number, wins: number): number {
   return starLevel;
 }
 
-class UHCGamemode {
+export class UHCGamemode {
   kills: number;
   deaths: number;
   wins: number;
@@ -17,12 +17,12 @@ class UHCGamemode {
   extraUltimatesCrafted: number;
   constructor(data: Record<string, any>, mode?: string) {
     if (mode) mode = `_${mode}`;
-    this.kills = data[`kills${mode}`] || 0;
-    this.deaths = data[`deaths${mode}`] || 0;
-    this.wins = data[`wins${mode}`] || 0;
-    this.headsEaten = data[`heads_eaten${mode}`] || 0;
-    this.ultimatesCrafted = data[`ultimates_crafted${mode}`] || 0;
-    this.extraUltimatesCrafted = data[`extra_ultimates_crafted${mode}`] || 0;
+    this.kills = data?.[`kills${mode}`] || 0;
+    this.deaths = data?.[`deaths${mode}`] || 0;
+    this.wins = data?.[`wins${mode}`] || 0;
+    this.headsEaten = data?.[`heads_eaten${mode}`] || 0;
+    this.ultimatesCrafted = data?.[`ultimates_crafted${mode}`] || 0;
+    this.extraUltimatesCrafted = data?.[`extra_ultimates_crafted${mode}`] || 0;
   }
 }
 
@@ -40,15 +40,15 @@ class UHC {
   wins: number;
   kills: number;
   deaths: number;
-  KDRatio: number;
+  KDR: number;
   headsEaten: number;
   ultimatesCrafted: number;
   extraUltimatesCrafted: number;
   starLevel: number;
   constructor(data: Record<string, any>) {
-    this.coins = data.coins || 0;
-    this.score = data.score || 0;
-    this.kit = data.equippedKit || '';
+    this.coins = data?.coins || 0;
+    this.score = data?.score || 0;
+    this.kit = data?.equippedKit || '';
     this.solo = new UHCGamemode(data, 'solo');
     this.team = new UHCGamemode(data);
     this.redVsBlue = new UHCGamemode(data, 'red_vs_blue');
@@ -80,7 +80,7 @@ class UHC {
       this.brawl.deaths +
       this.soloBrawl.deaths +
       this.duoBrawl.deaths;
-    this.KDRatio = divide(this.kills, this.deaths);
+    this.KDR = divide(this.kills, this.deaths);
     this.headsEaten =
       this.solo.headsEaten +
       this.team.headsEaten +

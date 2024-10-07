@@ -1,8 +1,8 @@
 node_modules/
 oldreborn/
 .env
-dist/
 .eslintcache
 .git
 .gitignore
 coverage/
+.github/coverageData.xml

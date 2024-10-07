@@ -1,19 +1,16 @@
-import { StaticGameNames } from '../../typings';
-import GameQuests from './GameQuests';
+import GameQuests from './GameQuests.js';
 
 class Quests {
   lastUpdatedTimestamp: number;
-  lastUpdatedAt: Date | null;
-  questsPerGame: Record<StaticGameNames, GameQuests>;
+  lastUpdatedAt: Date;
+  questsPerGame: Record<string, GameQuests>;
   constructor(data: Record<string, any>) {
-    this.lastUpdatedTimestamp = parseInt(data.lastUpdated, 10);
+    this.lastUpdatedTimestamp = data.lastUpdated;
     this.lastUpdatedAt = new Date(this.lastUpdatedTimestamp);
-    this.questsPerGame = Object.fromEntries(
-      Object.entries(data.quests).map(([game, data]) => [
-        game,
-        new GameQuests(game as StaticGameNames, data as Record<string, any>)
-      ])
-    ) as Record<StaticGameNames, GameQuests>;
+    this.questsPerGame = {};
+    Object.keys(data.quests).forEach((game) => {
+      this.questsPerGame[game] = new GameQuests(game, data.quests[game]);
+    });
   }
 }
 

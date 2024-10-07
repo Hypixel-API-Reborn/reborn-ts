@@ -1,9 +1,10 @@
+import Client from '../Client.js';
+import House from '../structures/House.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import House from '../structures/House';
-import Client from '../Client';
 
 test('getPlayerHouses (No input)', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getPlayerHouses()).rejects.toThrowError(client.errors.NO_NICKNAME_UUID);
@@ -11,22 +12,20 @@ test('getPlayerHouses (No input)', () => {
 });
 
 test('getPlayerHouses (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const data = await client.getPlayerHouses('69e04609da2a4e7dabb83546a971969e', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<House[] | RequestData>();
   client.destroy();
 });
 
 test('getPlayerHouses', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getPlayerHouses('69e04609da2a4e7dabb83546a971969e');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  let data = await client.getPlayerHouses('69e04609da2a4e7dabb83546a971969e');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<House[]>();
+  expectTypeOf(data).toEqualTypeOf<House[] | RequestData>();
+  data = data as House[];
   data.forEach((house: House) => {
     expect(house).toBeDefined();
     expect(house).toBeInstanceOf(House);
@@ -38,9 +37,9 @@ test('getPlayerHouses', async () => {
     expect(house.owner).toBeDefined();
     expectTypeOf(house.owner).toEqualTypeOf<string>();
     expect(house.createdAtTimestamp).toBeDefined();
-    expectTypeOf(house.createdAtTimestamp).toEqualTypeOf<number>();
+    expectTypeOf(house.createdAtTimestamp).toEqualTypeOf<number | null>();
     expect(house.createdAt).toBeDefined();
-    expectTypeOf(house.createdAt).toEqualTypeOf<Date>();
+    expectTypeOf(house.createdAt).toEqualTypeOf<Date | null>();
     expect(house.players).toBeDefined();
     expectTypeOf(house.players).toEqualTypeOf<number>();
     expect(house.cookies).toBeDefined();

@@ -1,14 +1,15 @@
-import GuildMember from '../structures/Guild/GuildMember';
-import GuildRank from '../structures/Guild/GuildRank';
+import Client from '../Client.js';
+import Color, { ColorCode, ColorHex, ColorString, InGameCode } from '../structures/Color.js';
+import Game, { GameCode, GameID, GameString } from '../structures/Game.js';
+import Guild from '../structures/Guild/Guild.js';
+import GuildMember from '../structures/Guild/GuildMember.js';
+import GuildRank from '../structures/Guild/GuildRank.js';
+import { ExpHistory } from '../utils/Guild.js';
+import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import Guild from '../structures/Guild/Guild';
-import { ExpHistory } from '../utils/Guild';
-import Color from '../structures/Color';
-import Game from '../structures/Game';
-import Client from '../Client';
 
 test('Invalid Guild Type', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getGuild('invalid', 'invalid')).rejects.toThrowError(
@@ -18,9 +19,7 @@ test('Invalid Guild Type', () => {
 });
 
 test('Invalid Guild', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   expect(() => client.getGuild('name', 'this guild dose not exist')).rejects.toThrowError(
     client.errors.GUILD_DOES_NOT_EXIST
   );
@@ -28,15 +27,13 @@ test('Invalid Guild', () => {
 });
 
 test('Invalid Guild ID', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   expect(() => client.getGuild('id', 'invalid guild id')).rejects.toThrowError(client.errors.INVALID_GUILD_ID);
   client.destroy();
 });
 
 test('No Guild Query', () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   expect(() => client.getGuild('id')).rejects.toThrowError(client.errors.NO_GUILD_QUERY);
@@ -44,33 +41,29 @@ test('No Guild Query', () => {
 });
 
 test('User not in a guild', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const data = await client.getGuild('player', '37501e7512b845ab8796e2baf9e9677a');
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<null>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
   client.destroy();
 });
 
 test('getGuild (raw)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
   const data = await client.getGuild('name', 'Pixelic', { raw: true });
   expect(data).toBeDefined();
-  expectTypeOf(data).toEqualTypeOf<object>();
+  expect(data).toBeInstanceOf(RequestData);
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
   client.destroy();
 });
 
 test('getGuild (Name)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getGuild('name', 'Pixelic');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  let data = await client.getGuild('name', 'Pixelic');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Guild);
-  expectTypeOf(data).toEqualTypeOf<Guild>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
+  data = data as Guild;
   expect(data.id).toBeDefined();
   expectTypeOf(data.id).toEqualTypeOf<string>();
   expect(data.name).toBeDefined();
@@ -180,6 +173,28 @@ test('getGuild (Name)', async () => {
   expectTypeOf(data.tag).toEqualTypeOf<string>();
   expect(data.tagColor).toBeDefined();
   expectTypeOf(data.tagColor).toEqualTypeOf<Color | null>();
+  if (data.tagColor) {
+    expect(data.tagColor).toBeDefined();
+    expectTypeOf(data.tagColor).toEqualTypeOf<Color>();
+    expect(data.tagColor.color).toBeDefined();
+    expectTypeOf(data.tagColor.color).toEqualTypeOf<ColorCode>();
+    expect(data.tagColor.toString).toBeDefined();
+    expectTypeOf(data.tagColor.toString).toEqualTypeOf<() => ColorString>();
+    expect(data.tagColor.toString()).toBeDefined();
+    expectTypeOf(data.tagColor.toString()).toEqualTypeOf<ColorString>();
+    expect(data.tagColor.toHex).toBeDefined();
+    expectTypeOf(data.tagColor.toHex).toEqualTypeOf<() => ColorHex>();
+    expect(data.tagColor.toHex()).toBeDefined();
+    expectTypeOf(data.tagColor.toHex()).toEqualTypeOf<ColorHex>();
+    expect(data.tagColor.toCode).toBeDefined();
+    expectTypeOf(data.tagColor.toCode).toEqualTypeOf<() => ColorCode>();
+    expect(data.tagColor.toCode()).toBeDefined();
+    expectTypeOf(data.tagColor.toCode()).toEqualTypeOf<ColorCode>();
+    expect(data.tagColor.toInGameCode).toBeDefined();
+    expectTypeOf(data.tagColor.toInGameCode).toEqualTypeOf<() => InGameCode>();
+    expect(data.tagColor.toInGameCode()).toBeDefined();
+    expectTypeOf(data.tagColor.toInGameCode()).toEqualTypeOf<InGameCode>();
+  }
   expect(data.expHistory).toBeDefined();
   expectTypeOf(data.expHistory).toEqualTypeOf<ExpHistory[]>();
   expect(data.achievements).toBeDefined();
@@ -192,6 +207,29 @@ test('getGuild (Name)', async () => {
   expect(data.achievements.experienceKings).toBeGreaterThanOrEqual(0);
   expect(data.preferredGames).toBeDefined();
   expectTypeOf(data.preferredGames).toEqualTypeOf<Game[]>();
+  data.preferredGames.forEach((game: Game) => {
+    expect(game).toBeDefined();
+    expectTypeOf(game).toEqualTypeOf<Game>();
+    expect(game.game).toBeDefined();
+    expectTypeOf(game.game).toEqualTypeOf<GameID | GameCode>();
+    expect(game.id).toBeDefined();
+    expectTypeOf(game.id).toEqualTypeOf<GameID | null>();
+    expect(game.code).toBeDefined();
+    expectTypeOf(game.code).toEqualTypeOf<GameCode | null>();
+    expect(game.name).toBeDefined();
+    expectTypeOf(game.name).toEqualTypeOf<GameString | null>();
+    expect(game.found).toBeDefined();
+    expectTypeOf(game.found).toEqualTypeOf<boolean>();
+    expect(game.toString()).toBeDefined();
+    expect(game.toString()).toBe(game.name);
+    expectTypeOf(game.toString()).toEqualTypeOf<GameString | null>();
+    expect(Game.IDS).toBeDefined();
+    expectTypeOf(Game.IDS).toEqualTypeOf<GameID[]>();
+    expect(Game.CODES).toBeDefined();
+    expectTypeOf(Game.CODES).toEqualTypeOf<GameCode[]>();
+    expect(Game.NAMES).toBeDefined();
+    expectTypeOf(Game.NAMES).toEqualTypeOf<GameString[]>();
+  });
   expect(data.toString()).toBeDefined();
   expectTypeOf(data.toString()).toEqualTypeOf<string>();
   expect(data.guildMaster()).toBeDefined();
@@ -202,13 +240,12 @@ test('getGuild (Name)', async () => {
 });
 
 test('getGuild (Id)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getGuild('id', '64b54f9d8ea8c96aaedafe84');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  let data = await client.getGuild('id', '64b54f9d8ea8c96aaedafe84');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Guild);
-  expectTypeOf(data).toEqualTypeOf<Guild>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
+  data = data as Guild;
   expect(data.id).toBeDefined();
   expectTypeOf(data.id).toEqualTypeOf<string>();
   expect(data.name).toBeDefined();
@@ -340,13 +377,12 @@ test('getGuild (Id)', async () => {
 });
 
 test('getGuild (Player)', async () => {
-  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const data = await client.getGuild('player', '14727faefbdc4aff848cd2713eb9939e');
+  const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });
+  let data = await client.getGuild('player', '14727faefbdc4aff848cd2713eb9939e');
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Guild);
-  expectTypeOf(data).toEqualTypeOf<Guild>();
+  expectTypeOf(data).toEqualTypeOf<Guild | null | RequestData>();
+  data = data as Guild;
   expect(data.id).toBeDefined();
   expectTypeOf(data.id).toEqualTypeOf<string>();
   expect(data.name).toBeDefined();

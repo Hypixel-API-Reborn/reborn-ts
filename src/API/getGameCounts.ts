@@ -1,7 +1,7 @@
-import { RequestOptions } from '../Private/Requests';
-import GameCounts from '../structures/GameCounts';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import GameCounts from '../structures/GameCounts.js';
+import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
 class getGameCounts extends Endpoint {
   readonly client: Client;
@@ -10,9 +10,9 @@ class getGameCounts extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<GameCounts> {
-    const res = await this.client.requests.request('/counts', options);
-    if (res.options.raw) return res.data;
+  async execute(options?: RequestOptions): Promise<GameCounts | RequestData> {
+    const res = await this.client.requestHandler.request('/counts', options);
+    if (res.options.raw) return res;
     return new GameCounts(res.data);
   }
 }

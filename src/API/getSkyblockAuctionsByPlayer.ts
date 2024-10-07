@@ -1,8 +1,9 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction';
-import { AuctionRequestOptions } from './API';
-import Error from '../Private/ErrorHandler';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Error from '../Private/ErrorHandler.js';
+import { AuctionRequestOptions } from './API.js';
+import { RequestData } from '../Private/RequestHandler.js';
 
 class getSkyblockActionsByPlayer extends Endpoint {
   readonly client: Client;
@@ -11,11 +12,11 @@ class getSkyblockActionsByPlayer extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: AuctionRequestOptions): Promise<Auction[]> {
+  async execute(query: string, options?: AuctionRequestOptions): Promise<Auction[] | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID, 'Fetching Skyb,oock Auctions By Player');
-    query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/skyblock/auction?player=${query}`);
-    if (res.options.raw) return res.data;
+    query = await this.client.requestHandler.toUUID(query);
+    const res = await this.client.requestHandler.request(`/skyblock/auction?player=${query}`, options);
+    if (res.options.raw) return res;
     return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));
   }
 }

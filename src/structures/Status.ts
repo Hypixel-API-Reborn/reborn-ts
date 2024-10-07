@@ -1,4 +1,4 @@
-import Game from './Game';
+import Game from './Game.js';
 
 class Status {
   online: boolean;
@@ -6,10 +6,10 @@ class Status {
   mode: string | null;
   map: string | null;
   constructor(data: Record<string, any>) {
-    this.online = data.online;
+    this.online = data?.online || false;
     this.game = data.gameType ? new Game(data.gameType) : null;
-    this.mode = data.mode ?? null;
-    this.map = data.map ?? null;
+    this.mode = data?.mode || null;
+    this.map = data?.map || null;
   }
 
   toString(): 'Online' | 'Offline' {

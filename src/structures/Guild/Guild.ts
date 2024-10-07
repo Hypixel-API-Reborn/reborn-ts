@@ -1,8 +1,8 @@
-import { calculateExpHistory, ExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild';
-import GuildMember from './GuildMember';
-import GuildRank from './GuildRank';
-import Color from '../Color';
-import Game from '../Game';
+import Color from '../Color.js';
+import Game from '../Game.js';
+import GuildMember from './GuildMember.js';
+import GuildRank from './GuildRank.js';
+import { ExpHistory, calculateExpHistory, getGuildLevel, members, ranks, totalWeeklyGexp } from '../../utils/Guild.js';
 
 class Guild {
   id: string;
@@ -14,8 +14,8 @@ class Guild {
   me: GuildMember | null;
   ranks: GuildRank[];
   totalWeeklyGexp: number;
-  createdAtTimestamp: string;
-  createdAt: Date;
+  createdAtTimestamp: number | null;
+  createdAt: Date | null;
   joinable: boolean;
   publiclyListed: boolean;
   chatMuteUntilTimestamp: number | null;
@@ -28,17 +28,17 @@ class Guild {
   preferredGames: Game[];
   constructor(data: Record<string, any>, uuid?: string) {
     // eslint-disable-next-line no-underscore-dangle
-    this.id = data._id;
-    this.name = data.name;
+    this.id = data._id || 'Unknown';
+    this.name = data.name || 'Unknown';
     this.description = data.description ?? '';
     this.experience = data.exp || 0;
     this.level = getGuildLevel(this.experience);
-    this.members = members(data);
+    this.members = members(data?.members || []);
     this.me = uuid ? (this.members.find((member) => member.uuid === uuid) as GuildMember) : null;
     this.ranks = ranks(data);
-    this.totalWeeklyGexp = totalWeeklyGexp(data);
-    this.createdAtTimestamp = data.created;
-    this.createdAt = new Date(this.createdAtTimestamp);
+    this.totalWeeklyGexp = totalWeeklyGexp(this.members);
+    this.createdAtTimestamp = data.created || null;
+    this.createdAt = this.createdAtTimestamp ? new Date(this.createdAtTimestamp) : null;
     this.joinable = data.joinable ?? false;
     this.publiclyListed = Boolean(data.publiclyListed);
     this.chatMuteUntilTimestamp = data.chatMute ?? null;
@@ -46,11 +46,11 @@ class Guild {
     this.banner = data.banner ?? null;
     this.tag = data.tag ?? null;
     this.tagColor = data.tagColor ? new Color(data.tagColor) : null;
-    this.expHistory = calculateExpHistory(data);
+    this.expHistory = calculateExpHistory(this.members);
     this.achievements = {
-      winners: data.achievements.WINNERS ?? 0,
-      experienceKings: data.achievements.EXPERIENCE_KINGS ?? 0,
-      onlinePlayers: data.achievements.ONLINE_PLAYERS ?? 0
+      winners: data?.achievements?.WINNERS || 0,
+      experienceKings: data?.achievements?.EXPERIENCE_KINGS || 0,
+      onlinePlayers: data?.achievements?.ONLINE_PLAYERS || 0
     };
     this.preferredGames = data.preferredGames ? data.preferredGames.map((g: any) => new Game(g)) : [];
   }
@@ -59,8 +59,8 @@ class Guild {
     return this.name;
   }
 
-  guildMaster(): GuildMember {
-    return this.members.find((member) => 'Guild Master' === member.rank) as GuildMember;
+  guildMaster(): GuildMember | undefined {
+    return this.members.find((member) => 'Guild Master' === member.rank);
   }
 }
 

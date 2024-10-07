@@ -1,4 +1,38 @@
-const ColorStrings: { [key: string]: string } = {
+export type ColorCode =
+  | 'BLACK'
+  | 'DARK_BLUE'
+  | 'DARK_GREEN'
+  | 'DARK_AQUA'
+  | 'DARK_RED'
+  | 'DARK_PURPLE'
+  | 'GOLD'
+  | 'GRAY'
+  | 'DARK_GRAY'
+  | 'BLUE'
+  | 'GREEN'
+  | 'AQUA'
+  | 'RED'
+  | 'LIGHT_PURPLE'
+  | 'YELLOW'
+  | 'WHITE';
+export type ColorString =
+  | 'Black'
+  | 'Dark Blue'
+  | 'Dark Green'
+  | 'Dark Aqua'
+  | 'Dark Red'
+  | 'Dark Purple'
+  | 'Gold'
+  | 'Gray'
+  | 'Dark Gray'
+  | 'Blue'
+  | 'Green'
+  | 'Aqua'
+  | 'Red'
+  | 'Light Purple'
+  | 'Yellow'
+  | 'White';
+const ColorStrings: { [key: string]: ColorString } = {
   BLACK: 'Black',
   DARK_BLUE: 'Dark Blue',
   DARK_GREEN: 'Dark Green',
@@ -16,7 +50,24 @@ const ColorStrings: { [key: string]: string } = {
   YELLOW: 'Yellow',
   WHITE: 'White'
 };
-const ColorHex: { [key: string]: string } = {
+export type ColorHex =
+  | '#000000'
+  | '#0000AA'
+  | '#008000'
+  | '#00AAAA'
+  | '#AA0000'
+  | '#AA00AA'
+  | '#FFAA00'
+  | '#AAAAAA'
+  | '#555555'
+  | '#5555FF'
+  | '#3CE63C'
+  | '#3CE6E6'
+  | '#FF5555'
+  | '#FF55FF'
+  | '#FFFF55'
+  | '#FFFFFF';
+const ColorHexs: { [key: string]: ColorHex } = {
   BLACK: '#000000',
   DARK_BLUE: '#0000AA',
   DARK_GREEN: '#008000',
@@ -34,7 +85,24 @@ const ColorHex: { [key: string]: string } = {
   YELLOW: '#FFFF55',
   WHITE: '#FFFFFF'
 };
-const InGameCodes: { [key: string]: string } = {
+export type InGameCode =
+  | '§0'
+  | '§1'
+  | '§2'
+  | '§3'
+  | '§4'
+  | '§5'
+  | '§6'
+  | '§7'
+  | '§8'
+  | '§9'
+  | '§a'
+  | '§b'
+  | '§c'
+  | '§d'
+  | '§e'
+  | '§f';
+const InGameCodes: { [key: string]: InGameCode } = {
   BLACK: '§0',
   DARK_BLUE: '§1',
   DARK_GREEN: '§2',
@@ -54,25 +122,25 @@ const InGameCodes: { [key: string]: string } = {
 };
 
 class Color {
-  color: string;
-  constructor(color: string) {
+  color: ColorCode;
+  constructor(color: ColorCode) {
     this.color = color;
   }
 
-  toString(): string {
-    return ColorStrings[this.color];
+  toString(): ColorString {
+    return ColorStrings[this.color] as ColorString;
   }
 
-  toHex(): string {
-    return ColorHex[this.color];
+  toHex(): ColorHex {
+    return ColorHexs[this.color] as ColorHex;
   }
 
-  toCode(): string {
+  toCode(): ColorCode {
     return this.color;
   }
 
-  toInGameCode() {
-    return InGameCodes[this.color];
+  toInGameCode(): InGameCode {
+    return InGameCodes[this.color] as InGameCode;
   }
 }
 
