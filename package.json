@@ -24,7 +24,8 @@
     "build": "npx tsc",
     "test": "npx vitest run",
     "test:coverage": "npx vitest run --coverage && mv coverage/clover.xml .github/coverageData.xml && npx tsx .github/checkCoverage.ts",
-    "test:ui": "npx vitest --ui --coverage"
+    "test:ui": "npx vitest --ui --coverage",
+    "docgen": "npx typedoc"
   },
   "engines": {
     "node": ">=20.16.0"
