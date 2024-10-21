@@ -49,6 +49,7 @@
   ],
   "publisher": "Kathund",
   "devDependencies": {
+    "@8hobbies/typedoc-plugin-404": "^3.0.0",
     "@eslint/js": "^9.13.0",
     "@j4cobi/eslint-plugin-sort-imports": "^1.0.2",
     "@types/eslint": "^9.6.1",
@@ -61,6 +62,9 @@
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.11.0",
     "prettier": "^3.3.3",
+    "typedoc": "^0.26.10",
+    "typedoc-material-theme": "^1.1.0",
+    "typedoc-plugin-rename-defaults": "^0.7.1",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.10.0",
     "vitest": "^2.1.3",

@@ -6,3 +6,4 @@ oldreborn/
 .gitignore
 coverage/
 .github/coverageData.xml
+documentation/

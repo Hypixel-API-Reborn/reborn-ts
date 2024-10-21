@@ -5,3 +5,4 @@ dist/
 .eslintcache
 coverage/
 .github/coverageData.xml
+documentation/
