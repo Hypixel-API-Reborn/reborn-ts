@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       farming-weight:
-        specifier: ^0.6.3
-        version: 0.6.3
+        specifier: ^0.6.5
+        version: 0.6.5
       node-cache:
         specifier: ^5.1.2
         version: 5.1.2
@@ -754,8 +754,8 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  farming-weight@0.6.3:
-    resolution: {integrity: sha512-PgyfyV5OceXustDmBKlxBKgTpfno305OTh51U1/4dL9dQH9SoribLuSwCF3nYSiXN8SCL2pmuTyAapnm1FREhw==}
+  farming-weight@0.6.5:
+    resolution: {integrity: sha512-m4mHCYKhbRzyrBKKhbtJYzUzw/TpKc2EEEZ9zBaWg92dOgAHsbfkfGdUR1u5sQVoGtPpNBwEcsovE9JDY35zkw==}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -2023,7 +2023,7 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  farming-weight@0.6.3: {}
+  farming-weight@0.6.5: {}
 
   fast-deep-equal@3.1.3: {}
 
