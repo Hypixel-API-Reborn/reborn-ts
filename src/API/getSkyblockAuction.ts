@@ -1,6 +1,7 @@
 import Auction from '../structures/SkyBlock/Auctions/Auction.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
+import Error from '../Private/ErrorHandler.js';
 import { AuctionFetchOptions, AuctionRequestOptions } from './API.js';
 import { RequestData } from '../Private/RequestHandler.js';
 
@@ -25,9 +26,9 @@ class getSkyblockAction extends Endpoint {
     } else if ('auction' === type) {
       filter = 'uuid';
     } else {
-      throw new Error(this.client.errors.BAD_AUCTION_FILTER);
+      throw new Error(this.client.errors.BAD_AUCTION_FILTER, 'Fetching Skyblock Auction');
     }
-    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
+    if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID, 'Fetching Skyblock Auction');
     const res = await this.client.requestHandler.request(`/skyblock/auction?${filter}=${query}`, options);
     if (res.options.raw) return res;
     return res.data.auctions.map((a: any) => new Auction(a, options?.includeItemBytes ?? false));

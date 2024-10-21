@@ -1,4 +1,5 @@
 import Client from '../Client.js';
+import Error from '../Private/ErrorHandler.js';
 
 class Endpoint {
   readonly client: Client;
@@ -7,7 +8,7 @@ class Endpoint {
   }
 
   execute(...args: any[]): Promise<any> | any {
-    throw new Error(this.client.errors.NOT_IMPLEMENTED);
+    throw new Error(this.client.errors.NOT_IMPLEMENTED, 'Unknown endpoint');
   }
 }
 

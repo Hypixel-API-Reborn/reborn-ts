@@ -1,5 +1,6 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
+import Error from '../Private/ErrorHandler.js';
 import Leaderboard from '../structures/Leaderboard.js';
 import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
 
@@ -14,7 +15,9 @@ class getLeaderboards extends Endpoint {
     const res = await this.client.requestHandler.request('/leaderboards', options);
     if (res.options.raw) return res;
     if (!res.data.leaderboards) {
-      throw new Error(this.client.errors.SOMETHING_WENT_WRONG.replace(/{cause}/, 'Try again.'));
+      throw new Error(this.client.errors.SOMETHING_WENT_WRONG, 'Fetching Leaderboards', {
+        cause: 'Data is missing. Try again.'
+      });
     }
     const leaderboards: Record<string, Leaderboard[]> = {};
     Object.keys(res.data.leaderboards).forEach((key) => {

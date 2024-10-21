@@ -5,7 +5,7 @@ import BingoData from './structures/SkyBlock/Static/BingoData.js';
 import Booster from './structures/Boosters/Booster.js';
 import CacheHandler from './Private/CacheHandler.js';
 import Challenges from './structures/Static/Challenges.js';
-import Errors from './Errors.js';
+import Error, { Errors } from './Private/ErrorHandler.js';
 import FireSale from './structures/SkyBlock/Static/FireSale.js';
 import GameCounts from './structures/GameCounts.js';
 import GovernmentData from './structures/SkyBlock/Static/Government.js';
@@ -61,7 +61,7 @@ class Client {
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
     this.errors = new Errors();
-    if (!this.key.length) throw new Error(this.errors.NO_API_KEY);
+    if (!this.key.length) throw new Error(this.errors.NO_API_KEY, 'Initializing Client');
     this.options = this.parasOptions(options);
     this.requestHandler = new RequestHandler(this);
     this.cacheHandler = new CacheHandler(this);
@@ -119,23 +119,23 @@ class Client {
 
   /* v8 ignore next 140 */
   public getAchievements(options?: RequestOptions): Promise<Achievements | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getAchievements');
   }
 
   public getActiveHouses(options?: RequestOptions): Promise<House[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getActiveHouses');
   }
 
   public getBoosters(options?: RequestOptions): Promise<Booster[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getBoosters');
   }
 
   public getChallenges(options?: RequestOptions): Promise<Challenges | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getChallenges');
   }
 
   public getGameCounts(options?: RequestOptions): Promise<GameCounts | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getGameCounts');
   }
 
   public getGuild(
@@ -143,35 +143,35 @@ class Client {
     query: string,
     options?: RequestOptions
   ): Promise<Guild | null | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getGuild');
   }
 
   public getGuildAchievements(options?: RequestOptions): Promise<GuildAchievements | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getGuildAchievements');
   }
 
   public getHouse(query: string, options?: RequestOptions): Promise<House | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getHouse');
   }
 
   public getLeaderboards(options?: RequestOptions): Promise<Record<string, Leaderboard[]> | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getLeaderboards');
   }
 
   public getPlayer(query: string, options?: PlayerRequestOptions): Promise<Player | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getPlayer');
   }
 
   public getPlayerHouses(query: string, options?: RequestOptions): Promise<House[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getPlayerHouses');
   }
 
   public getQuests(options?: RequestOptions): Promise<Quests | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getQuests');
   }
 
   public getRecentGames(query: string, options?: RequestOptions): Promise<RecentGame[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getRecentGames');
   }
 
   public getSkyblockAuction(
@@ -179,42 +179,42 @@ class Client {
     query: string,
     options?: AuctionRequestOptions
   ): Promise<Auction[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockAuction');
   }
 
   public getSkyblockAuctions(query: number | '*', options?: AuctionRequestOptions): Promise<SkyblockAuctionsResult> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockAuctions');
   }
 
   public getSkyblockAuctionsByPlayer(query: string, options?: AuctionRequestOptions): Promise<Auction[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockAuctionsByPlayer');
   }
 
   public getSkyblockBazaar(options?: RequestOptions): Promise<Product[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockBazaar');
   }
 
   public getSkyblockBingo(options?: RequestOptions): Promise<BingoData | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockBingo');
   }
 
   public getSkyblockFireSales(options?: RequestOptions): Promise<FireSale[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockFireSales');
   }
 
   public getSkyblockGarden(profileId: string, options?: RequestOptions): Promise<SkyblockGarden | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockGarden');
   }
 
   public getSkyblockGovernment(options?: RequestOptions): Promise<GovernmentData | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockGovernment');
   }
 
   public getSkyblockMember(
     query: string,
     options?: SkyblockRequestOptions
   ): Promise<Map<string, SkyblockMember> | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockMember');
   }
 
   public getSkyblockMuseum(
@@ -222,26 +222,26 @@ class Client {
     profileId: string,
     options?: RequestOptions
   ): Promise<SkyblockMuseum | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockMuseum');
   }
 
   public getSkyblockNews(options?: RequestOptions): Promise<SkyblockNews[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockNews');
   }
 
   public getSkyblockProfiles(
     query: string,
     options?: SkyblockRequestOptions
   ): Promise<SkyblockProfile[] | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getSkyblockProfiles');
   }
 
   public getStatus(query: string, options?: RequestOptions): Promise<Status | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getStatus');
   }
 
   public getWatchdogStats(options?: RequestOptions): Promise<WatchdogStats | RequestData> {
-    throw new Error(this.errors.ENDPOINT_NOT_LOADED);
+    throw new Error(this.errors.ENDPOINT_NOT_LOADED, 'Fetching getWatchdogStats');
   }
 }
 

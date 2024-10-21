@@ -29,6 +29,7 @@ export * from './API/getWatchdogStats.js';
 
 export * from './Private/CacheHandler.js';
 export * from './Private/Endpoint.js';
+export * from './Private/ErrorHandler.js';
 export * from './Private/RateLimit.js';
 export * from './Private/RequestHandler.js';
 export * from './Private/Updater.js';
@@ -117,6 +118,5 @@ export * from './utils/removeSnakeCase.js';
 export * from './utils/romanize.js';
 
 import Client from './Client.js';
-import Errors from './Errors.js';
 
-export default { Client, Errors };
+export default { Client };

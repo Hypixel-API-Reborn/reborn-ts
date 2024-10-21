@@ -2,6 +2,7 @@ import Auction from '../structures/SkyBlock/Auctions/Auction.js';
 import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
+import Error from '../Private/ErrorHandler.js';
 import { AuctionRequestOptions, SkyblockAuctionsResult } from './API.js';
 
 class getSkyblockAuctions extends Endpoint {
@@ -13,9 +14,13 @@ class getSkyblockAuctions extends Endpoint {
   }
 
   async execute(query: number | '*', options?: AuctionRequestOptions): Promise<SkyblockAuctionsResult> {
-    if (!query) throw new Error(this.client.errors.INVALID_OPTION_VALUE);
-    if ('number' === typeof query && 0 >= query) throw new Error(this.client.errors.INVALID_OPTION_VALUE);
-    if ('number' !== typeof query && '*' !== query) throw new Error(this.client.errors.INVALID_OPTION_VALUE);
+    if (!query) throw new Error(this.client.errors.INVALID_OPTION_VALUE, 'Fetching Skyblock Auctions');
+    if ('number' === typeof query && 0 >= query) {
+      throw new Error(this.client.errors.INVALID_OPTION_VALUE, 'Fetching Skyblock Auctions');
+    }
+    if ('number' !== typeof query && '*' !== query) {
+      throw new Error(this.client.errors.INVALID_OPTION_VALUE, 'Fetching Skyblock Auctions');
+    }
     this.options = this.parseOptions(options);
     if ('*' === query) return await this.getAllPages();
     return await this.getPage(query);
