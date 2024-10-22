@@ -433,7 +433,7 @@ export class Duels {
   parkour: DuelsGamemode;
   arena: DuelsGamemode;
   constructor(data: Record<string, any>) {
-    this.tokens = data?.coins || 0;
+    this.tokens = data?.coins || data?.tokens || 0;
     this.title = getTitle(data, 'all_modes');
     this.kills = data?.kills || 0;
     this.deaths = data?.deaths || 0;

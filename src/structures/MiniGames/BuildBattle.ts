@@ -22,7 +22,7 @@ class BuildBattle {
     this.games = data?.games_played || 0;
     this.WLR = divide(this.totalWins, this.games);
     this.superVotes = data?.super_votes || 0;
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.totalVotes = data?.total_votes || 0;
     this.wins = {
       solo: data?.wins_solo_normal || 0,

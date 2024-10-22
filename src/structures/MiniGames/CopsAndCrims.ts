@@ -110,7 +110,7 @@ class CopsAndCrims {
     this.defusal = new CopsAndCrimsDefusal(data);
     this.deathmath = new CopsAndCrimsDeathmatch(data);
     this.gunGame = new CopsAndCrimsGunGame(data);
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.kills = this.defusal.kills + this.deathmath.kills + this.gunGame.kills;
     this.assists = this.defusal.assists + this.deathmath.assists + this.gunGame.assists;
     this.deaths = this.defusal.deaths + this.deathmath.deaths + this.gunGame.deaths;

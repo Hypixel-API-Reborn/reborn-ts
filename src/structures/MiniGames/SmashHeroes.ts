@@ -77,7 +77,7 @@ class SmashHeroes {
   shoopDaWhoop: SmashHeoresHero;
   greenHood: SmashHeoresHero;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.level = data?.smash_level_total || 0;
     this.winstreak = data?.win_streak || 0;
     this.playedGames = data?.games || 0;

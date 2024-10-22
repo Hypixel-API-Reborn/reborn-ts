@@ -153,7 +153,7 @@ class WoolGames {
     this.xp = data?.progression?.experience || 0;
     this.exactLevel = this.convertXPToLevel(this.xp);
     this.level = Math?.floor(this.exactLevel);
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.ownedCosmetics = data?.packages || [];
     this.privateGamesConfig = data?.privategames || {};
     this.playtime = data?.playtime || 0;

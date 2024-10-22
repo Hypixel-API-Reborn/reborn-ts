@@ -106,7 +106,7 @@ class BlitzSurvivalGames {
   creepertamer: BlitzSGKit;
   snowman: BlitzSGKit;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.kills = data?.kills || 0;
     this.kit = data?.defaultkit || '';
     this.killsSolo = data?.kills_solo_normal || 0;

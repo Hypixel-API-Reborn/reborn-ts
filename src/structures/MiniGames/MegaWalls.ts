@@ -143,7 +143,7 @@ class MegaWalls {
   snowman: MegaWallsKitStats;
   constructor(data: Record<string, any>) {
     this.selectedClass = data?.chosen_class || '';
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.kills = data?.kills || 0;
     this.assists = data?.assists || 0;
     this.deaths = data?.deaths || 0;

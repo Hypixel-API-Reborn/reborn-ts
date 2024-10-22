@@ -402,7 +402,7 @@ class Arcade {
   throwOut: ThrowOut;
   zombies: Zombies;
   constructor(data: Record<string, any> = {}) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.weeklyCoins = parseInt(data?.[`weekly_coins_${weekAB()}`] || 0, 10);
     this.monthlyCoins = parseInt(data?.[`monthly_coins_${monthAB()}`] || 0, 10);
     this.hintsDisabled = !data?.hints;

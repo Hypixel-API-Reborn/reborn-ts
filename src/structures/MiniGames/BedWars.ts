@@ -382,7 +382,7 @@ class BedWars {
   slumberTickets: number;
   totalSlumberTicket: number;
   constructor(data: Record<string, any>) {
-    this.tokens = data?.coins || 0;
+    this.tokens = data?.coins || data?.tokens || 0;
     this.level = data?.Experience ? getLevelForExp(data?.Experience) : 0;
     this.experience = data?.Experience || 0;
     this.prestige = getBedWarsPrestige(getLevelForExp(data?.Experience));

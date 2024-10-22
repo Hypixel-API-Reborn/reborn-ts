@@ -25,7 +25,7 @@ class VampireZ {
   KDR: number;
   wins: number;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.goldBought = data?.gold_bought || 0;
     this.blood = data?.blood || false;
     this.zombieKills = data?.zombie_kills || 0;

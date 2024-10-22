@@ -46,7 +46,7 @@ class UHC {
   extraUltimatesCrafted: number;
   starLevel: number;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.score = data?.score || 0;
     this.kit = data?.equippedKit || '';
     this.solo = new UHCGamemode(data, 'solo');

@@ -17,7 +17,7 @@ class Paintball {
   superluck: number;
   transfusion: number;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.kills = data?.kills || 0;
     this.deaths = data?.deaths || 0;
     this.KDR = divide(this.kills, this.deaths);

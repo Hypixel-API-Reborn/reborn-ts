@@ -36,7 +36,7 @@ class ArenaBrawl {
   '2v2': ArenaBrawlMode;
   '4v4': ArenaBrawlMode;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.coinsSpent = data?.coins_spent || 0;
     this.wins = data?.wins || 0;
     this.keys = data?.keys || 0;

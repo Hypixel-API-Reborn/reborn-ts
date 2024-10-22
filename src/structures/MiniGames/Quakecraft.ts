@@ -44,7 +44,7 @@ class Quakecraft {
   sight: string;
   trigger: string;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.solo = new QuakecraftMode(data);
     this.teams = new QuakecraftMode(data, 'teams');
     this.wins = this.solo?.wins + this.teams?.wins;

@@ -35,7 +35,7 @@ class TurboKartRacers {
   grandPrix: boolean;
   grandPrixTokens: number;
   constructor(data: Record<string, any>) {
-    this.coins = data?.coins || 0;
+    this.coins = data?.coins || data?.tokens || 0;
     this.wins = data?.wins || 0;
     this.completedLaps = data?.laps_completed || 0;
     this.bronzeTrophies = data?.bronze_trophy || 0;
