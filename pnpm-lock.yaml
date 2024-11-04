@@ -15,8 +15,8 @@ importers:
         specifier: ^5.1.2
         version: 5.1.2
       prismarine-nbt:
-        specifier: github:prismarinejs/prismarine-nbt#70323d8c7f771698a02f3f40aa676bcecc60c5e7
-        version: https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/70323d8c7f771698a02f3f40aa676bcecc60c5e7
+        specifier: github:prismarinejs/prismarine-nbt#1469d54c256ee0511c4b7e8d045bd0b51580b64a
+        version: https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/1469d54c256ee0511c4b7e8d045bd0b51580b64a
       rss-parser:
         specifier: ^3.13.0
         version: 3.13.0
@@ -1204,12 +1204,12 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  prismarine-nbt@2.5.0:
-    resolution: {integrity: sha512-F0/8UAa9SDDnAGrBYqZc4nG8h2zj5cE2eAJU5xlDR/IsQQ3moVxkOjE3h3nMv6SbvZrvAcgX7waA/nd9LLHYdA==}
+  prismarine-nbt@2.6.0:
+    resolution: {integrity: sha512-z65ijm6hVlYOmhg8IEzdYfUz1u3AOiQtzyTSAwD8NLBCr96ZUPtUH5o/6sGAoDaN+rkDe0DNBCiO7bvXXO1fkQ==}
 
-  prismarine-nbt@https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/70323d8c7f771698a02f3f40aa676bcecc60c5e7:
-    resolution: {tarball: https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/70323d8c7f771698a02f3f40aa676bcecc60c5e7}
-    version: 2.5.0
+  prismarine-nbt@https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/1469d54c256ee0511c4b7e8d045bd0b51580b64a:
+    resolution: {tarball: https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/1469d54c256ee0511c4b7e8d045bd0b51580b64a}
+    version: 2.6.0
 
   property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
@@ -2646,11 +2646,11 @@ snapshots:
 
   prettier@3.3.3: {}
 
-  prismarine-nbt@2.5.0:
+  prismarine-nbt@2.6.0:
     dependencies:
       protodef: 1.15.0
 
-  prismarine-nbt@https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/70323d8c7f771698a02f3f40aa676bcecc60c5e7:
+  prismarine-nbt@https://codeload.github.com/prismarinejs/prismarine-nbt/tar.gz/1469d54c256ee0511c4b7e8d045bd0b51580b64a:
     dependencies:
       protodef: 1.15.0
 
@@ -2752,7 +2752,7 @@ snapshots:
   skyhelper-networth@1.25.0:
     dependencies:
       axios: 1.7.7
-      prismarine-nbt: 2.5.0
+      prismarine-nbt: 2.6.0
     transitivePeerDependencies:
       - debug
 
