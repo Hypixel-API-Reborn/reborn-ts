@@ -1,50 +1,43 @@
-import Achievements from '../structures/Player/Achievements.js';
-import Arcade from '../structures/MiniGames/Arcade.js';
-import ArenaBrawl from '../structures/MiniGames/ArenaBrawl.js';
-import BedWars from '../structures/MiniGames/BedWars.js';
-import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames.js';
+import Arcade from '../structures/MiniGames/Arcade/Arcade.js';
+import ArenaBrawl from '../structures/MiniGames/ArenaBrawl/ArenaBrawl.js';
+import BedWars from '../structures/MiniGames/BedWars/BedWars.js';
+import BlitzSurvivalGames from '../structures/MiniGames/BlitzSurvivalGames/BlitzSurvivalGames.js';
 import BuildBattle from '../structures/MiniGames/BuildBattle.js';
 import Client from '../Client.js';
 import Color from '../structures/Color.js';
-import CopsAndCrims from '../structures/MiniGames/CopsAndCrims.js';
+import CopsAndCrims from '../structures/MiniGames/CopsAndCrims/CopsAndCrims.js';
 import Cosmetics from '../structures/Player/Cosmetics.js';
-import Duels from '../structures/MiniGames/Duels.js';
+import Duels from '../structures/MiniGames/Duels/Duels.js';
 import Gifting from '../structures/Player/Gifting.js';
 import Guild from '../structures/Guild/Guild.js';
 import House from '../structures/House.js';
 import Housing from '../structures/Housing.js';
-import MegaWalls from '../structures/MiniGames/MegaWalls.js';
-import MurderMystery from '../structures/MiniGames/MurderMystery.js';
+import MegaWalls from '../structures/MiniGames/MegaWalls/MegaWalls.js';
+import MurderMystery from '../structures/MiniGames/MurderMystery/MurderMystery.js';
 import Paintball from '../structures/MiniGames/Paintball.js';
 import Parkour from '../structures/Player/Parkour.js';
-import Pit from '../structures/MiniGames/Pit.js';
+import Pit from '../structures/MiniGames/Pit/Pit.js';
 import Player from '../structures/Player/Player.js';
-import Quakecraft from '../structures/MiniGames/Quakecraft.js';
-import Quests from '../structures/Player/Quests.js';
+import PlayerAchievements from '../structures/Player/PlayerAchievements.js';
+import PlayerQuests from '../structures/Player/Quests/PlayerQuests.js';
+import Quakecraft from '../structures/MiniGames/Quakecraft/Quakecraft.js';
 import RecentGame from '../structures/RecentGame.js';
+import RequestData from '../Private/RequestData.js';
 import Rewards from '../structures/Player/Rewards.js';
-import Seasonal from '../structures/Player/Seasonal.js';
-import SkyWars from '../structures/MiniGames/SkyWars.js';
-import SmashHeroes from '../structures/MiniGames/SmashHeroes.js';
+import Seasonal from '../structures/Player/Seasonal/Seasonal.js';
+import SkyWars from '../structures/MiniGames/SkyWars/SkyWars.js';
+import SmashHeroes from '../structures/MiniGames/SmashHeroes/SmashHeroes.js';
 import SocialMedia from '../structures/Player/SocialMedia.js';
-import SpeedUHC from '../structures/MiniGames/SpeedUHC.js';
-import TNTGames from '../structures/MiniGames/TNTGames.js';
-import Tourney from '../structures/Player/Tourney.js';
-import TurboKartRacers from '../structures/MiniGames/TurboKartRacers.js';
-import UHC from '../structures/MiniGames/UHC.js';
-import VampireZ from '../structures/MiniGames/VampireZ.js';
+import SpeedUHC from '../structures/MiniGames/SpeedUHC/SpeedUHC.js';
+import TNTGames from '../structures/MiniGames/TNTGames/TNTGames.js';
+import Tourney from '../structures/Player/Tourney/Tourney.js';
+import TurboKartRacers from '../structures/MiniGames/TurboKartRacers/TurboKartRacers.js';
+import UHC from '../structures/MiniGames/UHC/UHC.js';
+import VampireZ from '../structures/MiniGames/VampireZ/VampireZ.js';
 import Walls from '../structures/MiniGames/Walls.js';
-import Warlords from '../structures/MiniGames/Warlords.js';
-import WoolGames from '../structures/MiniGames/WoolGames.js';
-import {
-  ChatChannel,
-  Language,
-  LevelProgress,
-  PlayerRank,
-  PlayerStats,
-  ScorpiusBribe
-} from '../structures/Player/Types.js';
-import { RequestData } from '../Private/RequestHandler.js';
+import Warlords from '../structures/MiniGames/Warlords/Warlords.js';
+import WoolGames from '../structures/MiniGames/WoolGames/WoolGames.js';
+import { ChatChannel, Language, LevelProgress, PlayerRank, PlayerStats, ScorpiusBribe } from '../Types/Player.js';
 import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 
@@ -110,7 +103,7 @@ test('getPlayer (guild)', async () => {
   expect(data.lastLoginAt).toBeDefined();
   expectTypeOf(data.lastLoginAt).toEqualTypeOf<Date | null>();
   expect(data.achievements).toBeDefined();
-  expectTypeOf(data.achievements).toEqualTypeOf<Achievements>();
+  expectTypeOf(data.achievements).toEqualTypeOf<PlayerAchievements>();
   expect(data.language).toBeDefined();
   expectTypeOf(data.language).toEqualTypeOf<Language>();
   expect(data.channel).toBeDefined();
@@ -142,7 +135,7 @@ test('getPlayer (guild)', async () => {
   expect(data.scorpiusBribes).toBeDefined();
   expectTypeOf(data.scorpiusBribes).toEqualTypeOf<ScorpiusBribe[]>();
   expect(data.quests).toBeDefined();
-  expectTypeOf(data.quests).toEqualTypeOf<Quests>();
+  expectTypeOf(data.quests).toEqualTypeOf<PlayerQuests>();
   expect(data.guild).toBeDefined();
   expect(data.guild).toBeInstanceOf(Guild);
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
@@ -157,9 +150,9 @@ test('getPlayer (guild)', async () => {
   expect(data.stats.arcade).toBeDefined();
   expect(data.stats.arcade).toBeInstanceOf(Arcade);
   expectTypeOf(data.stats.arcade).toEqualTypeOf<Arcade>();
-  expect(data.stats.arena).toBeDefined();
-  expect(data.stats.arena).toBeInstanceOf(ArenaBrawl);
-  expectTypeOf(data.stats.arena).toEqualTypeOf<ArenaBrawl>();
+  expect(data.stats.arenaBrawl).toBeDefined();
+  expect(data.stats.arenaBrawl).toBeInstanceOf(ArenaBrawl);
+  expectTypeOf(data.stats.arenaBrawl).toEqualTypeOf<ArenaBrawl>();
   expect(data.stats.bedwars).toBeDefined();
   expect(data.stats.bedwars).toBeInstanceOf(BedWars);
   expectTypeOf(data.stats.bedwars).toEqualTypeOf<BedWars>();
@@ -258,7 +251,7 @@ test('getPlayer (houses)', async () => {
   expect(data.lastLoginAt).toBeDefined();
   expectTypeOf(data.lastLoginAt).toEqualTypeOf<Date | null>();
   expect(data.achievements).toBeDefined();
-  expectTypeOf(data.achievements).toEqualTypeOf<Achievements>();
+  expectTypeOf(data.achievements).toEqualTypeOf<PlayerAchievements>();
   expect(data.language).toBeDefined();
   expectTypeOf(data.language).toEqualTypeOf<Language>();
   expect(data.channel).toBeDefined();
@@ -290,7 +283,7 @@ test('getPlayer (houses)', async () => {
   expect(data.scorpiusBribes).toBeDefined();
   expectTypeOf(data.scorpiusBribes).toEqualTypeOf<ScorpiusBribe[]>();
   expect(data.quests).toBeDefined();
-  expectTypeOf(data.quests).toEqualTypeOf<Quests>();
+  expectTypeOf(data.quests).toEqualTypeOf<PlayerQuests>();
   expect(data.guild).toBeDefined();
   expect(data.guild).toBeNull();
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
@@ -310,9 +303,9 @@ test('getPlayer (houses)', async () => {
   expect(data.stats.arcade).toBeDefined();
   expect(data.stats.arcade).toBeInstanceOf(Arcade);
   expectTypeOf(data.stats.arcade).toEqualTypeOf<Arcade>();
-  expect(data.stats.arena).toBeDefined();
-  expect(data.stats.arena).toBeInstanceOf(ArenaBrawl);
-  expectTypeOf(data.stats.arena).toEqualTypeOf<ArenaBrawl>();
+  expect(data.stats.arenaBrawl).toBeDefined();
+  expect(data.stats.arenaBrawl).toBeInstanceOf(ArenaBrawl);
+  expectTypeOf(data.stats.arenaBrawl).toEqualTypeOf<ArenaBrawl>();
   expect(data.stats.bedwars).toBeDefined();
   expect(data.stats.bedwars).toBeInstanceOf(BedWars);
   expectTypeOf(data.stats.bedwars).toEqualTypeOf<BedWars>();
@@ -407,7 +400,7 @@ test('getPlayer (recent games)', async () => {
   expect(data.lastLoginAt).toBeDefined();
   expectTypeOf(data.lastLoginAt).toEqualTypeOf<Date | null>();
   expect(data.achievements).toBeDefined();
-  expectTypeOf(data.achievements).toEqualTypeOf<Achievements>();
+  expectTypeOf(data.achievements).toEqualTypeOf<PlayerAchievements>();
   expect(data.language).toBeDefined();
   expectTypeOf(data.language).toEqualTypeOf<Language>();
   expect(data.channel).toBeDefined();
@@ -439,7 +432,7 @@ test('getPlayer (recent games)', async () => {
   expect(data.scorpiusBribes).toBeDefined();
   expectTypeOf(data.scorpiusBribes).toEqualTypeOf<ScorpiusBribe[]>();
   expect(data.quests).toBeDefined();
-  expectTypeOf(data.quests).toEqualTypeOf<Quests>();
+  expectTypeOf(data.quests).toEqualTypeOf<PlayerQuests>();
   expect(data.guild).toBeDefined();
   expect(data.guild).toBeNull();
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
@@ -460,9 +453,9 @@ test('getPlayer (recent games)', async () => {
   expect(data.stats.arcade).toBeDefined();
   expect(data.stats.arcade).toBeInstanceOf(Arcade);
   expectTypeOf(data.stats.arcade).toEqualTypeOf<Arcade>();
-  expect(data.stats.arena).toBeDefined();
-  expect(data.stats.arena).toBeInstanceOf(ArenaBrawl);
-  expectTypeOf(data.stats.arena).toEqualTypeOf<ArenaBrawl>();
+  expect(data.stats.arenaBrawl).toBeDefined();
+  expect(data.stats.arenaBrawl).toBeInstanceOf(ArenaBrawl);
+  expectTypeOf(data.stats.arenaBrawl).toEqualTypeOf<ArenaBrawl>();
   expect(data.stats.bedwars).toBeDefined();
   expect(data.stats.bedwars).toBeInstanceOf(BedWars);
   expectTypeOf(data.stats.bedwars).toEqualTypeOf<BedWars>();
@@ -557,7 +550,7 @@ test('getPlayer', async () => {
   expect(data.lastLoginAt).toBeDefined();
   expectTypeOf(data.lastLoginAt).toEqualTypeOf<Date | null>();
   expect(data.achievements).toBeDefined();
-  expectTypeOf(data.achievements).toEqualTypeOf<Achievements>();
+  expectTypeOf(data.achievements).toEqualTypeOf<PlayerAchievements>();
   expect(data.language).toBeDefined();
   expectTypeOf(data.language).toEqualTypeOf<Language>();
   expect(data.channel).toBeDefined();
@@ -589,7 +582,7 @@ test('getPlayer', async () => {
   expect(data.scorpiusBribes).toBeDefined();
   expectTypeOf(data.scorpiusBribes).toEqualTypeOf<ScorpiusBribe[]>();
   expect(data.quests).toBeDefined();
-  expectTypeOf(data.quests).toEqualTypeOf<Quests>();
+  expectTypeOf(data.quests).toEqualTypeOf<PlayerQuests>();
   expect(data.guild).toBeDefined();
   expect(data.guild).toBeNull();
   expectTypeOf(data.guild).toEqualTypeOf<Guild | null>();
@@ -604,9 +597,9 @@ test('getPlayer', async () => {
   expect(data.stats.arcade).toBeDefined();
   expect(data.stats.arcade).toBeInstanceOf(Arcade);
   expectTypeOf(data.stats.arcade).toEqualTypeOf<Arcade>();
-  expect(data.stats.arena).toBeDefined();
-  expect(data.stats.arena).toBeInstanceOf(ArenaBrawl);
-  expectTypeOf(data.stats.arena).toEqualTypeOf<ArenaBrawl>();
+  expect(data.stats.arenaBrawl).toBeDefined();
+  expect(data.stats.arenaBrawl).toBeInstanceOf(ArenaBrawl);
+  expectTypeOf(data.stats.arenaBrawl).toEqualTypeOf<ArenaBrawl>();
   expect(data.stats.bedwars).toBeDefined();
   expect(data.stats.bedwars).toBeInstanceOf(BedWars);
   expectTypeOf(data.stats.bedwars).toEqualTypeOf<BedWars>();

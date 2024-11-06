@@ -1,7 +1,8 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import GameCounts from '../structures/GameCounts.js';
-import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getGameCounts extends Endpoint {
   readonly client: Client;

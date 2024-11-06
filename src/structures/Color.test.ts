@@ -1,5 +1,6 @@
-import Color, { ColorCode, ColorHex, ColorString, InGameCode } from './Color.js';
+import Color from './Color.js';
 import { expect, expectTypeOf, test } from 'vitest';
+import type { ColorCode, ColorHex, ColorString, InGameCode } from '../Types/Color.js';
 
 test('Color', () => {
   const data = new Color('BLACK');

@@ -1,6 +1,6 @@
 import GuildMember from './GuildMember.js';
-import { ExpHistory } from '../../utils/Guild.js';
 import { expect, expectTypeOf, test } from 'vitest';
+import type { ExpHistory } from '../../Types/Guild.js';
 
 test('Guild Member', () => {
   const data = new GuildMember({ stats: 'meow' });

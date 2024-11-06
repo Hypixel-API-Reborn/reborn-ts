@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import FireSale from '../structures/SkyBlock/Static/FireSale.js';
-import { RequestData } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
 import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';
 

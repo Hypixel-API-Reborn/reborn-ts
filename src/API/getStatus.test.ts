@@ -1,8 +1,9 @@
 import Client from '../Client.js';
-import Game, { GameCode, GameID, GameString } from '../structures/Game.js';
+import Game from '../structures/Game.js';
+import RequestData from '../Private/RequestData.js';
 import Status from '../structures/Status.js';
-import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
+import type { GameCode, GameID, GameString } from '../Types/Game.js';
 
 test('getStatus (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

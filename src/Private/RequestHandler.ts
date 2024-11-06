@@ -1,36 +1,8 @@
-const BASE_URL = 'https://api.hypixel.net/v2';
+const BASE_URL = 'http://localhost:3000/hypixel';
 import Client from '../Client.js';
+import RequestData from './RequestData.js';
 import isUUID from '../utils/isUUID.js';
-
-export interface RequestOptions {
-  raw?: boolean;
-  noCache?: boolean;
-}
-
-export class RequestData {
-  readonly data: any;
-  readonly headers: Record<string, any>;
-  readonly statusCode: number;
-  readonly options: RequestOptions;
-  readonly requestTimestamp: number;
-  readonly requestAt: Date;
-  readonly requestUrl: string;
-  readonly cached: boolean;
-  constructor(
-    data: Record<string, any>,
-    headers: Record<string, any>,
-    info: { status: number; url: string; options: RequestOptions; cached: boolean; timestamp?: number }
-  ) {
-    this.data = data;
-    this.headers = headers;
-    this.statusCode = info.status;
-    this.options = info.options;
-    this.requestTimestamp = info.timestamp || Date.now();
-    this.requestAt = new Date(this.requestTimestamp);
-    this.requestUrl = info.url;
-    this.cached = info.cached;
-  }
-}
+import type { RequestOptions } from '../Types/Requests.js';
 
 class RequestHandler {
   readonly client: Client;
@@ -100,7 +72,7 @@ class RequestHandler {
     if (!input) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     if ('string' !== typeof input) throw new Error(this.client.errors.UUID_NICKNAME_MUST_BE_A_STRING);
     if (isUUID(input)) return input.replace(/-/g, '');
-    const url = `https://mowojang.matdoes.dev/${input}`;
+    const url = `http://localhost:3000/uuid/${input}`;
     if (this.client.cacheHandler.has(url)) {
       return this.client.cacheHandler.get(url);
     }

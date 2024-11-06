@@ -1,8 +1,8 @@
 import Auction from '../structures/SkyBlock/Auctions/Auction.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import { AuctionFetchOptions, AuctionRequestOptions } from './API.js';
-import { RequestData } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
+import { AuctionFetchOptions, AuctionRequestOptions } from '../Types/API.js';
 
 class getSkyblockAction extends Endpoint {
   readonly client: Client;

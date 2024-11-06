@@ -1,11 +1,5 @@
 import divide from '../../utils/divide.js';
-
-export interface BuildBattleWins {
-  solo: number;
-  teams: number;
-  pro: number;
-  gtb: number;
-}
+import type { BuildBattleWins } from '../../Types/Player.js';
 
 class BuildBattle {
   score: number;

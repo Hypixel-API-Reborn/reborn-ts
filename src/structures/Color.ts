@@ -1,37 +1,5 @@
-export type ColorCode =
-  | 'BLACK'
-  | 'DARK_BLUE'
-  | 'DARK_GREEN'
-  | 'DARK_AQUA'
-  | 'DARK_RED'
-  | 'DARK_PURPLE'
-  | 'GOLD'
-  | 'GRAY'
-  | 'DARK_GRAY'
-  | 'BLUE'
-  | 'GREEN'
-  | 'AQUA'
-  | 'RED'
-  | 'LIGHT_PURPLE'
-  | 'YELLOW'
-  | 'WHITE';
-export type ColorString =
-  | 'Black'
-  | 'Dark Blue'
-  | 'Dark Green'
-  | 'Dark Aqua'
-  | 'Dark Red'
-  | 'Dark Purple'
-  | 'Gold'
-  | 'Gray'
-  | 'Dark Gray'
-  | 'Blue'
-  | 'Green'
-  | 'Aqua'
-  | 'Red'
-  | 'Light Purple'
-  | 'Yellow'
-  | 'White';
+import type { ColorCode, ColorHex, ColorString, InGameCode } from '../Types/Color.js';
+
 const ColorStrings: { [key: string]: ColorString } = {
   BLACK: 'Black',
   DARK_BLUE: 'Dark Blue',
@@ -50,23 +18,7 @@ const ColorStrings: { [key: string]: ColorString } = {
   YELLOW: 'Yellow',
   WHITE: 'White'
 };
-export type ColorHex =
-  | '#000000'
-  | '#0000AA'
-  | '#008000'
-  | '#00AAAA'
-  | '#AA0000'
-  | '#AA00AA'
-  | '#FFAA00'
-  | '#AAAAAA'
-  | '#555555'
-  | '#5555FF'
-  | '#3CE63C'
-  | '#3CE6E6'
-  | '#FF5555'
-  | '#FF55FF'
-  | '#FFFF55'
-  | '#FFFFFF';
+
 const ColorHexs: { [key: string]: ColorHex } = {
   BLACK: '#000000',
   DARK_BLUE: '#0000AA',
@@ -85,23 +37,7 @@ const ColorHexs: { [key: string]: ColorHex } = {
   YELLOW: '#FFFF55',
   WHITE: '#FFFFFF'
 };
-export type InGameCode =
-  | '§0'
-  | '§1'
-  | '§2'
-  | '§3'
-  | '§4'
-  | '§5'
-  | '§6'
-  | '§7'
-  | '§8'
-  | '§9'
-  | '§a'
-  | '§b'
-  | '§c'
-  | '§d'
-  | '§e'
-  | '§f';
+
 const InGameCodes: { [key: string]: InGameCode } = {
   BLACK: '§0',
   DARK_BLUE: '§1',

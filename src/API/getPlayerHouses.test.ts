@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import House from '../structures/House.js';
-import { RequestData } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getPlayerHouses (No input)', () => {

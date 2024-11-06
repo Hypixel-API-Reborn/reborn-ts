@@ -1,59 +1,11 @@
-import { SkillLevel } from './SkyblockMemberTypes.js';
 import { getLevelByXp } from '../../utils/SkyblockUtils.js';
-
-export interface SkyblockGardenVisitorServed {
-  total: number;
-  unique: number;
-}
-
-export interface SkyblockGardenVisitor {
-  visited: Record<string, number>;
-  completed: Record<string, number>;
-  served: SkyblockGardenVisitorServed;
-}
-
-export interface SkyblockGardenComposterUpgrades {
-  speed: number;
-  multiDrop: number;
-  fuelCap: number;
-  organicMatterCap: number;
-  costReduction: number;
-}
-
-export interface SkyblockGardenComposter {
-  organicMatter: number;
-  fuelUnits: number;
-  compostUnits: number;
-  compostItems: number;
-  conversionTicks: number;
-  upgrades: SkyblockGardenComposterUpgrades;
-}
-
-export interface SkyblockGarenCrops {
-  wheat: number;
-  carrot: number;
-  sugarCane: number;
-  potato: number;
-  pumpkin: number;
-  melon: number;
-  cactus: number;
-  cocoaBeans: number;
-  mushroom: number;
-  netherWart: number;
-}
-
-export interface SkyblockGardenCropMilestones {
-  wheat: SkillLevel;
-  carrot: SkillLevel;
-  sugarCane: SkillLevel;
-  potato: SkillLevel;
-  pumpkin: SkillLevel;
-  melon: SkillLevel;
-  cactus: SkillLevel;
-  cocoaBeans: SkillLevel;
-  mushroom: SkillLevel;
-  netherWart: SkillLevel;
-}
+import type {
+  SkillLevel,
+  SkyblockGardenComposter,
+  SkyblockGardenCropMilestones,
+  SkyblockGardenVisitor,
+  SkyblockGarenCrops
+} from '../../Types/Skyblock.js';
 
 class SkyblockGarden {
   level: SkillLevel;

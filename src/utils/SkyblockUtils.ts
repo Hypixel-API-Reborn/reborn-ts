@@ -14,7 +14,7 @@ import {
   Slayer,
   SlayerData,
   TrophyFishRank
-} from '../structures/SkyBlock/SkyblockMemberTypes.js';
+} from '../Types/Skyblock.js';
 import { parse, simplify } from 'prismarine-nbt';
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {

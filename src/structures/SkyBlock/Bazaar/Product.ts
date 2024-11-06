@@ -1,15 +1,5 @@
 import Order from './Order.js';
-
-export interface ProductStatus {
-  sellPrice: number;
-  buyPrice: number;
-  sellVolume: number;
-  buyVolume: number;
-  sellMovingWeek: number;
-  buyMovingWeek: number;
-  sellOrders: number;
-  buyOrders: number;
-}
+import type { ProductStatus } from '../../../Types/Skyblock.js';
 
 class Product {
   productId: string;

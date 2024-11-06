@@ -4,8 +4,8 @@ import Guild from '../structures/Guild/Guild.js';
 import House from '../structures/House.js';
 import Player from '../structures/Player/Player.js';
 import RecentGame from '../structures/RecentGame.js';
-import { PlayerRequestOptions } from './API.js';
-import { RequestData } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
+import { PlayerRequestOptions } from '../Types/API.js';
 
 class getPlayer extends Endpoint {
   readonly client: Client;

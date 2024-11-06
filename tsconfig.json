@@ -18,6 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
+    "noFallthroughCasesInSwitch": true,
 
     "lib": ["ES2022"]
   },

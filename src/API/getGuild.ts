@@ -1,9 +1,10 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import Guild from '../structures/Guild/Guild.js';
+import RequestData from '../Private/RequestData.js';
 import isGuildID from '../utils/isGuildID.js';
-import { GuildFetchOptions } from './API.js';
-import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
+import { GuildFetchOptions } from '../Types/API.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getGuild extends Endpoint {
   readonly client: Client;

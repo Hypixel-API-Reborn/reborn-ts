@@ -1,12 +1,6 @@
 import GuildMember from '../structures/Guild/GuildMember.js';
 import GuildRank from '../structures/Guild/GuildRank.js';
-
-export interface ExpHistory {
-  day: string;
-  date: Date | undefined;
-  exp: number;
-  totalExp: number;
-}
+import type { ExpHistory } from '../Types/Guild.js';
 
 const dateRegExp = /(\d{4})-(\d{2})-(\d{2})/;
 export function parseDate(date: Record<string, any>) {

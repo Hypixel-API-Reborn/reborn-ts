@@ -1,18 +1,4 @@
-export interface ChallengeReward {
-  type: 'MultipliedExperienceReward';
-  amount: number;
-}
-
-export class Challenge {
-  id: string;
-  name: string;
-  rewards: ChallengeReward[];
-  constructor(data: Record<string, any>) {
-    this.id = data.id;
-    this.name = data.name;
-    this.rewards = data.rewards;
-  }
-}
+import Challenge from './Challenge.js';
 
 class GameChallenges {
   category: string;

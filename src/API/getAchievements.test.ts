@@ -1,10 +1,11 @@
 import Achievements from '../structures/Static/Achievements/Achievements.js';
 import Client from '../Client.js';
-import GameAchievements from '../structures/Static/Achievements/Game.js';
-import OneTimeAchivement from '../structures/Static/Achievements/OneTime.js';
-import TieredAchivement, { AchivementTier } from '../structures/Static/Achievements/Tired.js';
-import { RequestData } from '../Private/RequestHandler.js';
+import GameAchievements from '../structures/Static/Achievements/GameAchievements.js';
+import OneTimeAchivement from '../structures/Static/Achievements/OneTimeAchivement.js';
+import RequestData from '../Private/RequestData.js';
+import TieredAchivement from '../structures/Static/Achievements/TieredAchivement.js';
 import { expect, expectTypeOf, test } from 'vitest';
+import type { AchivementTier } from '../Types/Static.js';
 
 test('getAchievements (raw)', async () => {
   const client = new Client(process.env.HYPIXEL_KEY ?? '', { cache: false, checkForUpdates: false, rateLimit: 'NONE' });

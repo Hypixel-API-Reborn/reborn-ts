@@ -1,7 +1,8 @@
 import Challenges from '../structures/Static/Challenges.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getChallenges extends Endpoint {
   readonly client: Client;

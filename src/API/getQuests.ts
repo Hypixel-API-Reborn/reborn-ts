@@ -1,7 +1,8 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import Quests from '../structures/Static/Quests.js';
-import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getQuests extends Endpoint {
   readonly client: Client;

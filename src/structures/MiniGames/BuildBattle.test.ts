@@ -1,4 +1,5 @@
-import BuildBattle, { BuildBattleWins } from './BuildBattle.js';
+import BuildBattle from './BuildBattle.js';
+import { BuildBattleWins } from '../../Types/Player.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('BuildBattle', () => {

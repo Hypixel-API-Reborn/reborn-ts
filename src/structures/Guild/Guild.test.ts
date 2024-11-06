@@ -3,8 +3,8 @@ import Game from '../Game.js';
 import Guild from './Guild.js';
 import GuildMember from './GuildMember.js';
 import GuildRank from './GuildRank.js';
-import { ExpHistory } from '../../utils/Guild.js';
 import { expect, expectTypeOf, test } from 'vitest';
+import type { ExpHistory } from '../../Types/Guild.js';
 
 test('Guild', () => {
   const data = new Guild({ stats: 'meow' });

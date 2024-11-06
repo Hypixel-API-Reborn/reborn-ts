@@ -1,5 +1,5 @@
 import SocialMedia from './SocialMedia.js';
-import { SocialMediaId } from './Types.js';
+import { SocialMediaId } from '../../Types/Player.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SocialMedia', () => {

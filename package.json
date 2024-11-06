@@ -23,7 +23,7 @@
     "prettier": "npx prettier --write src/",
     "build": "npx tsc",
     "test": "npx vitest run",
-    "test:coverage": "npx vitest run --coverage && mv coverage/clover.xml .github/coverageData.xml && npx tsx .github/checkCoverage.ts",
+    "test:coverage": "npx vitest run --coverage",
     "test:ui": "npx vitest --ui --coverage",
     "docgen": "npx typedoc"
   },

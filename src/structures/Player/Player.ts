@@ -1,40 +1,40 @@
-import Achievements from './Achievements.js';
-import Arcade from '../MiniGames/Arcade.js';
-import ArenaBrawl from '../MiniGames/ArenaBrawl.js';
-import BedWars from '../MiniGames/BedWars.js';
-import BlitzSurvivalGames from '../MiniGames/BlitzSurvivalGames.js';
+import Arcade from '../MiniGames/Arcade/Arcade.js';
+import ArenaBrawl from '../MiniGames/ArenaBrawl/ArenaBrawl.js';
+import BedWars from '../MiniGames/BedWars/BedWars.js';
+import BlitzSurvivalGames from '../MiniGames/BlitzSurvivalGames/BlitzSurvivalGames.js';
 import BuildBattle from '../MiniGames/BuildBattle.js';
 import Color from '../Color.js';
-import CopsAndCrims from '../MiniGames/CopsAndCrims.js';
+import CopsAndCrims from '../MiniGames/CopsAndCrims/CopsAndCrims.js';
 import Cosmetics from './Cosmetics.js';
-import Duels from '../MiniGames/Duels.js';
+import Duels from '../MiniGames/Duels/Duels.js';
 import Gifting from './Gifting.js';
 import Guild from '../Guild/Guild.js';
 import House from '../House.js';
 import Housing from '../Housing.js';
-import MegaWalls from '../MiniGames/MegaWalls.js';
-import MurderMystery from '../MiniGames/MurderMystery.js';
+import MegaWalls from '../MiniGames/MegaWalls/MegaWalls.js';
+import MurderMystery from '../MiniGames/MurderMystery/MurderMystery.js';
 import Paintball from '../MiniGames/Paintball.js';
 import Parkour from './Parkour.js';
-import Pit from '../MiniGames/Pit.js';
-import Quakecraft from '../MiniGames/Quakecraft.js';
-import Quests from './Quests.js';
+import Pit from '../MiniGames/Pit/Pit.js';
+import PlayerAchievements from './PlayerAchievements.js';
+import PlayerQuests from './Quests/PlayerQuests.js';
+import Quakecraft from '../MiniGames/Quakecraft/Quakecraft.js';
 import RecentGame from '../RecentGame.js';
 import Rewards from './Rewards.js';
-import Seasonal from './Seasonal.js';
-import SkyWars from '../MiniGames/SkyWars.js';
-import SmashHeroes from '../MiniGames/SmashHeroes.js';
+import Seasonal from './Seasonal/Seasonal.js';
+import SkyWars from '../MiniGames/SkyWars/SkyWars.js';
+import SmashHeroes from '../MiniGames/SmashHeroes/SmashHeroes.js';
 import SocialMedia, { parseSocialMedia } from './SocialMedia.js';
-import SpeedUHC from '../MiniGames/SpeedUHC.js';
-import TNTGames from '../MiniGames/TNTGames.js';
-import Tourney from './Tourney.js';
-import TurboKartRacers from '../MiniGames/TurboKartRacers.js';
-import UHC from '../MiniGames/UHC.js';
-import VampireZ from '../MiniGames/VampireZ.js';
+import SpeedUHC from '../MiniGames/SpeedUHC/SpeedUHC.js';
+import TNTGames from '../MiniGames/TNTGames/TNTGames.js';
+import Tourney from './Tourney/Tourney.js';
+import TurboKartRacers from '../MiniGames/TurboKartRacers/TurboKartRacers.js';
+import UHC from '../MiniGames/UHC/UHC.js';
+import VampireZ from '../MiniGames/VampireZ/VampireZ.js';
 import Walls from '../MiniGames/Walls.js';
-import Warlords from '../MiniGames/Warlords.js';
-import WoolGames from '../MiniGames/WoolGames.js';
-import { ChatChannel, Language, LevelProgress, PlayerRank, PlayerStats, ScorpiusBribe } from './Types.js';
+import Warlords from '../MiniGames/Warlords/Warlords.js';
+import WoolGames from '../MiniGames/WoolGames/WoolGames.js';
+import { ChatChannel, Language, LevelProgress, PlayerRank, PlayerStats, ScorpiusBribe } from '../../Types/Player.js';
 import { getRank, playerLevelProgress } from './Utils.js';
 
 class Player {
@@ -49,7 +49,7 @@ class Player {
   firstLoginAt: Date;
   lastLoginTimestamp: number | null;
   lastLoginAt: Date | null;
-  achievements: Achievements;
+  achievements: PlayerAchievements;
   language: Language;
   channel: ChatChannel;
   exp: number;
@@ -64,7 +64,7 @@ class Player {
   housing: Housing;
   cosmetics: Cosmetics;
   scorpiusBribes: ScorpiusBribe[];
-  quests: Quests;
+  quests: PlayerQuests;
   guild: Guild | null;
   houses: House[] | null;
   recentGames: RecentGame[] | null;
@@ -84,7 +84,7 @@ class Player {
     this.firstLoginAt = new Date(this.firstLoginTimestamp);
     this.lastLoginTimestamp = data?.lastLogin || null;
     this.lastLoginAt = this.lastLoginTimestamp ? new Date(this.lastLoginTimestamp) : null;
-    this.achievements = new Achievements(data);
+    this.achievements = new PlayerAchievements(data);
     this.language = data?.userLanguage || 'ENGLISH';
     this.channel = data.channel || 'ALL';
     this.exp = data?.networkExp || 0;
@@ -107,13 +107,13 @@ class Player {
       .forEach((key) => {
         this.scorpiusBribes.push({ year: Number(key), timestamp: data[key] });
       });
-    this.quests = new Quests(data?.quests || {}, data?.questSettings?.autoActivate || false);
+    this.quests = new PlayerQuests(data?.quests || {}, data?.questSettings?.autoActivate || false);
     this.guild = extra.guild || null;
     this.houses = extra.houses || null;
     this.recentGames = extra.recentGames || null;
     this.stats = {
-      arcade: new Arcade({ ...data?.stats?.Arcade, ...data?.achievements }),
-      arena: new ArenaBrawl(data?.stats?.Arena),
+      arcade: new Arcade(data?.stats?.Arcade),
+      arenaBrawl: new ArenaBrawl(data?.stats?.Arena),
       bedwars: new BedWars(data?.stats?.Bedwars),
       blitzsg: new BlitzSurvivalGames(data?.stats?.HungerGames),
       buildbattle: new BuildBattle(data?.stats?.BuildBattle),

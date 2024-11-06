@@ -1,7 +1,8 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
+import RequestData from '../Private/RequestData.js';
 import Status from '../structures/Status.js';
-import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getStatus extends Endpoint {
   readonly client: Client;

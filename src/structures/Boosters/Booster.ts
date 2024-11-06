@@ -1,6 +1,7 @@
 import Game from '../Game.js';
+import type { BoosterType } from '../../Types/Booster.js';
 
-export function parseType(data: Record<string, any>): 'STACKED' | 'QUEUED' | 'ACTIVE' {
+export function parseType(data: Record<string, any>): BoosterType {
   if (true === data.stacked) return 'STACKED';
   if (!data.stacked) return 'QUEUED';
   return 'ACTIVE';
@@ -15,7 +16,7 @@ class Booster {
   activated: Date;
   game: Game;
   isActive: boolean;
-  type: 'STACKED' | 'QUEUED' | 'ACTIVE';
+  type: BoosterType;
   stackers: string[];
   expired: boolean;
   constructor(data: Record<string, any>) {

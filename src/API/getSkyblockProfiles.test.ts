@@ -1,7 +1,7 @@
 import Client from '../Client.js';
+import RequestData from '../Private/RequestData.js';
 import SkyblockMember from '../structures/SkyBlock/SkyblockMember.js';
 import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile.js';
-import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockProfiles (raw)', async () => {

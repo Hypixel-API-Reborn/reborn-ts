@@ -1,4 +1,4 @@
-import { Rarity } from './SkyblockMemberTypes.js';
+import { Rarity } from '../../Types/Skyblock.js';
 import { petScore } from '../../utils/Constants.js';
 
 class SkyblockPet {

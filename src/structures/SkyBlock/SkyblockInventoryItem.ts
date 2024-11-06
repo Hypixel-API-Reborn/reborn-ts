@@ -1,14 +1,6 @@
-export type SkyblockGemstoneQuality = 'Rough' | 'Flawed' | 'Fine' | 'Flawless' | 'Perfect';
+import SkyblockGemstone from './SkyblockGemstone.js';
 import { parseGearScore, parseRarity } from '../../utils/SkyblockUtils.js';
-
-export class SkyblockGemstone {
-  type: string;
-  quality: SkyblockGemstoneQuality;
-  constructor(data: Record<string, any>) {
-    this.type = data.type;
-    this.quality = data.quality;
-  }
-}
+import type { SkyblockGemstoneQuality } from '../../Types/Skyblock.js';
 
 class SkyblockInventoryItem {
   itemId: number;

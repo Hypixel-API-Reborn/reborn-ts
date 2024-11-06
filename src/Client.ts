@@ -10,7 +10,7 @@ import FireSale from './structures/SkyBlock/Static/FireSale.js';
 import GameCounts from './structures/GameCounts.js';
 import GovernmentData from './structures/SkyBlock/Static/Government.js';
 import Guild from './structures/Guild/Guild.js';
-import GuildAchievements from './structures/Static/Achievements/Guild.js';
+import GuildAchievements from './structures/Static/Achievements/GuildAchievements.js';
 import House from './structures/House.js';
 import Leaderboard from './structures/Leaderboard.js';
 import Player from './structures/Player/Player.js';
@@ -18,7 +18,8 @@ import Product from './structures/SkyBlock/Bazaar/Product.js';
 import Quests from './structures/Static/Quests.js';
 import RateLimit from './Private/RateLimit.js';
 import RecentGame from './structures/RecentGame.js';
-import RequestHandler, { RequestData, RequestOptions } from './Private/RequestHandler.js';
+import RequestData from './Private/RequestData.js';
+import RequestHandler from './Private/RequestHandler.js';
 import SkyblockGarden from './structures/SkyBlock/SkyblockGarden.js';
 import SkyblockMember from './structures/SkyBlock/SkyblockMember.js';
 import SkyblockMuseum from './structures/SkyBlock/SkyblockMuseum.js';
@@ -27,25 +28,16 @@ import SkyblockProfile from './structures/SkyBlock/SkyblockProfile.js';
 import Status from './structures/Status.js';
 import Updater from './Private/Updater.js';
 import WatchdogStats from './structures/WatchdogStats.js';
-import {
+import type {
   AuctionFetchOptions,
   AuctionRequestOptions,
   GuildFetchOptions,
   PlayerRequestOptions,
   SkyblockAuctionsResult,
   SkyblockRequestOptions
-} from './API/API.js';
-
-export interface ClientOptions {
-  cache?: boolean;
-  cacheTime?: number;
-  cacheMaxKeys?: number;
-  cacheCheckPeriod?: number;
-  rateLimit?: 'AUTO' | 'NONE';
-  silent?: boolean;
-  checkForUpdates?: boolean;
-  checkForUpdatesInterval?: number;
-}
+} from './Types/API.js';
+import type { ClientOptions } from './Types/Client.js';
+import type { RequestOptions } from './Types/Requests.js';
 
 const clients: Client[] = [];
 

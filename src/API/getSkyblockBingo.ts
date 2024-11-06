@@ -1,7 +1,8 @@
 import BingoData from '../structures/SkyBlock/Static/BingoData.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import { RequestData, RequestOptions } from '../Private/RequestHandler.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getSkyblockBingo extends Endpoint {
   readonly client: Client;

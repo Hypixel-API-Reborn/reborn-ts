@@ -1,11 +1,12 @@
-import SkyblockGarden, {
+import SkyblockGarden from './SkyblockGarden.js';
+import { expect, expectTypeOf, test } from 'vitest';
+import type {
+  SkillLevel,
   SkyblockGardenComposter,
   SkyblockGardenCropMilestones,
   SkyblockGardenVisitor,
   SkyblockGarenCrops
-} from './SkyblockGarden.js';
-import { SkillLevel } from './SkyblockMemberTypes.js';
-import { expect, expectTypeOf, test } from 'vitest';
+} from '../../Types/Skyblock.js';
 
 test('SkyblockGarden', () => {
   const data = new SkyblockGarden({ stats: 'meow' });

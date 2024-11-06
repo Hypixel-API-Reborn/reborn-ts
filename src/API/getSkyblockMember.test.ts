@@ -1,7 +1,10 @@
 import Client from '../Client.js';
+import RequestData from '../Private/RequestData.js';
 import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden.js';
-import SkyblockInventoryItem, { SkyblockGemstone } from '../structures/SkyBlock/SkyblockInventoryItem.js';
-import SkyblockMember, { MemberStats } from '../structures/SkyBlock/SkyblockMember.js';
+import SkyblockGemstone from '../structures/SkyBlock/SkyblockGemstone.js';
+import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem.js';
+import SkyblockMember from '../structures/SkyBlock/SkyblockMember.js';
+import SkyblockMemberStats from '../structures/SkyBlock/SkyblockMemberStats.js';
 import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum.js';
 import SkyblockPet from '../structures/SkyBlock/SkyblockPet.js';
 import {
@@ -15,9 +18,8 @@ import {
   Rarity,
   Skills,
   Slayer
-} from '../structures/SkyBlock/SkyblockMemberTypes.js';
+} from '../Types/Skyblock.js';
 import { NetworthResult } from 'skyhelper-networth';
-import { RequestData } from '../Private/RequestHandler.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('getSkyblockMember (raw)', async () => {
@@ -102,7 +104,7 @@ test('getSkyblockMember (museum)', async () => {
     expect(member.purse).toBeDefined();
     expectTypeOf(member.purse).toEqualTypeOf<number>();
     expect(member.stats).toBeDefined();
-    expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();
+    expectTypeOf(member.stats).toEqualTypeOf<SkyblockMemberStats>();
     expect(member.pets).toBeDefined();
     expectTypeOf(member.pets).toEqualTypeOf<SkyblockPet[]>();
     member.pets.forEach((pet: SkyblockPet) => {
@@ -305,7 +307,7 @@ test('getSkyblockMember (garden)', async () => {
     expect(member.purse).toBeDefined();
     expectTypeOf(member.purse).toEqualTypeOf<number>();
     expect(member.stats).toBeDefined();
-    expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();
+    expectTypeOf(member.stats).toEqualTypeOf<SkyblockMemberStats>();
     expect(member.pets).toBeDefined();
     expectTypeOf(member.pets).toEqualTypeOf<SkyblockPet[]>();
     member.pets.forEach((pet: SkyblockPet) => {
@@ -508,7 +510,7 @@ test('getSkyblockMember', async () => {
     expect(member.purse).toBeDefined();
     expectTypeOf(member.purse).toEqualTypeOf<number>();
     expect(member.stats).toBeDefined();
-    expectTypeOf(member.stats).toEqualTypeOf<MemberStats>();
+    expectTypeOf(member.stats).toEqualTypeOf<SkyblockMemberStats>();
     expect(member.pets).toBeDefined();
     expectTypeOf(member.pets).toEqualTypeOf<SkyblockPet[]>();
     member.pets.forEach((pet: SkyblockPet) => {

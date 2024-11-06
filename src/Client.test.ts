@@ -1,9 +1,10 @@
 import CacheHandler from './Private/CacheHandler.js';
-import Client, { ClientOptions } from './Client.js';
+import Client from './Client.js';
 import Errors from './Errors.js';
 import RequestHandler from './Private/RequestHandler.js';
 import Updater from './Private/Updater.js';
 import { expect, expectTypeOf, test } from 'vitest';
+import type { ClientOptions } from './Types/Client.js';
 const errors = new Errors();
 
 test('Client (No Key)', () => {

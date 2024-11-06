@@ -1,8 +1,9 @@
 import SkyblockGarden from './SkyblockGarden.js';
-import SkyblockMember, { MemberStats } from './SkyblockMember.js';
+import SkyblockMember from './SkyblockMember.js';
+import SkyblockMemberStats from './SkyblockMemberStats.js';
 import SkyblockMuseum from './SkyblockMuseum.js';
 import SkyblockPet from './SkyblockPet.js';
-import { ChocolateFactoryData, CrimsonIsle, Dungeons, HOTM, JacobData, Skills, Slayer } from './SkyblockMemberTypes.js';
+import { ChocolateFactoryData, CrimsonIsle, Dungeons, HOTM, JacobData, Skills, Slayer } from '../../Types/Skyblock.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('SkyblockMember', () => {
@@ -63,7 +64,7 @@ test('SkyblockMember', () => {
   expect(data.purse).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.purse).toEqualTypeOf<number>();
   expect(data.stats).toBeDefined();
-  expectTypeOf(data.stats).toEqualTypeOf<MemberStats>();
+  expectTypeOf(data.stats).toEqualTypeOf<SkyblockMemberStats>();
   expect(data.pets).toBeDefined();
   expectTypeOf(data.pets).toEqualTypeOf<SkyblockPet[]>();
   expect(data.jacob).toBeDefined();
