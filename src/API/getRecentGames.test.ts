@@ -1,6 +1,6 @@
 import Client from '../Client.js';
-import Game from '../structures/Game.js';
-import RecentGame from '../structures/RecentGame.js';
+import Game from '../Structures/Game.js';
+import RecentGame from '../Structures/RecentGame.js';
 import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';
 

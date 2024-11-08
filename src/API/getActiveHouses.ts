@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import House from '../structures/House.js';
+import House from '../Structures/House.js';
 import RequestData from '../Private/RequestData.js';
 import type { RequestOptions } from '../Types/Requests.js';
 

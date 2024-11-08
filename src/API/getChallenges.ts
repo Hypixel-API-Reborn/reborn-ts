@@ -1,4 +1,4 @@
-import Challenges from '../structures/Static/Challenges.js';
+import Challenges from '../Structures/Static/Challenges.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';

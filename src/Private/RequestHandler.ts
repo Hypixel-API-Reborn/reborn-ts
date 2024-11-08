@@ -1,7 +1,6 @@
 const BASE_URL = 'https://api.hypixel.net/v2';
 import Client from '../Client.js';
 import RequestData from './RequestData.js';
-import isUUID from '../utils/isUUID.js';
 import type { RequestOptions } from '../Types/Requests.js';
 
 class RequestHandler {
@@ -71,7 +70,7 @@ class RequestHandler {
   async toUUID(input: string): Promise<string> {
     if (!input) throw new Error(this.client.errors.NO_NICKNAME_UUID);
     if ('string' !== typeof input) throw new Error(this.client.errors.UUID_NICKNAME_MUST_BE_A_STRING);
-    if (isUUID(input)) return input.replace(/-/g, '');
+    if (this.client.functions.isUUID(input)) return input.replace(/-/g, '');
     const url = `https://mowojang.matdoes.dev/${input}`;
     if (this.client.cacheHandler.has(url)) {
       return this.client.cacheHandler.get(url);

@@ -1,8 +1,8 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction.js';
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo.js';
-import Bid from '../structures/SkyBlock/Auctions/Bid.js';
+import Auction from '../Structures/SkyBlock/Auctions/Auction.js';
+import AuctionInfo from '../Structures/SkyBlock/Auctions/AuctionInfo.js';
+import Bid from '../Structures/SkyBlock/Auctions/Bid.js';
 import Client from '../Client.js';
-import ItemBytes from '../structures/ItemBytes.js';
+import ItemBytes from '../Structures/ItemBytes.js';
 import { Rarity } from '../Types/Skyblock.js';
 import { SkyblockAuctionsResult } from '../Types/API.js';
 import { expect, expectTypeOf, test } from 'vitest';

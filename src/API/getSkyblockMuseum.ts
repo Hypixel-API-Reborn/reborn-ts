@@ -1,7 +1,7 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';
-import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum.js';
+import SkyblockMuseum from '../Structures/SkyBlock/SkyblockMuseum.js';
 import type { RequestOptions } from '../Types/Requests.js';
 
 class getSkyblockMuseum extends Endpoint {

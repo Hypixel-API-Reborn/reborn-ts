@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import Leaderboard from '../structures/Leaderboard.js';
+import Leaderboard from '../Structures/Leaderboard.js';
 import RequestData from '../Private/RequestData.js';
 import type { RequestOptions } from '../Types/Requests.js';
 

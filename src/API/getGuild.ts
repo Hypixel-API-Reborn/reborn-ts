@@ -1,8 +1,7 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import Guild from '../structures/Guild/Guild.js';
+import Guild from '../Structures/Guild/Guild.js';
 import RequestData from '../Private/RequestData.js';
-import isGuildID from '../utils/isGuildID.js';
 import { GuildFetchOptions } from '../Types/API.js';
 import type { RequestOptions } from '../Types/Requests.js';
 
@@ -19,7 +18,9 @@ class getGuild extends Endpoint {
     options?: RequestOptions
   ): Promise<Guild | null | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_GUILD_QUERY);
-    if ('id' === searchParameter && !isGuildID(query)) throw new Error(this.client.errors.INVALID_GUILD_ID);
+    if ('id' === searchParameter && !this.client.functions.isGuildID(query)) {
+      throw new Error(this.client.errors.INVALID_GUILD_ID);
+    }
     const isPlayerQuery = 'player' === searchParameter;
     if (isPlayerQuery) query = await this.client.requestHandler.toUUID(query);
     if (!['id', 'name', 'player'].includes(searchParameter)) {

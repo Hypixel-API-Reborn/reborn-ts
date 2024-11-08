@@ -1,9 +1,9 @@
-import Achievements from '../structures/Static/Achievements/Achievements.js';
+import Achievements from '../Structures/Static/Achievements/Achievements.js';
 import Client from '../Client.js';
-import GameAchievements from '../structures/Static/Achievements/GameAchievements.js';
-import OneTimeAchivement from '../structures/Static/Achievements/OneTimeAchivement.js';
+import GameAchievements from '../Structures/Static/Achievements/GameAchievements.js';
+import OneTimeAchivement from '../Structures/Static/Achievements/OneTimeAchivement.js';
 import RequestData from '../Private/RequestData.js';
-import TieredAchivement from '../structures/Static/Achievements/TieredAchivement.js';
+import TieredAchivement from '../Structures/Static/Achievements/TieredAchivement.js';
 import { expect, expectTypeOf, test } from 'vitest';
 import type { AchivementTier } from '../Types/Static.js';
 

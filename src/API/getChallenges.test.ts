@@ -1,7 +1,7 @@
-import Challenge from '../structures/Static/Challenge.js';
-import Challenges from '../structures/Static/Challenges.js';
+import Challenge from '../Structures/Static/Challenge.js';
+import Challenges from '../Structures/Static/Challenges.js';
 import Client from '../Client.js';
-import GameChallenges from '../structures/Static/GameChallenges.js';
+import GameChallenges from '../Structures/Static/GameChallenges.js';
 import RequestData from '../Private/RequestData.js';
 import { ChallengeReward } from '../Types/Static.js';
 import { expect, expectTypeOf, test } from 'vitest';

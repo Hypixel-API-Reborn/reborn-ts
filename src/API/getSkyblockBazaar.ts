@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import Product from '../structures/SkyBlock/Bazaar/Product.js';
+import Product from '../Structures/SkyBlock/Bazaar/Product.js';
 import RequestData from '../Private/RequestData.js';
 import type { RequestOptions } from '../Types/Requests.js';
 

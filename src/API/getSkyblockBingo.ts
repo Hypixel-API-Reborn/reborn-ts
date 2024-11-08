@@ -1,4 +1,4 @@
-import BingoData from '../structures/SkyBlock/Static/BingoData.js';
+import BingoData from '../Structures/SkyBlock/Static/BingoData.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';

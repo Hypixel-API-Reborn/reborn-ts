@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import GovernmentData from '../structures/SkyBlock/Static/Government.js';
+import GovernmentData from '../Structures/SkyBlock/Static/Government.js';
 import RequestData from '../Private/RequestData.js';
 import type { RequestOptions } from '../Types/Requests.js';
 

@@ -1,8 +1,8 @@
 import Client from '../Client.js';
-import GameQuests from '../structures/Static/GameQuests.js';
-import Quest from '../structures/Static/Quest.js';
-import QuestObjective from '../structures/Static/QuestObjective.js';
-import Quests from '../structures/Static/Quests.js';
+import GameQuests from '../Structures/Static/GameQuests.js';
+import Quest from '../Structures/Static/Quest.js';
+import QuestObjective from '../Structures/Static/QuestObjective.js';
+import Quests from '../Structures/Static/Quests.js';
 import RequestData from '../Private/RequestData.js';
 import { QuestReward, QuestType } from '../Types/Static.js';
 import { expect, expectTypeOf, test } from 'vitest';

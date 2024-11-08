@@ -1,9 +1,9 @@
 import Client from '../Client.js';
-import Color from '../structures/Color.js';
-import Game from '../structures/Game.js';
-import Guild from '../structures/Guild/Guild.js';
-import GuildMember from '../structures/Guild/GuildMember.js';
-import GuildRank from '../structures/Guild/GuildRank.js';
+import Color from '../Structures/Color.js';
+import Game from '../Structures/Game.js';
+import Guild from '../Structures/Guild/Guild.js';
+import GuildMember from '../Structures/Guild/GuildMember.js';
+import GuildRank from '../Structures/Guild/GuildRank.js';
 import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';
 import type { ColorCode, ColorHex, ColorString, InGameCode } from '../Types/Color.js';

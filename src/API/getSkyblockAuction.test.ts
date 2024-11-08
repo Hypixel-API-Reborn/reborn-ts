@@ -1,7 +1,7 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction.js';
-import Bid from '../structures/SkyBlock/Auctions/Bid.js';
+import Auction from '../Structures/SkyBlock/Auctions/Auction.js';
+import Bid from '../Structures/SkyBlock/Auctions/Bid.js';
 import Client from '../Client.js';
-import ItemBytes from '../structures/ItemBytes.js';
+import ItemBytes from '../Structures/ItemBytes.js';
 import RequestData from '../Private/RequestData.js';
 import { Rarity } from '../Types/Skyblock.js';
 import { expect, expectTypeOf, test } from 'vitest';

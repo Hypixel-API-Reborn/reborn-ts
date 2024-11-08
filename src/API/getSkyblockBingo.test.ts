@@ -1,5 +1,5 @@
-import Bingo from '../structures/SkyBlock/Static/Bingo.js';
-import BingoData from '../structures/SkyBlock/Static/BingoData.js';
+import Bingo from '../Structures/SkyBlock/Static/Bingo.js';
+import BingoData from '../Structures/SkyBlock/Static/BingoData.js';
 import Client from '../Client.js';
 import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';

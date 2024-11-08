@@ -1,5 +1,5 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction.js';
-import AuctionInfo from '../structures/SkyBlock/Auctions/AuctionInfo.js';
+import Auction from '../Structures/SkyBlock/Auctions/Auction.js';
+import AuctionInfo from '../Structures/SkyBlock/Auctions/AuctionInfo.js';
 import type { RequestOptions } from './Requests.js';
 
 export interface PlayerRequestOptions extends RequestOptions {

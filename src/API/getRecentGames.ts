@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
-import RecentGame from '../structures/RecentGame.js';
+import RecentGame from '../Structures/RecentGame.js';
 import RequestData from '../Private/RequestData.js';
 import type { RequestOptions } from '../Types/Requests.js';
 

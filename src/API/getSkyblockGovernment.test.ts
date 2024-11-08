@@ -1,7 +1,7 @@
-import Candidate from '../structures/SkyBlock/Static/Candidate.js';
+import Candidate from '../Structures/SkyBlock/Static/Candidate.js';
 import Client from '../Client.js';
-import GovernmentData from '../structures/SkyBlock/Static/Government.js';
-import Perk from '../structures/SkyBlock/Static/Perk.js';
+import GovernmentData from '../Structures/SkyBlock/Static/Government.js';
+import Perk from '../Structures/SkyBlock/Static/Perk.js';
 import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';
 

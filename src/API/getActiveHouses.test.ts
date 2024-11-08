@@ -1,5 +1,5 @@
 import Client from '../Client.js';
-import House from '../structures/House.js';
+import House from '../Structures/House.js';
 import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';
 

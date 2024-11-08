@@ -1,7 +1,7 @@
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember.js';
+import SkyblockMember from '../Structures/SkyBlock/SkyblockMember.js';
 import { SkyblockRequestOptions } from '../Types/API.js';
 
 class getSkyblockMember extends Endpoint {

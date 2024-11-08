@@ -1,6 +1,6 @@
 import Client from '../Client.js';
 import RequestData from '../Private/RequestData.js';
-import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden.js';
+import SkyblockGarden from '../Structures/SkyBlock/SkyblockGarden.js';
 import { expect, expectTypeOf, test } from 'vitest';
 import type {
   SkillLevel,

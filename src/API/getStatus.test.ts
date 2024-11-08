@@ -1,7 +1,7 @@
 import Client from '../Client.js';
-import Game from '../structures/Game.js';
+import Game from '../Structures/Game.js';
 import RequestData from '../Private/RequestData.js';
-import Status from '../structures/Status.js';
+import Status from '../Structures/Status.js';
 import { expect, expectTypeOf, test } from 'vitest';
 import type { GameCode, GameID, GameString } from '../Types/Game.js';
 

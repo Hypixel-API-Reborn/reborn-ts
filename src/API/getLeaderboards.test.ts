@@ -1,5 +1,5 @@
 import Client from '../Client.js';
-import Leaderboard from '../structures/Leaderboard.js';
+import Leaderboard from '../Structures/Leaderboard.js';
 import RequestData from '../Private/RequestData.js';
 import { defaultRequestData } from '../../vitest.setup.js';
 import { expect, expectTypeOf, test, vi } from 'vitest';

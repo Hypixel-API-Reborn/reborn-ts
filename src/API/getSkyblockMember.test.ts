@@ -1,12 +1,12 @@
 import Client from '../Client.js';
 import RequestData from '../Private/RequestData.js';
-import SkyblockGarden from '../structures/SkyBlock/SkyblockGarden.js';
-import SkyblockGemstone from '../structures/SkyBlock/SkyblockGemstone.js';
-import SkyblockInventoryItem from '../structures/SkyBlock/SkyblockInventoryItem.js';
-import SkyblockMember from '../structures/SkyBlock/SkyblockMember.js';
-import SkyblockMemberStats from '../structures/SkyBlock/SkyblockMemberStats.js';
-import SkyblockMuseum from '../structures/SkyBlock/SkyblockMuseum.js';
-import SkyblockPet from '../structures/SkyBlock/SkyblockPet.js';
+import SkyblockGarden from '../Structures/SkyBlock/SkyblockGarden.js';
+import SkyblockGemstone from '../Structures/SkyBlock/SkyblockGemstone.js';
+import SkyblockInventoryItem from '../Structures/SkyBlock/SkyblockInventoryItem.js';
+import SkyblockMember from '../Structures/SkyBlock/SkyblockMember.js';
+import SkyblockMemberStats from '../Structures/SkyBlock/SkyblockMemberStats.js';
+import SkyblockMuseum from '../Structures/SkyBlock/SkyblockMuseum.js';
+import SkyblockPet from '../Structures/SkyBlock/SkyblockPet.js';
 import {
   Armor,
   ChocolateFactoryData,

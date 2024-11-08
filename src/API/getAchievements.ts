@@ -1,4 +1,4 @@
-import Achievements from '../structures/Static/Achievements/Achievements.js';
+import Achievements from '../Structures/Static/Achievements/Achievements.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';

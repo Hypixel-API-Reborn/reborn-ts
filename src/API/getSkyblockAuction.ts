@@ -1,4 +1,4 @@
-import Auction from '../structures/SkyBlock/Auctions/Auction.js';
+import Auction from '../Structures/SkyBlock/Auctions/Auction.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';

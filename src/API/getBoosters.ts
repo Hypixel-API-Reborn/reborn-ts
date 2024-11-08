@@ -1,4 +1,4 @@
-import Booster from '../structures/Boosters/Booster.js';
+import Booster from '../Structures/Boosters/Booster.js';
 import Client from '../Client.js';
 import Endpoint from '../Private/Endpoint.js';
 import RequestData from '../Private/RequestData.js';

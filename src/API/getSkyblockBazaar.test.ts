@@ -1,6 +1,6 @@
 import Client from '../Client.js';
-import Order from '../structures/SkyBlock/Bazaar/Order.js';
-import Product from '../structures/SkyBlock/Bazaar/Product.js';
+import Order from '../Structures/SkyBlock/Bazaar/Order.js';
+import Product from '../Structures/SkyBlock/Bazaar/Product.js';
 import RequestData from '../Private/RequestData.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
