@@ -2,7 +2,7 @@ import CopsAndCrimsGamemode from './CopsAndCrimsGamemode.js';
 import { expect, expectTypeOf, test } from 'vitest';
 
 test('CopsAndCrimsGamemode', () => {
-  const data = new CopsAndCrimsGamemode({ stats: 'meow' }, "deathmatch");
+  const data = new CopsAndCrimsGamemode({ stats: 'meow' }, 'deathmatch');
   expect(data).toBeInstanceOf(CopsAndCrimsGamemode);
   expectTypeOf(data).toEqualTypeOf<CopsAndCrimsGamemode>();
   expect(data.kills).toBeDefined();
@@ -35,5 +35,4 @@ test('CopsAndCrimsGamemode', () => {
   expect(data.WLR).toBeDefined();
   expect(data.WLR).toBeGreaterThanOrEqual(0);
   expectTypeOf(data.WLR).toEqualTypeOf<number>();
-
 });

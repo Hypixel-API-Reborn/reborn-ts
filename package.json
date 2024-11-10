@@ -19,8 +19,8 @@
   "scripts": {
     "lint:check": "npx eslint src/",
     "lint": "npx eslint src/ --fix",
-    "prettier:check": "npx prettier --check src/",
-    "prettier": "npx prettier --write src/",
+    "prettier:check": "npx prettier --check .",
+    "prettier": "npx prettier --write .",
     "build": "npx tsc",
     "test": "npx vitest run",
     "test:coverage": "npx vitest run --coverage",

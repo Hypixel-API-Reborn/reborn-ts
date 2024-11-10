@@ -62,7 +62,9 @@ jobs:
           git checkout documentation
 
       - name: Clear Old Documentation files
-        run: rm -rf assets/ classes/ functions/ interfaces/ modules/ types/ variables/ 404.html hierarchy.html index.html modules.html sitemap.xml .nojekyll
+        run:
+          rm -rf assets/ classes/ functions/ interfaces/ modules/ types/ variables/ 404.html hierarchy.html index.html
+          modules.html sitemap.xml .nojekyll
 
       - name: Move new Documentation files into place
         run: |
