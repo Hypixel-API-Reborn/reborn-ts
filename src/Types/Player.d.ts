@@ -71,6 +71,7 @@ export type SkyWarsBaseModes = 'solo' | 'team';
 export type MegaWallsModes = 'face_off' | 'gvg';
 export type SpeedUHCModes = 'solo' | 'solo_normal' | 'solo_insane' | 'team' | 'team_normal' | 'team_insane';
 export type UHCModes = 'solo' | 'red_vs_blue' | 'no_diamonds' | 'brawl' | 'solo_brawl' | 'duo_brawl';
+export type CopsAndCrimsGamemodes = 'deathmatch' | 'gungame';
 export type BedWarsPracticeRecordDistances = 30 | 50 | 100;
 export type BedWarsPracticeRecordElevations = 'NONE' | 'SLIGHT' | 'STAIRCASE';
 export type BedWarsPracticeModes = 'BRIDGING' | 'FIREBALL_JUMPING' | 'BOW' | 'MLG' | 'PEARL_CLUTCHING';
@@ -400,6 +401,19 @@ export type UHCKits =
   | 'LOOTER'
   | 'MAGIC_TOOLS'
   | 'TRAPPER';
+
+export type CopsAndCrimsGuns =
+  | 'smg'
+  | 'rifle'
+  | 'carbine'
+  | 'magnum'
+  | 'shotgun'
+  | 'sniper'
+  | 'scoped_rifle'
+  | 'handgun'
+  | 'auto_shotgun'
+  | 'bullpup'
+  | 'knife';
 
 export interface LevelProgress {
   level: number;

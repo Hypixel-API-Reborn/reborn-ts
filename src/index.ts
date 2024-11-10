@@ -53,9 +53,8 @@ import Challenge from './Structures/Static/Challenge.js';
 import Challenges from './Structures/Static/Challenges.js';
 import Color from './Structures/Color.js';
 import CopsAndCrims from './Structures/MiniGames/CopsAndCrims/CopsAndCrims.js';
-import CopsAndCrimsDeathmatch from './Structures/MiniGames/CopsAndCrims/CopsAndCrimsDeathmatch.js';
-import CopsAndCrimsDefusal from './Structures/MiniGames/CopsAndCrims/CopsAndCrimsDefusal.js';
-import CopsAndCrimsGunGame from './Structures/MiniGames/CopsAndCrims/CopsAndCrimsGunGame.js';
+import CopsAndCrimsGamemode from './Structures/MiniGames/CopsAndCrims/CopsAndCrimsGamemode.js';
+import CopsAndCrimsGun from './Structures/MiniGames/CopsAndCrims/CopsAndCrimsGun.js';
 import Cosmetics from './Structures/Player/Cosmetics.js';
 import DragonWars from './Structures/MiniGames/Arcade/DragonWars.js';
 import Dropper from './Structures/MiniGames/Arcade/Dropper.js';
@@ -240,9 +239,8 @@ export default {
   BlitzSurvivalGamesKit,
   BuildBattle,
   CopsAndCrims,
-  CopsAndCrimsDeathmatch,
-  CopsAndCrimsDefusal,
-  CopsAndCrimsGunGame,
+  CopsAndCrimsGamemode,
+  CopsAndCrimsGun,
   Duels,
   DuelsBridge,
   DuelsGamemode,
