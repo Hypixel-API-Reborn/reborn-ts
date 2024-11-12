@@ -1,10 +1,10 @@
+import CacheHandler from './Private/CacheHandler.js';
+import Client from './Client.js';
+import Errors from './Errors.js';
+import RequestHandler from './Private/RequestHandler.js';
+import Updater from './Private/Updater.js';
 import { expect, expectTypeOf, test } from 'vitest';
-import CacheHandler from './Private/CacheHandler';
-import { ClientOptions } from './typings/Client';
-import Requests from './Private/Requests';
-import Updater from './Private/Updater';
-import Client from './Client';
-import Errors from './Errors';
+import type { ClientOptions } from './Types/Client.js';
 const errors = new Errors();
 
 test('Client (No Key)', () => {
@@ -56,9 +56,9 @@ test('Client (No Options)', () => {
   expectTypeOf(client.options.checkForUpdatesInterval).toEqualTypeOf<number | undefined>();
   expect(client.options.checkForUpdatesInterval).toBe(60);
 
-  expect(client.requests).toBeDefined();
-  expect(client.requests).toBeInstanceOf(Requests);
-  expectTypeOf(client.requests).toEqualTypeOf<Requests>();
+  expect(client.requestHandler).toBeDefined();
+  expect(client.requestHandler).toBeInstanceOf(RequestHandler);
+  expectTypeOf(client.requestHandler).toEqualTypeOf<RequestHandler>();
 
   expect(client.cacheHandler).toBeDefined();
   expect(client.cacheHandler).toBeInstanceOf(CacheHandler);
@@ -129,9 +129,9 @@ test('Client (Options)', () => {
   expectTypeOf(client.options.checkForUpdatesInterval).toEqualTypeOf<number | undefined>();
   expect(client.options.checkForUpdatesInterval).toBe(120);
 
-  expect(client.requests).toBeDefined();
-  expect(client.requests).toBeInstanceOf(Requests);
-  expectTypeOf(client.requests).toEqualTypeOf<Requests>();
+  expect(client.requestHandler).toBeDefined();
+  expect(client.requestHandler).toBeInstanceOf(RequestHandler);
+  expectTypeOf(client.requestHandler).toEqualTypeOf<RequestHandler>();
 
   expect(client.cacheHandler).toBeDefined();
   expect(client.cacheHandler).toBeInstanceOf(CacheHandler);

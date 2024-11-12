@@ -1,7 +1,8 @@
-import SkyblockProfile from '../structures/SkyBlock/SkyblockProfile';
-import { SkyblockRequestOptions } from './API';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import RequestData from '../Private/RequestData.js';
+import SkyblockProfile from '../Structures/SkyBlock/SkyblockProfile.js';
+import { SkyblockRequestOptions } from '../Types/API.js';
 
 class getSkyblockProfiles extends Endpoint {
   readonly client: Client;
@@ -10,11 +11,11 @@ class getSkyblockProfiles extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: SkyblockRequestOptions): Promise<SkyblockProfile[]> {
+  async execute(query: string, options?: SkyblockRequestOptions): Promise<SkyblockProfile[] | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/skyblock/profiles?uuid=${query}`, options);
-    if (res.options.raw) return res.data;
+    query = await this.client.requestHandler.toUUID(query);
+    const res = await this.client.requestHandler.request(`/skyblock/profiles?uuid=${query}`, options);
+    if (res.options.raw) return res;
     if (!res.data.profiles || !res.data.profiles.length) throw new Error(this.client.errors.NO_SKYBLOCK_PROFILES);
     const profiles = [];
     for (let i = 0; i < res.data.profiles.length; i++) {
@@ -28,11 +29,7 @@ class getSkyblockProfiles extends Endpoint {
         communityUpgrades: res.data.profiles[i].community_upgrades,
         selected: res.data.profiles[i].selected,
         members: res.data.profiles[i].members,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         garden: options?.garden ? await this.client.getSkyblockGarden(res.data.profiles[i].profile_id) : null,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         museum: options?.garden ? await this.client.getSkyblockMuseum(query, res.data.profiles[i].profile_id) : null
       });
     }

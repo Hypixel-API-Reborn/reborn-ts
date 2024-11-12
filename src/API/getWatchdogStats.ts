@@ -1,7 +1,8 @@
-import WatchdogStats from '../structures/Watchdog/Stats';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import RequestData from '../Private/RequestData.js';
+import WatchdogStats from '../Structures/WatchdogStats.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getWatchdogStats extends Endpoint {
   readonly client: Client;
@@ -10,9 +11,9 @@ class getWatchdogStats extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<WatchdogStats> {
-    const res = await this.client.requests.request('/punishmentstats', options);
-    if (res.options.raw) return res.data;
+  async execute(options?: RequestOptions): Promise<WatchdogStats | RequestData> {
+    const res = await this.client.requestHandler.request('/punishmentstats', options);
+    if (res.options.raw) return res;
     return new WatchdogStats(res.data);
   }
 }

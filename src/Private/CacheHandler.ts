@@ -1,5 +1,5 @@
+import Client from '../Client.js';
 import NodeCache from 'node-cache';
-import Client from '../Client';
 
 class CacheHandler {
   readonly client: Client;

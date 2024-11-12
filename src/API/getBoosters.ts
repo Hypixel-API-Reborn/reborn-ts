@@ -1,7 +1,8 @@
-import { RequestOptions } from '../Private/Requests';
-import Booster from '../structures/Boosters/Booster';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Booster from '../Structures/Boosters/Booster.js';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getBoosters extends Endpoint {
   readonly client: Client;
@@ -10,9 +11,9 @@ class getBoosters extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<Booster[]> {
-    const res = await this.client.requests.request('/boosters', options);
-    if (res.options.raw) return res.data;
+  async execute(options?: RequestOptions): Promise<Booster[] | RequestData> {
+    const res = await this.client.requestHandler.request('/boosters', options);
+    if (res.options.raw) return res;
     return res.data.boosters.map((b: any) => new Booster(b)).reverse();
   }
 }

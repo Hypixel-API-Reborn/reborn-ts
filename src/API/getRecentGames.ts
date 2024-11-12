@@ -1,7 +1,8 @@
-import { RequestOptions } from '../Private/Requests';
-import RecentGame from '../structures/RecentGame';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import RecentGame from '../Structures/RecentGame.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getRecentGames extends Endpoint {
   readonly client: Client;
@@ -10,11 +11,11 @@ class getRecentGames extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: RequestOptions): Promise<RecentGame[]> {
+  async execute(query: string, options?: RequestOptions): Promise<RecentGame[] | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_NICKNAME_UUID);
-    query = await this.client.requests.toUUID(query);
-    const res = await this.client.requests.request(`/recentgames?uuid=${query}`, options);
-    if (res.options.raw) return res.data;
+    query = await this.client.requestHandler.toUUID(query);
+    const res = await this.client.requestHandler.request(`/recentgames?uuid=${query}`, options);
+    if (res.options.raw) return res;
     return res.data.games.map((x: any) => new RecentGame(x));
   }
 }

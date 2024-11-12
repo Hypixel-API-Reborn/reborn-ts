@@ -1,7 +1,8 @@
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import House from '../structures/House';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import House from '../Structures/House.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getHouse extends Endpoint {
   readonly client: Client;
@@ -10,10 +11,10 @@ class getHouse extends Endpoint {
     this.client = client;
   }
 
-  async execute(query: string, options?: RequestOptions): Promise<House> {
+  async execute(query: string, options?: RequestOptions): Promise<House | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_UUID);
-    const res = await this.client.requests.request(`/housing/house?house=${query}`, options);
-    if (res.options.raw) return res.data;
+    const res = await this.client.requestHandler.request(`/housing/house?house=${query}`, options);
+    if (res.options.raw) return res;
     return new House(res.data);
   }
 }

@@ -1,7 +1,8 @@
-import GuildAchievements from '../structures/Static/GuildAchievements';
-import { RequestOptions } from '../Private/Requests';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import GuildAchievements from '../Structures/Static/Achievements/GuildAchievements.js';
+import RequestData from '../Private/RequestData.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getGuildAchievements extends Endpoint {
   readonly client: Client;
@@ -10,9 +11,9 @@ class getGuildAchievements extends Endpoint {
     this.client = client;
   }
 
-  async execute(options?: RequestOptions): Promise<GuildAchievements> {
-    const res = await this.client.requests.request('/resources/guilds/achievements', options);
-    if (res.options.raw) return res.data;
+  async execute(options?: RequestOptions): Promise<GuildAchievements | RequestData> {
+    const res = await this.client.requestHandler.request('/resources/guilds/achievements', options);
+    if (res.options.raw) return res;
     return new GuildAchievements(res.data);
   }
 }

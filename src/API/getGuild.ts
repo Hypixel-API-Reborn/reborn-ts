@@ -1,8 +1,9 @@
-import { RequestOptions } from '../Private/Requests';
-import Guild from '../structures/Guild/Guild';
-import isGuildID from '../utils/isGuildID';
-import Endpoint from '../Private/Endpoint';
-import Client from '../Client';
+import Client from '../Client.js';
+import Endpoint from '../Private/Endpoint.js';
+import Guild from '../Structures/Guild/Guild.js';
+import RequestData from '../Private/RequestData.js';
+import { GuildFetchOptions } from '../Types/API.js';
+import type { RequestOptions } from '../Types/Requests.js';
 
 class getGuild extends Endpoint {
   readonly client: Client;
@@ -12,19 +13,21 @@ class getGuild extends Endpoint {
   }
 
   async execute(
-    searchParameter: 'id' | 'name' | 'player',
+    searchParameter: GuildFetchOptions,
     query: string,
     options?: RequestOptions
-  ): Promise<Guild | null> {
+  ): Promise<Guild | null | RequestData> {
     if (!query) throw new Error(this.client.errors.NO_GUILD_QUERY);
-    if ('id' === searchParameter && !isGuildID(query)) throw new Error(this.client.errors.INVALID_GUILD_ID);
+    if ('id' === searchParameter && !this.client.functions.isGuildID(query)) {
+      throw new Error(this.client.errors.INVALID_GUILD_ID);
+    }
     const isPlayerQuery = 'player' === searchParameter;
-    if (isPlayerQuery) query = await this.client.requests.toUUID(query);
+    if (isPlayerQuery) query = await this.client.requestHandler.toUUID(query);
     if (!['id', 'name', 'player'].includes(searchParameter)) {
       throw new Error(this.client.errors.INVALID_GUILD_SEARCH_PARAMETER);
     }
-    const res = await this.client.requests.request(`/guild?${searchParameter}=${encodeURI(query)}`, options);
-    if (res.options.raw) return res.data;
+    const res = await this.client.requestHandler.request(`/guild?${searchParameter}=${encodeURI(query)}`, options);
+    if (res.options.raw) return res;
     if (!res.data.guild && 'player' !== searchParameter) {
       throw new Error(this.client.errors.GUILD_DOES_NOT_EXIST);
     }
