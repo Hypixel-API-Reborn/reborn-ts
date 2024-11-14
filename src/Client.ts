@@ -101,6 +101,7 @@ class Client {
     if (-1 !== clientIndex) clients.splice(clientIndex, 1);
     if (this.interval) clearInterval(this.interval);
     if (this.rateLimit.interval) clearInterval(this.rateLimit.interval);
+    this.NEU.cleanUp();
   }
 
   private parasOptions(options?: ClientOptions): ClientOptions {

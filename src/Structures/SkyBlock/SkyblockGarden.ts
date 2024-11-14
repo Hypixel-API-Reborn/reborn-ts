@@ -16,7 +16,7 @@ class SkyblockGarden {
   composter: SkyblockGardenComposter;
   cropUpgrades: SkyblockGarenCrops;
   constructor(data: Record<string, any>) {
-    this.level = getLevelByXp(data?.garden?.garden_experience || 0, 'garden');
+    this.level = getLevelByXp(data?.garden?.garden_experience || 0, { type: 'garden' });
     this.barnSkin = data?.garden?.selected_barn_skin || '';
     this.unlockedPlots = data?.garden?.unlocked_plots_ids || [];
     this.visitors = {
@@ -28,16 +28,40 @@ class SkyblockGarden {
       }
     };
     this.cropMilestones = {
-      wheat: getLevelByXp(data?.garden?.resources_collected?.WHEAT || 0, 'wheat'),
-      carrot: getLevelByXp(data?.garden?.resources_collected?.CARROT_ITEM || 0, 'carrot'),
-      sugarCane: getLevelByXp(data?.garden?.resources_collected?.SUGAR_CANE || 0, 'sugarCane'),
-      potato: getLevelByXp(data?.garden?.resources_collected?.POTATO_ITEM || 0, 'potato'),
-      pumpkin: getLevelByXp(data?.garden?.resources_collected?.PUMPKIN || 0, 'pumpkin'),
-      melon: getLevelByXp(data?.garden?.resources_collected?.MELON || 0, 'melon'),
-      cactus: getLevelByXp(data?.garden?.resources_collected?.CACTUS || 0, 'cactus'),
-      cocoaBeans: getLevelByXp(data?.garden?.resources_collected?.['INK_SACK:3'] || 0, 'cocoaBeans'),
-      mushroom: getLevelByXp(data?.garden?.resources_collected?.MUSHROOM_COLLECTION || 0, 'mushroom'),
-      netherWart: getLevelByXp(data?.garden?.resources_collected?.NETHER_STALK || 0, 'netherWart')
+      wheat: getLevelByXp(data?.garden?.resources_collected?.WHEAT || 0, { type: 'cropMilestone', crop: 'wheat' }),
+      carrot: getLevelByXp(data?.garden?.resources_collected?.CARROT_ITEM || 0, {
+        type: 'cropMilestone',
+        crop: 'carrot'
+      }),
+      sugarCane: getLevelByXp(data?.garden?.resources_collected?.SUGAR_CANE || 0, {
+        type: 'cropMilestone',
+        crop: 'sugarCane'
+      }),
+      potato: getLevelByXp(data?.garden?.resources_collected?.POTATO_ITEM || 0, {
+        type: 'cropMilestone',
+        crop: 'potato'
+      }),
+      pumpkin: getLevelByXp(data?.garden?.resources_collected?.PUMPKIN || 0, {
+        type: 'cropMilestone',
+        crop: 'pumpkin'
+      }),
+      melon: getLevelByXp(data?.garden?.resources_collected?.MELON || 0, { type: 'cropMilestone', crop: 'melon' }),
+      cactus: getLevelByXp(data?.garden?.resources_collected?.CACTUS || 0, {
+        type: 'cropMilestone',
+        crop: 'cactus'
+      }),
+      cocoaBeans: getLevelByXp(data?.garden?.resources_collected?.['INK_SACK:3'] || 0, {
+        type: 'cropMilestone',
+        crop: 'cocoaBeans'
+      }),
+      mushroom: getLevelByXp(data?.garden?.resources_collected?.MUSHROOM_COLLECTION || 0, {
+        type: 'cropMilestone',
+        crop: 'mushroom'
+      }),
+      netherWart: getLevelByXp(data?.garden?.resources_collected?.NETHER_STALK || 0, {
+        type: 'cropMilestone',
+        crop: 'netherWart'
+      })
     };
     this.composter = {
       organicMatter: data?.garden?.composter_data?.organic_matter || 0,

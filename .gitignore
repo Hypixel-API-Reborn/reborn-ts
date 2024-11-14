@@ -6,3 +6,4 @@ dist/
 coverage/
 .github/coverageData.xml
 documentation/
+src/cache/

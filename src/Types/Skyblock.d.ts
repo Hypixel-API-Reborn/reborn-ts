@@ -186,6 +186,10 @@ export interface SkillLevel {
   xpCurrent: number;
   xpForNext: number;
   progress: number;
+  levelCap: number;
+  uncappedLevel: number;
+  levelWithProgress: number;
+  maxed: boolean;
   cosmetic: boolean;
 }
 
@@ -414,3 +418,39 @@ export interface ProductStatus {
   sellOrders: number;
   buyOrders: number;
 }
+
+export type SkillNames =
+  | 'taming'
+  | 'mining'
+  | 'foraging'
+  | 'enchanting'
+  | 'carpentry'
+  | 'farming'
+  | 'combat'
+  | 'fishing'
+  | 'alchemy'
+  | 'runecrafting'
+  | 'catacombs'
+  | 'HOTM'
+  | 'social'
+  | 'garden';
+
+export type GardenCrops =
+  | 'wheat'
+  | 'carrot'
+  | 'sugarCane'
+  | 'potato'
+  | 'pumpkin'
+  | 'melon'
+  | 'cactus'
+  | 'cocoaBeans'
+  | 'mushroom'
+  | 'netherWart';
+
+export type SkillExtraDataTypes = SkillNames | 'cropMilestone' | 'default';
+
+export type SkillExtraData = {
+  type: SkillExtraDataTypes;
+  crop?: GardenCrops;
+  cap?: number;
+};

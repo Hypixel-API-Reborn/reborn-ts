@@ -1,139 +1,124 @@
-/* eslint-disable camelcase */
-import { decolorizeString } from '../utils/decolorize';
-import Client from '../Client';
-
-export interface NEUBestiaryData {
-  brackets: { [key: number]: number[] };
-  dynamic: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  hub: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  farming_1: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  combat_1: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  combat_3: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  crimson_isle: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  mining_2: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  mining_3: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  crystal_hollows: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  foraging_1: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  spooky_festival: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  mythological_creatures: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  jerry: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  kuudra: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  catacombs: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-  garden: { name: string; mobs: { name: string; cap: number; mobs: string[]; bracket: number }[] };
-}
+import Client from '../Client.js';
+import Decolorize from '../Utils/Decolorize.js';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import type { NEUBestiaryData, NEUBestiaryMobData, NEUGardenCropMilestones, NEUSkillTables } from '../Types/NEU.js';
 
 class NEURepo {
   readonly client: Client;
+  readonly commitHash: string;
   constructor(client: Client) {
     this.client = client;
+    this.commitHash = 'a6116d945491d7c57c93d43f51250f93d62d8434';
+
+    this.initialize();
+  }
+
+  cleanUp() {
+    if (existsSync('./src/cache')) rmSync('./src/cache', { recursive: true, force: true });
+  }
+
+  private initialize() {
+    if (!existsSync('./src/cache')) mkdirSync('./src/cache', { recursive: true });
+    this.getTables().then((skills) => writeFileSync('./src/cache/skills.json', JSON.stringify(skills, null, 2)));
+    this.getBestiary().then((bestiary) => {
+      writeFileSync('./src/cache/bestiary.json', JSON.stringify(bestiary, null, 2));
+    });
+  }
+
+  private parseSkillData(inputData: number[]): { [key: number]: number } {
+    const parsedData: { [key: number]: number } = {};
+    inputData.forEach((key: number, index: number) => (parsedData[index + 1] = key));
+    return parsedData;
+  }
+
+  async getSkillTables(): Promise<NEUSkillTables> {
+    const res = await this.client.requestHandler.fetchExternalData(
+      `https://raw.githubusercontent.com/NotEnoughUpdates/NotEnoughUpdates-REPO/${this.commitHash}/constants/leveling.json`
+    );
+    const gardenData = await this.client.requestHandler.fetchExternalData(
+      `https://raw.githubusercontent.com/NotEnoughUpdates/NotEnoughUpdates-REPO/${this.commitHash}/constants/garden.json`
+    );
+
+    return {
+      LEVELING_XP: this.parseSkillData(res.data.leveling_xp),
+      DEFAULT_SKILL_CAPS: { ...res.data.leveling_caps, garden: 15, cropMilestone: 46, default: 50 },
+      RUNECRAFTING_XP: this.parseSkillData(res.data.runecrafting_xp),
+      DUNGEONEERING_XP: this.parseSkillData(res.data.catacombs),
+      SOCIAL_XP: this.parseSkillData(res.data.social),
+      HOTM_XP: this.parseSkillData(res.data.HOTM),
+      SKYBLOCK_XP: { 1: 100 },
+      GARDEN_XP: this.parseSkillData(gardenData.data.garden_exp)
+    };
+  }
+
+  async getGardenCropMilestonesTables(): Promise<NEUGardenCropMilestones> {
+    const res = await this.client.requestHandler.fetchExternalData(
+      `https://raw.githubusercontent.com/NotEnoughUpdates/NotEnoughUpdates-REPO/${this.commitHash}/constants/garden.json`
+    );
+
+    return {
+      WHEAT: this.parseSkillData(res.data.crop_milestones.WHEAT),
+      CARROT: this.parseSkillData(res.data.crop_milestones.CARROT),
+      POTATO: this.parseSkillData(res.data.crop_milestones.POTATO),
+      MELON: this.parseSkillData(res.data.crop_milestones.MELON),
+      PUMPKIN: this.parseSkillData(res.data.crop_milestones.PUMPKIN),
+      SUGAR_CANE: this.parseSkillData(res.data.crop_milestones.SUGAR_CANE),
+      COCOA_BEANS: this.parseSkillData(res.data.crop_milestones.COCOA_BEANS),
+      CACTUS: this.parseSkillData(res.data.crop_milestones.CACTUS),
+      MUSHROOM: this.parseSkillData(res.data.crop_milestones.MUSHROOM),
+      NETHER_WART: this.parseSkillData(res.data.crop_milestones.NETHER_WART)
+    };
+  }
+
+  async getTables(): Promise<NEUSkillTables & NEUGardenCropMilestones> {
+    const skillTables = await this.getSkillTables();
+    const cropMilestones = await this.getGardenCropMilestonesTables();
+    return { ...skillTables, ...cropMilestones };
+  }
+
+  private parseBestiaryData(data: NEUBestiaryMobData[]): NEUBestiaryMobData[] {
+    return data.map((info) => {
+      info.name = Decolorize(info.name);
+      return info;
+    });
   }
 
   async getBestiary(): Promise<NEUBestiaryData> {
-    const res = await this.client.requests.fetchExternalData(
-      'https://raw.githubusercontent.com/NotEnoughUpdates/NotEnoughUpdates-REPO/master/constants/bestiary.json'
+    const res = await this.client.requestHandler.fetchExternalData(
+      `https://raw.githubusercontent.com/NotEnoughUpdates/NotEnoughUpdates-REPO/${this.commitHash}/constants/bestiary.json`
     );
+
+    /* eslint-disable camelcase */
     const data: NEUBestiaryData = {
       brackets: {},
-      dynamic: { name: 'Private Island', mobs: [] },
-      hub: { name: 'Hub', mobs: [] },
-      farming_1: { name: 'The Farming Islands', mobs: [] },
-      combat_1: { name: 'Spiders Den', mobs: [] },
-      combat_3: { name: 'The End', mobs: [] },
-      crimson_isle: { name: 'Crimson Isle', mobs: [] },
-      mining_2: { name: 'Deep Caverns', mobs: [] },
-      mining_3: { name: 'Dwarven Mines', mobs: [] },
-      crystal_hollows: { name: 'Crystal Hollows', mobs: [] },
-      foraging_1: { name: 'The Park', mobs: [] },
-      spooky_festival: { name: 'Spooky Festival', mobs: [] },
-      mythological_creatures: { name: 'Mythological Creatures', mobs: [] },
-      jerry: { name: 'Jerry', mobs: [] },
-      kuudra: { name: 'Kuudra', mobs: [] },
-      catacombs: { name: 'Catacombs', mobs: [] },
-      garden: { name: 'Garden', mobs: [] }
+      bestiary: {
+        dynamic: { name: 'Private Island', mobs: this.parseBestiaryData(res.data.dynamic.mobs) },
+        hub: { name: 'Hub', mobs: this.parseBestiaryData(res.data.hub.mobs) },
+        farming_1: { name: 'The Farming Islands', mobs: this.parseBestiaryData(res.data.farming_1.mobs) },
+        combat_1: { name: 'Spiders Den', mobs: this.parseBestiaryData(res.data.combat_1.mobs) },
+        combat_3: { name: 'The End', mobs: this.parseBestiaryData(res.data.combat_3.mobs) },
+        crimson_isle: { name: 'Crimson Isle', mobs: this.parseBestiaryData(res.data.crimson_isle.mobs) },
+        mining_2: { name: 'Deep Caverns', mobs: this.parseBestiaryData(res.data.mining_2.mobs) },
+        mining_3: { name: 'Dwarven Mines', mobs: this.parseBestiaryData(res.data.mining_3.mobs) },
+        crystal_hollows: { name: 'Crystal Hollows', mobs: this.parseBestiaryData(res.data.crystal_hollows.mobs) },
+        foraging_1: { name: 'The Park', mobs: this.parseBestiaryData(res.data.foraging_1.mobs) },
+        spooky_festival: { name: 'Spooky Festival', mobs: this.parseBestiaryData(res.data.spooky_festival.mobs) },
+        mythological_creatures: {
+          name: 'Mythological Creatures',
+          mobs: this.parseBestiaryData(res.data.mythological_creatures.mobs)
+        },
+        jerry: { name: 'Jerry', mobs: this.parseBestiaryData(res.data.jerry.mobs) },
+        kuudra: { name: 'Kuudra', mobs: this.parseBestiaryData(res.data.kuudra.mobs) },
+        catacombs: { name: 'Catacombs', mobs: this.parseBestiaryData(res.data.catacombs.mobs) },
+        garden: { name: 'Garden', mobs: this.parseBestiaryData(res.data.garden.mobs) }
+      }
     };
+    /* eslint-enable camelcase */
+
     Object.keys(res.data.brackets).forEach((key) => {
       data.brackets[Number(key)] = res.data.brackets[key];
     });
-    res.data.dynamic.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.dynamic.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.dynamic.mobs.push(mobInfo);
-    });
-    res.data.hub.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.hub.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.hub.mobs.push(mobInfo);
-    });
-    res.data.farming_1.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.farming_1.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.farming_1.mobs.push(mobInfo);
-    });
-    res.data.combat_1.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.combat_1.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.combat_1.mobs.push(mobInfo);
-    });
-    res.data.combat_3.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.combat_3.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.combat_3.mobs.push(mobInfo);
-    });
-    res.data.crimson_isle.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.crimson_isle.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.crimson_isle.mobs.push(mobInfo);
-    });
-    res.data.mining_2.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.mining_2.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.mining_2.mobs.push(mobInfo);
-    });
-    res.data.mining_3.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.mining_3.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.mining_3.mobs.push(mobInfo);
-    });
-    res.data.crystal_hollows.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.crystal_hollows.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.crystal_hollows.mobs.push(mobInfo);
-    });
-    res.data.foraging_1.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.foraging_1.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.foraging_1.mobs.push(mobInfo);
-    });
-    res.data.spooky_festival.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.spooky_festival.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.spooky_festival.mobs.push(mobInfo);
-    });
-    res.data.mythological_creatures.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.mythological_creatures.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.mythological_creatures.mobs.push(mobInfo);
-    });
-    res.data.jerry.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.jerry.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.jerry.mobs.push(mobInfo);
-    });
-    res.data.kuudra.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.kuudra.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.kuudra.mobs.push(mobInfo);
-    });
-    res.data.catacombs.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.catacombs.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.catacombs.mobs.push(mobInfo);
-    });
-    res.data.garden.mobs.forEach((mob: string | number) => {
-      const mobInfo = res.data.garden.mobs[mob];
-      mobInfo.name = decolorizeString(mobInfo.name);
-      data.garden.mobs.push(mobInfo);
-    });
+
     return data;
   }
 }

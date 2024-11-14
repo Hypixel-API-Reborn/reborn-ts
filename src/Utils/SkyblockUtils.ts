@@ -1,4 +1,3 @@
-import Constants, { bestiaryBrackets, petLevels, petRarityOffset } from './Constants.js';
 import {
   ChocolateFactoryData,
   CrimsonIsle,
@@ -9,13 +8,129 @@ import {
   JacobData,
   Rarity,
   RawDungeonRun,
-  SkillLevel,
   Skills,
   Slayer,
   SlayerData,
   TrophyFishRank
 } from '../Types/Skyblock.js';
 import { parse, simplify } from 'prismarine-nbt';
+import { petLevels, petRarityOffset } from './Constants.js';
+
+import bestiaryData from '../cache/bestiary.json';
+import xpTables from '../cache/skills.json';
+import type { GardenCrops, SkillExtraData, SkillExtraDataTypes, SkillLevel } from '../Types/Skyblock.js';
+import type { NEUBestiaryMobData } from '../Types/NEU.js';
+
+export const MAXED_SKILL_CAPS = {
+  farming: 60,
+  taming: 60
+} as Record<string, number>;
+
+export const COSMETIC_SKILLS = ['runecrafting', 'social'];
+
+export const INFINITE = ['dungeoneering', 'skyblock_level'];
+
+function getXpTable(type: SkillExtraDataTypes | GardenCrops): { [key: number]: number } {
+  switch (type) {
+    case 'runecrafting':
+      return xpTables.RUNECRAFTING_XP;
+    case 'social':
+      return xpTables.SOCIAL_XP;
+    case 'catacombs':
+      return xpTables.DUNGEONEERING_XP;
+    case 'HOTM':
+      return xpTables.HOTM_XP;
+    case 'wheat':
+      return xpTables.WHEAT;
+    case 'carrot':
+      return xpTables.CARROT;
+    case 'sugarCane':
+      return xpTables.SUGAR_CANE;
+    case 'potato':
+      return xpTables.POTATO;
+    case 'pumpkin':
+      return xpTables.PUMPKIN;
+    case 'melon':
+      return xpTables.MELON;
+    case 'cactus':
+      return xpTables.CACTUS;
+    case 'cocoaBeans':
+      return xpTables.COCOA_BEANS;
+    case 'mushroom':
+      return xpTables.MUSHROOM;
+    case 'netherWart':
+      return xpTables.NETHER_WART;
+    default:
+      return xpTables.LEVELING_XP;
+  }
+}
+
+// Credit: https://github.com/SkyCryptWebsite/SkyCryptv2/blob/3b5b3ae4fe77c60eff90691797f09024baf68872/src/lib/stats/leveling/leveling.ts#L35-L117
+export function getLevelByXp(xp: number, extra: SkillExtraData = { type: 'default' }): SkillLevel {
+  if ('number' !== typeof xp || isNaN(xp)) xp = 0;
+  const xpTable =
+    ('cropMilestone' === extra.type ? getXpTable(extra.crop || 'wheat') : getXpTable(extra.type)) ||
+    xpTables.LEVELING_XP;
+
+  const levelCap =
+    extra.cap ?? xpTables.DEFAULT_SKILL_CAPS[extra.type] ?? Math.max(...Object.keys(xpTable).map(Number));
+
+  let uncappedLevel: number = 0;
+  let xpCurrent: number = xp;
+  let xpRemaining: number = xp;
+
+  while (xpTable?.[uncappedLevel + 1] || 0 <= xpRemaining) {
+    uncappedLevel++;
+    xpRemaining -= xpTable?.[uncappedLevel] || 0;
+    if (uncappedLevel <= levelCap) {
+      xpCurrent = xpRemaining;
+    }
+  }
+
+  const isInfiniteLevelable = INFINITE.includes(extra.type);
+  if (isInfiniteLevelable) {
+    const maxExperience = Object.values(xpTable).at(-1) as number;
+    uncappedLevel += Math.floor(xpRemaining / maxExperience);
+    xpRemaining %= maxExperience;
+    xpCurrent = xpRemaining;
+  }
+
+  const maxLevel = isInfiniteLevelable ? Math.max(uncappedLevel, levelCap) : (MAXED_SKILL_CAPS[extra.type] ?? levelCap);
+
+  const level = isInfiniteLevelable ? uncappedLevel : Math.min(levelCap, uncappedLevel);
+
+  const xpForNext = (
+    level < maxLevel
+      ? Math.ceil((xpTable[level + 1] || 0) ?? Object.values(xpTable).at(-1))
+      : isInfiniteLevelable
+        ? Object.values(xpTable).at(-1)
+        : Infinity
+  ) as number;
+
+  const progress = level >= maxLevel && !isInfiniteLevelable ? 0 : Math.max(0, Math.min(xpCurrent / xpForNext, 1));
+
+  const levelWithProgress = isInfiniteLevelable
+    ? uncappedLevel + progress
+    : Math.min(uncappedLevel + progress, levelCap);
+
+  const maxed = level >= maxLevel;
+
+  const cosmetic = COSMETIC_SKILLS.includes(extra.type);
+
+  return {
+    xp,
+    level,
+    maxLevel,
+    xpCurrent,
+    xpForNext,
+    progress,
+    levelCap,
+    uncappedLevel,
+    levelWithProgress,
+    maxed,
+    cosmetic
+  };
+}
 
 export async function decode(base64: any, isBuffer: boolean = false): Promise<any[]> {
   // Credit: https://github.com/SkyCryptWebsite/SkyCryptv2/blob/3b5b3ae4fe77c60eff90691797f09024baf68872/src/lib/server/stats/items/processing.ts#L215-L218
@@ -27,96 +142,6 @@ export async function decode(base64: any, isBuffer: boolean = false): Promise<an
     newdata.push(data.i[i]);
   }
   return newdata;
-}
-
-export function getLevelByXp(xp: number, type: string): SkillLevel {
-  let xpTable: Record<number, number>;
-  switch (type) {
-    case 'runecrafting':
-      xpTable = Constants.runecraftingXp;
-      break;
-    case 'dungeons':
-      xpTable = Constants.dungeonXp;
-      break;
-    case 'hotm':
-      xpTable = Constants.hotmXp;
-      break;
-    case 'social':
-      xpTable = Constants.socialXp;
-      break;
-    case 'garden':
-      xpTable = Constants.garden;
-      break;
-    case 'wheat':
-      xpTable = Constants.wheat;
-      break;
-    case 'carrot':
-      xpTable = Constants.carrot;
-      break;
-    case 'potato':
-      xpTable = Constants.potato;
-      break;
-    case 'melon':
-      xpTable = Constants.melon;
-      break;
-    case 'pumpkin':
-      xpTable = Constants.pumpkin;
-      break;
-    case 'sugarCane':
-      xpTable = Constants.sugarCane;
-      break;
-    case 'cocoaBeans':
-      xpTable = Constants.cocoaBeans;
-      break;
-    case 'cactus':
-      xpTable = Constants.cactus;
-      break;
-    case 'mushroom':
-      xpTable = Constants.mushroom;
-      break;
-    case 'netherWart':
-      xpTable = Constants.netherWart;
-      break;
-    default:
-      xpTable = Constants.levelingXp;
-  }
-  const maxLevel = Math.max(...Object.keys(xpTable).map(Number));
-  if (isNaN(xp)) {
-    return {
-      xp: 0,
-      level: 0,
-      maxLevel,
-      xpCurrent: 0,
-      xpForNext: xpTable[1] || 0,
-      progress: 0,
-      cosmetic: Boolean('runecrafting' === type || 'social' === type)
-    };
-  }
-  let xpTotal = 0;
-  let level = 0;
-  let xpForNext = 0;
-  for (let x = 1; x <= maxLevel; x++) {
-    if (!xpTable[x]) continue;
-    xpTotal += xpTable?.[x] || 0;
-    if (xpTotal > xp) {
-      xpTotal -= xpTable?.[x] || 0;
-      break;
-    } else {
-      level = x;
-    }
-  }
-  const xpCurrent = Math.floor(xp - xpTotal);
-  if (level < maxLevel) xpForNext = Math.ceil(xpTable?.[level + 1] || 0);
-  const progress = Math.floor(Math.max(0, Math.min(xpCurrent / xpForNext, 1)) * 100 * 10) / 10;
-  return {
-    xp: xp,
-    level: level,
-    maxLevel: maxLevel,
-    xpCurrent: xpCurrent,
-    xpForNext: xpForNext,
-    progress: progress,
-    cosmetic: Boolean('runecrafting' === type || 'social' === type)
-  };
 }
 
 export function getSlayerLevel(slayer: Record<string, any>): SlayerData {
@@ -161,17 +186,17 @@ export function getTrophyFishRank(level: number): TrophyFishRank {
 
 export function getSkills(data: Record<string, any>): Skills {
   const skillsObject: Skills = {
-    combat: getLevelByXp(data?.player_data?.experience?.SKILL_COMBAT ?? 0, 'combat'),
-    farming: getLevelByXp(data?.player_data?.experience?.SKILL_FARMING ?? 0, 'farming'),
-    fishing: getLevelByXp(data?.player_data?.experience?.SKILL_FISHING ?? 0, 'fishing'),
-    mining: getLevelByXp(data?.player_data?.experience?.SKILL_MINING ?? 0, 'mining'),
-    foraging: getLevelByXp(data?.player_data?.experience?.SKILL_FORAGING ?? 0, 'foraging'),
-    enchanting: getLevelByXp(data?.player_data?.experience?.SKILL_ENCHANTING ?? 0, 'enchanting'),
-    alchemy: getLevelByXp(data?.player_data?.experience?.SKILL_ALCHEMY ?? 0, 'alchemy'),
-    carpentry: getLevelByXp(data?.player_data?.experience?.SKILL_CARPENTRY ?? 0, 'carpentry'),
-    runecrafting: getLevelByXp(data?.player_data?.experience?.SKILL_RUNECRAFTING ?? 0, 'runecrafting'),
-    taming: getLevelByXp(data?.player_data?.experience?.SKILL_TAMING ?? 0, 'taming'),
-    social: getLevelByXp(data?.player_data?.experience?.SKILL_SOCIAL ?? 0, 'social'),
+    combat: getLevelByXp(data?.player_data?.experience?.SKILL_COMBAT ?? 0, { type: 'combat' }),
+    farming: getLevelByXp(data?.player_data?.experience?.SKILL_FARMING ?? 0, { type: 'farming' }),
+    fishing: getLevelByXp(data?.player_data?.experience?.SKILL_FISHING ?? 0, { type: 'fishing' }),
+    mining: getLevelByXp(data?.player_data?.experience?.SKILL_MINING ?? 0, { type: 'mining' }),
+    foraging: getLevelByXp(data?.player_data?.experience?.SKILL_FORAGING ?? 0, { type: 'foraging' }),
+    enchanting: getLevelByXp(data?.player_data?.experience?.SKILL_ENCHANTING ?? 0, { type: 'enchanting' }),
+    alchemy: getLevelByXp(data?.player_data?.experience?.SKILL_ALCHEMY ?? 0, { type: 'alchemy' }),
+    carpentry: getLevelByXp(data?.player_data?.experience?.SKILL_CARPENTRY ?? 0, { type: 'carpentry' }),
+    runecrafting: getLevelByXp(data?.player_data?.experience?.SKILL_RUNECRAFTING ?? 0, { type: 'runecrafting' }),
+    taming: getLevelByXp(data?.player_data?.experience?.SKILL_TAMING ?? 0, { type: 'taming' }),
+    social: getLevelByXp(data?.player_data?.experience?.SKILL_SOCIAL ?? 0, { type: 'social' }),
     average: 0
   };
   const levels = Object.values(skillsObject)
@@ -180,10 +205,11 @@ export function getSkills(data: Record<string, any>): Skills {
   skillsObject.average = levels.reduce((a, b) => a + b, 0) / levels.length;
   return skillsObject;
 }
-function formatBestiaryMobs(userProfile: Record<string, any>, mobs: any) {
+
+function formatBestiaryMobs(userProfile: Record<string, any>, mobs: NEUBestiaryMobData[]) {
   const output = [];
   for (const mob of mobs) {
-    const mobBracket = bestiaryBrackets?.[mob.bracket] || [];
+    const mobBracket = (bestiaryData.brackets as { [key: string]: number[] })[String(mob.bracket)] || [];
     const totalKills = mob.mobs.reduce((acc: any, cur: any) => {
       return acc + (userProfile.bestiary.kills[cur] ?? 0);
     }, 0);
@@ -201,8 +227,8 @@ export function getBestiaryLevel(userProfile: Record<string, any>): number {
   }
   const output: { [key: string]: any } = {};
   let tiersUnlocked = 0;
-  for (const [category, data] of Object.entries(Constants.bestiary)) {
-    const { mobs } = data as { mobs: any };
+  for (const [category, data] of Object.entries(bestiaryData.bestiary)) {
+    const mobs = data.mobs as NEUBestiaryMobData[];
     output[category] = {};
     if ('fishing' === category) {
       for (const [key, value] of Object.entries(data)) {
@@ -264,7 +290,7 @@ function getDungeonsFloor(
 
 export function getDungeons(data: Record<string, any>): Dungeons {
   return {
-    experience: getLevelByXp(data?.dungeons?.dungeon_types?.catacombs?.experience || 0, 'dungeons'),
+    experience: getLevelByXp(data?.dungeons?.dungeon_types?.catacombs?.experience || 0, { type: 'catacombs' }),
     secrets: data?.dungeons?.secrets || 0,
     completions: {
       catacombs: getCompletions(data?.dungeons?.dungeon_types?.catacombs?.tier_completions),
@@ -288,11 +314,11 @@ export function getDungeons(data: Record<string, any>): Dungeons {
       masterMode7: getDungeonsFloor(data, 'master_catacombs', '7')
     },
     classes: {
-      healer: getLevelByXp(data?.dungeons?.player_classes?.healer?.experience || 0, 'dungeons'),
-      mage: getLevelByXp(data?.dungeons?.player_classes?.mage?.experience || 0, 'dungeons'),
-      berserk: getLevelByXp(data?.dungeons?.player_classes?.berserk?.experience || 0, 'dungeons'),
-      archer: getLevelByXp(data?.dungeons?.player_classes?.archer?.experience || 0, 'dungeons'),
-      tank: getLevelByXp(data?.dungeons?.player_classes?.tank?.experience || 0, 'dungeons'),
+      healer: getLevelByXp(data?.dungeons?.player_classes?.healer?.experience || 0, { type: 'catacombs' }),
+      mage: getLevelByXp(data?.dungeons?.player_classes?.mage?.experience || 0, { type: 'catacombs' }),
+      berserk: getLevelByXp(data?.dungeons?.player_classes?.berserk?.experience || 0, { type: 'catacombs' }),
+      archer: getLevelByXp(data?.dungeons?.player_classes?.archer?.experience || 0, { type: 'catacombs' }),
+      tank: getLevelByXp(data?.dungeons?.player_classes?.tank?.experience || 0, { type: 'catacombs' }),
       selected: data?.dungeons?.selected_dungeon_class || 'mage'
     },
     essence: {
@@ -530,7 +556,7 @@ export function getCrimsonIsle(data: Record<string, any>): CrimsonIsle {
 
 export function getHOTM(data: Record<string, any>): HOTM {
   return {
-    experience: getLevelByXp(data?.mining_core?.experience || 0, 'hotm'),
+    experience: getLevelByXp(data?.mining_core?.experience || 0, { type: 'HOTM' }),
     ability: data?.mining_core?.selected_pickaxe_ability || 'none',
     powder: {
       mithril: {
