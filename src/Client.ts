@@ -14,6 +14,7 @@ import Guild from './Structures/Guild/Guild.js';
 import GuildAchievements from './Structures/Static/Achievements/GuildAchievements.js';
 import House from './Structures/House.js';
 import Leaderboard from './Structures/Leaderboard.js';
+import NEURepo from './Private/NEU-REPO.js';
 import Player from './Structures/Player/Player.js';
 import Product from './Structures/SkyBlock/Bazaar/Product.js';
 import Quests from './Structures/Static/Quests.js';
@@ -50,8 +51,10 @@ class Client {
   declare updater: Updater;
   declare errors: Errors;
   declare rateLimit: RateLimit;
+  declare NEU: NEURepo;
   readonly key: string;
   declare interval: NodeJS.Timeout;
+
   constructor(key: string, options?: ClientOptions) {
     this.key = key;
     this.errors = new Errors();
@@ -63,6 +66,7 @@ class Client {
     this.updater = new Updater(this);
     this.rateLimit = new RateLimit(this);
     if ('NONE' !== this.options.rateLimit) this.rateLimit.initialize();
+    this.NEU = new NEURepo(this);
     for (const func in API) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -97,6 +101,7 @@ class Client {
     if (-1 !== clientIndex) clients.splice(clientIndex, 1);
     if (this.interval) clearInterval(this.interval);
     if (this.rateLimit.interval) clearInterval(this.rateLimit.interval);
+    this.NEU.cleanUp();
   }
 
   private parasOptions(options?: ClientOptions): ClientOptions {
