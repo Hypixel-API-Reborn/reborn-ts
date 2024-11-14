@@ -19,9 +19,10 @@
     "noUnusedLocals": true,
     "resolveJsonModule": true,
     "noFallthroughCasesInSwitch": true,
+    "declarationMap": true,
 
     "lib": ["ES2022"]
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules/", "src/**/*.test.ts"]
 }
