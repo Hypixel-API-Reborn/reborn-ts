@@ -35,7 +35,7 @@ import Walls from '../MiniGames/Walls.js';
 import Warlords from '../MiniGames/Warlords/Warlords.js';
 import WoolGames from '../MiniGames/WoolGames/WoolGames.js';
 import { ChatChannel, Language, LevelProgress, PlayerRank, PlayerStats, ScorpiusBribe } from '../../Types/Player.js';
-import { getRank, playerLevelProgress } from './Utils.js';
+import { getRank, playerLevelProgress } from '../../Utils/PlayerUtils.js';
 
 class Player {
   uuid: string;

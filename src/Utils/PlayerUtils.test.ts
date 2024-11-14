@@ -6,7 +6,7 @@ import {
   parseClaimedRewards,
   playerLevelProgress,
   xpToNextLevel
-} from './Utils.js';
+} from './PlayerUtils.js';
 
 test('getRank', () => {
   expect(getRank({ prefix: '[EVENTS]' })).toBe('Events');
