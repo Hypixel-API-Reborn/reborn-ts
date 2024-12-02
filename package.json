@@ -50,7 +50,7 @@
   ],
   "publisher": "Kathund",
   "devDependencies": {
-    "@8hobbies/typedoc-plugin-404": "^3.0.0",
+    "@8hobbies/typedoc-plugin-404": "^3.1.0",
     "@eslint/js": "^9.15.0",
     "@j4cobi/eslint-plugin-sort-imports": "^1.0.2",
     "@types/eslint": "^9.6.1",
