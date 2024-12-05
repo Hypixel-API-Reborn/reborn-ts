@@ -17,7 +17,7 @@
       "matchPackageNames": ["skyhelper-networth"],
       "updateTypes": ["minor"],
       "automerge": true
-    }
+    },
     {
       "matchUpdateTypes": ["minor", "patch"],
       "matchCurrentVersion": "!/^0/",
